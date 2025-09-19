@@ -44,7 +44,7 @@ namespace ResaleV8
             txtID.Text = newID.ToString();
             Application.DoEvents();
             Thread.Sleep(500);
-            this.Close();
+            //this.Close();
         }
 
         private void resetForm()

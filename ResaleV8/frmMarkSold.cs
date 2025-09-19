@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.Ops;
 
 namespace ResaleV8
 {
@@ -43,8 +44,9 @@ namespace ResaleV8
         /// <param name="e"></param>
         private void frmMarkSold_Load(object sender, EventArgs e)
         {
+            btnSave.Enabled = false;
             Control[] ctls = makeControlArray();
-            ResaleV8_ClassLibrary.Ops.FormControlOps.enableDisableControls(ctls, false);
+            FormControlOps.enableDisableControls(ctls, false);
             this.AcceptButton = btnRetrieve;
             defaultTxtBackColor = txtID.BackColor;
             dtpSaleDate.Value = DateTime.Now;
@@ -62,13 +64,14 @@ namespace ResaleV8
         /// <param name="e"></param>
         /// 
         ///
-
         /// <remarks>This method assumes that the item ID entered in txtID is valid and can be converted to an integer.
         private void btnRetrieve_Click(object sender, EventArgs e)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
             string query = "Select * from purchased_items where item_id = " + txtID.Text;
             dt = DataAccess.getData(con, query);
+            ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
+            FormControlOps.toggleControlPairEnables(btnPair);
             if (dt.Rows.Count == 1)
             {
                 itemID = Convert.ToInt32(dt.Rows[0]["Item_ID"]);
@@ -84,6 +87,7 @@ namespace ResaleV8
             con.Close();
         }
 
+
         /// <summary>
         /// Populates form controls with data from the specified <see cref="DataTable"/>.
         /// </summary>
@@ -95,7 +99,7 @@ namespace ResaleV8
         private void displayData(DataTable dt)
         {
             Control[] ctls = makeControlArray();
-            ResaleV8_ClassLibrary.Ops.FormControlOps.enableDisableControls(ctls, true);
+            FormControlOps.enableDisableControls(ctls, true);
             dtpSaleDate.Value = DateTime.Now;
             if (dt.Rows.Count > 0)
             {
@@ -135,13 +139,15 @@ namespace ResaleV8
             itemModel.Sale_Price = Convert.ToSingle(txtPrice.Text);
             DataAccess.updateItemInDatabase(itemModel, itemID);
             MySqlConnection con =  ConnectToDB.OpenDB();
-            dt = DataAccess.getData(con, "Select * from purchased_items");
+            dt = DataAccess.getData(con, "Select * from purchased_items where Item_ID = " + txtID.Text);
             if (dt.Rows.Count > 0)
             {
                 loadItemModel(dt);
             }
             lblDaysOwned.Text = itemModel.Product_Age.ToString();
             lblProfit.Text = itemModel.Profit.ToString("$0.00");
+            ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
+            FormControlOps.toggleControlPairEnables(btnPair);
         }
 
         /// <summary>

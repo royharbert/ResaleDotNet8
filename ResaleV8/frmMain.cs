@@ -51,7 +51,8 @@ namespace ResaleV8
 
         private void markIemAsSoldToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmMain markSoldForm = new frmMain();
+            frmMarkSold markSoldForm = new frmMarkSold();
+            markSoldForm.MdiParent = this;
             markSoldForm.Show();
         }
     }

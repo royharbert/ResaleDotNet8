@@ -10,6 +10,12 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class FormControlOps
     {
+        public static void toggleControlPairEnables(ValueTuple<Control, Control> ctlPair)
+        {
+            ctlPair.Item1.Enabled = !ctlPair.Item1.Enabled;
+            ctlPair.Item2.Enabled = !ctlPair.Item2.Enabled;
+        }
+
         public static void clearDTPicker(DateTimePicker dtp)
         {
             dtp.Value = GV.emptyDate;
