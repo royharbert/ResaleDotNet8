@@ -31,9 +31,9 @@ namespace ResaleV8
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            string[] hiddenColumns = { "item_id" };
-            string[] headers = { "ID", "Item Description", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Quantity" };
+            string[] hiddenColumns = {  };
+            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+                "Purchase Price", "Sale Date", "Sale Price", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
             MySqlConnection con = ConnectToDB.OpenDB();

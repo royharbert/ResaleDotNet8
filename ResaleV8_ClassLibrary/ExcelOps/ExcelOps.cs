@@ -137,14 +137,14 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     wks.Cells[i, j].Value = val;
                 }
 
-                string formatString = "$#,###,##0";
-                string decimalString = "";
-                if (decimals > 0)
-                {
-                    decimalString = ".00" + new string('#', decimals) + decimalString;
-                }
+                string formatString = "$#,###,###.00";
+                //string decimalString = "";
+                //if (decimals > 0)
+                //{
+                //    decimalString = ".00" + new string('#', decimals) + decimalString;
+                //}
                 Excel.Range range = wks.Range[wks.Cells[bounds[0], bounds[2]], wks.Cells[bounds[1], bounds[3]]];
-                formatString = formatString + decimalString;
+                //formatString = formatString + decimalString;
                 range.NumberFormat = formatString;
             }
         }
