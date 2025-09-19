@@ -17,6 +17,34 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 {
     public class ExcelOps
     {
+        public static Excel.Application makeExcelApp()
+        {
+            Excel.Application xlApp = new Excel.Application();
+            xlApp.Visible = true;
+            return xlApp;
+        }
+
+        public static Excel.Workbook makeExcelWorkbook(Excel.Application xlApp)
+        {
+            Excel.Workbook workbook = xlApp.Workbooks.Add();
+            return workbook;
+        }
+
+        public static Excel.Worksheet makeExcelWorksheet(Excel.Workbook workbook, string sheetName)
+        {
+            Excel.Worksheet wks = (Excel.Worksheet)workbook.Sheets.Add();
+            wks.Name = sheetName;
+            return wks;
+        }
+
+        public static void setCellWidth(Excel.Worksheet wks, int[] width)
+        {
+            for(int col = 1; col <= width.Length; col++)
+            {
+                wks.Columns[col].ColumnWidth = width[col - 1];
+            }
+        }
+
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
         {
             object obj = wks.Cells[row, column].Value;
@@ -154,13 +182,13 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             formatString = formatString + decimalString;
             range.NumberFormat = formatString;
         }
-        private static int makeTitle(Excel.Worksheet wks, int row, int rightmostCol, string title, string[] columnHeaders)
+        public static int makeTitle(Excel.Worksheet wks, int row, int rightmostCol, string title, 
+            string[] columnHeaders)
         {
             wks.Cells[row, 1].Value = title;
             wks.Cells[row, 1].Font.Size = 20;
             wks.Cells[row, 1].Font.Bold = true;
             var headerRow = wks.Cells[row + 1, 1];
-            //var titleRow = wks.Range[wks.Cells[row, 1]], [wks.Cells[row, rightmostCol]];
             headerRow.RowHeight = 45;
             Excel.Range range = wks.Range[wks.Cells[row, 1], wks.Cells[row + 1, rightmostCol]];
             Excel.Range titleRow = wks.Range[wks.Cells[row, 1], wks.Cells[row, rightmostCol]];
@@ -180,6 +208,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             row = row + 2;
             return row;
         }
+
         public static Excel.Application OpenExcelWorkbook(Excel.Application xlApp, string WorkbookName)
         { 
             
@@ -204,12 +233,5 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 GC.Collect();
             }
         }
-
-        public static Excel.Application makeExcelApp()
-        {
-            Excel.Application xlApp = new Excel.Application();
-            return xlApp;
-        }
-
     }
 }

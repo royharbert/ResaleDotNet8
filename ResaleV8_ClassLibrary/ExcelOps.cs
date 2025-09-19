@@ -80,8 +80,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             return rowIndex;
         }
 
-        public static event EventHandler<NewMessageEventArgs> NewMessageEvent;
-
         private static int MakeMSOSummaryHeader(Excel.Worksheet wks, int row, DateTime startDate, DateTime endDate)
         {
             row = 1;

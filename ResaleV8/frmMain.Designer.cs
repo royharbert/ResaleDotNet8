@@ -84,7 +84,7 @@
             // 
             markIemAsSoldToolStripMenuItem.Name = "markIemAsSoldToolStripMenuItem";
             markIemAsSoldToolStripMenuItem.Size = new Size(224, 26);
-            markIemAsSoldToolStripMenuItem.Text = "Mark Iem as sold";
+            markIemAsSoldToolStripMenuItem.Text = "Mark Item as Sold";
             markIemAsSoldToolStripMenuItem.Click += markIemAsSoldToolStripMenuItem_Click;
             // 
             // removeItemToolStripMenuItem

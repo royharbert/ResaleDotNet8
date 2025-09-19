@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using r;
+
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.ExcelOps;
@@ -46,6 +46,13 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
+            Excel.Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
+            Excel.Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
+            string[] headers = { "ID", "Item Description", "Purchase Date",
+                "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Quantity", "Days Held", "Profit" };
+            int[] colWidth = { 5, 30, 15, 15, 15, 15, 20, 30, 10, 10 };
+            ExcelOps.makeTitle(wks, 1, headers.Length, "Sold Report", headers);
+            ExcelOps.setCellWidth(wks, colWidth);
         }
     }
 }
