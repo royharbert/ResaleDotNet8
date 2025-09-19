@@ -45,6 +45,29 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
+        public static void insertDataTable(Excel.Worksheet wks, int startRow, int startCol, System.Data.DataTable dt)
+        {
+            int row = startRow;
+            int col = startCol;
+            //foreach (System.Data.DataColumn column in dt.Columns)
+            //{
+            //    wks.Cells[row, col].Value = column.ColumnName;
+            //    col = col + 1;
+            //}
+            row = row + 1;
+            foreach (System.Data.DataRow dataRow in dt.Rows)
+            {
+                col = startCol;
+                for (row = startRow; row < (dt.Rows.Count + startRow); row++)
+                {
+                    for (col = 1; col <= dt.Columns.Count; col++)
+                    {
+                        wks.Cells[row, col].Value = dt.Rows[row - startRow][ col - 1];
+                    }
+                }
+            }
+        }
+
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
         {
             object obj = wks.Cells[row, column].Value;
@@ -98,7 +121,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
             return rowIndex;
         }  
-        private static void setDollarDecimalPlaces(Worksheet wks, int decimals, int startRow, int stopRow, int startCol, int stopCol)
+        public static void setDollarDecimalPlaces(Worksheet wks, int decimals, int startRow, int stopRow, 
+            int startCol, int stopCol)
         {
             int[] bounds = { startRow, stopRow, startCol, stopCol };
             decimal val;
@@ -113,11 +137,11 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     wks.Cells[i, j].Value = val;
                 }
 
-                string formatString = "$#,###,###,##0";
+                string formatString = "$#,###,##0";
                 string decimalString = "";
                 if (decimals > 0)
                 {
-                    decimalString = ".0" + new string('#', decimals) + decimalString;
+                    decimalString = ".00" + new string('#', decimals) + decimalString;
                 }
                 Excel.Range range = wks.Range[wks.Cells[bounds[0], bounds[2]], wks.Cells[bounds[1], bounds[3]]];
                 formatString = formatString + decimalString;

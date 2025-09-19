@@ -45,14 +45,19 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            DataTable dt = (DataTable)dgvSoldReport.DataSource;
+
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Excel.Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
             Excel.Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
-            string[] headers = { "ID", "Item Description", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Quantity", "Days Held", "Profit" };
-            int[] colWidth = { 5, 30, 15, 15, 15, 15, 20, 30, 10, 10 };
-            ExcelOps.makeTitle(wks, 1, headers.Length, "Sold Report", headers);
+            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+                "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Days Held", "Profit" };
+            int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
+            int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, "Sold Report", headers);
             ExcelOps.setCellWidth(wks, colWidth);
+            ExcelOps.insertDataTable(wks, dataStartRow, 1, (DataTable)dgvSoldReport.DataSource);
+            ExcelOps.setDollarDecimalPlaces(wks, 2, dataStartRow, dt.Rows.Count + dataStartRow - 1,
+                5, 5);
         }
     }
 }
