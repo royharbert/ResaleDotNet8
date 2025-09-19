@@ -57,6 +57,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
             return Tuple.Create(result.Row, result.Column);
         }
+
         /// <summary>
         /// Returns row first number containing searchTerm
         /// </summary>

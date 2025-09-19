@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
+using r;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.ExcelOps;
 using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8
 {
@@ -28,16 +31,21 @@ namespace ResaleV8
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            string[] hiddenColumns = { "item_id"};
-            string[] headers = { "ID", "Item Description", "Purchase Date", 
+            string[] hiddenColumns = { "item_id" };
+            string[] headers = { "ID", "Item Description", "Purchase Date",
                 "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Quantity" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
             MySqlConnection con = ConnectToDB.OpenDB();
             string query = "Select * from purchased_items where sale_date between "
                 + startDate + " and " + stopDate;
-            dgvSoldReport.DataSource = DataAccess.getData(con, query);            
+            dgvSoldReport.DataSource = DataAccess.getData(con, query);
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            Excel.Application xlApp = ExcelOps.makeExcelApp();
         }
     }
 }

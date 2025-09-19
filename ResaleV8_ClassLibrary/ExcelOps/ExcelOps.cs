@@ -49,13 +49,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             return result.Column;
         }
 
-        public static Tuple<int, int> GetCell(Worksheet wks, string searchTerm, Excel.Range range)
-        {
-
-            Excel.Range result = range.Find(searchTerm);
-
-            return Tuple.Create(result.Row, result.Column);
-        }
         /// <summary>
         /// Returns row first number containing searchTerm
         /// </summary>

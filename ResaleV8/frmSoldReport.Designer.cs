@@ -63,6 +63,7 @@
             btnExport.TabIndex = 2;
             btnExport.Text = "Export to Excel";
             btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // dtpStop
             // 
