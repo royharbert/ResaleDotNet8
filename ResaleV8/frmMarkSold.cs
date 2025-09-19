@@ -76,6 +76,10 @@ namespace ResaleV8
             {
                 itemID = Convert.ToInt32(dt.Rows[0]["Item_ID"]);
                 displayData(dt);
+                if(dtpSaleDate.Value == GV.emptyDate)
+                {
+                    dtpSaleDate.Value = DateTime.Now;
+                }
                 this.AcceptButton = btnSave;
                 txtID.BackColor = Color.LightGreen;
                 loadItemModel(dt);
