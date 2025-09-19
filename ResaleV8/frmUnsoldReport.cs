@@ -1,0 +1,41 @@
+﻿using MySql.Data.MySqlClient;
+using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.Ops;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ResaleV8
+{
+    public partial class frmUnsoldReport : Form
+    {
+        public frmUnsoldReport()
+        {
+            InitializeComponent();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void frmUnsoldReport_Load(object sender, EventArgs e)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            dgvUnsold.DataSource = DataAccess.getData(con,
+                query: "Select * from purchased_items where sale_date = '1900-01-01'");
+            FormControlOps.formatDGV(dgvUnsold,
+                headers: new string[] { "ID", "Description", "Quantity", "Purchase Date",
+                    "Purchase Price", "Sale Date", "Sale Price", "Storage Location",
+                    "Product Age (Days)", "Profit" },
+                hiddenColumns: new string[] { "Sale_Date", "Sale_Price", "Product_Age", "Profit" });
+        }
+    }
+}
