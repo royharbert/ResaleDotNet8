@@ -49,11 +49,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         {
             int row = startRow;
             int col = startCol;
-            //foreach (System.Data.DataColumn column in dt.Columns)
-            //{
-            //    wks.Cells[row, col].Value = column.ColumnName;
-            //    col = col + 1;
-            //}
             row = row + 1;
             foreach (System.Data.DataRow dataRow in dt.Rows)
             {
@@ -146,6 +141,16 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 Excel.Range range = wks.Range[wks.Cells[bounds[0], bounds[2]], wks.Cells[bounds[1], bounds[3]]];
                 //formatString = formatString + decimalString;
                 range.NumberFormat = formatString;
+            }
+        }
+
+        public static void formatColumnAsCurrency(Worksheet wks, int[] cols)
+        {
+            foreach (var col in cols)
+            {
+                Excel.Range range = wks.Columns[col];
+                string formatString = "$#,###,###.00";
+                range.NumberFormat = formatString; 
             }
         }
 
