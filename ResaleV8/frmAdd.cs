@@ -31,7 +31,7 @@ namespace ResaleV8
             model.Purchase_Price = float.Parse(txtPurchasePrice.Text);
             model.Quantity = int.Parse(txtQuantity.Text);
             model.storage_location = cboStorage.Text;
-            
+
             return model;
         }
 
@@ -69,6 +69,6 @@ namespace ResaleV8
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }       
     }
 }

@@ -37,26 +37,30 @@
             // dgvUnsold
             // 
             dgvUnsold.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUnsold.Location = new Point(20, 10);
+            dgvUnsold.Location = new Point(18, 8);
+            dgvUnsold.Margin = new Padding(3, 2, 3, 2);
             dgvUnsold.Name = "dgvUnsold";
             dgvUnsold.RowHeadersWidth = 51;
-            dgvUnsold.Size = new Size(1299, 545);
+            dgvUnsold.Size = new Size(1137, 409);
             dgvUnsold.TabIndex = 0;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(524, 576);
+            btnExport.Location = new Point(458, 432);
+            btnExport.Margin = new Padding(3, 2, 3, 2);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(128, 29);
+            btnExport.Size = new Size(112, 22);
             btnExport.TabIndex = 1;
             btnExport.Text = "Export to Excel";
             btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(713, 576);
+            btnClose.Location = new Point(624, 432);
+            btnClose.Margin = new Padding(3, 2, 3, 2);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(128, 29);
+            btnClose.Size = new Size(112, 22);
             btnClose.TabIndex = 2;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -64,12 +68,13 @@
             // 
             // frmUnsoldReport
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1331, 617);
+            ClientSize = new Size(1165, 463);
             Controls.Add(btnClose);
             Controls.Add(btnExport);
             Controls.Add(dgvUnsold);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "frmUnsoldReport";
             Text = "Unsold Items";
             Load += frmUnsoldReport_Load;
