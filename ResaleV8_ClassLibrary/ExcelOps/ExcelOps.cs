@@ -45,22 +45,40 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
-        public static void insertDataTable(Excel.Worksheet wks, int startRow, int startCol, System.Data.DataTable dt)
+        public static void insertDataTable(Worksheet wks, int startRow, int startCol, System.Data.DataTable dt)
         {
             int row = startRow;
             int col = startCol;
             row = row + 1;
             foreach (System.Data.DataRow dataRow in dt.Rows)
+            
+            col = startCol;
+            for (row = startRow; row < (dt.Rows.Count + startRow); row++)
             {
-                col = startCol;
-                for (row = startRow; row < (dt.Rows.Count + startRow); row++)
+                for (col = 1; col <= dt.Columns.Count; col++)
                 {
-                    for (col = 1; col <= dt.Columns.Count; col++)
-                    {
-                        wks.Cells[row, col].Value = dt.Rows[row - startRow][ col - 1];
-                    }
+                    wks.Cells[row, col].Value = dt.Rows[row - startRow][ col - 1];
                 }
+                placeProfitInCell(wks, row, 9);
+                placeDaysHeldInCell(wks, row, 10);
             }
+            
+        }
+
+        public static int placeDaysHeldInCell(Excel.Worksheet wks, int row, int col)
+        {
+            DateTime purchaseDate = (DateTime)wks.Cells[row, 4].Value;
+            DateTime saleDate = (DateTime)wks.Cells[row, 6].Value;
+            if (saleDate.Year == 1900)
+            {
+                saleDate = DateTime.Now;
+            }
+            return wks.Cells[row, col].Value = (saleDate - purchaseDate).Days;
+        }
+
+        public static double placeProfitInCell(Excel.Worksheet wks, int row, int col)
+        {
+            return wks.Cells[row, col].Value = wks.Cells[row, 7].Value - wks.Cells[row, 5].Value;
         }
 
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
@@ -261,6 +279,23 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             {
                 GC.Collect();
             }
+        }
+
+       public static void createExcelSheet(System.Data.DataTable dt, string title)
+        {
+            Excel.Application xlApp = ExcelOps.makeExcelApp();
+            Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
+            Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
+            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+                "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
+            int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
+            int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
+            setCellWidth(wks, colWidth);
+            insertDataTable(wks, dataStartRow, 1, dt);
+            int[] currencyCols = { 5, 7, 9 };
+            ExcelOps.formatColumnAsCurrency(wks, currencyCols);
+
+            ExcelOps.releaseObject(wks);
         }
     }
 }

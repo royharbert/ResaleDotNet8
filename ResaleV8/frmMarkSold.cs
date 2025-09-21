@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.ExcelOps;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 
@@ -148,8 +149,18 @@ namespace ResaleV8
             {
                 loadItemModel(dt);
             }
-            lblDaysOwned.Text = itemModel.Product_Age.ToString();
-            lblProfit.Text = itemModel.Profit.ToString("$0.00");
+            lblDaysOwned.Text = (itemModel.Sale_Date - itemModel.Purchase_Date).TotalDays.ToString();
+            double profit = itemModel.Sale_Price - itemModel.Purchase_Price;
+
+            if(itemModel.Sale_Date.Year == 1900)
+            {
+                lblProfit.Text = "0";
+            }
+            else
+            {
+                lblProfit.Text = (itemModel.Sale_Date - itemModel.Purchase_Date).TotalDays.ToString();
+            }
+;
             ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
             FormControlOps.toggleControlPairEnables(btnPair);
         }

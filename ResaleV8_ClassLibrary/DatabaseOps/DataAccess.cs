@@ -22,8 +22,8 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@Sale_Date", model.Sale_Date);
             cmd.Parameters.AddWithValue("@Sale_Price", model.Sale_Price);
             cmd.Parameters.AddWithValue("@storage_location", model.storage_location);
-            cmd.Parameters.AddWithValue("@Profit", model.Profit);
-            cmd.Parameters.AddWithValue("@Product_age", model.Product_Age);
+            //cmd.Parameters.AddWithValue("@Profit", model.Profit);
+            //cmd.Parameters.AddWithValue("@Product_age", model.Product_Age);
 
             object result = cmd.ExecuteScalar();
             int newID = Convert.ToInt32(cmd.LastInsertedId);
@@ -36,7 +36,7 @@ namespace ResaleV8_ClassLibrary
         {
             string sql = "UPDATE purchased_items SET Item_Desc = @Item_Desc, Purchase_Date = @Purchase_Date, " +
                          "Purchase_Price = @Purchase_Price, Quantity = @Quantity, Sale_Date = @Sale_Date, " +
-                         "Sale_Price = @Sale_Price, storage_location = @storage_location, Profit = @Profit, Product_Age = @Product_Age " +
+                         "Sale_Price = @Sale_Price, storage_location = @storage_location " +
                          "WHERE Item_ID = @Item_ID";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
@@ -48,8 +48,6 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@Sale_Date", model.Sale_Date);
             cmd.Parameters.AddWithValue("@Sale_Price", model.Sale_Price);
             cmd.Parameters.AddWithValue("@storage_location", model.storage_location);
-            cmd.Parameters.AddWithValue("@Profit", model.Profit);
-            cmd.Parameters.AddWithValue("@Product_Age", model.Product_Age);
             cmd.Parameters.AddWithValue("@Item_ID", itemID);
             cmd.ExecuteNonQuery();
             con.Close();

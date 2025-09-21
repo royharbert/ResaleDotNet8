@@ -31,6 +31,8 @@ namespace ResaleV8
             model.Purchase_Price = float.Parse(txtPurchasePrice.Text);
             model.Quantity = int.Parse(txtQuantity.Text);
             model.storage_location = cboStorage.Text;
+            model.Sale_Date = new DateTime(1900, 01, 01);
+            model.Sale_Price = 0.0f;
 
             return model;
         }
@@ -61,8 +63,6 @@ namespace ResaleV8
         {
             loadModel();
             DataAccess.addItemToDatabase(model);
-            //MySqlConnection con = ConnectToDB(GV.conString);
-            //DataAccess.getData(); // Use the correct namespace/class as per your existing usage above
             resetForm();
         }
 

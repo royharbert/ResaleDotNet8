@@ -46,20 +46,20 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dgvSoldReport.DataSource;
+            ExcelOps.createExcelSheet(dt, "SoldReport");
+            //Excel.Application xlApp = ExcelOps.makeExcelApp();
+            //Excel.Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
+            //Excel.Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
+            //string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+            //    "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
+            //int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
+            //int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, "Sold Report", headers);
+            //ExcelOps.setCellWidth(wks, colWidth);
+            //ExcelOps.insertDataTable(wks, dataStartRow, 1, (DataTable)dgvSoldReport.DataSource);
+            //int[] currencyCols = { 5, 7, 9 };
+            //ExcelOps.formatColumnAsCurrency(wks, currencyCols);
 
-            Excel.Application xlApp = ExcelOps.makeExcelApp();
-            Excel.Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
-            Excel.Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
-            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
-            int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
-            int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, "Sold Report", headers);
-            ExcelOps.setCellWidth(wks, colWidth);
-            ExcelOps.insertDataTable(wks, dataStartRow, 1, (DataTable)dgvSoldReport.DataSource);
-            int[] currencyCols = { 5, 7, 9 };
-            ExcelOps.formatColumnAsCurrency(wks, currencyCols);
-
-            ExcelOps.releaseObject(wks);
+            //ExcelOps.releaseObject(wks);
         }
     }
 }

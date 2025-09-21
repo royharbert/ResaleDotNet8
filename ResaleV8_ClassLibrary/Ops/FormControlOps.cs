@@ -35,7 +35,7 @@ namespace ResaleV8_ClassLibrary.Ops
             }
         }
 
-        public static void formatDGV(System.Windows.Forms.DataGridView dgv, string[] headers,
+        public static void formatDGV(DataGridView dgv, string[] headers,
             string[] hiddenColumns)
         {
             for (int i = 0; i < headers.Length; i++)
@@ -53,9 +53,9 @@ namespace ResaleV8_ClassLibrary.Ops
                 {
                     dgv.Columns[hiddenColumn].Visible = false;
                 }
-            }
+            }            
+            
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            //dgv.AutoResizeColumns();
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.ReadOnly = true;
@@ -64,9 +64,9 @@ namespace ResaleV8_ClassLibrary.Ops
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv.RowHeadersVisible = true;
             dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            foreach (System.Windows.Forms.DataGridViewColumn col in dgv.Columns)
+            foreach (DataGridViewColumn col in dgv.Columns)
             {
-                col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
         }

@@ -10,13 +10,26 @@ namespace ResaleV8_ClassLibrary.Models
     {
         int _daysHeld = 0;
         DateTime _saleDate = new DateTime(1900,01,01);
+        DateTime _purchaseDate;
         float _salePrice = 0.0f;
         float _profit = 0.0f;
 
         public  int Item_ID { get;}
         public string Item_Desc { get; set; } = null!;
         public int Quantity { get; set; }
-        public DateTime Purchase_Date { get; set; }
+        public DateTime Purchase_Date
+        {
+            get
+            {
+                return _purchaseDate;
+            }
+
+            set
+            {
+                _purchaseDate = value;
+                _daysHeld = (DateTime.Now - _purchaseDate).Days;
+            }
+        }
         public float Purchase_Price { get; set; }
         public DateTime Sale_Date
         {
@@ -27,9 +40,6 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _saleDate = value;
-                _daysHeld = (Sale_Date - Purchase_Date).Days;
-                if  (_daysHeld < 0)
-                    _daysHeld = 0;
             }
         }
         public float Sale_Price
@@ -45,19 +55,5 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
         public string storage_location { get; set; } = null!;
-        public int Product_Age
-        {
-            get
-            {
-                return _daysHeld; 
-            }
-        }
-        public float Profit
-        {
-            get
-            {
-                return _profit;
-            }
-        }
     }
 }
