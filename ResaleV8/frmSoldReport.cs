@@ -19,6 +19,7 @@ namespace ResaleV8
 {
     public partial class frmSoldReport : Form
     {
+        string[] hiddenColumns = { };
         public frmSoldReport()
         {
             InitializeComponent();
@@ -30,8 +31,7 @@ namespace ResaleV8
         }
 
         private void btnRun_Click(object sender, EventArgs e)
-        {
-            string[] hiddenColumns = { };
+        {            
             string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
                 "Purchase Price", "Sale Date", "Sale Price", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
@@ -46,7 +46,7 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dgvSoldReport.DataSource;
-            ExcelOps.createExcelSheet(dt, "Sold Report");            
+            ExcelOps.createExcelSheet(dt, "Sold Report",true, hiddenColumns);            
         }
 
         private void frmSoldReport_Load(object sender, EventArgs e)

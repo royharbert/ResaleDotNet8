@@ -18,6 +18,7 @@ namespace ResaleV8
 {
     public partial class frmUnsoldReport : Form
     {
+        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit" };
         public frmUnsoldReport()
         {
             InitializeComponent();
@@ -33,17 +34,18 @@ namespace ResaleV8
             MySqlConnection con = ConnectToDB.OpenDB();
             dgvUnsold.DataSource = DataAccess.getData(con,
                 query: "Select * from purchased_items where sale_date = '1900-01-01'");
+            string[] columnsToHide = { "product_age", "Profit" };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Description", "Quantity", "Purchase Date",
                     "Purchase Price", "Sale Date", "Sale Price", "Storage Location",
-                    "Product Age (Days)", "Profit" },
-                hiddenColumns: new string[] { "Sale_Date", "Sale_Price", "Profit" });
+                    "Product Age", "Profit" },
+                columnsToHide);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dgvUnsold.DataSource;
-            ExcelOps.createExcelSheet(dt, "Unsold Report");            
+            ExcelOps.createExcelSheet(dt, "Unsold Report", false, hiddenColumns);            
         }
     }
 }

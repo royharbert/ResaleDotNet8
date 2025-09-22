@@ -39,30 +39,31 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
         public static void setCellWidth(Excel.Worksheet wks, int[] width)
         {
-            for(int col = 1; col <= width.Length; col++)
+            for (int col = 1; col <= width.Length; col++)
             {
                 wks.Columns[col].ColumnWidth = width[col - 1];
             }
         }
 
-        public static void insertDataTable(Worksheet wks, int startRow, int startCol, System.Data.DataTable dt)
+        public static void insertDataTable(Worksheet wks, int startRow, int startCol, System.Data.DataTable dt,
+            bool isSoldReport)
         {
             int row = startRow;
             int col = startCol;
             row = row + 1;
             foreach (System.Data.DataRow dataRow in dt.Rows)
-            
-            col = startCol;
+
+                col = startCol;
             for (row = startRow; row < (dt.Rows.Count + startRow); row++)
             {
                 for (col = 1; col <= dt.Columns.Count; col++)
                 {
-                    wks.Cells[row, col].Value = dt.Rows[row - startRow][ col - 1];
+                    wks.Cells[row, col].Value = dt.Rows[row - startRow][col - 1];
                 }
                 placeProfitInCell(wks, row, 9);
                 placeDaysHeldInCell(wks, row, 10);
             }
-            
+
         }
 
         public static int placeDaysHeldInCell(Excel.Worksheet wks, int row, int col)
@@ -86,7 +87,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             object obj = wks.Cells[row, column].Value;
             return obj;
         }
-        
+
         /// <summary>
         /// Places text in worksheet at specified row, col
         /// </summary>
@@ -107,9 +108,9 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         /// <returns></returns>
         public static int GetColumn(Worksheet wks, string searchTerm, Excel.Range range)
         {
-            
+
             Excel.Range result = range.Find(searchTerm);
-            
+
             return result.Column;
         }
 
@@ -133,8 +134,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 System.Reflection.Missing.Value).Row;
 
             return rowIndex;
-        }  
-        public static void setDollarDecimalPlaces(Worksheet wks, int decimals, int startRow, int stopRow, 
+        }
+        public static void setDollarDecimalPlaces(Worksheet wks, int decimals, int startRow, int stopRow,
             int startCol, int stopCol)
         {
             int[] bounds = { startRow, stopRow, startCol, stopCol };
@@ -168,7 +169,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             {
                 Excel.Range range = wks.Columns[col];
                 string formatString = "$#,###,###.00";
-                range.NumberFormat = formatString; 
+                range.NumberFormat = formatString;
             }
         }
 
@@ -229,7 +230,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             formatString = formatString + decimalString;
             range.NumberFormat = formatString;
         }
-        public static int makeTitle(Excel.Worksheet wks, int row, int rightmostCol, string title, 
+        public static int makeTitle(Excel.Worksheet wks, int row, int rightmostCol, string title,
             string[] columnHeaders)
         {
             wks.Cells[row, 1].Value = title;
@@ -257,8 +258,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         }
 
         public static Excel.Application OpenExcelWorkbook(Excel.Application xlApp, string WorkbookName)
-        { 
-            
+        {
+
             Excel.Workbook workbook = xlApp.Workbooks.Open(WorkbookName);
             return xlApp;
         }
@@ -281,7 +282,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
-       public static void createExcelSheet(System.Data.DataTable dt, string title)
+        public static void createExcelSheet(System.Data.DataTable dt, string title, bool isSoldReport,
+            string[] hiddenColumns)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
@@ -291,11 +293,22 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
             setCellWidth(wks, colWidth);
-            insertDataTable(wks, dataStartRow, 1, dt);
+            insertDataTable(wks, dataStartRow, 1, dt, isSoldReport);
             int[] currencyCols = { 5, 7, 9 };
             ExcelOps.formatColumnAsCurrency(wks, currencyCols);
+            hideColumns(wks, hiddenColumns);
 
             ExcelOps.releaseObject(wks);
+        }
+
+        public static void hideColumns(Worksheet wks, string[] hiddenColumns)
+        {
+            Excel.Range headerRange = wks.Rows[2];
+            foreach (var hiddenColumn in hiddenColumns)
+            {
+                int col = GetColumn(wks, hiddenColumn, headerRange);
+                wks.Columns[col].EntireColumn.Hidden = true;
+            }
         }
     }
 }
