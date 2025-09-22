@@ -43,7 +43,7 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dgvUnsold.DataSource;
-            ExcelOps.createExcelSheet(dt, "UnsoldReport");            
+            ExcelOps.createExcelSheet(dt, "Unsold Report");            
         }
     }
 }
