@@ -158,7 +158,7 @@ namespace ResaleV8
             }
             else
             {
-                lblProfit.Text = (itemModel.Sale_Date - itemModel.Purchase_Date).TotalDays.ToString();
+                lblProfit.Text = (itemModel.Sale_Price - itemModel.Purchase_Price).ToString(format: "$#####.00");
             }
 ;
             ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
