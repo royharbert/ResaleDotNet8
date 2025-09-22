@@ -125,6 +125,7 @@
             Controls.Add(dgvSoldReport);
             Name = "frmSoldReport";
             Text = "Sold Report";
+            Load += frmSoldReport_Load;
             ((System.ComponentModel.ISupportInitialize)dgvSoldReport).EndInit();
             ResumeLayout(false);
             PerformLayout();
