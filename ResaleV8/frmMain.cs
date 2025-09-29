@@ -32,7 +32,7 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=resale";
+            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)

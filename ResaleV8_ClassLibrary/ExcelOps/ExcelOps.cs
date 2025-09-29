@@ -60,16 +60,16 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 {
                     wks.Cells[row, col].Value = dt.Rows[row - startRow][col - 1];
                 }
-                placeProfitInCell(wks, row, 9);
-                placeDaysHeldInCell(wks, row, 10);
+                placeProfitInCell(wks, row, 10);
+                placeDaysHeldInCell(wks, row, 11);
             }
 
         }
 
         public static int placeDaysHeldInCell(Excel.Worksheet wks, int row, int col)
         {
-            DateTime purchaseDate = (DateTime)wks.Cells[row, 4].Value;
-            DateTime saleDate = (DateTime)wks.Cells[row, 6].Value;
+            DateTime purchaseDate = (DateTime)wks.Cells[row, 5].Value;
+            DateTime saleDate = (DateTime)wks.Cells[row, 7].Value;
             if (saleDate.Year == 1900)
             {
                 saleDate = DateTime.Now;
@@ -79,7 +79,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
         public static double placeProfitInCell(Excel.Worksheet wks, int row, int col)
         {
-            return wks.Cells[row, col].Value = wks.Cells[row, 7].Value - wks.Cells[row, 5].Value;
+            return wks.Cells[row, col].Value = wks.Cells[row, 8].Value - wks.Cells[row, 6].Value;
         }
 
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
@@ -129,7 +129,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         public static int FindLastSpreadsheetRow(Worksheet wks)
         {
             int rowIndex = wks.Cells.Find("*", System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value,
-                XlSearchOrder.xlByRows, Microsoft.Office.Interop.Excel.XlSearchDirection.xlPrevious, false, System.Reflection.Missing.Value,
+                XlSearchOrder.xlByRows, XlSearchDirection.xlPrevious, false, System.Reflection.Missing.Value,
                 System.Reflection.Missing.Value).Row;
 
             return rowIndex;
@@ -287,13 +287,13 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
             Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
-            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+            string[] headers = { "ID", "Item Category", "Item Description", "Quantity", "Purchase Date",
                 "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
-            int[] colWidth = { 5, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
+            int[] colWidth = { 5, 30, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
             setCellWidth(wks, colWidth);
             insertDataTable(wks, dataStartRow, 1, dt, isSoldReport);
-            int[] currencyCols = { 5, 7, 9 };
+            int[] currencyCols = { 6, 8, 10 };
             ExcelOps.formatColumnAsCurrency(wks, currencyCols);
             hideColumns(wks, hiddenColumns);
 

@@ -27,6 +27,7 @@ namespace ResaleV8
         private ItemModel loadModel()
         {
             model.Item_Desc = txtDesc.Text;
+            model.Item_Category = cboCategory.Text;
             model.Purchase_Date = dtpBuy.Value;
             model.Purchase_Price = float.Parse(txtPurchasePrice.Text);
             model.Quantity = int.Parse(txtQuantity.Text);
@@ -44,8 +45,8 @@ namespace ResaleV8
             loadModel();
             int newID = DataAccess.addItemToDatabase(model);
             txtID.Text = newID.ToString();
-            Application.DoEvents();
-            Thread.Sleep(500);
+            //Application.DoEvents();
+            //Thread.Sleep(500);
             //this.Close();
         }
 
@@ -56,7 +57,8 @@ namespace ResaleV8
             dtpBuy.Value = DateTime.Now;
             txtPurchasePrice.Text = "";
             txtQuantity.Text = "";
-            cboStorage.Text = "";
+            cboStorage.SelectedIndex = -1;
+            cboCategory.SelectedIndex = -1;
         }
 
         private void btnSaveAdd_Click(object sender, EventArgs e)
@@ -69,6 +71,6 @@ namespace ResaleV8
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
-        }       
+        }
     }
 }

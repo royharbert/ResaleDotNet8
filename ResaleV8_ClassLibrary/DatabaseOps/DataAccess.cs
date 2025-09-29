@@ -10,11 +10,12 @@ namespace ResaleV8_ClassLibrary
     {
         public static int addItemToDatabase(ItemModel model)
         {            
-            string sql = "INSERT INTO purchased_items (Item_Desc, Purchase_Date, Purchase_Price, Quantity, Sale_Date, Sale_Price, storage_location)" +
-                         "VALUES (@Item_Desc, @Purchase_Date, @Purchase_Price, @Quantity, @Sale_Date, @Sale_Price, @storage_location)";
+            string sql = "INSERT INTO purchased_items (Item_Category, Item_Desc, Purchase_Date, Purchase_Price, Quantity, Sale_Date, Sale_Price, storage_location)" +
+                         "VALUES (@Item_Category, @Item_Desc, @Purchase_Date, @Purchase_Price, @Quantity, @Sale_Date, @Sale_Price, @storage_location)";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@Item_Category", model.Item_Category);
             cmd.Parameters.AddWithValue("@Item_Desc", model.Item_Desc);
             cmd.Parameters.AddWithValue("@Purchase_Date", model.Purchase_Date);
             cmd.Parameters.AddWithValue("@Purchase_Price", model.Purchase_Price);

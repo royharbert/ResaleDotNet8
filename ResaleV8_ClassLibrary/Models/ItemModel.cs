@@ -15,6 +15,7 @@ namespace ResaleV8_ClassLibrary.Models
         float _profit = 0.0f;
 
         public  int Item_ID { get;}
+        public string Item_Category { get; set; }
         public string Item_Desc { get; set; } = null!;
         public int Quantity { get; set; }
         public DateTime Purchase_Date

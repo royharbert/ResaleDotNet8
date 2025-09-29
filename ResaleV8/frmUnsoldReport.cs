@@ -36,7 +36,7 @@ namespace ResaleV8
                 query: "Select * from purchased_items where sale_date = '1900-01-01'");
             string[] columnsToHide = { "product_age", "Profit" };
             FormControlOps.formatDGV(dgvUnsold,
-                headers: new string[] { "ID", "Description", "Quantity", "Purchase Date",
+                headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
                     "Purchase Price", "Sale Date", "Sale Price", "Storage Location",
                     "Product Age", "Profit" },
                 columnsToHide);
