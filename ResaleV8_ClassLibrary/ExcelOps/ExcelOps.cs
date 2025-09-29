@@ -108,7 +108,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         /// <returns></returns>
         public static int GetColumn(Worksheet wks, string searchTerm, Excel.Range range)
         {
-
             Excel.Range result = range.Find(searchTerm);
 
             return result.Column;
