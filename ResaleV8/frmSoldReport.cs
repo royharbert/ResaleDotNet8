@@ -32,7 +32,7 @@ namespace ResaleV8
 
         private void btnRun_Click(object sender, EventArgs e)
         {            
-            string[] headers = { "ID", "Item Description", "Quantity", "Purchase Date",
+            string[] headers = { "ID", "Category", "Item Description", "Quantity", "Purchase Date",
                 "Purchase Price", "Sale Date", "Sale Price", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
