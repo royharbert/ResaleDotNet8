@@ -69,13 +69,13 @@ namespace ResaleV8
         private void btnRetrieve_Click(object sender, EventArgs e)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
-            string query = "Select * from purchased_items where item_id = " + txtID.Text;
+            string query = "Select * from purchasedItems where itemId = " + txtID.Text;
             dt = DataAccess.getData(con, query);
             ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
             FormControlOps.toggleControlPairEnables(btnPair);
             if (dt.Rows.Count == 1)
             {
-                itemID = Convert.ToInt32(dt.Rows[0]["Item_ID"]);
+                itemID = Convert.ToInt32(dt.Rows[0]["ItemID"]);
                 displayData(dt);
                 if(dtpSaleDate.Value == GV.emptyDate)
                 {
@@ -108,12 +108,12 @@ namespace ResaleV8
             dtpSaleDate.Value = DateTime.Now;
             if (dt.Rows.Count > 0)
             {
-                lblDaysOwned.Text = dt.Rows[0]["Product_Age"].ToString();
-                txtPrice.Text = dt.Rows[0]["Sale_Price"].ToString();
+                lblDaysOwned.Text = dt.Rows[0]["ProductAge"].ToString();
+                txtPrice.Text = dt.Rows[0]["SalePrice"].ToString();
                 lblProfit.Text = dt.Rows[0]["Profit"].ToString();
-                if (dt.Rows[0]["Sale_Date"] != DBNull.Value)
+                if (dt.Rows[0]["SaleDate"] != DBNull.Value)
                 {
-                    dtpSaleDate.Value = Convert.ToDateTime(dt.Rows[0]["Sale_Date"]);
+                    dtpSaleDate.Value = Convert.ToDateTime(dt.Rows[0]["SaleDate"]);
                 }
                 else
                 {
@@ -144,7 +144,7 @@ namespace ResaleV8
             itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
             DataAccess.updateItemInDatabase(itemModel, itemID);
             MySqlConnection con =  ConnectToDB.OpenDB();
-            dt = DataAccess.getData(con, "Select * from purchased_items where Item_ID = " + txtID.Text);
+            dt = DataAccess.getData(con, "Select * from purchasedItems where ItemID = " + txtID.Text);
             if (dt.Rows.Count > 0)
             {
                 loadItemModel(dt);

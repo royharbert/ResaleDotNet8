@@ -50,20 +50,21 @@ namespace ResaleV8_ClassLibrary
 
         public static void updateItemInDatabase(ItemModel model, int itemID)
         {
-            string sql = "UPDATE PurchasedItems SET Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
-                         "PurchasePrice = @Category, @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
+            string sql = "UPDATE PurchasedItems SET Category = @Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
+                         "PurchasePrice = @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
                          "SalePrice = @SalePrice, StorageLocation = @StorageLocation " +
                          "WHERE ItemID = @ItemID";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@Item_esc", model.ItemDesc);
+            cmd.Parameters.AddWithValue("@Category", model.Category);
             cmd.Parameters.AddWithValue("@ItemDesc", model.ItemDesc);
+            cmd.Parameters.AddWithValue("@PurchaseDate", model.PurchaseDate);
             cmd.Parameters.AddWithValue("@PurchasePrice", model.PurchasePrice);
             cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
             cmd.Parameters.AddWithValue("@SaleDate", model.SaleDate);
             cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
-            cmd.Parameters.AddWithValue("@StorageLocations", model.StorageLocation);
+            cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
             cmd.Parameters.AddWithValue("@ItemID", itemID);
             cmd.ExecuteNonQuery();
             con.Close();
