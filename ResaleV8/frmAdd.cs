@@ -14,11 +14,11 @@ using System.Windows.Forms;
 using System.Threading;
 
 namespace ResaleV8
-{ 
+{
     public partial class frmAdd : Form
     {
         ItemModel model = new ItemModel();
-        
+
         public frmAdd()
         {
             InitializeComponent();
@@ -26,14 +26,14 @@ namespace ResaleV8
 
         private ItemModel loadModel()
         {
-            model.Item_Desc = txtDesc.Text;
-            model.Item_Category = cboCategory.Text;
-            model.Purchase_Date = dtpBuy.Value;
-            model.Purchase_Price = float.Parse(txtPurchasePrice.Text);
+            model.ItemDesc = txtDesc.Text;
+            model.Category = cboCategory.Text;
+            model.PurchaseDate = dtpBuy.Value;
+            model.PurchasePrice = float.Parse(txtPurchasePrice.Text);
             model.Quantity = int.Parse(txtQuantity.Text);
-            model.storage_location = cboStorage.Text;
-            model.Sale_Date = new DateTime(1900, 01, 01);
-            model.Sale_Price = 0.0f;
+            model.StorageLocation = cboStorage.Text;
+            model.SaleDate = new DateTime(1900, 01, 01);
+            model.SalePrice = 0.0f;
 
             return model;
         }
@@ -77,6 +77,9 @@ namespace ResaleV8
         {
             cboCategory.DataSource = GV.categories;
             cboCategory.SelectedIndex = -1;
+
+            cboStorage.DataSource = GV.storageLocations;
+            cboStorage.SelectedIndex = -1;
         }
 
         private void comboListMaintenance(object sender, EventArgs e)
@@ -88,7 +91,7 @@ namespace ResaleV8
              */
             ComboBox cbo = sender as ComboBox;
             ddEventArgs ea = new ddEventArgs();
-            if (!cbo.Items.Contains (cbo.Text) && cbo.Text != "")
+            if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
             {
                 GV.categories.Add(cbo.Text);
                 GV.categories.Sort();
@@ -97,20 +100,26 @@ namespace ResaleV8
                     {
                         ea.newItem = cboCategory.Text;
                         ea.tableName = "Categories";
-                        ea.columnName = "CategoryList";
-                    } 
-                };
+                        ea.columnName = "Category";
+                    }
+                }
+                ;
 
                 if (cbo.Name == "cboStorage")
                 {
+                    ea.newItem = cboStorage.Text;
+                    ea.tableName = "storageLocations";
+                    ea.columnName = "Location";
                 }
                 DataAccess.addDropDownItemToTable(ea);
 
-    
+
                 cboCategory.DataSource = null;
                 cboCategory.DataSource = GV.categories;
-                cboCategory.SelectedItem = model.Item_Category;
+                cboCategory.SelectedItem = model.Category;
             }
         }
+
+        
     }
 }

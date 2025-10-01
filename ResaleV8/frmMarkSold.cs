@@ -140,8 +140,8 @@ namespace ResaleV8
         private void btnSave_Click(object sender, EventArgs e)
         {
             txtID.BackColor = defaultTxtBackColor;
-            itemModel.Sale_Date = dtpSaleDate.Value;
-            itemModel.Sale_Price = Convert.ToSingle(txtPrice.Text);
+            itemModel.SaleDate = dtpSaleDate.Value;
+            itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
             DataAccess.updateItemInDatabase(itemModel, itemID);
             MySqlConnection con =  ConnectToDB.OpenDB();
             dt = DataAccess.getData(con, "Select * from purchased_items where Item_ID = " + txtID.Text);
@@ -149,16 +149,16 @@ namespace ResaleV8
             {
                 loadItemModel(dt);
             }
-            lblDaysOwned.Text = (itemModel.Sale_Date - itemModel.Purchase_Date).TotalDays.ToString();
-            double profit = itemModel.Sale_Price - itemModel.Purchase_Price;
+            lblDaysOwned.Text = (itemModel.SaleDate - itemModel.PurchaseDate).TotalDays.ToString();
+            double profit = itemModel.SalePrice - itemModel.PurchasePrice;
 
-            if(itemModel.Sale_Date.Year == 1900)
+            if(itemModel.SaleDate.Year == 1900)
             {
                 lblProfit.Text = "0";
             }
             else
             {
-                lblProfit.Text = (itemModel.Sale_Price - itemModel.Purchase_Price).ToString(format: "$#####.00");
+                lblProfit.Text = (itemModel.SalePrice - itemModel.PurchasePrice).ToString(format: "$#####.00");
             }
 ;
             ValueTuple<Button, Button> btnPair = (btnRetrieve, btnSave);
@@ -177,18 +177,18 @@ namespace ResaleV8
         /// (float).</param>
         private void loadItemModel(DataTable dt)
         {
-            itemModel.Item_Desc = dt.Rows[0]["Item_Desc"]?.ToString() ?? string.Empty;
-            itemModel.Purchase_Date = Convert.ToDateTime(dt.Rows[0]["Purchase_Date"]);
-            itemModel.Purchase_Price = Convert.ToSingle(dt.Rows[0]["Purchase_Price"]);
+            itemModel.ItemDesc = dt.Rows[0]["ItemDesc"]?.ToString() ?? string.Empty;
+            itemModel.PurchaseDate = Convert.ToDateTime(dt.Rows[0]["PurchaseDate"]);
+            itemModel.PurchasePrice = Convert.ToSingle(dt.Rows[0]["PurchasePrice"]);
             itemModel.Quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]);
-            itemModel.storage_location = dt.Rows[0]["storage_location"]?.ToString() ?? string.Empty;
-            if (dt.Rows[0]["Sale_Date"] != DBNull.Value)
+            itemModel.StorageLocation = dt.Rows[0]["StorageLocation"]?.ToString() ?? string.Empty;
+            if (dt.Rows[0]["SaleDate"] != DBNull.Value)
             {
-                itemModel.Sale_Date = Convert.ToDateTime(dt.Rows[0]["Sale_Date"]);
+                itemModel.SaleDate = Convert.ToDateTime(dt.Rows[0]["SaleDate"]);
             }
-            if (dt.Rows[0]["Sale_Price"] != DBNull.Value)
+            if (dt.Rows[0]["SalePrice"] != DBNull.Value)
             {
-                itemModel.Sale_Price = Convert.ToSingle(dt.Rows[0]["Sale_Price"]);
+                itemModel.SalePrice = Convert.ToSingle(dt.Rows[0]["SalePrice"]);
             }
 
         }
@@ -196,10 +196,10 @@ namespace ResaleV8
         
         private ItemModel getModelFromForm()
         {
-            itemModel.Sale_Date = dtpSaleDate.Value;
+            itemModel.SaleDate = dtpSaleDate.Value;
             if (txtPrice.Text != "")
             {
-                itemModel.Sale_Price = Convert.ToSingle(txtPrice.Text);
+                itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
             }
             return itemModel;
         }

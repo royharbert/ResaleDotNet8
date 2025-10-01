@@ -14,11 +14,11 @@ namespace ResaleV8_ClassLibrary.Models
         float _salePrice = 0.0f;
         float _profit = 0.0f;
 
-        public  int Item_ID { get;}
-        public string Item_Category { get; set; }
-        public string Item_Desc { get; set; } = null!;
+        public  int ItemID{ get;}
+        public string Category { get; set; }
+        public string ItemDesc { get; set; } = null!;
         public int Quantity { get; set; }
-        public DateTime Purchase_Date
+        public DateTime PurchaseDate
         {
             get
             {
@@ -31,8 +31,8 @@ namespace ResaleV8_ClassLibrary.Models
                 _daysHeld = (DateTime.Now - _purchaseDate).Days;
             }
         }
-        public float Purchase_Price { get; set; }
-        public DateTime Sale_Date
+        public float PurchasePrice { get; set; }
+        public DateTime SaleDate
         {
             get
             {
@@ -43,7 +43,7 @@ namespace ResaleV8_ClassLibrary.Models
                 _saleDate = value;
             }
         }
-        public float Sale_Price
+        public float SalePrice
         {
             get
             {
@@ -52,9 +52,9 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _salePrice = value;
-                _profit = _salePrice - Purchase_Price;
+                _profit = _salePrice - PurchasePrice;
             }
         }
-        public string storage_location { get; set; } = null!;
+        public string StorageLocation { get; set; } = null!;
     }
 }

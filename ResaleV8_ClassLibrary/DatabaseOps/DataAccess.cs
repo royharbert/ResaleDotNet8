@@ -11,7 +11,7 @@ namespace ResaleV8_ClassLibrary
     {
         public static int addDropDownItemToTable(ddEventArgs ea)
         {
-            string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values " + ea.newItem + ")";
+            string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values ('" + ea.newItem + "')";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -25,21 +25,21 @@ namespace ResaleV8_ClassLibrary
 
         public static int addItemToDatabase(ItemModel model)
         {            
-            string sql = "INSERT INTO purchased_items (Item_Category, Item_Desc, Purchase_Date, Purchase_Price, Quantity, Sale_Date, Sale_Price, storage_location)" +
-                         "VALUES (@Item_Category, @Item_Desc, @Purchase_Date, @Purchase_Price, @Quantity, @Sale_Date, @Sale_Price, @storage_location)";
+            string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, PurchaseDate, PurchasePrice, Quantity, SaleDate, SalePrice, StorageLocation)" +
+                         "VALUES (@Category, @ItemDesc, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation)";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@Item_Category", model.Item_Category);
-            cmd.Parameters.AddWithValue("@Item_Desc", model.Item_Desc);
-            cmd.Parameters.AddWithValue("@Purchase_Date", model.Purchase_Date);
-            cmd.Parameters.AddWithValue("@Purchase_Price", model.Purchase_Price);
+            cmd.Parameters.AddWithValue("@Category", model.Category);
+            cmd.Parameters.AddWithValue("@ItemDesc", model.ItemDesc);
+            cmd.Parameters.AddWithValue("@PurchaseDate", model.PurchaseDate);
+            cmd.Parameters.AddWithValue("@PurchasePrice", model.PurchasePrice);
             cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
-            cmd.Parameters.AddWithValue("@Sale_Date", model.Sale_Date);
-            cmd.Parameters.AddWithValue("@Sale_Price", model.Sale_Price);
-            cmd.Parameters.AddWithValue("@storage_location", model.storage_location);
+            cmd.Parameters.AddWithValue("@SaleDate", model.SaleDate);
+            cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
+            cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
             //cmd.Parameters.AddWithValue("@Profit", model.Profit);
-            //cmd.Parameters.AddWithValue("@Product_age", model.Product_Age);
+            //cmd.Parameters.AddWithValue("@ProductAge", model.ProductAge);
 
             object result = cmd.ExecuteScalar();
             int newID = Convert.ToInt32(cmd.LastInsertedId);
@@ -50,21 +50,21 @@ namespace ResaleV8_ClassLibrary
 
         public static void updateItemInDatabase(ItemModel model, int itemID)
         {
-            string sql = "UPDATE purchased_items SET Item_Desc = @Item_Desc, Purchase_Date = @Purchase_Date, " +
-                         "Purchase_Price = @Purchase_Price, Quantity = @Quantity, Sale_Date = @Sale_Date, " +
-                         "Sale_Price = @Sale_Price, storage_location = @storage_location " +
-                         "WHERE Item_ID = @Item_ID";
+            string sql = "UPDATE PurchasedItems SET Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
+                         "PurchasePrice = @Category, @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
+                         "SalePrice = @SalePrice, StorageLocation = @StorageLocation " +
+                         "WHERE ItemID = @ItemID";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@Item_Desc", model.Item_Desc);
-            cmd.Parameters.AddWithValue("@Purchase_Date", model.Purchase_Date);
-            cmd.Parameters.AddWithValue("@Purchase_Price", model.Purchase_Price);
+            cmd.Parameters.AddWithValue("@Item_esc", model.ItemDesc);
+            cmd.Parameters.AddWithValue("@ItemDesc", model.ItemDesc);
+            cmd.Parameters.AddWithValue("@PurchasePrice", model.PurchasePrice);
             cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
-            cmd.Parameters.AddWithValue("@Sale_Date", model.Sale_Date);
-            cmd.Parameters.AddWithValue("@Sale_Price", model.Sale_Price);
-            cmd.Parameters.AddWithValue("@storage_location", model.storage_location);
-            cmd.Parameters.AddWithValue("@Item_ID", itemID);
+            cmd.Parameters.AddWithValue("@SaleDate", model.SaleDate);
+            cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
+            cmd.Parameters.AddWithValue("@StorageLocations", model.StorageLocation);
+            cmd.Parameters.AddWithValue("@ItemID", itemID);
             cmd.ExecuteNonQuery();
             con.Close();
         }

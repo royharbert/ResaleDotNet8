@@ -37,15 +37,15 @@ namespace ResaleV8
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
             MySqlConnection con = ConnectToDB.OpenDB();
-            DataTable dtCat = DataAccess.getData(con, "Select CategoryList from Categories");
+            DataTable dtCat = DataAccess.getData(con, "Select Category from Categories");
             GV.categories = (from row in dtCat.AsEnumerable()
-                             select row.Field<string>("CategoryList")).ToList();
+                             select row.Field<string>("Category")).ToList();
 
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
             con = ConnectToDB.OpenDB();
-            DataTable dtLoc = DataAccess.getData(con, "Select Locations from storage_locations");
+            DataTable dtLoc = DataAccess.getData(con, "Select Location from StorageLocations");
             GV.storageLocations = (from row in dtLoc.AsEnumerable()
-                                   select row.Field<string>("Locations")).ToList();
+                                   select row.Field<string>("Location")).ToList();
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)
