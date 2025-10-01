@@ -99,13 +99,12 @@ namespace ResaleV8
                         ea.tableName = "Categories";
                         ea.columnName = "CategoryList";
                     } 
-                }
-                ;
+                };
 
-                if (true)
+                if (cbo.Name == "cboStorage")
                 {
-                    DataAccess.addDropDownItemToTable(ea.newItem, ea.columnName, ea.tableName);
                 }
+                DataAccess.addDropDownItemToTable(ea);
 
     
                 cboCategory.DataSource = null;
@@ -114,12 +113,4 @@ namespace ResaleV8
             }
         }
     }
-}
-
-class ddEventArgs : EventArgs
-{
-    public string newItem { get; set; }
-    public string tableName { get; set; }
-    public string columnName { get; set; }
-    public List<string> gvList { get; set; }
 }

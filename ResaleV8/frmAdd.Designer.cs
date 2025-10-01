@@ -153,7 +153,6 @@
             cboStorage.Name = "cboStorage";
             cboStorage.Size = new Size(658, 28);
             cboStorage.TabIndex = 5;
-            cboStorage.Text = "Garage";
             // 
             // label3
             // 
