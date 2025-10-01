@@ -1,4 +1,7 @@
-﻿using ResaleV8_ClassLibrary;
+﻿using MySql.Data.MySqlClient;
+using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +36,18 @@ namespace ResaleV8
         private void frmMain_Load(object sender, EventArgs e)
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+            MySqlConnection con = ConnectToDB.OpenDB();
+            DataTable dtCat = DataAccess.getData(con, "Select CategoryList from Categories");
+            GV.categories = dtCat.AsEnumerable()
+                         .Select(row => row.Field<string>("CategoryList"))
+                         .ToList();
+
+            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+            con = ConnectToDB.OpenDB();
+            DataTable dtLoc = DataAccess.getData(con, "Select Locations from storage_locations");
+            GV.storageLocations = dtLoc.AsEnumerable()
+                               .Select(row => row.Field<string>("Locations"))
+                               .ToList();
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)

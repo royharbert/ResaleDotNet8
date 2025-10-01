@@ -1,6 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using ResaleV8_ClassLibrary.Models;
+﻿using Microsoft.Office.Interop.Excel;
+using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.Models;
 using System.Data;
 using System.Windows.Forms;
 
@@ -8,6 +9,20 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static int addDropDownItemToTable(string item, string columnName,string table)
+        {
+            string sql = "INSERT INTO " + table + " (" + columnName +") values " + item + ")";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@" + columnName, item);
+            object result = cmd.ExecuteScalar();
+            int newID = Convert.ToInt32(cmd.LastInsertedId);
+
+            con.Close();
+            return newID;
+        }
+
         public static int addItemToDatabase(ItemModel model)
         {            
             string sql = "INSERT INTO purchased_items (Item_Category, Item_Desc, Purchase_Date, Purchase_Price, Quantity, Sale_Date, Sale_Price, storage_location)" +
@@ -54,13 +69,13 @@ namespace ResaleV8_ClassLibrary
             con.Close();
         }
 
-        public static DataTable getData(MySqlConnection con, string query)
+        public static System.Data.DataTable getData(MySqlConnection con, string query)
         {
             using (con)
             {
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
+                System.Data.DataTable dt = new System.Data.DataTable();
                 dt.Load(reader);
                 return dt;
             }

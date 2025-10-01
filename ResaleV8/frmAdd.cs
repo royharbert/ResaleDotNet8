@@ -14,11 +14,11 @@ using System.Windows.Forms;
 using System.Threading;
 
 namespace ResaleV8
-{
+{ 
     public partial class frmAdd : Form
     {
         ItemModel model = new ItemModel();
-
+        
         public frmAdd()
         {
             InitializeComponent();
@@ -72,5 +72,54 @@ namespace ResaleV8
         {
             Close();
         }
+
+        private void frmAdd_Load(object sender, EventArgs e)
+        {
+            cboCategory.DataSource = GV.categories;
+            cboCategory.SelectedIndex = -1;
+        }
+
+        private void comboListMaintenance(object sender, EventArgs e)
+        {
+            /*
+             * Check to see if text is in items collection
+             * If not, add it to list
+             *  Insert it into data table
+             */
+            ComboBox cbo = sender as ComboBox;
+            ddEventArgs ea = new ddEventArgs();
+            if (!cbo.Items.Contains (cbo.Text) && cbo.Text != "")
+            {
+                GV.categories.Add(cbo.Text);
+                GV.categories.Sort();
+                if (cbo.Name == "cboCategory")
+                {
+                    {
+                        ea.newItem = cboCategory.Text;
+                        ea.tableName = "Categories";
+                        ea.columnName = "CategoryList";
+                    } 
+                }
+                ;
+
+                if (true)
+                {
+                    DataAccess.addDropDownItemToTable(ea.newItem, ea.columnName, ea.tableName);
+                }
+
+    
+                cboCategory.DataSource = null;
+                cboCategory.DataSource = GV.categories;
+                cboCategory.SelectedItem = model.Item_Category;
+            }
+        }
     }
+}
+
+class ddEventArgs : EventArgs
+{
+    public string newItem { get; set; }
+    public string tableName { get; set; }
+    public string columnName { get; set; }
+    public List<string> gvList { get; set; }
 }

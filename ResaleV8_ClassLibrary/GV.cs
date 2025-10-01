@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace ResaleV8_ClassLibrary
 {
-    public  class GV
-    {       
+    public class GV
+    {
         public static string conString { get; set; } = null!;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
+        public static List<string> categories { get; set; }
+        public static List<string> storageLocations { get; set; }
     }
+
+        
 }
 

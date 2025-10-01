@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Data;
 
 namespace ResaleV8_ClassLibrary.Ops
 {
@@ -20,5 +21,19 @@ namespace ResaleV8_ClassLibrary.Ops
 
             return properties;
         }
+
+        public static List<T> convertDataTableToList<T>(DataTable dt, string columnName) where T : new()
+        {
+            List<T> data = new List<T>();
+            foreach (DataRow row in dt.Rows)
+            {
+                // Assumes the column value can be cast to T
+                T item = (T)row[columnName];
+                data.Add(item);
+            }
+            return data;
+        }
     }
+
+    
 }

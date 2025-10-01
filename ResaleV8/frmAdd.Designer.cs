@@ -201,6 +201,7 @@
             cboCategory.Name = "cboCategory";
             cboCategory.Size = new Size(658, 28);
             cboCategory.TabIndex = 0;
+            cboCategory.Leave += comboListMaintenance;
             // 
             // label5
             // 
@@ -239,6 +240,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmAdd";
             Text = "Add Item";
+            Load += frmAdd_Load;
             ResumeLayout(false);
             PerformLayout();
         }
