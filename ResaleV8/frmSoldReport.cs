@@ -37,9 +37,10 @@ namespace ResaleV8
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
             MySqlConnection con = ConnectToDB.OpenDB();
-            string query = "Select * from purchaseditems where SaleDate between "
+            string query = "Select * from purchasedItems where SaleDate between "
                 + startDate + " and " + stopDate;
-            dgvSoldReport.DataSource = DataAccess.getData(con, query);
+            DataTable dt = DataAccess.getData(con, query);
+            dgvSoldReport.DataSource = dt;
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
         }
 

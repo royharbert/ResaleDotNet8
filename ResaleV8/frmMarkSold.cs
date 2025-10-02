@@ -117,7 +117,7 @@ namespace ResaleV8
                 }
                 else
                 {
-                    ResaleV8_ClassLibrary.Ops.FormControlOps.clearDTPicker(dtpSaleDate);
+                    FormControlOps.clearDTPicker(dtpSaleDate);
                 }
             }
 
@@ -140,6 +140,7 @@ namespace ResaleV8
         private void btnSave_Click(object sender, EventArgs e)
         {
             txtID.BackColor = defaultTxtBackColor;
+            itemModel.Category = dt.Rows[0]["Category"].ToString();
             itemModel.SaleDate = dtpSaleDate.Value;
             itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
             DataAccess.updateItemInDatabase(itemModel, itemID);
