@@ -3,6 +3,7 @@
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.ExcelOps;
+using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
@@ -39,14 +40,20 @@ namespace ResaleV8
             MySqlConnection con = ConnectToDB.OpenDB();
             string query = "Select * from purchasedItems where SaleDate between "
                 + startDate + " and " + stopDate;
-            DataTable dt = DataAccess.getData(con, query);
+
+            List<ItemModel> dt = DataAccess.getModelList(query); 
+            if (dt == null)
+            {
+                MessageBox.Show("No items sold in DateBoldEventArgs range");
+            }
+            
             dgvSoldReport.DataSource = dt;
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            DataTable dt = (DataTable)dgvSoldReport.DataSource;
+            List<ItemModel> dt = (List<ItemModel>)dgvSoldReport.DataSource;
             ExcelOps.createExcelSheet(dt, "Sold Report",true, hiddenColumns);            
         }
 

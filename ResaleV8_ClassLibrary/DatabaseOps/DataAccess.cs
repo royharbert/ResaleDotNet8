@@ -82,10 +82,10 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
-        public static List<ItemModel> getModelList()
+        public static List<ItemModel> getModelList(string sql)
         {
             List<ItemModel> list = new List<ItemModel>();
-            string sql = "SELECT * FROM PurchasedItems";
+            //string sql = "SELECT * FROM PurchasedItems";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);

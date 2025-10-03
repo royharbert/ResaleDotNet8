@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ResaleV8_ClassLibrary.Models;
 
 namespace ResaleV8
 {
@@ -32,19 +33,25 @@ namespace ResaleV8
         private void frmUnsoldReport_Load(object sender, EventArgs e)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
-            dgvUnsold.DataSource = DataAccess.getData(con,
-                query: "Select * from purchasedItems where SaleDate = '1900-01-01'");
+            List<ItemModel> itemList = DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
+            dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { "ProductAge", "Profit" };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
                     "Purchase Price", "Sale Date", "Sale Price", "Storage Location",
                     "Product Age", "Profit" },
                 columnsToHide);
+            decimal totalCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = totalCost.ToString("C2");
+            int avgAge = (int)itemList.Average(item => item.ProductAge);
+            txtAvgAge.Text = avgAge.ToString();
+            int totalItems = itemList.Sum(item => item.Quantity);
+            txtItemTotal.Text = totalItems.ToString();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            DataTable dt = (DataTable)dgvUnsold.DataSource;
+            List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
             ExcelOps.createExcelSheet(dt, "Unsold Report", false, hiddenColumns);            
         }
     }

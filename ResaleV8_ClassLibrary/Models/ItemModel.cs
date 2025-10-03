@@ -41,6 +41,7 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _saleDate = value;
+                _daysHeld = (_saleDate - _purchaseDate).Days;
             }
         }
         public decimal SalePrice
@@ -53,6 +54,30 @@ namespace ResaleV8_ClassLibrary.Models
             {
                 _salePrice = value;
                 _profit = _salePrice - PurchasePrice;
+            }
+        }
+
+        public int ProductAge
+        {
+            get
+            {
+                if(SaleDate == new DateTime(1900, 01, 01))
+                {
+                    _daysHeld = (DateTime.Now - _purchaseDate).Days;
+                }
+                else
+                {
+                    _daysHeld = (SaleDate - _purchaseDate).Days;
+                }
+                return _daysHeld;
+            }
+        }
+
+        public decimal Profit
+        {
+            get
+            {
+                return _profit;
             }
         }
         public string StorageLocation { get; set; } = null!;

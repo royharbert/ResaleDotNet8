@@ -45,24 +45,44 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
-        public static void insertDataTable(Worksheet wks, int startRow, int startCol, System.Data.DataTable dt,
+        public static void insertDataTable(Worksheet wks, int startRow, int startCol, List<ItemModel> dt,
             bool isSoldReport)
         {
             int row = startRow;
             int col = startCol;
-            row = row + 1;
-            foreach (System.Data.DataRow dataRow in dt.Rows)
 
-                col = startCol;
-            for (row = startRow; row < (dt.Rows.Count + startRow); row++)
+            foreach (var item in dt)
             {
-                for (col = 1; col <= dt.Columns.Count; col++)
+                col = startCol;
+                wks.Cells[row, col++].Value = item.ItemID;
+                wks.Cells[row, col++].Value = item.Category;
+                wks.Cells[row, col++].Value = item.ItemDesc;
+                wks.Cells[row, col++].Value = item.Quantity;
+                wks.Cells[row, col++].Value = item.PurchaseDate.ToShortDateString();
+                wks.Cells[row, col++].Value = item.PurchasePrice;
+                wks.Cells[row, col++].Value = item.SaleDate.ToShortDateString();
+                wks.Cells[row, col++].Value = item.SalePrice;
+                wks.Cells[row, col++].Value = item.StorageLocation;
+                if (isSoldReport)
                 {
-                    wks.Cells[row, col].Value = dt.Rows[row - startRow][col - 1];
+                    placeProfitInCell(wks, row, 10);
+                    placeDaysHeldInCell(wks, row, 11);
                 }
-                placeProfitInCell(wks, row, 10);
-                placeDaysHeldInCell(wks, row, 11);
+                row = row + 1;
             }
+            //row = row + 1;
+            //foreach (System.Data.DataRow dataRow in dt.Rows)
+
+            //    col = startCol;
+            //for (row = startRow; row < (dt.Rows.Count + startRow); row++)
+            //{
+            //    for (col = 1; col <= dt.Columns.Count; col++)
+            //    {
+            //        wks.Cells[row, col].Value = dt.Rows[row - startRow][col - 1];
+            //    }
+            //    placeProfitInCell(wks, row, 10);
+            //    placeDaysHeldInCell(wks, row, 11);
+            //}
 
         }
 
@@ -281,7 +301,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
-        public static void createExcelSheet(System.Data.DataTable dt, string title, bool isSoldReport,
+        public static void createExcelSheet(List<ItemModel> dt, string title, bool isSoldReport,
             string[] hiddenColumns)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
