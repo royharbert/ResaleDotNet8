@@ -142,7 +142,7 @@ namespace ResaleV8
             txtID.BackColor = defaultTxtBackColor;
             itemModel.Category = dt.Rows[0]["Category"].ToString();
             itemModel.SaleDate = dtpSaleDate.Value;
-            itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
+            itemModel.SalePrice = Convert.ToDecimal(txtPrice.Text);
             DataAccess.updateItemInDatabase(itemModel, itemID);
             MySqlConnection con =  ConnectToDB.OpenDB();
             dt = DataAccess.getData(con, "Select * from purchasedItems where ItemID = " + txtID.Text);
@@ -151,7 +151,7 @@ namespace ResaleV8
                 loadItemModel(dt);
             }
             lblDaysOwned.Text = (itemModel.SaleDate - itemModel.PurchaseDate).TotalDays.ToString();
-            double profit = itemModel.SalePrice - itemModel.PurchasePrice;
+            decimal profit = itemModel.SalePrice - itemModel.PurchasePrice;
 
             if(itemModel.SaleDate.Year == 1900)
             {
@@ -180,7 +180,7 @@ namespace ResaleV8
         {
             itemModel.ItemDesc = dt.Rows[0]["ItemDesc"]?.ToString() ?? string.Empty;
             itemModel.PurchaseDate = Convert.ToDateTime(dt.Rows[0]["PurchaseDate"]);
-            itemModel.PurchasePrice = Convert.ToSingle(dt.Rows[0]["PurchasePrice"]);
+            itemModel.PurchasePrice = Convert.ToDecimal(dt.Rows[0]["PurchasePrice"]);
             itemModel.Quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]);
             itemModel.StorageLocation = dt.Rows[0]["StorageLocation"]?.ToString() ?? string.Empty;
             if (dt.Rows[0]["SaleDate"] != DBNull.Value)
@@ -189,7 +189,7 @@ namespace ResaleV8
             }
             if (dt.Rows[0]["SalePrice"] != DBNull.Value)
             {
-                itemModel.SalePrice = Convert.ToSingle(dt.Rows[0]["SalePrice"]);
+                itemModel.SalePrice = Convert.ToDecimal(dt.Rows[0]["SalePrice"]);
             }
 
         }
@@ -200,7 +200,7 @@ namespace ResaleV8
             itemModel.SaleDate = dtpSaleDate.Value;
             if (txtPrice.Text != "")
             {
-                itemModel.SalePrice = Convert.ToSingle(txtPrice.Text);
+                itemModel.SalePrice = Convert.ToDecimal(txtPrice.Text);
             }
             return itemModel;
         }

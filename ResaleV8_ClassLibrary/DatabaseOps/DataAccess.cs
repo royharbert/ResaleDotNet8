@@ -81,5 +81,35 @@ namespace ResaleV8_ClassLibrary
                 return dt;
             }
         }
+
+        public static List<ItemModel> getModelList()
+        {
+            List<ItemModel> list = new List<ItemModel>();
+            string sql = "SELECT * FROM PurchasedItems";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                ItemModel model = new ItemModel();
+                model.ItemID = Convert.ToInt32(reader["ItemID"]);
+                model.Category = reader["Category"].ToString();
+                model.ItemDesc = reader["ItemDesc"].ToString();
+                model.PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]);
+                model.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"]);
+                model.Quantity = Convert.ToInt32(reader["Quantity"]);
+                if (reader["SaleDate"] != DBNull.Value)
+                    model.SaleDate = Convert.ToDateTime(reader["SaleDate"]);
+                if (reader["SalePrice"] != DBNull.Value)
+                    model.SalePrice = Convert.ToDecimal(reader["SalePrice"]);
+                model.StorageLocation = reader["StorageLocation"].ToString();
+                //model.Profit = Convert.ToDecimal(reader["Profit"]);
+                //model.ProductAge = Convert.ToInt32(reader["ProductAge"]);
+                list.Add(model);
+            }
+            con.Close();
+            return list;
+        }
     }
 }

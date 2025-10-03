@@ -11,11 +11,11 @@ namespace ResaleV8_ClassLibrary.Models
         int _daysHeld = 0;
         DateTime _saleDate = new DateTime(1900,01,01);
         DateTime _purchaseDate;
-        float _salePrice = 0.0f;
-        float _profit = 0.0f;
+        decimal _salePrice = 0.0M;
+        decimal _profit = 0.0M;
 
-        public  int ItemID{ get;}
-        public string Category { get; set; }
+        public  int ItemID{ get; set;  }
+        public string? Category { get; set; }
         public string ItemDesc { get; set; } = null!;
         public int Quantity { get; set; }
         public DateTime PurchaseDate
@@ -31,7 +31,7 @@ namespace ResaleV8_ClassLibrary.Models
                 _daysHeld = (DateTime.Now - _purchaseDate).Days;
             }
         }
-        public float PurchasePrice { get; set; }
+        public decimal PurchasePrice { get; set; }
         public DateTime SaleDate
         {
             get
@@ -43,7 +43,7 @@ namespace ResaleV8_ClassLibrary.Models
                 _saleDate = value;
             }
         }
-        public float SalePrice
+        public decimal SalePrice
         {
             get
             {

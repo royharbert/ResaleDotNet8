@@ -29,11 +29,11 @@ namespace ResaleV8
             model.ItemDesc = txtDesc.Text;
             model.Category = cboCategory.Text;
             model.PurchaseDate = dtpBuy.Value;
-            model.PurchasePrice = float.Parse(txtPurchasePrice.Text);
+            model.PurchasePrice = decimal.Parse(txtPurchasePrice.Text);
             model.Quantity = int.Parse(txtQuantity.Text);
             model.StorageLocation = cboStorage.Text;
             model.SaleDate = new DateTime(1900, 01, 01);
-            model.SalePrice = 0.0f;
+            model.SalePrice = 0.0M;
 
             return model;
         }
