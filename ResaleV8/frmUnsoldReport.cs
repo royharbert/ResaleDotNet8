@@ -19,6 +19,7 @@ namespace ResaleV8
 {
     public partial class frmUnsoldReport : Form
     {
+        EventArgs e = new EventArgs();
         string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit" };
         public frmUnsoldReport()
         {
@@ -33,13 +34,15 @@ namespace ResaleV8
         private void frmUnsoldReport_Load(object sender, EventArgs e)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
-            List<ItemModel> itemList = DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
+            List<ItemModel> itemList = 
+                    DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
+            GV.itemList = itemList;
             dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { "ProductAge", "Profit" };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
-                    "Purchase Price", "Sale Date", "Sale Price", "Storage Location",
-                    "Product Age", "Profit" },
+                    "Purchase Price", "Sale Date", "Sale Price", "Profit",
+                    "Product Age", "Storage Location" },
                 columnsToHide);
             decimal totalCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = totalCost.ToString("C2");
@@ -51,8 +54,8 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
-            ExcelOps.createExcelSheet(dt, "Unsold Report", false, hiddenColumns);            
+            //List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
+            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report", false, hiddenColumns);            
         }
     }
 }

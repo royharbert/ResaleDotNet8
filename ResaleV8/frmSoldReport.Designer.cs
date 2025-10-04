@@ -36,6 +36,14 @@
             label2 = new Label();
             btnClose = new Button();
             btnRun = new Button();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            txtTotRevenue = new TextBox();
+            txtAvgPct = new TextBox();
+            txtTotMargin = new TextBox();
+            txtTotalCost = new TextBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvSoldReport).BeginInit();
             SuspendLayout();
             // 
@@ -45,19 +53,19 @@
             dgvSoldReport.Location = new Point(334, 12);
             dgvSoldReport.Name = "dgvSoldReport";
             dgvSoldReport.RowHeadersWidth = 51;
-            dgvSoldReport.Size = new Size(864, 594);
+            dgvSoldReport.Size = new Size(1200, 877);
             dgvSoldReport.TabIndex = 0;
             // 
             // dtpStart
             // 
-            dtpStart.Location = new Point(24, 190);
+            dtpStart.Location = new Point(38, 190);
             dtpStart.Name = "dtpStart";
             dtpStart.Size = new Size(250, 27);
             dtpStart.TabIndex = 1;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(78, 484);
+            btnExport.Location = new Point(105, 783);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(140, 29);
             btnExport.TabIndex = 2;
@@ -67,7 +75,7 @@
             // 
             // dtpStop
             // 
-            dtpStop.Location = new Point(24, 280);
+            dtpStop.Location = new Point(38, 280);
             dtpStop.Name = "dtpStop";
             dtpStop.Size = new Size(250, 27);
             dtpStop.TabIndex = 3;
@@ -75,7 +83,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(116, 161);
+            label1.Location = new Point(130, 161);
             label1.Name = "label1";
             label1.Size = new Size(76, 20);
             label1.TabIndex = 4;
@@ -84,7 +92,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(116, 253);
+            label2.Location = new Point(137, 253);
             label2.Name = "label2";
             label2.Size = new Size(70, 20);
             label2.TabIndex = 5;
@@ -92,7 +100,7 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(78, 519);
+            btnClose.Location = new Point(105, 825);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(140, 29);
             btnClose.TabIndex = 6;
@@ -102,19 +110,93 @@
             // 
             // btnRun
             // 
-            btnRun.Location = new Point(78, 417);
+            btnRun.BackColor = Color.LawnGreen;
+            btnRun.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRun.Location = new Point(113, 366);
             btnRun.Name = "btnRun";
-            btnRun.Size = new Size(140, 29);
+            btnRun.Size = new Size(125, 68);
             btnRun.TabIndex = 7;
             btnRun.Text = "Run";
-            btnRun.UseVisualStyleBackColor = true;
+            btnRun.UseVisualStyleBackColor = false;
             btnRun.Click += btnRun_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(92, 500);
+            label3.Name = "label3";
+            label3.Size = new Size(164, 20);
+            label3.TabIndex = 8;
+            label3.Text = "Total Revenue in Period";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(97, 627);
+            label4.Name = "label4";
+            label4.Size = new Size(155, 20);
+            label4.TabIndex = 9;
+            label4.Text = "Total Margin in Period";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(78, 698);
+            label5.Name = "label5";
+            label5.Size = new Size(192, 20);
+            label5.TabIndex = 10;
+            label5.Text = "Average Margin Percentage";
+            // 
+            // txtTotRevenue
+            // 
+            txtTotRevenue.Location = new Point(113, 523);
+            txtTotRevenue.Name = "txtTotRevenue";
+            txtTotRevenue.Size = new Size(125, 27);
+            txtTotRevenue.TabIndex = 11;
+            // 
+            // txtAvgPct
+            // 
+            txtAvgPct.Location = new Point(113, 724);
+            txtAvgPct.Name = "txtAvgPct";
+            txtAvgPct.Size = new Size(125, 27);
+            txtAvgPct.TabIndex = 12;
+            // 
+            // txtTotMargin
+            // 
+            txtTotMargin.Location = new Point(113, 650);
+            txtTotMargin.Name = "txtTotMargin";
+            txtTotMargin.Size = new Size(125, 27);
+            txtTotMargin.TabIndex = 13;
+            // 
+            // txtTotalCost
+            // 
+            txtTotalCost.Location = new Point(113, 586);
+            txtTotalCost.Name = "txtTotalCost";
+            txtTotalCost.Size = new Size(125, 27);
+            txtTotalCost.TabIndex = 15;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(92, 561);
+            label6.Name = "label6";
+            label6.Size = new Size(171, 20);
+            label6.TabIndex = 14;
+            label6.Text = "Total Item Cost in Period";
             // 
             // frmSoldReport
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1210, 687);
+            ClientSize = new Size(1413, 913);
+            Controls.Add(txtTotalCost);
+            Controls.Add(label6);
+            Controls.Add(txtTotMargin);
+            Controls.Add(txtAvgPct);
+            Controls.Add(txtTotRevenue);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(btnRun);
             Controls.Add(btnClose);
             Controls.Add(label2);
@@ -125,6 +207,7 @@
             Controls.Add(dgvSoldReport);
             Name = "frmSoldReport";
             Text = "Sold Report";
+            WindowState = FormWindowState.Maximized;
             Load += frmSoldReport_Load;
             ((System.ComponentModel.ISupportInitialize)dgvSoldReport).EndInit();
             ResumeLayout(false);
@@ -141,5 +224,13 @@
         private Label label2;
         private Button btnClose;
         private Button btnRun;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private TextBox txtTotRevenue;
+        private TextBox txtAvgPct;
+        private TextBox txtTotMargin;
+        private TextBox txtTotalCost;
+        private Label label6;
     }
 }

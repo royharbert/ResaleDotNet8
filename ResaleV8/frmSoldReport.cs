@@ -34,7 +34,7 @@ namespace ResaleV8
         private void btnRun_Click(object sender, EventArgs e)
         {            
             string[] headers = { "ID", "Category", "Item Description", "Quantity", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Storage Location" };
+                "Purchase Price", "Sale Date", "Sale Price", "Days Held", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -42,6 +42,7 @@ namespace ResaleV8
                 + startDate + " and " + stopDate;
 
             List<ItemModel> dt = DataAccess.getModelList(query); 
+            GV.itemList = dt;
             if (dt == null)
             {
                 MessageBox.Show("No items sold in DateBoldEventArgs range");
@@ -49,6 +50,16 @@ namespace ResaleV8
             
             dgvSoldReport.DataSource = dt;
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
+            decimal totalSales = dt.Sum(item => item.SalePrice * item.Quantity);
+            txtTotRevenue.Text = totalSales.ToString("C2");
+            decimal totalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = totalCost.ToString("C2");
+            decimal totalProfit = totalSales - totalCost;
+            txtTotMargin.Text = totalProfit.ToString("C2");
+            if (totalCost != 0)
+            {
+                txtAvgPct.Text = (totalProfit / totalCost).ToString("P2"); 
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e)

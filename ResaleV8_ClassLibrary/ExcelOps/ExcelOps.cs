@@ -63,43 +63,10 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 wks.Cells[row, col++].Value = item.SaleDate.ToShortDateString();
                 wks.Cells[row, col++].Value = item.SalePrice;
                 wks.Cells[row, col++].Value = item.StorageLocation;
-                if (isSoldReport)
-                {
-                    placeProfitInCell(wks, row, 10);
-                    placeDaysHeldInCell(wks, row, 11);
-                }
+                wks.Cells[row, col++].Value = item.Profit;
+                wks.Cells[row, col++].Value = item.ProductAge;
                 row = row + 1;
             }
-            //row = row + 1;
-            //foreach (System.Data.DataRow dataRow in dt.Rows)
-
-            //    col = startCol;
-            //for (row = startRow; row < (dt.Rows.Count + startRow); row++)
-            //{
-            //    for (col = 1; col <= dt.Columns.Count; col++)
-            //    {
-            //        wks.Cells[row, col].Value = dt.Rows[row - startRow][col - 1];
-            //    }
-            //    placeProfitInCell(wks, row, 10);
-            //    placeDaysHeldInCell(wks, row, 11);
-            //}
-
-        }
-
-        public static int placeDaysHeldInCell(Excel.Worksheet wks, int row, int col)
-        {
-            DateTime purchaseDate = (DateTime)wks.Cells[row, 5].Value;
-            DateTime saleDate = (DateTime)wks.Cells[row, 7].Value;
-            if (saleDate.Year == 1900)
-            {
-                saleDate = DateTime.Now;
-            }
-            return wks.Cells[row, col].Value = (saleDate - purchaseDate).Days;
-        }
-
-        public static double placeProfitInCell(Excel.Worksheet wks, int row, int col)
-        {
-            return wks.Cells[row, col].Value = wks.Cells[row, 8].Value - wks.Cells[row, 6].Value;
         }
 
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
@@ -171,13 +138,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 }
 
                 string formatString = "$#,###,###.00";
-                //string decimalString = "";
-                //if (decimals > 0)
-                //{
-                //    decimalString = ".00" + new string('#', decimals) + decimalString;
-                //}
+                
                 Excel.Range range = wks.Range[wks.Cells[bounds[0], bounds[2]], wks.Cells[bounds[1], bounds[3]]];
-                //formatString = formatString + decimalString;
                 range.NumberFormat = formatString;
             }
         }
