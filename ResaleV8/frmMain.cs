@@ -46,6 +46,7 @@ namespace ResaleV8
             DataTable dtLoc = DataAccess.getData(con, "Select Location from StorageLocations");
             GV.storageLocations = (from row in dtLoc.AsEnumerable()
                                    select row.Field<string>("Location")).ToList();
+            GV.businessSummary = new BusinessSummary();
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)

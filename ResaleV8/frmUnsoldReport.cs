@@ -44,12 +44,12 @@ namespace ResaleV8
                     "Purchase Price", "Sale Date", "Sale Price", "Profit",
                     "Product Age", "Storage Location" },
                 columnsToHide);
-            decimal totalCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
-            txtTotalCost.Text = totalCost.ToString("C2");
-            int avgAge = (int)itemList.Average(item => item.ProductAge);
-            txtAvgAge.Text = avgAge.ToString();
-            int totalItems = itemList.Sum(item => item.Quantity);
-            txtItemTotal.Text = totalItems.ToString();
+            GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");
+            GV.businessSummary.AvgUnsoldAge = (int)itemList.Average(item => item.ProductAge);
+            txtAvgAge.Text = GV.businessSummary.AvgUnsoldAge.ToString();
+            GV.businessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
+            txtItemTotal.Text = GV.businessSummary.UnsoldItemsCount.ToString();
         }
 
         private void btnExport_Click(object sender, EventArgs e)

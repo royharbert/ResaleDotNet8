@@ -50,15 +50,17 @@ namespace ResaleV8
             
             dgvSoldReport.DataSource = dt;
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
-            decimal totalSales = dt.Sum(item => item.SalePrice * item.Quantity);
-            txtTotRevenue.Text = totalSales.ToString("C2");
-            decimal totalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
-            txtTotalCost.Text = totalCost.ToString("C2");
-            decimal totalProfit = totalSales - totalCost;
-            txtTotMargin.Text = totalProfit.ToString("C2");
-            if (totalCost != 0)
+            GV.businessSummary.TotalSales = dt.Sum(item => item.SalePrice * item.Quantity);
+            txtTotRevenue.Text = GV.businessSummary.TotalSales.ToString("C2");
+            GV.businessSummary.TotalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = GV.businessSummary.TotalCost.ToString("C2");
+            GV.businessSummary.TotalMargin= GV.businessSummary.TotalSales - GV.businessSummary.TotalCost;
+            txtTotMargin.Text = GV.businessSummary.TotalMargin.ToString("C2");
+            if (GV.businessSummary.TotalCost != 0)
             {
-                txtAvgPct.Text = (totalProfit / totalCost).ToString("P2"); 
+                GV.businessSummary.MarginPercentage = (GV.businessSummary.TotalSales / GV.businessSummary.TotalCost)
+                    * 100;
+                txtAvgPct.Text = GV.businessSummary.MarginPercentage.ToString(); 
             }
         }
 
