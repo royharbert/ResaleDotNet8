@@ -29,16 +29,18 @@ namespace ResaleV8
                     string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
                         "txtStorage" };
                     enableDisableControls(ctlsToEnable, true);
+                    this.AcceptButton = btnSave;
                     break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
                     enableDisableControls(allControls, true);
                     dtpSaleDate.Format = DateTimePickerFormat.Long;
                     dtpSaleDate.Value = DateTime.Now;
-                    txtID.Focus();  
+                    this.AcceptButton = btnRetrieve;
                     break;
                 case Mode.Delete:
                     this.Text = this.Text + " Delete Item";
+                    this.AcceptButton = btnDelete;
                     break;
             }
         }
@@ -54,37 +56,40 @@ namespace ResaleV8
             else
             {
                 model = null;
-                MessageBox.Show("Item not found.");
             }
-            return model;
+
+                return model;
         }
         void placeDataOnForm(ItemModel model)
         {
-            txtID.Text = model.ItemID.ToString();
-            txtDesc.Text = model.ItemDesc;
-            cboCategory.Text = model.Category;
-            dtpBuy.Value = model.PurchaseDate;
-            txtPurchasePrice.Text = model.PurchasePrice.ToString("0.00");
-            txtQuantity.Text = model.Quantity.ToString();
-            cboStorage.Text = model.StorageLocation;
-            if (model.SaleDate > new DateTime(1900, 01, 01))
+            if (model != null && model.ItemID != 0)
             {
-                dtpSaleDate.Value = model.SaleDate;
-                dtpSaleDate.Format = DateTimePickerFormat.Long;
-            }
-            else
-            {
-                dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                dtpSaleDate.CustomFormat = " ";
-            }
-            if (model.SalePrice > 0.0M)
-            {
-                txtPrice.Text = model.SalePrice.ToString("0.00");
-            }
-            else
-            {
-                txtPrice.Text = "";
-            }
+                txtID.Text = model.ItemID.ToString();
+                txtDesc.Text = model.ItemDesc;
+                cboCategory.Text = model.Category;
+                dtpBuy.Value = model.PurchaseDate;
+                txtPurchasePrice.Text = model.PurchasePrice.ToString("0.00");
+                txtQuantity.Text = model.Quantity.ToString();
+                cboStorage.Text = model.StorageLocation;
+                if (model.SaleDate > new DateTime(1900, 01, 01))
+                {
+                    dtpSaleDate.Value = model.SaleDate;
+                    dtpSaleDate.Format = DateTimePickerFormat.Long;
+                }
+                else
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.CustomFormat = " ";
+                }
+                if (model.SalePrice > 0.0M)
+                {
+                    txtPrice.Text = model.SalePrice.ToString("0.00");
+                }
+                else
+                {
+                    txtPrice.Text = "";
+                }
+            } 
         }
 
         void disableAllControls()
@@ -119,11 +124,12 @@ namespace ResaleV8
             cboStorage.DataSource = GV.storageLocations;
             cboStorage.SelectedIndex = -1;
             prepareForm();
-            dtpSaleDate.Format = DateTimePickerFormat.Custom;
             if (GV.MODE == Mode.Add)
             {
+                dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
             }
+            txtID.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -138,6 +144,8 @@ namespace ResaleV8
                     break;
                 case Mode.Edit:
                     // Update existing item in database
+                    loadModel();
+                    DataAccess.updateItemInDatabase(model, model.ItemID);
                     break;
                 case Mode.Delete:
                     // Delete item from database
@@ -205,7 +213,15 @@ namespace ResaleV8
         private void btnRetrieve_Click(object sender, EventArgs e)
         {
             ItemModel model = getItem();
-            placeDataOnForm(model);
+            if (model != null)
+            {
+                placeDataOnForm(model); 
+            }
+            else
+            {
+                MessageBox.Show("Item not found");
+            }
+            this.AcceptButton = btnSave;
         }
     }
 }
