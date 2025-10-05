@@ -1,4 +1,5 @@
-﻿using ResaleV8_ClassLibrary.Models;
+﻿using ResaleV8;
+using ResaleV8_ClassLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,24 @@ namespace ResaleV8_ClassLibrary
         public static List<string>? storageLocations { get; set; }
         public static List<ItemModel>? itemList { get; set; }
         public static BusinessSummary businessSummary { get; set; }
+        public static Mode MODE
+        {
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                if (mode != PreviousMode)
+                {
+                    PreviousMode = mode;
+                }
+                mode = value;
+            }
+        }
+        public static Mode PreviousMode { get; set; }
+
+        private static Mode mode = Mode.None;
     }
 
         

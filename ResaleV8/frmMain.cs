@@ -69,5 +69,34 @@ namespace ResaleV8
             markSoldForm.MdiParent = this;
             markSoldForm.Show();
         }
+
+        private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            GV.MODE = Mode.Add;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this;
+            allItemsForm.Show();
+        }
+
+        private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.MODE = Mode.Edit;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this;
+            allItemsForm.Show();
+        }
+
+        private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.MODE = Mode.Delete;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this;
+            allItemsForm.Show();
+        }
+
+        private void editRecordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

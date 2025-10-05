@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResaleV8", "ResaleV8\ResaleV8.csproj", "{049560FD-9BB7-447A-AC89-5FC36D328402}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResaleV8_ClassLibrary", "ResaleV8_ClassLibrary\ResaleV8_ClassLibrary.csproj", "{E109964F-596F-4CF9-8B6D-11164615E35E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Resale Database Setup", "Resale Database Setup\Resale Database Setup.vdproj", "{65E29FB7-5E11-D4FD-A133-E4EFD6BDEB55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,8 @@ Global
 		{E109964F-596F-4CF9-8B6D-11164615E35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E109964F-596F-4CF9-8B6D-11164615E35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E109964F-596F-4CF9-8B6D-11164615E35E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E29FB7-5E11-D4FD-A133-E4EFD6BDEB55}.Debug|Any CPU.ActiveCfg = Debug
+		{65E29FB7-5E11-D4FD-A133-E4EFD6BDEB55}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

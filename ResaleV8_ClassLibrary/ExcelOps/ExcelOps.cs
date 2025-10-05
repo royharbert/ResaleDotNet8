@@ -276,7 +276,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             return xlApp;
         }
 
-        public static void releaseObject(object obj)
+        public static void releaseObject(object? obj)
         {
             try
             {
