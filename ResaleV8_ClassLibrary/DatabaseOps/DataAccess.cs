@@ -38,8 +38,8 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@SaleDate", model.SaleDate);
             cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
             cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
-            //cmd.Parameters.AddWithValue("@Profit", model.Profit);
-            //cmd.Parameters.AddWithValue("@ProductAge", model.ProductAge);
+            cmd.Parameters.AddWithValue("@Profit", model.Profit);
+            cmd.Parameters.AddWithValue("@ProductAge", model.ProductAge);
 
             object result = cmd.ExecuteScalar();
             int newID = Convert.ToInt32(cmd.LastInsertedId);
@@ -110,6 +110,14 @@ namespace ResaleV8_ClassLibrary
             }
             con.Close();
             return list;
+        }
+
+        public static void deleteRecord(int ID)
+        {
+            string sql = "delete from purchasedItems where ItemID = " + ID.ToString();
+            MySqlConnection con = ConnectToDB.OpenDB();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
         }
     }
 }

@@ -72,7 +72,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(240, 35);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 29);
+            txtID.Size = new Size(338, 34);
             txtID.TabIndex = 0;
             // 
             // label2
@@ -89,7 +89,7 @@
             // 
             txtDesc.Location = new Point(240, 115);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 29);
+            txtDesc.Size = new Size(338, 34);
             txtDesc.TabIndex = 2;
             // 
             // label3
@@ -106,7 +106,7 @@
             // 
             txtQuantity.Location = new Point(240, 154);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 29);
+            txtQuantity.Size = new Size(338, 34);
             txtQuantity.TabIndex = 3;
             // 
             // label4
@@ -133,7 +133,7 @@
             // 
             txtPurchasePrice.Location = new Point(240, 231);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 29);
+            txtPurchasePrice.Size = new Size(338, 34);
             txtPurchasePrice.TabIndex = 5;
             // 
             // label6
@@ -160,7 +160,7 @@
             // 
             txtPrice.Location = new Point(241, 349);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 29);
+            txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 8;
             // 
             // label8
@@ -188,7 +188,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(240, 390);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 29);
+            txtProfit.Size = new Size(338, 34);
             txtProfit.TabIndex = 9;
             // 
             // label10
@@ -206,7 +206,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(240, 429);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 29);
+            txtDaysHeld.Size = new Size(338, 34);
             txtDaysHeld.TabIndex = 10;
             // 
             // label11
@@ -224,7 +224,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(240, 74);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 29);
+            cboCategory.Size = new Size(339, 36);
             cboCategory.TabIndex = 1;
             cboCategory.Leave += comboListMaintenance;
             // 
@@ -233,7 +233,7 @@
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(240, 269);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(337, 29);
+            cboStorage.Size = new Size(337, 36);
             cboStorage.TabIndex = 6;
             cboStorage.Leave += comboListMaintenance;
             // 
@@ -241,14 +241,14 @@
             // 
             dtpBuy.Location = new Point(240, 193);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 29);
+            dtpBuy.Size = new Size(338, 34);
             dtpBuy.TabIndex = 4;
             // 
             // dtpSaleDate
             // 
             dtpSaleDate.Location = new Point(241, 310);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 29);
+            dtpSaleDate.Size = new Size(338, 34);
             dtpSaleDate.TabIndex = 7;
             // 
             // btnSave
@@ -298,10 +298,11 @@
             btnDelete.TabIndex = 21;
             btnDelete.Text = "Delete Item";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click_1;
             // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 630);
             Controls.Add(btnDelete);
