@@ -58,11 +58,16 @@ namespace ResaleV8
                     string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
                         "txtStorage" };
                     enableDisableControls(ctlsToEnable, true);
+                    txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
                     break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
                     enableDisableControls(allControls, true);
+                    if(model.SalePrice == 0)
+                    {
+                        txtPrice.Text = "0";
+                    }
                     //dtpSaleDate.Format = DateTimePickerFormat.Long;
                     //dtpSaleDate.Value = DateTime.Now;
                     this.AcceptButton = btnRetrieve;
@@ -78,7 +83,18 @@ namespace ResaleV8
 
         ItemModel getItem()
         {
-            string sql = "Select * from PurchasedItems where ItemID = " + txtID.Text;
+            string sql = "";
+            if (txtID.Text != "")
+            {
+                sql = "Select * from PurchasedItems where ItemID = " + txtID.Text; 
+            }
+            else
+            {
+                enableDisableControls(allControls, false);
+                txtID.Enabled = true;
+                MessageBox.Show("Please enter an Item ID");
+                return null;
+            }
             List<ItemModel> items = DataAccess.getModelList(sql);
             if (items.Count > 0)
             {
@@ -118,7 +134,7 @@ namespace ResaleV8
                 }
                 else
                 {
-                    txtPrice.Text = "";
+                    txtPrice.Text = "0";
                 }
                 //model.Profit = model.SalePrice - model.PurchasePrice;
                 //model.ProductAge = (DateTime.Now - model.PurchaseDate).Days;
@@ -191,8 +207,15 @@ namespace ResaleV8
             model.ItemDesc = txtDesc.Text;
             model.Category = cboCategory.Text;
             model.PurchaseDate = dtpBuy.Value;
-            model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
-            model.Quantity = int.Parse(txtQuantity.Text);
+            if (txtPurchasePrice.Text.Contains('$'))
+            {
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1)); 
+            }
+            else
+            {
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
+            }
+                model.Quantity = int.Parse(txtQuantity.Text);
             model.StorageLocation = cboStorage.Text;
             if (GV.MODE != Mode.Edit)
             {
@@ -268,12 +291,12 @@ namespace ResaleV8
                 placeDataOnForm(model);
                 dtpSaleDate.Format = DateTimePickerFormat.Long;
                 dtpSaleDate.Value = DateTime.Now;
+                txtID.Enabled = false;
             }
             else
             {
                 MessageBox.Show("Item not found");
             }
-            txtID.Enabled = false;
             this.AcceptButton = btnSave;
         }
 

@@ -162,6 +162,7 @@
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 8;
+            txtPrice.Text = "0";
             // 
             // label8
             // 
