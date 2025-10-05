@@ -34,7 +34,7 @@ namespace ResaleV8
         private void frmUnsoldReport_Load(object sender, EventArgs e)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
-            List<ItemModel> itemList = 
+            List<ItemModel> itemList =
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.itemList = itemList;
             dgvUnsold.DataSource = itemList;
@@ -55,7 +55,19 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             //List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
-            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report", false, hiddenColumns);            
+            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report", false, hiddenColumns);
+        }
+
+        private void dgvUnsold_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int row = e.RowIndex;
+            int itemID = (int)dgvUnsold.Rows[row].Cells["ItemID"].Value;
+            GV.MODE = Mode.Edit;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this.MdiParent;
+            allItemsForm.Show();
+            allItemsForm.item = itemID;
+            allItemsForm.Focus();
         }
     }
 }

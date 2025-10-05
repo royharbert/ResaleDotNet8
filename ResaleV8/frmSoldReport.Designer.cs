@@ -55,6 +55,7 @@
             dgvSoldReport.RowHeadersWidth = 51;
             dgvSoldReport.Size = new Size(1200, 877);
             dgvSoldReport.TabIndex = 0;
+            dgvSoldReport.RowHeaderMouseDoubleClick += dgvSoldReport_RowHeaderMouseDoubleClick;
             // 
             // dtpStart
             // 

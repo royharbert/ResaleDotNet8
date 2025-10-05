@@ -43,19 +43,18 @@
             // dgvUnsold
             // 
             dgvUnsold.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUnsold.Location = new Point(18, 8);
-            dgvUnsold.Margin = new Padding(3, 2, 3, 2);
+            dgvUnsold.Location = new Point(21, 11);
             dgvUnsold.Name = "dgvUnsold";
             dgvUnsold.RowHeadersWidth = 51;
-            dgvUnsold.Size = new Size(1137, 409);
+            dgvUnsold.Size = new Size(1299, 545);
             dgvUnsold.TabIndex = 0;
+            dgvUnsold.RowHeaderMouseDoubleClick += dgvUnsold_RowHeaderMouseDoubleClick;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(877, 552);
-            btnExport.Margin = new Padding(3, 2, 3, 2);
+            btnExport.Location = new Point(1002, 736);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(112, 22);
+            btnExport.Size = new Size(128, 29);
             btnExport.TabIndex = 1;
             btnExport.Text = "Export to Excel";
             btnExport.UseVisualStyleBackColor = true;
@@ -63,10 +62,9 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(1043, 552);
-            btnClose.Margin = new Padding(3, 2, 3, 2);
+            btnClose.Location = new Point(1192, 736);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(112, 22);
+            btnClose.Size = new Size(128, 29);
             btnClose.TabIndex = 2;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -74,57 +72,60 @@
             // 
             // txtTotalCost
             // 
-            txtTotalCost.Location = new Point(144, 487);
+            txtTotalCost.Location = new Point(165, 649);
+            txtTotalCost.Margin = new Padding(3, 4, 3, 4);
             txtTotalCost.Name = "txtTotalCost";
-            txtTotalCost.Size = new Size(83, 23);
+            txtTotalCost.Size = new Size(94, 27);
             txtTotalCost.TabIndex = 3;
             // 
             // txtAvgAge
             // 
-            txtAvgAge.Location = new Point(329, 487);
+            txtAvgAge.Location = new Point(376, 649);
+            txtAvgAge.Margin = new Padding(3, 4, 3, 4);
             txtAvgAge.Name = "txtAvgAge";
-            txtAvgAge.Size = new Size(83, 23);
+            txtAvgAge.Size = new Size(94, 27);
             txtAvgAge.TabIndex = 4;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(117, 460);
+            label1.Location = new Point(134, 613);
             label1.Name = "label1";
-            label1.Size = new Size(146, 15);
+            label1.Size = new Size(183, 20);
             label1.TabIndex = 5;
             label1.Text = "Total Cost of Unsold Items";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(286, 460);
+            label2.Location = new Point(327, 613);
             label2.Name = "label2";
-            label2.Size = new Size(160, 15);
+            label2.Size = new Size(203, 20);
             label2.TabIndex = 6;
             label2.Text = "Average Age of Unsold Items";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(518, 460);
+            label3.Location = new Point(592, 613);
             label3.Name = "label3";
-            label3.Size = new Size(105, 15);
+            label3.Size = new Size(132, 20);
             label3.TabIndex = 8;
             label3.Text = "Total Unsold Items";
             // 
             // txtItemTotal
             // 
-            txtItemTotal.Location = new Point(529, 487);
+            txtItemTotal.Location = new Point(605, 649);
+            txtItemTotal.Margin = new Padding(3, 4, 3, 4);
             txtItemTotal.Name = "txtItemTotal";
-            txtItemTotal.Size = new Size(83, 23);
+            txtItemTotal.Size = new Size(94, 27);
             txtItemTotal.TabIndex = 7;
             // 
             // frmUnsoldReport
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1165, 585);
+            ClientSize = new Size(1331, 780);
             Controls.Add(label3);
             Controls.Add(txtItemTotal);
             Controls.Add(label2);
@@ -134,7 +135,6 @@
             Controls.Add(btnClose);
             Controls.Add(btnExport);
             Controls.Add(dgvUnsold);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "frmUnsoldReport";
             Text = "Unsold Items";
             Load += frmUnsoldReport_Load;

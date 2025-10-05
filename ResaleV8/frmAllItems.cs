@@ -16,6 +16,35 @@ namespace ResaleV8
 {
     public partial class frmAllItems : Form
     {
+        private int _item;
+
+        public int item
+        {
+            get 
+            { 
+                return _item; 
+            }
+
+            set 
+            { 
+                _item = value;
+                txtID.Text = _item.ToString();
+                btnRetrieve.PerformClick();
+                if(model.SaleDate > new DateTime(1900,01,01))
+                {
+                    txtProfit.Enabled = true;
+                    txtProfit.Text = model.Profit.ToString("$0.00");
+                    txtDaysHeld.Enabled = true; 
+                    txtDaysHeld.Text = model.ProductAge.ToString();
+                }
+                else
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.CustomFormat = " ";
+                }
+            }
+        }
+
         ItemModel model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
                         "StorageLocation", "dtpSaleDate", "txtPrice", "txtID" };
