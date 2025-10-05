@@ -101,6 +101,7 @@ namespace ResaleV8
                         ea.newItem = cboCategory.Text;
                         ea.tableName = "Categories";
                         ea.columnName = "Category";
+                        cboCategory.Text = ea.newItem;
                     }
                 }
                 ;
@@ -110,6 +111,7 @@ namespace ResaleV8
                     ea.newItem = cboStorage.Text;
                     ea.tableName = "storageLocations";
                     ea.columnName = "Location";
+                    cboStorage.Text = ea.newItem;
                 }
                 DataAccess.addDropDownItemToTable(ea);
 

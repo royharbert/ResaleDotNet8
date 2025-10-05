@@ -86,5 +86,10 @@ namespace ResaleV8
             allItemsForm.item = itemID;
             allItemsForm.Focus();
         }
+
+        private void frmSoldReport_Leave(object sender, EventArgs e)
+        {
+
+        }
     }
 }

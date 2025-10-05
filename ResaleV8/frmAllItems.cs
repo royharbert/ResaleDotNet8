@@ -20,21 +20,21 @@ namespace ResaleV8
 
         public int item
         {
-            get 
-            { 
-                return _item; 
+            get
+            {
+                return _item;
             }
 
-            set 
-            { 
+            set
+            {
                 _item = value;
                 txtID.Text = _item.ToString();
                 btnRetrieve.PerformClick();
-                if(model.SaleDate > new DateTime(1900,01,01))
+                if (model.SaleDate > new DateTime(1900, 01, 01))
                 {
                     txtProfit.Enabled = true;
                     txtProfit.Text = model.Profit.ToString("$0.00");
-                    txtDaysHeld.Enabled = true; 
+                    txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
                 }
                 else
@@ -256,7 +256,7 @@ namespace ResaleV8
 
                 cboCategory.DataSource = null;
                 cboCategory.DataSource = GV.categories;
-                cboCategory.SelectedItem = model.Category;
+                cboCategory.Text = ea.newItem;
             }
         }
 
@@ -281,7 +281,7 @@ namespace ResaleV8
         {
             getItem();
             placeDataOnForm(model);
-            DialogResult dr = MessageBox.Show("Are you sure?", "Confirm Delete", 
+            DialogResult dr = MessageBox.Show("Are you sure?", "Confirm Delete",
                 MessageBoxButtons.OKCancel);
             if (dr == DialogResult.OK)
             {
@@ -289,6 +289,11 @@ namespace ResaleV8
                 MessageBox.Show("Item Deleted");
             }
 
+        }
+
+        private void cboCategory_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
         }
     }
 }

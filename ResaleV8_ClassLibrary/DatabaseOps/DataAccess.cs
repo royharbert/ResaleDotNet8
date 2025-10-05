@@ -20,6 +20,7 @@ namespace ResaleV8_ClassLibrary
             int newID = Convert.ToInt32(cmd.LastInsertedId);
 
             con.Close();
+            
             return newID;
         }
 

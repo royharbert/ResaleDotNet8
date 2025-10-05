@@ -210,6 +210,7 @@
             Text = "Sold Report";
             WindowState = FormWindowState.Maximized;
             Load += frmSoldReport_Load;
+            Leave += frmSoldReport_Leave;
             ((System.ComponentModel.ISupportInitialize)dgvSoldReport).EndInit();
             ResumeLayout(false);
             PerformLayout();

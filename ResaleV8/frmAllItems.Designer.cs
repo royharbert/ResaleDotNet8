@@ -226,7 +226,7 @@
             cboCategory.Name = "cboCategory";
             cboCategory.Size = new Size(339, 36);
             cboCategory.TabIndex = 1;
-            cboCategory.Leave += comboListMaintenance;
+            cboCategory.Leave += cboCategory_Leave;
             // 
             // cboStorage
             // 
@@ -235,7 +235,6 @@
             cboStorage.Name = "cboStorage";
             cboStorage.Size = new Size(337, 36);
             cboStorage.TabIndex = 6;
-            cboStorage.Leave += comboListMaintenance;
             // 
             // dtpBuy
             // 
