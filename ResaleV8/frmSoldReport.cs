@@ -60,7 +60,7 @@ namespace ResaleV8
             {
                 GV.businessSummary.MarginPercentage = (GV.businessSummary.TotalSales / GV.businessSummary.TotalCost)
                     * 100;
-                txtAvgPct.Text = GV.businessSummary.MarginPercentage.ToString();
+                txtAvgPct.Text = GV.businessSummary.MarginPercentage.ToString("####.00");
             }
         }
 

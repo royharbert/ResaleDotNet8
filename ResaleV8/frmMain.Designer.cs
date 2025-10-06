@@ -31,10 +31,6 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
-            inventoryToolStripMenuItem = new ToolStripMenuItem();
-            addItemToolStripMenuItem = new ToolStripMenuItem();
-            markIemAsSoldToolStripMenuItem = new ToolStripMenuItem();
-            removeItemToolStripMenuItem = new ToolStripMenuItem();
             reportsToolStripMenuItem = new ToolStripMenuItem();
             soldItemReportToolStripMenuItem = new ToolStripMenuItem();
             unsoldItemToolStripMenuItem = new ToolStripMenuItem();
@@ -48,7 +44,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, inventoryToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1448, 24);
@@ -69,33 +65,6 @@
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
-            // inventoryToolStripMenuItem
-            // 
-            inventoryToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addItemToolStripMenuItem, markIemAsSoldToolStripMenuItem, removeItemToolStripMenuItem });
-            inventoryToolStripMenuItem.Name = "inventoryToolStripMenuItem";
-            inventoryToolStripMenuItem.Size = new Size(69, 20);
-            inventoryToolStripMenuItem.Text = "Inventory";
-            // 
-            // addItemToolStripMenuItem
-            // 
-            addItemToolStripMenuItem.Name = "addItemToolStripMenuItem";
-            addItemToolStripMenuItem.Size = new Size(168, 22);
-            addItemToolStripMenuItem.Text = "Add Item";
-            addItemToolStripMenuItem.Click += addItemToolStripMenuItem_Click;
-            // 
-            // markIemAsSoldToolStripMenuItem
-            // 
-            markIemAsSoldToolStripMenuItem.Name = "markIemAsSoldToolStripMenuItem";
-            markIemAsSoldToolStripMenuItem.Size = new Size(168, 22);
-            markIemAsSoldToolStripMenuItem.Text = "Mark Item as Sold";
-            markIemAsSoldToolStripMenuItem.Click += markIemAsSoldToolStripMenuItem_Click;
-            // 
-            // removeItemToolStripMenuItem
-            // 
-            removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
-            removeItemToolStripMenuItem.Size = new Size(168, 22);
-            removeItemToolStripMenuItem.Text = "Remove Item";
-            // 
             // reportsToolStripMenuItem
             // 
             reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { soldItemReportToolStripMenuItem, unsoldItemToolStripMenuItem });
@@ -106,14 +75,14 @@
             // soldItemReportToolStripMenuItem
             // 
             soldItemReportToolStripMenuItem.Name = "soldItemReportToolStripMenuItem";
-            soldItemReportToolStripMenuItem.Size = new Size(176, 22);
+            soldItemReportToolStripMenuItem.Size = new Size(180, 22);
             soldItemReportToolStripMenuItem.Text = "Sold Item Report";
             soldItemReportToolStripMenuItem.Click += soldItemReportToolStripMenuItem_Click;
             // 
             // unsoldItemToolStripMenuItem
             // 
             unsoldItemToolStripMenuItem.Name = "unsoldItemToolStripMenuItem";
-            unsoldItemToolStripMenuItem.Size = new Size(176, 22);
+            unsoldItemToolStripMenuItem.Size = new Size(180, 22);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
             // 
@@ -128,21 +97,21 @@
             // addItemToolStripMenuItem1
             // 
             addItemToolStripMenuItem1.Name = "addItemToolStripMenuItem1";
-            addItemToolStripMenuItem1.Size = new Size(180, 22);
+            addItemToolStripMenuItem1.Size = new Size(134, 22);
             addItemToolStripMenuItem1.Text = "Add Item";
             addItemToolStripMenuItem1.Click += addItemToolStripMenuItem1_Click;
             // 
             // editItemToolStripMenuItem
             // 
             editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
-            editItemToolStripMenuItem.Size = new Size(180, 22);
+            editItemToolStripMenuItem.Size = new Size(134, 22);
             editItemToolStripMenuItem.Text = "Edit Item";
             editItemToolStripMenuItem.Click += editItemToolStripMenuItem_Click;
             // 
             // deleteItemToolStripMenuItem
             // 
             deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            deleteItemToolStripMenuItem.Size = new Size(180, 22);
+            deleteItemToolStripMenuItem.Size = new Size(134, 22);
             deleteItemToolStripMenuItem.Text = "Delete Item";
             deleteItemToolStripMenuItem.Click += deleteItemToolStripMenuItem_Click;
             // 
@@ -169,10 +138,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
-        private ToolStripMenuItem inventoryToolStripMenuItem;
-        private ToolStripMenuItem addItemToolStripMenuItem;
-        private ToolStripMenuItem markIemAsSoldToolStripMenuItem;
-        private ToolStripMenuItem removeItemToolStripMenuItem;
         private ToolStripMenuItem reportsToolStripMenuItem;
         private ToolStripMenuItem soldItemReportToolStripMenuItem;
         private ToolStripMenuItem unsoldItemToolStripMenuItem;
