@@ -15,7 +15,7 @@ namespace ResaleV8_ClassLibrary
         public static List<string>? categories { get; set; }
         public static List<string>? storageLocations { get; set; }
         public static List<ItemModel>? itemList { get; set; }
-        public static BusinessSummary businessSummary { get; set; }
+        public static BusinessSummary? businessSummary { get; set; }
         public static Mode MODE
         {
             get

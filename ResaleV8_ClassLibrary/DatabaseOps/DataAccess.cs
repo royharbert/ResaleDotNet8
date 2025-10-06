@@ -96,7 +96,7 @@ namespace ResaleV8_ClassLibrary
                 ItemModel model = new ItemModel();
                 model.ItemID = Convert.ToInt32(reader["ItemID"]);
                 model.Category = reader["Category"].ToString();
-                model.ItemDesc = reader["ItemDesc"].ToString();
+                model.ItemDesc = reader["ItemDesc"]?.ToString() ?? string.Empty;
                 model.PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]);
                 model.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"]);
                 model.Quantity = Convert.ToInt32(reader["Quantity"]);
@@ -104,7 +104,7 @@ namespace ResaleV8_ClassLibrary
                     model.SaleDate = Convert.ToDateTime(reader["SaleDate"]);
                 if (reader["SalePrice"] != DBNull.Value)
                     model.SalePrice = Convert.ToDecimal(reader["SalePrice"]);
-                model.StorageLocation = reader["StorageLocation"].ToString();
+                model.StorageLocation = reader["StorageLocation"].ToString() ?? string.Empty;
                 //model.Profit = Convert.ToDecimal(reader["Profit"]);
                 //model.ProductAge = Convert.ToInt32(reader["ProductAge"]);
                 list.Add(model);

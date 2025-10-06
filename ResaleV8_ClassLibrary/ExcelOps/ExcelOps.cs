@@ -280,8 +280,11 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         {
             try
             {
-                Marshal.ReleaseComObject(obj);
-                obj = null;
+                if (obj != null)
+                {
+                    Marshal.ReleaseComObject(obj);
+                    obj = null;
+                }
             }
             catch (Exception ex)
             {

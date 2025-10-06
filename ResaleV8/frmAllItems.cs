@@ -47,7 +47,7 @@ namespace ResaleV8
             }
         }
 
-        ItemModel model = new ItemModel();
+        ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
                         "StorageLocation", "dtpSaleDate", "txtPrice", "txtID" };
         void prepareForm()
