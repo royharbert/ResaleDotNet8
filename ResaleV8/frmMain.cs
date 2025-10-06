@@ -26,12 +26,12 @@ namespace ResaleV8
             Close();
         }
 
-        private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmAdd addItemForm = new frmAdd();
-            addItemForm.MdiParent = this;
-            addItemForm.Show();
-        }
+        //private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    frmAdd addItemForm = new frmAdd();
+        //    addItemForm.MdiParent = this;
+        //    addItemForm.Show();
+        //}
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -63,12 +63,12 @@ namespace ResaleV8
             unsoldReportForm.Show();
         }
 
-        private void markIemAsSoldToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmMarkSold markSoldForm = new frmMarkSold();
-            markSoldForm.MdiParent = this;
-            markSoldForm.Show();
-        }
+        //private void markIemAsSoldToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    frmMarkSold markSoldForm = new frmMarkSold();
+        //    markSoldForm.MdiParent = this;
+        //    markSoldForm.Show();
+        //}
 
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {

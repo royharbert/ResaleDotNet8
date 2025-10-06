@@ -17,7 +17,9 @@ namespace ResaleV8
     public partial class frmAllItems : Form
     {
         private int _item;
-
+        /// <summary>
+        /// Property to accept ItemID from calling form
+        /// </summary>
         public int item
         {
             get

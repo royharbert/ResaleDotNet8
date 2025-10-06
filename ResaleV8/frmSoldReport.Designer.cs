@@ -66,12 +66,17 @@
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(105, 783);
+            btnExport.BackColor = Color.LightYellow;
+            btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnExport.Image = Properties.Resources.icons8_excel_50;
+            btnExport.ImageAlign = ContentAlignment.TopCenter;
+            btnExport.Location = new Point(105, 402);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(140, 29);
+            btnExport.Size = new Size(125, 91);
             btnExport.TabIndex = 2;
             btnExport.Text = "Export to Excel";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.TextAlign = ContentAlignment.BottomCenter;
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += btnExport_Click;
             // 
             // dtpStop
@@ -101,9 +106,10 @@
             // 
             // btnClose
             // 
+            btnClose.Font = new Font("Segoe UI", 11F);
             btnClose.Location = new Point(105, 825);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(140, 29);
+            btnClose.Size = new Size(140, 64);
             btnClose.TabIndex = 6;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -113,7 +119,7 @@
             // 
             btnRun.BackColor = Color.LawnGreen;
             btnRun.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRun.Location = new Point(113, 366);
+            btnRun.Location = new Point(105, 322);
             btnRun.Name = "btnRun";
             btnRun.Size = new Size(125, 68);
             btnRun.TabIndex = 7;
@@ -124,7 +130,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(92, 500);
+            label3.Location = new Point(93, 547);
             label3.Name = "label3";
             label3.Size = new Size(164, 20);
             label3.TabIndex = 8;
@@ -133,7 +139,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(97, 627);
+            label4.Location = new Point(98, 674);
             label4.Name = "label4";
             label4.Size = new Size(155, 20);
             label4.TabIndex = 9;
@@ -142,7 +148,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(78, 698);
+            label5.Location = new Point(79, 745);
             label5.Name = "label5";
             label5.Size = new Size(192, 20);
             label5.TabIndex = 10;
@@ -150,28 +156,28 @@
             // 
             // txtTotRevenue
             // 
-            txtTotRevenue.Location = new Point(113, 523);
+            txtTotRevenue.Location = new Point(114, 570);
             txtTotRevenue.Name = "txtTotRevenue";
             txtTotRevenue.Size = new Size(125, 27);
             txtTotRevenue.TabIndex = 11;
             // 
             // txtAvgPct
             // 
-            txtAvgPct.Location = new Point(113, 724);
+            txtAvgPct.Location = new Point(114, 771);
             txtAvgPct.Name = "txtAvgPct";
             txtAvgPct.Size = new Size(125, 27);
             txtAvgPct.TabIndex = 12;
             // 
             // txtTotMargin
             // 
-            txtTotMargin.Location = new Point(113, 650);
+            txtTotMargin.Location = new Point(114, 697);
             txtTotMargin.Name = "txtTotMargin";
             txtTotMargin.Size = new Size(125, 27);
             txtTotMargin.TabIndex = 13;
             // 
             // txtTotalCost
             // 
-            txtTotalCost.Location = new Point(113, 586);
+            txtTotalCost.Location = new Point(114, 633);
             txtTotalCost.Name = "txtTotalCost";
             txtTotalCost.Size = new Size(125, 27);
             txtTotalCost.TabIndex = 15;
@@ -179,7 +185,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(92, 561);
+            label6.Location = new Point(93, 608);
             label6.Name = "label6";
             label6.Size = new Size(171, 20);
             label6.TabIndex = 14;

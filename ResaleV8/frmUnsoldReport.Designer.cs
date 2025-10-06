@@ -52,12 +52,17 @@
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(1002, 736);
+            btnExport.BackColor = SystemColors.Info;
+            btnExport.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnExport.Image = Properties.Resources.icons8_excel_50;
+            btnExport.ImageAlign = ContentAlignment.TopCenter;
+            btnExport.Location = new Point(952, 596);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(128, 29);
+            btnExport.Size = new Size(128, 101);
             btnExport.TabIndex = 1;
             btnExport.Text = "Export to Excel";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.TextAlign = ContentAlignment.BottomCenter;
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += btnExport_Click;
             // 
             // btnClose
