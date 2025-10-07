@@ -43,16 +43,21 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            List<ItemModel> models = (List<ItemModel>)dgvSearchresults.DataSource;
+            GV.businessSummary.TotalCost = models.Sum(x => x.PurchasePrice * x.Quantity);
+            GV.businessSummary.AvgUnsoldAge = (int)models.Average(item => item.ProductAge);
+            GV.businessSummary.UnsoldItemsCount = models.Sum(item => item.Quantity);
             string[] hiddenColumns = new string[] { };
-            ExcelOps.createExcelSheet((List<ItemModel>)dgvSearchresults.DataSource, "Search Results", false, hiddenColumns);
+            ExcelOps.createExcelSheet((List<ItemModel>)models,
+                "Search Results", hiddenColumns, "Search");
         }
 
 
         private void dgvSearchresults_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            GV.MODE = Mode.Edit;
             int row = e.RowIndex;
             int itemID = (int)dgvSearchresults.Rows[row].Cells["ItemID"].Value;
-            GV.MODE = Mode.Edit;
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this.MdiParent;
             allItemsForm.Show();
@@ -67,6 +72,11 @@ namespace ResaleV8
                 "Purchase Price", "Sale Date", "Sale Price", "Days Held", "Profit", "Storage Location" };
             string[] hiddenColumns = new string[] { };
             FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

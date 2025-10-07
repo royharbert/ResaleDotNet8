@@ -46,7 +46,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         }
 
         public static void insertDataTable(Worksheet wks, int startRow, int startCol, List<ItemModel> dt,
-            bool isSoldReport)
+            string exportType)
         {
             int row = startRow;
             int col = startCol;
@@ -69,29 +69,27 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
             row++;
 
-            if (isSoldReport)
+            switch (exportType)
             {
-                if (GV.businessSummary != null)
-                {
-                    wks.Cells[row, 3].Value = "Total Sales";
-                    wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
-                    row++;
-                    wks.Cells[row, 3].Value = "Total Cost";
-                    wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
-                    row++;
-                    wks.Cells[row, 3].Value = "Total Profit";
-                    wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
-                    row++;
-                    wks.Cells[row, 3].Value = "Profit Margin %";
-                    wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
-                    setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
-                    setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
-                }
-            }
-            else
-            {
-                if (GV.businessSummary != null)
-                {
+                case "Sold":
+                    if (GV.businessSummary != null)
+                    {
+                        wks.Cells[row, 3].Value = "Total Sales";
+                        wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
+                        row++;
+                        wks.Cells[row, 3].Value = "Total Cost";
+                        wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
+                        row++;
+                        wks.Cells[row, 3].Value = "Total Profit";
+                        wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
+                        row++;
+                        wks.Cells[row, 3].Value = "Profit Margin %";
+                        wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
+                        setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
+                        setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
+                    }
+                    break;
+                case "Unsold":
                     wks.Cells[row, 3].Value = "Unsold Items Cost";
                     wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
                     row++;
@@ -102,8 +100,54 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount;
                     setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
                     setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
-                }
+                    break;
+                case "Search":
+                    wks.Cells[row, 3].Value = "Items Cost";
+                    wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
+                    row++;
+                    wks.Cells[row, 3].Value = "Average Age of Unsold Items";
+                    wks.Cells[row, 4].Value = GV.businessSummary.AvgUnsoldAge;
+                    row++;
+                    wks.Cells[row, 3].Value = "Unsold Item Count";
+                    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount;
+                    setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
+                    setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
+                    break;                    
+
             }
+            //if (isSoldReport)
+            //{
+            //    if (GV.businessSummary != null)
+            //    {
+            //        wks.Cells[row, 3].Value = "Total Sales";
+            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
+            //        row++;
+            //        wks.Cells[row, 3].Value = "Total Cost";
+            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
+            //        row++;
+            //        wks.Cells[row, 3].Value = "Total Profit";
+            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
+            //        row++;
+            //        wks.Cells[row, 3].Value = "Profit Margin %";
+            //        wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
+            //        setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
+            //        setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
+            //    }
+            //}
+            //else
+            //{
+            //    wks.Cells[row, 3].Value = "Items Cost";
+            //    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
+            //    row++;
+            //    wks.Cells[row, 3].Value = "Average Age of Unsold Items";
+            //    wks.Cells[row, 4].Value = GV.businessSummary.AvgUnsoldAge;
+            //    row++;
+            //    wks.Cells[row, 3].Value = "Unsold Item Count";
+            //    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount;
+            //    setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
+            //    setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
+
+            //}
         }
 
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
@@ -303,8 +347,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
         }
 
-        public static void createExcelSheet(List<ItemModel> dt, string title, bool isSoldReport,
-            string[] hiddenColumns)
+        public static void createExcelSheet(List<ItemModel> dt, string title,
+            string[] hiddenColumns, string reportType)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
@@ -314,7 +358,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             int[] colWidth = { 5, 30, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
             setCellWidth(wks, colWidth);
-            insertDataTable(wks, dataStartRow, 1, dt, isSoldReport);
+            insertDataTable(wks, dataStartRow, 1, dt, reportType);
             int[] currencyCols = { 6, 8, 10 };
             ExcelOps.formatColumnAsCurrency(wks, currencyCols);
             hideColumns(wks, hiddenColumns);

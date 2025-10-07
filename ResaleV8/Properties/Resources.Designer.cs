@@ -63,6 +63,66 @@ namespace ResaleV8.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _5402366_delete_remove_cross_cancel_close_icon {
+            get {
+                object obj = ResourceManager.GetObject("5402366_delete_remove_cross_cancel_close_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _8140873_pos_billing_retrieve_download_revoke_icon {
+            get {
+                object obj = ResourceManager.GetObject("8140873_pos_billing_retrieve_download_revoke_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _8666542_save_icon {
+            get {
+                object obj = ResourceManager.GetObject("8666542_save_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _8666610_plus_square_icon {
+            get {
+                object obj = ResourceManager.GetObject("8666610_plus_square_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _8666693_search_icon {
+            get {
+                object obj = ResourceManager.GetObject("8666693_search_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _8666786_x_octagon_delete_icon {
+            get {
+                object obj = ResourceManager.GetObject("8666786_x_octagon_delete_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_excel_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-excel-50", resourceCulture);

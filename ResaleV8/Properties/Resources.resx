@@ -118,7 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="8666610_plus_square_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\8666610_plus_square_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-excel-50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-excel-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="8666786_x_octagon_delete_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\8666786_x_octagon_delete_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="8666542_save_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\8666542_save_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="8666693_search_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\8666693_search_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="8140873_pos_billing_retrieve_download_revoke_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\8140873_pos_billing_retrieve_download_revoke_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="5402366_delete_remove_cross_cancel_close_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\5402366_delete_remove_cross_cancel_close_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

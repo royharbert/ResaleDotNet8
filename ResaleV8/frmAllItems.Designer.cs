@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAllItems));
             label1 = new Label();
             txtID = new TextBox();
             label2 = new Label();
@@ -74,7 +75,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(242, 115);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 29);
+            txtID.Size = new Size(338, 34);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
             // 
@@ -92,7 +93,7 @@
             // 
             txtDesc.Location = new Point(242, 195);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 29);
+            txtDesc.Size = new Size(338, 34);
             txtDesc.TabIndex = 2;
             txtDesc.Tag = "ItemDesc";
             // 
@@ -110,7 +111,7 @@
             // 
             txtQuantity.Location = new Point(242, 234);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 29);
+            txtQuantity.Size = new Size(338, 34);
             txtQuantity.TabIndex = 3;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
@@ -139,7 +140,7 @@
             // 
             txtPurchasePrice.Location = new Point(242, 311);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 29);
+            txtPurchasePrice.Size = new Size(338, 34);
             txtPurchasePrice.TabIndex = 5;
             txtPurchasePrice.Tag = "PurchasePrice";
             // 
@@ -167,7 +168,7 @@
             // 
             txtPrice.Location = new Point(241, 390);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 29);
+            txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 8;
             txtPrice.Tag = "SalePrice";
             txtPrice.Leave += txtPrice_Leave;
@@ -197,7 +198,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(242, 470);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 29);
+            txtProfit.Size = new Size(338, 34);
             txtProfit.TabIndex = 9;
             txtProfit.Tag = "Profit";
             // 
@@ -216,7 +217,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(242, 509);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 29);
+            txtDaysHeld.Size = new Size(338, 34);
             txtDaysHeld.TabIndex = 10;
             txtDaysHeld.Tag = "ProductAge";
             // 
@@ -237,7 +238,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(242, 154);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 29);
+            cboCategory.Size = new Size(339, 36);
             cboCategory.TabIndex = 1;
             cboCategory.Tag = "Category";
             cboCategory.Leave += cboCategory_Leave;
@@ -249,7 +250,7 @@
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(242, 349);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(337, 29);
+            cboStorage.Size = new Size(337, 36);
             cboStorage.TabIndex = 6;
             cboStorage.Tag = "StorageLocation";
             // 
@@ -257,7 +258,7 @@
             // 
             dtpBuy.Location = new Point(242, 273);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 29);
+            dtpBuy.Size = new Size(338, 34);
             dtpBuy.TabIndex = 4;
             dtpBuy.Tag = "PurchaseDate";
             // 
@@ -265,58 +266,78 @@
             // 
             dtpSaleDate.Location = new Point(241, 429);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 29);
+            dtpSaleDate.Size = new Size(338, 34);
             dtpSaleDate.TabIndex = 7;
             dtpSaleDate.Tag = "SaleDate";
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(790, 180);
+            btnSave.BackColor = Color.FromArgb(192, 255, 192);
+            btnSave.Image = (Image)resources.GetObject("btnSave.Image");
+            btnSave.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSave.Location = new Point(742, 185);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(149, 50);
+            btnSave.Size = new Size(190, 58);
             btnSave.TabIndex = 12;
             btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.TextAlign = ContentAlignment.MiddleRight;
+            btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnAddAnother
             // 
-            btnAddAnother.Location = new Point(790, 245);
+            btnAddAnother.BackColor = Color.FromArgb(192, 255, 192);
+            btnAddAnother.Image = Properties.Resources._8666610_plus_square_icon;
+            btnAddAnother.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAddAnother.Location = new Point(742, 253);
             btnAddAnother.Name = "btnAddAnother";
-            btnAddAnother.Size = new Size(149, 50);
+            btnAddAnother.Size = new Size(190, 50);
             btnAddAnother.TabIndex = 13;
             btnAddAnother.Text = "Add Another";
-            btnAddAnother.UseVisualStyleBackColor = true;
+            btnAddAnother.TextAlign = ContentAlignment.MiddleRight;
+            btnAddAnother.UseVisualStyleBackColor = false;
             btnAddAnother.Click += btnAddAnother_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(790, 470);
+            btnClose.BackColor = Color.FromArgb(192, 255, 192);
+            btnClose.Image = Properties.Resources._5402366_delete_remove_cross_cancel_close_icon;
+            btnClose.ImageAlign = ContentAlignment.MiddleLeft;
+            btnClose.Location = new Point(742, 478);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(149, 50);
+            btnClose.Size = new Size(190, 50);
             btnClose.TabIndex = 14;
             btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.TextAlign = ContentAlignment.MiddleRight;
+            btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
             // btnRetrieve
             // 
-            btnRetrieve.Location = new Point(790, 115);
+            btnRetrieve.BackColor = Color.FromArgb(192, 255, 192);
+            btnRetrieve.Image = Properties.Resources._8140873_pos_billing_retrieve_download_revoke_icon;
+            btnRetrieve.ImageAlign = ContentAlignment.MiddleLeft;
+            btnRetrieve.Location = new Point(742, 123);
             btnRetrieve.Name = "btnRetrieve";
-            btnRetrieve.Size = new Size(149, 50);
+            btnRetrieve.Size = new Size(190, 50);
             btnRetrieve.TabIndex = 11;
             btnRetrieve.Text = "Retrieve";
-            btnRetrieve.UseVisualStyleBackColor = true;
+            btnRetrieve.TextAlign = ContentAlignment.MiddleRight;
+            btnRetrieve.UseVisualStyleBackColor = false;
             btnRetrieve.Click += btnRetrieve_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(790, 310);
+            btnDelete.BackColor = Color.FromArgb(192, 255, 192);
+            btnDelete.Image = Properties.Resources._8666786_x_octagon_delete_icon;
+            btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDelete.Location = new Point(742, 318);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(149, 50);
+            btnDelete.Size = new Size(190, 50);
             btnDelete.TabIndex = 21;
             btnDelete.Text = "Delete Item";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.TextAlign = ContentAlignment.MiddleRight;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click_1;
             // 
             // lblTask
@@ -331,17 +352,21 @@
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(790, 378);
+            btnSearch.BackColor = Color.FromArgb(192, 255, 192);
+            btnSearch.Image = Properties.Resources._8666693_search_icon;
+            btnSearch.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSearch.Location = new Point(742, 386);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(149, 50);
+            btnSearch.Size = new Size(190, 50);
             btnSearch.TabIndex = 23;
             btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.TextAlign = ContentAlignment.MiddleRight;
+            btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += btnSearch_Click;
             // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 630);
             Controls.Add(btnSearch);
