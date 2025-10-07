@@ -55,12 +55,13 @@
             btnClose = new Button();
             btnRetrieve = new Button();
             btnDelete = new Button();
+            lblTask = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI", 11.25F);
-            label1.Location = new Point(34, 39);
+            label1.Location = new Point(36, 119);
             label1.Name = "label1";
             label1.Size = new Size(200, 25);
             label1.TabIndex = 0;
@@ -70,7 +71,7 @@
             // txtID
             // 
             txtID.Enabled = false;
-            txtID.Location = new Point(240, 35);
+            txtID.Location = new Point(242, 115);
             txtID.Name = "txtID";
             txtID.Size = new Size(338, 29);
             txtID.TabIndex = 0;
@@ -78,7 +79,7 @@
             // label2
             // 
             label2.Font = new Font("Segoe UI", 11.25F);
-            label2.Location = new Point(34, 74);
+            label2.Location = new Point(36, 154);
             label2.Name = "label2";
             label2.Size = new Size(200, 25);
             label2.TabIndex = 2;
@@ -87,7 +88,7 @@
             // 
             // txtDesc
             // 
-            txtDesc.Location = new Point(240, 115);
+            txtDesc.Location = new Point(242, 195);
             txtDesc.Name = "txtDesc";
             txtDesc.Size = new Size(338, 29);
             txtDesc.TabIndex = 2;
@@ -95,7 +96,7 @@
             // label3
             // 
             label3.Font = new Font("Segoe UI", 11.25F);
-            label3.Location = new Point(34, 115);
+            label3.Location = new Point(36, 195);
             label3.Name = "label3";
             label3.Size = new Size(200, 25);
             label3.TabIndex = 4;
@@ -104,7 +105,7 @@
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new Point(240, 154);
+            txtQuantity.Location = new Point(242, 234);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(338, 29);
             txtQuantity.TabIndex = 3;
@@ -113,7 +114,7 @@
             // label4
             // 
             label4.Font = new Font("Segoe UI", 11.25F);
-            label4.Location = new Point(34, 154);
+            label4.Location = new Point(36, 234);
             label4.Name = "label4";
             label4.Size = new Size(200, 25);
             label4.TabIndex = 6;
@@ -123,7 +124,7 @@
             // label5
             // 
             label5.Font = new Font("Segoe UI", 11.25F);
-            label5.Location = new Point(34, 193);
+            label5.Location = new Point(36, 273);
             label5.Name = "label5";
             label5.Size = new Size(200, 25);
             label5.TabIndex = 8;
@@ -132,7 +133,7 @@
             // 
             // txtPurchasePrice
             // 
-            txtPurchasePrice.Location = new Point(240, 231);
+            txtPurchasePrice.Location = new Point(242, 311);
             txtPurchasePrice.Name = "txtPurchasePrice";
             txtPurchasePrice.Size = new Size(338, 29);
             txtPurchasePrice.TabIndex = 5;
@@ -140,7 +141,7 @@
             // label6
             // 
             label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(34, 231);
+            label6.Location = new Point(36, 311);
             label6.Name = "label6";
             label6.Size = new Size(200, 25);
             label6.TabIndex = 10;
@@ -150,7 +151,7 @@
             // label7
             // 
             label7.Font = new Font("Segoe UI", 11.25F);
-            label7.Location = new Point(33, 349);
+            label7.Location = new Point(35, 429);
             label7.Name = "label7";
             label7.Size = new Size(200, 25);
             label7.TabIndex = 12;
@@ -159,7 +160,7 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(239, 310);
+            txtPrice.Location = new Point(241, 390);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(338, 29);
             txtPrice.TabIndex = 8;
@@ -169,7 +170,7 @@
             // label8
             // 
             label8.Font = new Font("Segoe UI", 11.25F);
-            label8.Location = new Point(33, 312);
+            label8.Location = new Point(35, 392);
             label8.Name = "label8";
             label8.Size = new Size(200, 25);
             label8.TabIndex = 14;
@@ -179,7 +180,7 @@
             // label9
             // 
             label9.Font = new Font("Segoe UI", 11.25F);
-            label9.Location = new Point(34, 273);
+            label9.Location = new Point(36, 353);
             label9.Name = "label9";
             label9.Size = new Size(200, 25);
             label9.TabIndex = 16;
@@ -189,7 +190,7 @@
             // txtProfit
             // 
             txtProfit.Enabled = false;
-            txtProfit.Location = new Point(240, 390);
+            txtProfit.Location = new Point(242, 470);
             txtProfit.Name = "txtProfit";
             txtProfit.Size = new Size(338, 29);
             txtProfit.TabIndex = 9;
@@ -197,7 +198,7 @@
             // label10
             // 
             label10.Font = new Font("Segoe UI", 11.25F);
-            label10.Location = new Point(34, 390);
+            label10.Location = new Point(36, 470);
             label10.Name = "label10";
             label10.Size = new Size(200, 25);
             label10.TabIndex = 18;
@@ -207,7 +208,7 @@
             // txtDaysHeld
             // 
             txtDaysHeld.Enabled = false;
-            txtDaysHeld.Location = new Point(240, 429);
+            txtDaysHeld.Location = new Point(242, 509);
             txtDaysHeld.Name = "txtDaysHeld";
             txtDaysHeld.Size = new Size(338, 29);
             txtDaysHeld.TabIndex = 10;
@@ -215,7 +216,7 @@
             // label11
             // 
             label11.Font = new Font("Segoe UI", 11.25F);
-            label11.Location = new Point(34, 429);
+            label11.Location = new Point(36, 509);
             label11.Name = "label11";
             label11.Size = new Size(200, 25);
             label11.TabIndex = 20;
@@ -225,7 +226,7 @@
             // cboCategory
             // 
             cboCategory.FormattingEnabled = true;
-            cboCategory.Location = new Point(240, 74);
+            cboCategory.Location = new Point(242, 154);
             cboCategory.Name = "cboCategory";
             cboCategory.Size = new Size(339, 29);
             cboCategory.TabIndex = 1;
@@ -234,21 +235,21 @@
             // cboStorage
             // 
             cboStorage.FormattingEnabled = true;
-            cboStorage.Location = new Point(240, 269);
+            cboStorage.Location = new Point(242, 349);
             cboStorage.Name = "cboStorage";
             cboStorage.Size = new Size(337, 29);
             cboStorage.TabIndex = 6;
             // 
             // dtpBuy
             // 
-            dtpBuy.Location = new Point(240, 193);
+            dtpBuy.Location = new Point(242, 273);
             dtpBuy.Name = "dtpBuy";
             dtpBuy.Size = new Size(338, 29);
             dtpBuy.TabIndex = 4;
             // 
             // dtpSaleDate
             // 
-            dtpSaleDate.Location = new Point(239, 349);
+            dtpSaleDate.Location = new Point(241, 429);
             dtpSaleDate.Name = "dtpSaleDate";
             dtpSaleDate.Size = new Size(338, 29);
             dtpSaleDate.TabIndex = 7;
@@ -302,11 +303,22 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click_1;
             // 
+            // lblTask
+            // 
+            lblTask.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTask.Location = new Point(389, 33);
+            lblTask.Name = "lblTask";
+            lblTask.Size = new Size(276, 41);
+            lblTask.TabIndex = 22;
+            lblTask.Text = "label12";
+            lblTask.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 630);
+            Controls.Add(lblTask);
             Controls.Add(btnDelete);
             Controls.Add(btnRetrieve);
             Controls.Add(btnClose);
@@ -372,5 +384,6 @@
         private Button btnClose;
         private Button btnRetrieve;
         private Button btnDelete;
+        private Label lblTask;
     }
 }

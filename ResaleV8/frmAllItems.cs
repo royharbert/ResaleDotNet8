@@ -47,6 +47,22 @@ namespace ResaleV8
             }
         }
 
+        private string _task;
+
+        public string Task
+        {
+            get 
+            { 
+                return _task; 
+            }
+            set 
+            { 
+                _task = value; 
+                lblTask.Text = _task;
+            }
+        }
+
+
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
                         "StorageLocation", "dtpSaleDate", "txtPrice", "txtID" };
@@ -184,13 +200,14 @@ namespace ResaleV8
             switch (GV.MODE)
             {
                 case Mode.Add:
-                    // Add new item to database
+                    // Add new item to database                   
                     loadModel();
                     int newID = DataAccess.addItemToDatabase(model);
                     txtID.Text = newID.ToString();
                     break;
                 case Mode.Edit:
                     // Update existing item in database
+                    lblTask.Text = "Editing Item";
                     loadModel();
                     DataAccess.updateItemInDatabase(model, model.ItemID);
                     break;

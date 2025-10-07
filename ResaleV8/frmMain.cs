@@ -72,10 +72,11 @@ namespace ResaleV8
 
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Add;
+            GV.MODE = Mode.Add;            
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
+            allItemsForm.Task = "Add New Item";
         }
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace ResaleV8
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
+            allItemsForm.Task = "Edit Item";
         }
 
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
