@@ -71,32 +71,38 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
             if (isSoldReport)
             {
-                wks.Cells[row, 3].Value = "Total Sales";
-                wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
-                row++;  
-                wks.Cells[row, 3].Value = "Total Cost";
-                wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
-                row++;
-                wks.Cells[row, 3].Value = "Total Profit";
-                wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
-                row++;
-                wks.Cells[row, 3].Value = "Profit Margin %";
-                wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
-                setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
-                setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
+                if (GV.businessSummary != null)
+                {
+                    wks.Cells[row, 3].Value = "Total Sales";
+                    wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
+                    row++;
+                    wks.Cells[row, 3].Value = "Total Cost";
+                    wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
+                    row++;
+                    wks.Cells[row, 3].Value = "Total Profit";
+                    wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
+                    row++;
+                    wks.Cells[row, 3].Value = "Profit Margin %";
+                    wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
+                    setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
+                    setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
+                }
             }
             else
             {
-                wks.Cells[row, 3].Value = "Unsold Items Cost";
-                wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
-                row++;
-                wks.Cells[row, 3].Value = "Average Age of Unsold Items";
-                wks.Cells[row, 4].Value = GV.businessSummary.AvgUnsoldAge;
-                row++;
-                wks.Cells[row, 3].Value = "Unsold Item Count";
-                wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount; 
-                setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
-                setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
+                if (GV.businessSummary != null)
+                {
+                    wks.Cells[row, 3].Value = "Unsold Items Cost";
+                    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
+                    row++;
+                    wks.Cells[row, 3].Value = "Average Age of Unsold Items";
+                    wks.Cells[row, 4].Value = GV.businessSummary.AvgUnsoldAge;
+                    row++;
+                    wks.Cells[row, 3].Value = "Unsold Item Count";
+                    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount;
+                    setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
+                    setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
+                }
             }
         }
 

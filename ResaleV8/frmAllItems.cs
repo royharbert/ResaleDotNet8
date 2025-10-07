@@ -66,12 +66,10 @@ namespace ResaleV8
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
                     enableDisableControls(allControls, true);
-                    if(model.SalePrice == 0)
+                    if (model != null && model.SalePrice == 0)
                     {
                         txtPrice.Text = "0";
                     }
-                    //dtpSaleDate.Format = DateTimePickerFormat.Long;
-                    //dtpSaleDate.Value = DateTime.Now;
                     this.AcceptButton = btnRetrieve;
                     break;
                 case Mode.Delete:
@@ -83,12 +81,12 @@ namespace ResaleV8
             }
         }
 
-        ItemModel getItem()
+        ItemModel? getItem()
         {
             string sql = "";
             if (txtID.Text != "")
             {
-                sql = "Select * from PurchasedItems where ItemID = " + txtID.Text; 
+                sql = "Select * from PurchasedItems where ItemID = " + txtID.Text;
             }
             else
             {
@@ -138,8 +136,6 @@ namespace ResaleV8
                 {
                     txtPrice.Text = "0";
                 }
-                //model.Profit = model.SalePrice - model.PurchasePrice;
-                //model.ProductAge = (DateTime.Now - model.PurchaseDate).Days;
             }
         }
 
@@ -206,18 +202,22 @@ namespace ResaleV8
 
         private ItemModel loadModel()
         {
+            if (model == null)
+            {
+                model = new ItemModel();
+            }
             model.ItemDesc = txtDesc.Text;
             model.Category = cboCategory.Text;
             model.PurchaseDate = dtpBuy.Value;
             if (txtPurchasePrice.Text.Contains('$'))
             {
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1)); 
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
             }
             else
             {
                 model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
             }
-                model.Quantity = int.Parse(txtQuantity.Text);
+            model.Quantity = int.Parse(txtQuantity.Text);
             model.StorageLocation = cboStorage.Text;
             if (GV.MODE != Mode.Edit)
             {
@@ -287,12 +287,21 @@ namespace ResaleV8
 
         private void btnRetrieve_Click(object sender, EventArgs e)
         {
-            ItemModel model = getItem();
+            ItemModel? model = getItem();
             if (model != null)
             {
                 placeDataOnForm(model);
-                dtpSaleDate.Format = DateTimePickerFormat.Long;
-                dtpSaleDate.Value = DateTime.Now;
+                if (model.SalePrice == 0)
+                {
+                    dtpSaleDate.CustomFormat = " ";
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.Value = GV.emptyDate;
+                }
+                else
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Long;
+                    dtpSaleDate.Value = DateTime.Now;
+                }
                 txtID.Enabled = false;
             }
             else
@@ -319,6 +328,20 @@ namespace ResaleV8
         private void cboCategory_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
+        }
+
+        private void txtPrice_Leave(object sender, EventArgs e)
+        {
+            if (txtPrice.Text != "0")
+            {
+                dtpSaleDate.Format = DateTimePickerFormat.Long;
+                dtpSaleDate.Value = DateTime.Now;
+            }
+            else
+            {
+                dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                dtpSaleDate.CustomFormat = " ";
+            }
         }
     }
 }
