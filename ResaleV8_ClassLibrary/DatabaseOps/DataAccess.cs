@@ -49,7 +49,7 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
-        public static void updateItemInDatabase(ItemModel model, int itemID)
+        public static int updateItemInDatabase(ItemModel model, int itemID)
         {
             string sql = "UPDATE PurchasedItems SET Category = @Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
                          "PurchasePrice = @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
@@ -67,8 +67,9 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
             cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
             cmd.Parameters.AddWithValue("@ItemID", itemID);
-            cmd.ExecuteNonQuery();
+            int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
+            return rowsAffected;
         }
 
         public static System.Data.DataTable getData(MySqlConnection con, string query)

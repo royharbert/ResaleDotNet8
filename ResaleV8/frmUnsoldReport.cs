@@ -38,11 +38,11 @@ namespace ResaleV8
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.itemList = itemList;
             dgvUnsold.DataSource = itemList;
-            string[] columnsToHide = { "ProductAge", "Profit" };
+            string[] columnsToHide = { "Profit", "SalePrice" };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
-                    "Purchase Price", "Sale Date", "Sale Price", "Profit",
-                    "Product Age", "Storage Location" },
+                    "Purchase Price", "Sale Date", "Sale Price", "Product Age",
+                    "Profit", "Storage Location" },
                 columnsToHide);
             GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");
@@ -67,6 +67,7 @@ namespace ResaleV8
             allItemsForm.MdiParent = this.MdiParent;
             allItemsForm.Show();
             allItemsForm.item = itemID;
+            allItemsForm.Task = "Edit Item";
             allItemsForm.Focus();
         }
     }

@@ -9,6 +9,7 @@ namespace ResaleV8
     public enum Mode
     {
         Add,
+        Retrieve,
         Edit,
         Delete,
         None

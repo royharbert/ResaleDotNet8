@@ -51,37 +51,49 @@ namespace ResaleV8
 
         public string Task
         {
-            get 
-            { 
-                return _task; 
+            get
+            {
+                return _task;
             }
-            set 
-            { 
-                _task = value; 
+            set
+            {
+                _task = value;
                 lblTask.Text = _task;
             }
         }
 
 
         ItemModel? model = new ItemModel();
-        string[] allControls = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
-                        "StorageLocation", "dtpSaleDate", "txtPrice", "txtID" };
+        string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave", "btnAddAnother", "btnDelete",
+                        "btnClose", "btnSearch"};
         void prepareForm()
         {
+            string[] ctlsToEnable = { };
             switch (GV.MODE)
             {
                 case Mode.Add:
                     this.Text = this.Text + " Add New Item";
                     disableAllControls();
-                    string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
-                        "txtStorage" };
+                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorage", "btnSave", "btnClose" };
                     enableDisableControls(ctlsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
                     break;
+                case Mode.Retrieve:
+                    this.Text = this.Text + " Retrieve Item";
+                    disableAllControls();
+                    ctlsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
+                    enableDisableControls(ctlsToEnable, true);
+                    this.AcceptButton = btnRetrieve;
+                    break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
-                    enableDisableControls(allControls, true);
+                    enableDisableControls(allControls, false);
+                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID" };
+                    enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
                         txtPrice.Text = "0";
@@ -204,12 +216,21 @@ namespace ResaleV8
                     loadModel();
                     int newID = DataAccess.addItemToDatabase(model);
                     txtID.Text = newID.ToString();
+                    if (newID != 0)
+                    {
+                        MessageBox.Show("Item Added");
+                    }
+                    btnAddAnother.Enabled = true;
                     break;
                 case Mode.Edit:
                     // Update existing item in database
                     lblTask.Text = "Editing Item";
                     loadModel();
-                    DataAccess.updateItemInDatabase(model, model.ItemID);
+                    int rowsAffected = DataAccess.updateItemInDatabase(model, model.ItemID);
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Item Updated");
+                    }
                     break;
                 case Mode.Delete:
                     // Delete item from database
@@ -219,50 +240,58 @@ namespace ResaleV8
 
         private ItemModel loadModel()
         {
-            if (model == null)
+            if (model != null)
             {
-                model = new ItemModel();
-            }
-            model.ItemDesc = txtDesc.Text;
-            model.Category = cboCategory.Text;
-            model.PurchaseDate = dtpBuy.Value;
-            if (txtPurchasePrice.Text.Contains('$'))
-            {
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
-            }
-            else
-            {
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
-            }
-            model.Quantity = int.Parse(txtQuantity.Text);
-            model.StorageLocation = cboStorage.Text;
-            if (GV.MODE != Mode.Edit)
-            {
-                model.SaleDate = new DateTime(1900, 01, 01);
-                dtpSaleDate.Format = DateTimePickerFormat.Custom;
-            }
-            else
-            {
-                model.SaleDate = dtpSaleDate.Value;
-                dtpSaleDate.Format = DateTimePickerFormat.Long;
-                dtpSaleDate.Value = DateTime.Now;
-            }
 
-            if (txtPrice.Text.Contains('$'))
-            {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Substring(1));
+                model.ItemDesc = txtDesc.Text;
+                model.Category = cboCategory.Text;
+                model.PurchaseDate = dtpBuy.Value;
+                if (txtPurchasePrice.Text.Contains('$'))
+                {
+                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
+                }
+                else
+                {
+                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
+                }
+                model.Quantity = int.Parse(txtQuantity.Text);
+                model.StorageLocation = cboStorage.Text;
+                if (GV.MODE != Mode.Edit)
+                {
+                    model.SaleDate = new DateTime(1900, 01, 01);
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                }
+                else
+                {
+                    model.SaleDate = dtpSaleDate.Value;
+                    dtpSaleDate.Format = DateTimePickerFormat.Long;
+                    dtpSaleDate.Value = DateTime.Now;
+                }
+
+
+                if (txtPrice.Text.Contains('$'))
+                {
+                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Substring(1));
+                }
+                else
+                {
+                    model.SalePrice = Convert.ToDecimal(txtPrice.Text);
+                }
+                //txtProfit.Enabled = true;
+                txtProfit.Text = model.Profit.ToString("$0.00");
+                //txtDaysHeld.Enabled = true;
+                txtDaysHeld.Text = model.ProductAge.ToString();
+
+                return model;
             }
             else
             {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text);
+                MessageBox.Show("Error loading model");
+                return null;
             }
-            //txtProfit.Enabled = true;
-            txtProfit.Text = model.Profit.ToString("$0.00");
-            //txtDaysHeld.Enabled = true;
-            txtDaysHeld.Text = model.ProductAge.ToString();
-
-            return model;
         }
+
+
 
         private void comboListMaintenance(object sender, EventArgs e)
         {
@@ -307,6 +336,8 @@ namespace ResaleV8
             ItemModel? model = getItem();
             if (model != null)
             {
+                GV.MODE = Mode.Edit;
+                disableAllControls();
                 placeDataOnForm(model);
                 if (model.SalePrice == 0)
                 {
@@ -319,7 +350,10 @@ namespace ResaleV8
                     dtpSaleDate.Format = DateTimePickerFormat.Long;
                     dtpSaleDate.Value = DateTime.Now;
                 }
-                txtID.Enabled = false;
+                string[] ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSave", "btnClose" };
+                enableDisableControls(ctlsToEnable, true);
+                this.AcceptButton = btnSave;
             }
             else
             {
@@ -359,6 +393,39 @@ namespace ResaleV8
                 dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
             }
+        }
+
+        private void clearForm()
+        {
+            model = new ItemModel();
+            txtPrice.Text = "0";
+            txtProfit.Text = "";
+            txtDaysHeld.Text = "";
+            txtDesc.Text = "";
+            txtPurchasePrice.Text = "";
+            txtID.Text = "";
+            txtID.Enabled = false;
+            txtQuantity.Text = "1";
+            dtpSaleDate.Format = DateTimePickerFormat.Custom;
+            dtpSaleDate.CustomFormat = " ";
+            cboCategory.SelectedIndex = -1;
+            cboStorage.SelectedIndex = -1;
+            this.AcceptButton = btnSave;
+            disableAllControls();
+            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
+                        "cboStorage", "btnSave", "btnClose" };
+            enableDisableControls(ctlsToEnable, true);
+            cboCategory.Focus();
+        }
+
+        private void btnAddAnother_Click(object sender, EventArgs e)
+        {
+            clearForm();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            clearForm();
         }
     }
 }

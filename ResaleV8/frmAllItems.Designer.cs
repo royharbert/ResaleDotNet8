@@ -51,11 +51,12 @@
             dtpBuy = new DateTimePicker();
             dtpSaleDate = new DateTimePicker();
             btnSave = new Button();
-            btnExport = new Button();
+            btnAddAnother = new Button();
             btnClose = new Button();
             btnRetrieve = new Button();
             btnDelete = new Button();
             lblTask = new Label();
+            btnSearch = new Button();
             SuspendLayout();
             // 
             // label1
@@ -75,6 +76,7 @@
             txtID.Name = "txtID";
             txtID.Size = new Size(338, 29);
             txtID.TabIndex = 0;
+            txtID.Tag = "ItemID";
             // 
             // label2
             // 
@@ -92,6 +94,7 @@
             txtDesc.Name = "txtDesc";
             txtDesc.Size = new Size(338, 29);
             txtDesc.TabIndex = 2;
+            txtDesc.Tag = "ItemDesc";
             // 
             // label3
             // 
@@ -109,6 +112,7 @@
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(338, 29);
             txtQuantity.TabIndex = 3;
+            txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
             // 
             // label4
@@ -137,6 +141,7 @@
             txtPurchasePrice.Name = "txtPurchasePrice";
             txtPurchasePrice.Size = new Size(338, 29);
             txtPurchasePrice.TabIndex = 5;
+            txtPurchasePrice.Tag = "PurchasePrice";
             // 
             // label6
             // 
@@ -164,7 +169,7 @@
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(338, 29);
             txtPrice.TabIndex = 8;
-            txtPrice.Text = "0";
+            txtPrice.Tag = "SalePrice";
             txtPrice.Leave += txtPrice_Leave;
             // 
             // label8
@@ -194,6 +199,7 @@
             txtProfit.Name = "txtProfit";
             txtProfit.Size = new Size(338, 29);
             txtProfit.TabIndex = 9;
+            txtProfit.Tag = "Profit";
             // 
             // label10
             // 
@@ -212,6 +218,7 @@
             txtDaysHeld.Name = "txtDaysHeld";
             txtDaysHeld.Size = new Size(338, 29);
             txtDaysHeld.TabIndex = 10;
+            txtDaysHeld.Tag = "ProductAge";
             // 
             // label11
             // 
@@ -225,15 +232,20 @@
             // 
             // cboCategory
             // 
+            cboCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboCategory.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(242, 154);
             cboCategory.Name = "cboCategory";
             cboCategory.Size = new Size(339, 29);
             cboCategory.TabIndex = 1;
+            cboCategory.Tag = "Category";
             cboCategory.Leave += cboCategory_Leave;
             // 
             // cboStorage
             // 
+            cboStorage.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboStorage.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(242, 349);
             cboStorage.Name = "cboStorage";
@@ -246,6 +258,7 @@
             dtpBuy.Name = "dtpBuy";
             dtpBuy.Size = new Size(338, 29);
             dtpBuy.TabIndex = 4;
+            dtpBuy.Tag = "PurchaseDate";
             // 
             // dtpSaleDate
             // 
@@ -253,6 +266,7 @@
             dtpSaleDate.Name = "dtpSaleDate";
             dtpSaleDate.Size = new Size(338, 29);
             dtpSaleDate.TabIndex = 7;
+            dtpSaleDate.Tag = "SaleDate";
             // 
             // btnSave
             // 
@@ -264,18 +278,19 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
-            // btnExport
+            // btnAddAnother
             // 
-            btnExport.Location = new Point(790, 245);
-            btnExport.Name = "btnExport";
-            btnExport.Size = new Size(149, 50);
-            btnExport.TabIndex = 13;
-            btnExport.Text = "Export to Excel";
-            btnExport.UseVisualStyleBackColor = true;
+            btnAddAnother.Location = new Point(790, 245);
+            btnAddAnother.Name = "btnAddAnother";
+            btnAddAnother.Size = new Size(149, 50);
+            btnAddAnother.TabIndex = 13;
+            btnAddAnother.Text = "Add Another";
+            btnAddAnother.UseVisualStyleBackColor = true;
+            btnAddAnother.Click += btnAddAnother_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(790, 390);
+            btnClose.Location = new Point(790, 470);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(149, 50);
             btnClose.TabIndex = 14;
@@ -313,16 +328,27 @@
             lblTask.Text = "label12";
             lblTask.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(790, 378);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(149, 50);
+            btnSearch.TabIndex = 23;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 630);
+            Controls.Add(btnSearch);
             Controls.Add(lblTask);
             Controls.Add(btnDelete);
             Controls.Add(btnRetrieve);
             Controls.Add(btnClose);
-            Controls.Add(btnExport);
+            Controls.Add(btnAddAnother);
             Controls.Add(btnSave);
             Controls.Add(dtpSaleDate);
             Controls.Add(dtpBuy);
@@ -380,10 +406,11 @@
         private DateTimePicker dtpBuy;
         private DateTimePicker dtpSaleDate;
         private Button btnSave;
-        private Button btnExport;
+        private Button btnAddAnother;
         private Button btnClose;
         private Button btnRetrieve;
         private Button btnDelete;
         private Label lblTask;
+        private Button btnSearch;
     }
 }
