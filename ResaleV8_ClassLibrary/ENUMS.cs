@@ -12,6 +12,7 @@ namespace ResaleV8
         Retrieve,
         Edit,
         Delete,
+        Search,
         None
     }
 }

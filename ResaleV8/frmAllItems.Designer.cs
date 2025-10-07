@@ -251,6 +251,7 @@
             cboStorage.Name = "cboStorage";
             cboStorage.Size = new Size(337, 29);
             cboStorage.TabIndex = 6;
+            cboStorage.Tag = "StorageLocation";
             // 
             // dtpBuy
             // 

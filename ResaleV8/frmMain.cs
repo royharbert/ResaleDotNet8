@@ -72,7 +72,7 @@ namespace ResaleV8
 
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Add;            
+            GV.MODE = Mode.Add;
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
@@ -99,6 +99,15 @@ namespace ResaleV8
         private void editRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.MODE = Mode.Search;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this;
+            allItemsForm.Show();
+            allItemsForm.Task = "Search Items";
         }
     }
 }

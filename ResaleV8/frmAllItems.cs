@@ -106,6 +106,12 @@ namespace ResaleV8
                     enableDisableControls(allControls, false);
                     txtID.Enabled = true;
                     break;
+                case Mode.Search:
+                    enableDisableControls(allControls, false);
+                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose" };
+                    enableDisableControls(ctlsToEnable, true);
+                    break;
             }
         }
 
@@ -425,7 +431,38 @@ namespace ResaleV8
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            clearForm();
+            GV.MODE = Mode.Search;
+            
+            txtQuantity.Text = "";
+            List<(string, string)> searchQuery = buildSearchQuery();
+            string sql = "Select * from purchasedItems where ";
+            foreach((string, string) c in searchQuery)
+            {
+                sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+            }
+            sql = sql.Substring(0, sql.Length - 5);
+            List<ItemModel> models = DataAccess.getModelList(sql);
+            frmSearchResults resultsForm = new frmSearchResults();
+            resultsForm.Models = models;
+            resultsForm.ShowDialog();
+        }
+
+        private List<(string, string)> buildSearchQuery()
+        {
+            List<(string, string)> result = new List<(string, string)>();
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is System.Windows.Forms.TextBox || ctl is ComboBox)
+                {
+                    if (ctl.Tag != null && ctl.Text != "")
+                    {
+                        result.Add((ctl.Tag.ToString(), ctl.Text)); 
+                    }
+                }
+            }
+            //result.Add((dtpBuy.Tag.ToString(), dtpBuy.Value.ToString("yyyy-MM-dd")));
+            //result.Add((dtpSaleDate.Tag.ToString(), dtpSaleDate.Value.ToString("yyyy-MM-dd")));
+            return result;
         }
     }
 }
