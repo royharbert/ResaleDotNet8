@@ -1,6 +1,7 @@
 ﻿using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.ExcelOps;
 using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,7 @@ namespace ResaleV8
         private void frmSearchResults_Load(object sender, EventArgs e)
         {
             dgvSearchresults.DataSource = models;
+            formatDGVSearchResults();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -57,6 +59,14 @@ namespace ResaleV8
             allItemsForm.item = itemID;
             allItemsForm.Task = "Edit Item";
             allItemsForm.Focus();
+        }
+
+        private void formatDGVSearchResults()
+        {
+            string[] headers = { "ID", "Category", "Item Description", "Quantity", "Purchase Date",
+                "Purchase Price", "Sale Date", "Sale Price", "Days Held", "Profit", "Storage Location" };
+            string[] hiddenColumns = new string[] { };
+            FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
         }
     }
 }
