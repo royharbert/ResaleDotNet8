@@ -415,7 +415,9 @@ namespace ResaleV8
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
             dtpSaleDate.CustomFormat = " ";
             cboCategory.SelectedIndex = -1;
+            cboCategory.Text = "";
             cboStorage.SelectedIndex = -1;
+            cboStorage.Text = "";
             this.AcceptButton = btnSave;
             disableAllControls();
             string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
