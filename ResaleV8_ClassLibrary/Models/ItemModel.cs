@@ -9,12 +9,12 @@ namespace ResaleV8_ClassLibrary.Models
     public class ItemModel
     {
         int _daysHeld = 0;
-        DateTime _saleDate = new DateTime(1900,01,01);
+        DateTime _saleDate = new DateTime(1900, 01, 01);
         DateTime _purchaseDate;
         decimal _salePrice = 0.0M;
         decimal _profit = 0.0M;
 
-        public  int ItemID{ get; set;  }
+        public int ItemID { get; set; }
         public string? Category { get; set; }
         public string ItemDesc { get; set; } = null!;
         public int Quantity { get; set; }
@@ -61,7 +61,7 @@ namespace ResaleV8_ClassLibrary.Models
         {
             get
             {
-                if(SaleDate == new DateTime(1900, 01, 01))
+                if (SaleDate == new DateTime(1900, 01, 01))
                 {
                     _daysHeld = (DateTime.Now - _purchaseDate).Days;
                 }
@@ -81,5 +81,7 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
         public string StorageLocation { get; set; } = null!;
+        public string? Brand { get; set; }
+        public string? PurchaseSource { get; set; }
     }
 }

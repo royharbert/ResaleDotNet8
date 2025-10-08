@@ -170,6 +170,8 @@ namespace ResaleV8
                 {
                     txtPrice.Text = "0";
                 }
+                cboBrand.Text = model.Brand;
+                cboPurchaseSource.Text = model.PurchaseSource;
             }
         }
 
@@ -248,7 +250,8 @@ namespace ResaleV8
         {
             if (model != null)
             {
-
+                model.PurchaseSource = cboPurchaseSource.Text;
+                model.Brand = cboBrand.Text;
                 model.ItemDesc = txtDesc.Text;
                 model.Category = cboCategory.Text;
                 model.PurchaseDate = dtpBuy.Value;
@@ -475,7 +478,6 @@ namespace ResaleV8
         private void cboStorage_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
-
         }
     }
 }

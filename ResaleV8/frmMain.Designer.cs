@@ -48,7 +48,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1448, 24);
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(1655, 30);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -56,13 +57,13 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(92, 22);
+            exitToolStripMenuItem.Size = new Size(116, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -70,20 +71,20 @@
             // 
             reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { soldItemReportToolStripMenuItem, unsoldItemToolStripMenuItem });
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            reportsToolStripMenuItem.Size = new Size(62, 20);
+            reportsToolStripMenuItem.Size = new Size(78, 24);
             reportsToolStripMenuItem.Text = " Reports";
             // 
             // soldItemReportToolStripMenuItem
             // 
             soldItemReportToolStripMenuItem.Name = "soldItemReportToolStripMenuItem";
-            soldItemReportToolStripMenuItem.Size = new Size(176, 22);
+            soldItemReportToolStripMenuItem.Size = new Size(221, 26);
             soldItemReportToolStripMenuItem.Text = "Sold Item Report";
             soldItemReportToolStripMenuItem.Click += soldItemReportToolStripMenuItem_Click;
             // 
             // unsoldItemToolStripMenuItem
             // 
             unsoldItemToolStripMenuItem.Name = "unsoldItemToolStripMenuItem";
-            unsoldItemToolStripMenuItem.Size = new Size(176, 22);
+            unsoldItemToolStripMenuItem.Size = new Size(221, 26);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
             // 
@@ -91,46 +92,47 @@
             // 
             editRecordToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addItemToolStripMenuItem1, editItemToolStripMenuItem, deleteItemToolStripMenuItem, searchToolStripMenuItem });
             editRecordToolStripMenuItem.Name = "editRecordToolStripMenuItem";
-            editRecordToolStripMenuItem.Size = new Size(79, 20);
-            editRecordToolStripMenuItem.Text = "Edit Record";
+            editRecordToolStripMenuItem.Size = new Size(173, 24);
+            editRecordToolStripMenuItem.Text = "Inventory Maintenance";
             editRecordToolStripMenuItem.Click += editRecordToolStripMenuItem_Click;
             // 
             // addItemToolStripMenuItem1
             // 
             addItemToolStripMenuItem1.Name = "addItemToolStripMenuItem1";
-            addItemToolStripMenuItem1.Size = new Size(180, 22);
+            addItemToolStripMenuItem1.Size = new Size(224, 26);
             addItemToolStripMenuItem1.Text = "Add Item";
             addItemToolStripMenuItem1.Click += addItemToolStripMenuItem1_Click;
             // 
             // editItemToolStripMenuItem
             // 
             editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
-            editItemToolStripMenuItem.Size = new Size(180, 22);
+            editItemToolStripMenuItem.Size = new Size(224, 26);
             editItemToolStripMenuItem.Text = "Edit Item";
             editItemToolStripMenuItem.Click += editItemToolStripMenuItem_Click;
             // 
             // deleteItemToolStripMenuItem
             // 
             deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            deleteItemToolStripMenuItem.Size = new Size(180, 22);
+            deleteItemToolStripMenuItem.Size = new Size(224, 26);
             deleteItemToolStripMenuItem.Text = "Delete Item";
             deleteItemToolStripMenuItem.Click += deleteItemToolStripMenuItem_Click;
             // 
             // searchToolStripMenuItem
             // 
             searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            searchToolStripMenuItem.Size = new Size(180, 22);
+            searchToolStripMenuItem.Size = new Size(224, 26);
             searchToolStripMenuItem.Text = "Search";
             searchToolStripMenuItem.Click += searchToolStripMenuItem_Click;
             // 
             // frmMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1448, 779);
+            ClientSize = new Size(1655, 1039);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "frmMain";
             Text = "Resale Database";
             WindowState = FormWindowState.Maximized;
