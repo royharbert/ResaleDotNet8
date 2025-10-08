@@ -35,7 +35,7 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+            GV.conString = "server=127.0.0.1;uid=root;pwd=root;database=Resale";
             MySqlConnection con = ConnectToDB.OpenDB();
             DataTable dtCat = DataAccess.getData(con, "Select Category from Categories");
             GV.categories = (from row in dtCat.AsEnumerable()
