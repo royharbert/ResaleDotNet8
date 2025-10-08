@@ -310,30 +310,35 @@ namespace ResaleV8
             ddEventArgs ea = new ddEventArgs();
             if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
             {
-                GV.categories.Add(cbo.Text);
-                GV.categories.Sort();
                 if (cbo.Name == "cboCategory")
                 {
+                    GV.categories.Add(cbo.Text);
+                    GV.categories.Sort();
                     {
                         ea.newItem = cboCategory.Text;
                         ea.tableName = "Categories";
                         ea.columnName = "Category";
+                        cboCategory.DataSource = null;
+                        cboCategory.DataSource = GV.categories;
+                        cboCategory.Text = ea.newItem;
                     }
                 }
                 ;
 
                 if (cbo.Name == "cboStorage")
                 {
+                    GV.storageLocations.Add(cbo.Text);
+                    GV.storageLocations.Sort();
                     ea.newItem = cboStorage.Text;
                     ea.tableName = "storageLocations";
                     ea.columnName = "Location";
+                    cboStorage.DataSource = null;
+                    cboStorage.DataSource = GV.storageLocations;
+                    cboStorage.Text = ea.newItem;
                 }
                 DataAccess.addDropDownItemToTable(ea);
 
 
-                cboCategory.DataSource = null;
-                cboCategory.DataSource = GV.categories;
-                cboCategory.Text = ea.newItem;
             }
         }
 
@@ -434,11 +439,11 @@ namespace ResaleV8
         private void btnSearch_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Search;
-            
+
             txtQuantity.Text = "";
             List<(string, string)> searchQuery = buildSearchQuery();
             string sql = "Select * from purchasedItems where ";
-            foreach((string, string) c in searchQuery)
+            foreach ((string, string) c in searchQuery)
             {
                 sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
             }
@@ -458,13 +463,19 @@ namespace ResaleV8
                 {
                     if (ctl.Tag != null && ctl.Text != "")
                     {
-                        result.Add((ctl.Tag.ToString(), ctl.Text)); 
+                        result.Add((ctl.Tag.ToString(), ctl.Text));
                     }
                 }
             }
             //result.Add((dtpBuy.Tag.ToString(), dtpBuy.Value.ToString("yyyy-MM-dd")));
             //result.Add((dtpSaleDate.Tag.ToString(), dtpSaleDate.Value.ToString("yyyy-MM-dd")));
             return result;
+        }
+
+        private void cboStorage_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
+
         }
     }
 }
