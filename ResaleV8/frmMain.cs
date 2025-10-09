@@ -35,17 +35,17 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            GV.conString = "server=127.0.0.1;uid=root;pwd=root;database=Resale";
-            MySqlConnection con = ConnectToDB.OpenDB();
-            DataTable dtCat = DataAccess.getData(con, "Select Category from Categories");
-            GV.categories = (from row in dtCat.AsEnumerable()
-                             select row.Field<string>("Category")).ToList();
-
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
-            con = ConnectToDB.OpenDB();
-            DataTable dtLoc = DataAccess.getData(con, "Select Location from StorageLocations");
-            GV.storageLocations = (from row in dtLoc.AsEnumerable()
-                                   select row.Field<string>("Location")).ToList();
+                        
+            GV.categories = DataAccess.getColumnList("categories", "Category");
+            
+            GV.storageLocations = DataAccess.getColumnList("storagelocations", "Location");
+
+            GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Source");
+
+            GV.Brands = DataAccess.getColumnList("brands", "Brand");
+
+            GV.WhereListed = DataAccess.getColumnList("wherelisted", "listed");
             GV.businessSummary = new BusinessSummary();
         }
 

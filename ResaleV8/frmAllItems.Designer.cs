@@ -407,7 +407,7 @@
             cboPurchaseSource.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboPurchaseSource.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPurchaseSource.FormattingEnabled = true;
-            cboPurchaseSource.Location = new Point(242, 193);
+            cboPurchaseSource.Location = new Point(242, 196);
             cboPurchaseSource.Name = "cboPurchaseSource";
             cboPurchaseSource.Size = new Size(339, 36);
             cboPurchaseSource.TabIndex = 2;

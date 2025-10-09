@@ -228,6 +228,11 @@ namespace ResaleV8
             cboCategory.SelectedIndex = -1;
             cboStorage.DataSource = GV.storageLocations;
             cboStorage.SelectedIndex = -1;
+            cboBrand.DataSource = GV.Brands;
+            cboBrand.SelectedIndex = -1;
+            cboPurchaseSource.DataSource = GV.PurchaseSources;
+            cboPurchaseSource.SelectedIndex = -1;
+
             prepareForm();
             //if (GV.MODE == Mode.Add)
             //{

@@ -84,16 +84,20 @@ namespace ResaleV8_ClassLibrary
             return rowsAffected;
         }
 
-        public static System.Data.DataTable getData(MySqlConnection con, string query)
+        public static List<string> getColumnList(string tableName, string columnName)
         {
-            using (con)
+            List<string> list = new List<string>();
+            string sql = "SELECT " + columnName + " FROM " + tableName;
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                System.Data.DataTable dt = new System.Data.DataTable();
-                dt.Load(reader);
-                return dt;
+                list.Add(reader[columnName].ToString());
             }
+            con.Close();
+            return list;
         }
 
         public static List<ItemModel> getModelList(string sql)
