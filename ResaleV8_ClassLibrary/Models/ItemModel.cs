@@ -80,8 +80,10 @@ namespace ResaleV8_ClassLibrary.Models
                 return _profit;
             }
         }
-        public string StorageLocation { get; set; } = null!;
+        public string? StorageLocation { get; set; } = null!;
         public string? Brand { get; set; }
         public string? PurchaseSource { get; set; }
+        public string? WhereListed { get; set; }
+        public DateTime DateListed { get; set; } = GV.emptyDate;
     }
 }

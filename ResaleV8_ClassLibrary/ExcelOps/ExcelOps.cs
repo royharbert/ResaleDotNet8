@@ -66,6 +66,8 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 wks.Cells[row, col++].Value = item.SaleDate.ToShortDateString();
                 wks.Cells[row, col++].Value = item.SalePrice;
                 wks.Cells[row, col++].Value = item.StorageLocation;
+                wks.Cells[row, col++].Value = item.WhereListed;
+                wks.Cells[row, col++].Value = item.DateListed.ToShortDateString();
                 wks.Cells[row, col++].Value = item.Profit;
                 wks.Cells[row, col++].Value = item.ProductAge;
                 row = row + 1;
@@ -324,8 +326,9 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
             Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
             string[] headers = { "ID", "Purchase Source", "Item Category", "Brand", "Item Description", "Quantity", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
-            int[] colWidth = { 5, 30, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
+                "Purchase Price", "Sale Date", "Sale Price", "Storage Location", "Where Listed", "Date Listed", "Profit", "Days Held" };
+            //                 1  2   3   4   5   6   7   8   9   10  11  12  13  14  15
+            int[] colWidth = { 5, 30, 30, 15, 30, 10, 10, 15, 12, 12, 15, 20, 15, 12, 12 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
             setCellWidth(wks, colWidth);
             insertDataTable(wks, dataStartRow, 1, dt, reportType);

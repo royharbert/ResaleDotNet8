@@ -172,8 +172,20 @@ namespace ResaleV8
                 }
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
+                cboWhereListed.Text = model.WhereListed;
+                if (model.WhereListed != "")
+                {
+                    dtpDateListed.Value = model.DateListed;
+                    dtpDateListed.Format = DateTimePickerFormat.Long;
+                }
+                else
+                {
+                    ClearDTP(dtpDateListed);
+
+                }
             }
         }
+        
 
         void disableAllControls()
         {
@@ -200,18 +212,28 @@ namespace ResaleV8
             Close();
         }
 
+        private void ClearDTP(DateTimePicker dtp)
+        {
+            dtp.Format = DateTimePickerFormat.Custom;
+            dtp.CustomFormat = " ";
+            dtp.Value = GV.emptyDate;
+        }
+
         private void frmAllItems_Load(object sender, EventArgs e)
         {
+            ClearDTP(dtpDateListed);
+            ClearDTP(dtpSaleDate);
+            cboWhereListed.DataSource = GV.WhereListed;
             cboCategory.DataSource = GV.categories;
             cboCategory.SelectedIndex = -1;
             cboStorage.DataSource = GV.storageLocations;
             cboStorage.SelectedIndex = -1;
             prepareForm();
-            if (GV.MODE == Mode.Add)
-            {
-                dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                dtpSaleDate.CustomFormat = " ";
-            }
+            //if (GV.MODE == Mode.Add)
+            //{
+            //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+            //    dtpSaleDate.CustomFormat = " ";
+            //}
             txtID.Focus();
         }
 
@@ -250,6 +272,8 @@ namespace ResaleV8
         {
             if (model != null)
             {
+                model.WhereListed = cboWhereListed.Text;
+                model.DateListed = dtpDateListed.Value; 
                 model.PurchaseSource = cboPurchaseSource.Text;
                 model.Brand = cboBrand.Text;
                 model.ItemDesc = txtDesc.Text;
@@ -261,7 +285,7 @@ namespace ResaleV8
                 }
                 else
                 {
-                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text); 
+                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
@@ -352,6 +376,16 @@ namespace ResaleV8
                         cboBrand.DataSource = null;
                         cboBrand.DataSource = GV.Brands;
                         cboBrand.Text = ea.newItem;
+                        break;
+                    case "cboWhereListed":
+                        GV.WhereListed.Add(cbo.Text);
+                        GV.WhereListed.Sort();
+                        ea.newItem = cboWhereListed.Text;
+                        ea.tableName = "WhereListed";
+                        ea.columnName = "Listed";
+                        cboWhereListed.DataSource = null;
+                        cboWhereListed.DataSource = GV.WhereListed;
+                        cboWhereListed.Text = ea.newItem;
                         break;
                 }
                 DataAccess.addDropDownItemToTable(ea);
@@ -506,6 +540,20 @@ namespace ResaleV8
         private void cboPurchaseSource_Leave_1(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
+        }
+
+        private void cboWhereListed_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
+            if(cboWhereListed.Text != "")
+            {
+                dtpDateListed.Value = DateTime.Now;
+                dtpDateListed.Format = DateTimePickerFormat.Long;
+            }
+            else
+            {
+                ClearDTP(dtpDateListed);
+            }
         }
     }
 }

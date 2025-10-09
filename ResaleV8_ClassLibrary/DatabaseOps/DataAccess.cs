@@ -28,12 +28,14 @@ namespace ResaleV8_ClassLibrary
         public static int addItemToDatabase(ItemModel model)
         {            
             string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, PurchaseDate, PurchasePrice, " +
-                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand) VALUES (@Category, " +
+                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed) VALUES (@Category, " +
                 "@ItemDesc, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation," +
-                "@PurchaseSource, @Brand)";
+                "@PurchaseSource, @Brand, @DateListed, @WhereListed )";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@DateListed", model.DateListed);
+            cmd.Parameters.AddWithValue("@WhereListed", model.WhereListed);
             cmd.Parameters.AddWithValue("@Brand", model.Brand);
             cmd.Parameters.AddWithValue("@PurchaseSource", model.PurchaseSource);
             cmd.Parameters.AddWithValue("@Category", model.Category);
@@ -59,10 +61,13 @@ namespace ResaleV8_ClassLibrary
             string sql = "UPDATE PurchasedItems SET Category = @Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
                          "PurchasePrice = @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
                          "SalePrice = @SalePrice, StorageLocation = @StorageLocation, Brand = @Brand, " +
-                         "purchaseSource = @PurchaseSource WHERE ItemID = @ItemID";
+                         "purchaseSource = @PurchaseSource, WhereListed = @WhereListed, " +
+                         "ListingDate = @DateListed WHERE ItemID = @ItemID";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@DateListed", model.DateListed);
+            cmd.Parameters.AddWithValue("@WhereListed", model.WhereListed);
             cmd.Parameters.AddWithValue("@Brand", model.Brand);
             cmd.Parameters.AddWithValue("@PurchaseSource", model.PurchaseSource);
             cmd.Parameters.AddWithValue("@Category", model.Category);
@@ -115,6 +120,10 @@ namespace ResaleV8_ClassLibrary
                 model.StorageLocation = reader["StorageLocation"].ToString() ?? string.Empty;
                 model.PurchaseSource = reader["PurchaseSource"].ToString() ?? string.Empty;
                 model.Brand = reader["Brand"].ToString() ?? string.Empty;
+                
+                if (reader["ListingDate"] != DBNull.Value)
+                    model.DateListed = Convert.ToDateTime(reader["ListingDate"]);
+                model.WhereListed = reader["WhereListed"].ToString() ?? string.Empty;
                 list.Add(model);
             }
             con.Close();

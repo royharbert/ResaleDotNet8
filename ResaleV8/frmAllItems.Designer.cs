@@ -62,6 +62,10 @@
             cboStorage = new ComboBox();
             cboBrand = new ComboBox();
             cboPurchaseSource = new ComboBox();
+            cboWhereListed = new ComboBox();
+            dtpDateListed = new DateTimePicker();
+            label12 = new Label();
+            label15 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -161,7 +165,7 @@
             // label7
             // 
             label7.Font = new Font("Segoe UI", 11.25F);
-            label7.Location = new Point(35, 516);
+            label7.Location = new Point(36, 599);
             label7.Name = "label7";
             label7.Size = new Size(200, 25);
             label7.TabIndex = 12;
@@ -170,7 +174,7 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(242, 474);
+            txtPrice.Location = new Point(243, 557);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 9;
@@ -180,7 +184,7 @@
             // label8
             // 
             label8.Font = new Font("Segoe UI", 11.25F);
-            label8.Location = new Point(35, 479);
+            label8.Location = new Point(36, 562);
             label8.Name = "label8";
             label8.Size = new Size(200, 25);
             label8.TabIndex = 14;
@@ -200,7 +204,7 @@
             // txtProfit
             // 
             txtProfit.Enabled = false;
-            txtProfit.Location = new Point(242, 552);
+            txtProfit.Location = new Point(243, 635);
             txtProfit.Name = "txtProfit";
             txtProfit.Size = new Size(338, 34);
             txtProfit.TabIndex = 11;
@@ -209,7 +213,7 @@
             // label10
             // 
             label10.Font = new Font("Segoe UI", 11.25F);
-            label10.Location = new Point(36, 557);
+            label10.Location = new Point(37, 640);
             label10.Name = "label10";
             label10.Size = new Size(200, 25);
             label10.TabIndex = 18;
@@ -219,7 +223,7 @@
             // txtDaysHeld
             // 
             txtDaysHeld.Enabled = false;
-            txtDaysHeld.Location = new Point(242, 591);
+            txtDaysHeld.Location = new Point(243, 674);
             txtDaysHeld.Name = "txtDaysHeld";
             txtDaysHeld.Size = new Size(338, 34);
             txtDaysHeld.TabIndex = 12;
@@ -228,7 +232,7 @@
             // label11
             // 
             label11.Font = new Font("Segoe UI", 11.25F);
-            label11.Location = new Point(36, 596);
+            label11.Location = new Point(37, 679);
             label11.Name = "label11";
             label11.Size = new Size(200, 25);
             label11.TabIndex = 20;
@@ -257,7 +261,7 @@
             // 
             // dtpSaleDate
             // 
-            dtpSaleDate.Location = new Point(242, 513);
+            dtpSaleDate.Location = new Point(243, 596);
             dtpSaleDate.Name = "dtpSaleDate";
             dtpSaleDate.Size = new Size(338, 34);
             dtpSaleDate.TabIndex = 10;
@@ -410,11 +414,53 @@
             cboPurchaseSource.Tag = "Category";
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 
+            // cboWhereListed
+            // 
+            cboWhereListed.FormattingEnabled = true;
+            cboWhereListed.Location = new Point(243, 475);
+            cboWhereListed.Name = "cboWhereListed";
+            cboWhereListed.Size = new Size(338, 36);
+            cboWhereListed.TabIndex = 27;
+            cboWhereListed.Tag = "WhereListed";
+            cboWhereListed.Leave += cboWhereListed_Leave;
+            // 
+            // dtpDateListed
+            // 
+            dtpDateListed.Location = new Point(242, 517);
+            dtpDateListed.Name = "dtpDateListed";
+            dtpDateListed.Size = new Size(339, 34);
+            dtpDateListed.TabIndex = 28;
+            dtpDateListed.Tag = "ListingDate";
+            // 
+            // label12
+            // 
+            label12.Font = new Font("Segoe UI", 11.25F);
+            label12.Location = new Point(37, 486);
+            label12.Name = "label12";
+            label12.Size = new Size(200, 25);
+            label12.TabIndex = 29;
+            label12.Text = "Where Listed";
+            label12.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            label15.Font = new Font("Segoe UI", 11.25F);
+            label15.Location = new Point(37, 525);
+            label15.Name = "label15";
+            label15.Size = new Size(200, 25);
+            label15.TabIndex = 30;
+            label15.Text = "Date Listed";
+            label15.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 866);
+            Controls.Add(label15);
+            Controls.Add(label12);
+            Controls.Add(dtpDateListed);
+            Controls.Add(cboWhereListed);
             Controls.Add(cboPurchaseSource);
             Controls.Add(cboBrand);
             Controls.Add(cboStorage);
@@ -492,5 +538,9 @@
         private ComboBox cboStorage;
         private ComboBox cboBrand;
         private ComboBox cboPurchaseSource;
+        private ComboBox cboWhereListed;
+        private DateTimePicker dtpDateListed;
+        private Label label12;
+        private Label label15;
     }
 }

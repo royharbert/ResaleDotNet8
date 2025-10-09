@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ResaleV8_ClassLibrary.Models;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 
 namespace ResaleV8
 {
@@ -38,10 +39,10 @@ namespace ResaleV8
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.itemList = itemList;
             dgvUnsold.DataSource = itemList;
-            string[] columnsToHide = { "Profit", "SalePrice" };
+            string[] columnsToHide = { /**"Profit", "SalePrice"*/ };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
-                    "Purchase Price", "Sale Date", "Sale Price", "Product Age",
+                    "Purchase Price", "Where Listed", "Date Listed", "Sale Date", "Sale Price", "Product Age",
                     "Profit", "Storage Location", "Brand", "Purchase Source" },
                 columnsToHide);
             GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);

@@ -34,8 +34,11 @@ namespace ResaleV8_ClassLibrary
             }
         }
         public static Mode PreviousMode { get; set; }
+        public static List<string> WhereListed { get; set; } = new List<string>();
+        
 
-        private static Mode mode = Mode.None;
+        public static Mode mode = Mode.None;
+
     }
 
         
