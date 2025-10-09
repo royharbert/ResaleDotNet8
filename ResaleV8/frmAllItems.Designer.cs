@@ -60,8 +60,8 @@
             label13 = new Label();
             label14 = new Label();
             cboStorage = new ComboBox();
-            cboPurchaseSource = new ComboBox();
             cboBrand = new ComboBox();
+            cboPurchaseSource = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -386,31 +386,37 @@
             cboStorage.TabIndex = 8;
             cboStorage.Leave += cboStorage_Leave;
             // 
-            // cboPurchaseSource
-            // 
-            cboPurchaseSource.FormattingEnabled = true;
-            cboPurchaseSource.Location = new Point(242, 195);
-            cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(338, 36);
-            cboPurchaseSource.TabIndex = 2;
-            cboPurchaseSource.Tag = "PurchaseSource";
-            // 
             // cboBrand
             // 
+            cboBrand.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboBrand.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboBrand.FormattingEnabled = true;
             cboBrand.Location = new Point(242, 275);
             cboBrand.Name = "cboBrand";
             cboBrand.Size = new Size(338, 36);
             cboBrand.TabIndex = 4;
             cboBrand.Tag = "Brand";
+            cboBrand.Leave += cboBrand_Leave;
+            // 
+            // cboPurchaseSource
+            // 
+            cboPurchaseSource.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboPurchaseSource.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboPurchaseSource.FormattingEnabled = true;
+            cboPurchaseSource.Location = new Point(242, 193);
+            cboPurchaseSource.Name = "cboPurchaseSource";
+            cboPurchaseSource.Size = new Size(339, 36);
+            cboPurchaseSource.TabIndex = 27;
+            cboPurchaseSource.Tag = "Category";
+            cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 866);
-            Controls.Add(cboBrand);
             Controls.Add(cboPurchaseSource);
+            Controls.Add(cboBrand);
             Controls.Add(cboStorage);
             Controls.Add(label14);
             Controls.Add(label13);
@@ -484,7 +490,7 @@
         private Label label13;
         private Label label14;
         private ComboBox cboStorage;
-        private ComboBox cboPurchaseSource;
         private ComboBox cboBrand;
+        private ComboBox cboPurchaseSource;
     }
 }

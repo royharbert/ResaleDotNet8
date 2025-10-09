@@ -261,7 +261,7 @@ namespace ResaleV8
                 }
                 else
                 {
-                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
+                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text); 
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
@@ -286,9 +286,7 @@ namespace ResaleV8
                 {
                     model.SalePrice = Convert.ToDecimal(txtPrice.Text);
                 }
-                //txtProfit.Enabled = true;
                 txtProfit.Text = model.Profit.ToString("$0.00");
-                //txtDaysHeld.Enabled = true;
                 txtDaysHeld.Text = model.ProductAge.ToString();
 
                 return model;
@@ -306,42 +304,57 @@ namespace ResaleV8
         {
             /*
              * Check to see if text is in items collection
-             * If not, add it to list
+             * If not, add it to listtrffrffd
              *  Insert it into data table
              */
             ComboBox cbo = sender as ComboBox;
             ddEventArgs ea = new ddEventArgs();
             if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
             {
-                if (cbo.Name == "cboCategory")
+                switch (cbo.Name)
                 {
-                    GV.categories.Add(cbo.Text);
-                    GV.categories.Sort();
-                    {
+                    case "cboCategory":
+                        GV.categories.Add(cbo.Text);
+                        GV.categories.Sort();
                         ea.newItem = cboCategory.Text;
                         ea.tableName = "Categories";
                         ea.columnName = "Category";
                         cboCategory.DataSource = null;
                         cboCategory.DataSource = GV.categories;
                         cboCategory.Text = ea.newItem;
-                    }
-                }
-                ;
-
-                if (cbo.Name == "cboStorage")
-                {
-                    GV.storageLocations.Add(cbo.Text);
-                    GV.storageLocations.Sort();
-                    ea.newItem = cboStorage.Text;
-                    ea.tableName = "storageLocations";
-                    ea.columnName = "Location";
-                    cboStorage.DataSource = null;
-                    cboStorage.DataSource = GV.storageLocations;
-                    cboStorage.Text = ea.newItem;
+                        break;
+                    case "cboStorage":
+                        GV.storageLocations.Add(cbo.Text);
+                        GV.storageLocations.Sort();
+                        ea.newItem = cboStorage.Text;
+                        ea.tableName = "storageLocations";
+                        ea.columnName = "Location";
+                        cboStorage.DataSource = null;
+                        cboStorage.DataSource = GV.storageLocations;
+                        cboStorage.Text = ea.newItem;
+                        break;
+                    case "cboPurchaseSource":
+                        GV.PurchaseSources.Add(cbo.Text);
+                        GV.PurchaseSources.Sort();
+                        ea.newItem = cboPurchaseSource.Text;
+                        ea.tableName = "purchaseSources";
+                        ea.columnName = "source";
+                        cboPurchaseSource.DataSource = null;
+                        cboPurchaseSource.DataSource = GV.PurchaseSources;
+                        cboPurchaseSource.Text = ea.newItem;
+                        break;
+                    case "cboBrand":
+                        GV.Brands.Add(cbo.Text);
+                        GV.Brands.Sort();
+                        ea.newItem = cboBrand.Text;
+                        ea.tableName = "brands";
+                        ea.columnName = "brand";
+                        cboBrand.DataSource = null;
+                        cboBrand.DataSource = GV.Brands;
+                        cboBrand.Text = ea.newItem;
+                        break;
                 }
                 DataAccess.addDropDownItemToTable(ea);
-
-
             }
         }
 
@@ -476,6 +489,21 @@ namespace ResaleV8
         }
 
         private void cboStorage_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
+        }
+
+        private void cboPurchaseSource_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
+        }
+
+        private void cboBrand_Leave(object sender, EventArgs e)
+        {
+            comboListMaintenance(sender, e);
+        }
+
+        private void cboPurchaseSource_Leave_1(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
         }
