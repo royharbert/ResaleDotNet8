@@ -41,9 +41,9 @@ namespace ResaleV8
             dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { /**"Profit", "SalePrice"*/ };
             FormControlOps.formatDGV(dgvUnsold,
-                headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
+                headers: new string[] { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
                     "Purchase Price", "Where Listed", "Date Listed", "Sale Date", "Sale Price", "Product Age",
-                    "Profit", "Storage Location", "Brand", "Purchase Source" },
+                    "Profit", "Storage Location" }, 
                 columnsToHide);
             GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");

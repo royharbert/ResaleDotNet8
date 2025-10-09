@@ -17,6 +17,8 @@ namespace ResaleV8_ClassLibrary.Models
         public int ItemID { get; set; }
         public string? Category { get; set; }
         public string ItemDesc { get; set; } = null!;
+        public string? Brand { get; set; }
+        public string? PurchaseSource { get; set; }
         public int Quantity { get; set; }
         public DateTime PurchaseDate
         {
@@ -32,6 +34,8 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
         public decimal PurchasePrice { get; set; }
+        public string? WhereListed { get; set; }
+        public DateTime DateListed { get; set; } = GV.emptyDate;
         public DateTime SaleDate
         {
             get
@@ -81,9 +85,5 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
         public string? StorageLocation { get; set; } = null!;
-        public string? Brand { get; set; }
-        public string? PurchaseSource { get; set; }
-        public string? WhereListed { get; set; }
-        public DateTime DateListed { get; set; } = GV.emptyDate;
     }
 }
