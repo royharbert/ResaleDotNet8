@@ -42,7 +42,7 @@ namespace ResaleV8
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Quantity", "Purchase Date",
                     "Purchase Price", "Sale Date", "Sale Price", "Product Age",
-                    "Profit", "Storage Location" },
+                    "Profit", "Storage Location", "Brand", "Purchase Source" },
                 columnsToHide);
             GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");
@@ -55,7 +55,7 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             //List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
-            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report",  hiddenColumns, "Unsold");
+            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report",  hiddenColumns, ExportType.Unsold);
         }
 
         private void dgvUnsold_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

@@ -406,7 +406,7 @@
             cboPurchaseSource.Location = new Point(242, 193);
             cboPurchaseSource.Name = "cboPurchaseSource";
             cboPurchaseSource.Size = new Size(339, 36);
-            cboPurchaseSource.TabIndex = 27;
+            cboPurchaseSource.TabIndex = 2;
             cboPurchaseSource.Tag = "Category";
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 

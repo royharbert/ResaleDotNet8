@@ -67,7 +67,7 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             List<ItemModel> dt = (List<ItemModel>)dgvSoldReport.DataSource;
-            ExcelOps.createExcelSheet(dt, "Sold Report",  hiddenColumns, "Sold");
+            ExcelOps.createExcelSheet(dt, "Sold Report",  hiddenColumns, ExportType.Sold);
         }
 
         private void frmSoldReport_Load(object sender, EventArgs e)

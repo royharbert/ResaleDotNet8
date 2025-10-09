@@ -49,7 +49,7 @@ namespace ResaleV8
             GV.businessSummary.UnsoldItemsCount = models.Sum(item => item.Quantity);
             string[] hiddenColumns = new string[] { };
             ExcelOps.createExcelSheet((List<ItemModel>)models,
-                "Search Results", hiddenColumns, "Search");
+                "Search Results", hiddenColumns, ExportType.SearchResults);
         }
 
 

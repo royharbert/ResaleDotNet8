@@ -12,6 +12,7 @@ using ResaleV8_ClassLibrary.Models;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices.ComTypes;
 using static System.Collections.Specialized.BitVector32;
+using ResaleV8;
 
 namespace ResaleV8_ClassLibrary.ExcelOps    
 {
@@ -46,7 +47,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         }
 
         public static void insertDataTable(Worksheet wks, int startRow, int startCol, List<ItemModel> dt,
-            string exportType)
+            ExportType exportType)
         {
             int row = startRow;
             int col = startCol;
@@ -55,7 +56,9 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             {
                 col = startCol;
                 wks.Cells[row, col++].Value = item.ItemID;
+                wks.Cells[row, col++].Value = item.PurchaseSource;
                 wks.Cells[row, col++].Value = item.Category;
+                wks.Cells[row, col++].Value = item.Brand;
                 wks.Cells[row, col++].Value = item.ItemDesc;
                 wks.Cells[row, col++].Value = item.Quantity;
                 wks.Cells[row, col++].Value = item.PurchaseDate.ToShortDateString();
@@ -71,7 +74,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
             switch (exportType)
             {
-                case "Sold":
+                case ExportType.Sold:
                     if (GV.businessSummary != null)
                     {
                         wks.Cells[row, 3].Value = "Total Sales";
@@ -89,7 +92,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                         setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
                     }
                     break;
-                case "Unsold":
+                case ExportType.Unsold:
                     wks.Cells[row, 3].Value = "Unsold Items Cost";
                     wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
                     row++;
@@ -101,7 +104,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
                     setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
                     break;
-                case "Search":
+                case ExportType.SearchResults:
                     wks.Cells[row, 3].Value = "Items Cost";
                     wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
                     row++;
@@ -115,39 +118,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     break;                    
 
             }
-            //if (isSoldReport)
-            //{
-            //    if (GV.businessSummary != null)
-            //    {
-            //        wks.Cells[row, 3].Value = "Total Sales";
-            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalSales;
-            //        row++;
-            //        wks.Cells[row, 3].Value = "Total Cost";
-            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalCost;
-            //        row++;
-            //        wks.Cells[row, 3].Value = "Total Profit";
-            //        wks.Cells[row, 4].Value = GV.businessSummary.TotalMargin;
-            //        row++;
-            //        wks.Cells[row, 3].Value = "Profit Margin %";
-            //        wks.Cells[row, 4].Value = GV.businessSummary.MarginPercentage;
-            //        setDollarDecimalPlaces(wks, 2, row - 3, row - 1, 4, 4);
-            //        setPercentDecimalPlaces(wks, 2, row, row, 4, 4);
-            //    }
-            //}
-            //else
-            //{
-            //    wks.Cells[row, 3].Value = "Items Cost";
-            //    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldCost;
-            //    row++;
-            //    wks.Cells[row, 3].Value = "Average Age of Unsold Items";
-            //    wks.Cells[row, 4].Value = GV.businessSummary.AvgUnsoldAge;
-            //    row++;
-            //    wks.Cells[row, 3].Value = "Unsold Item Count";
-            //    wks.Cells[row, 4].Value = GV.businessSummary.UnsoldItemsCount;
-            //    setDollarDecimalPlaces(wks, 2, row - 2, row - 2, 4, 4);
-            //    setDecimalPlaces(wks, 2, row - 1, row - 1, 4, 4);
-
-            //}
         }
 
         public static object GetCellValue(Excel.Worksheet wks, int row, int column)
@@ -348,18 +318,18 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         }
 
         public static void createExcelSheet(List<ItemModel> dt, string title,
-            string[] hiddenColumns, string reportType)
+            string[] hiddenColumns, ExportType reportType)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
             Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
-            string[] headers = { "ID", "Item Category", "Item Description", "Quantity", "Purchase Date",
+            string[] headers = { "ID", "Purchase Source", "Item Category", "Brand", "Item Description", "Quantity", "Purchase Date",
                 "Purchase Price", "Sale Date", "Sale Price", "Storage Location"," Profit", "Days Held" };
             int[] colWidth = { 5, 30, 30, 10, 15, 15, 15, 15, 30, 10, 10 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);
             setCellWidth(wks, colWidth);
             insertDataTable(wks, dataStartRow, 1, dt, reportType);
-            int[] currencyCols = { 6, 8, 10 };
+            int[] currencyCols = { 8, 10 };
             ExcelOps.formatColumnAsCurrency(wks, currencyCols);
             hideColumns(wks, hiddenColumns);
 

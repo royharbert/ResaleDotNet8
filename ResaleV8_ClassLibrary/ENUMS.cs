@@ -15,5 +15,12 @@ namespace ResaleV8
         Search,
         None
     }
+
+    public enum ExportType
+    {
+        SearchResults,
+        Sold,
+        Unsold
+    }
 }
 
