@@ -63,6 +63,16 @@ namespace ResaleV8.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _408050_pencil_art_drawing_edit_modify_icon {
+            get {
+                object obj = ResourceManager.GetObject("408050_pencil_art_drawing_edit_modify_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _5402366_delete_remove_cross_cancel_close_icon {
             get {
                 object obj = ResourceManager.GetObject("5402366_delete_remove_cross_cancel_close_icon", resourceCulture);
@@ -116,6 +126,26 @@ namespace ResaleV8.Properties {
         internal static System.Drawing.Bitmap _8666786_x_octagon_delete_icon {
             get {
                 object obj = ResourceManager.GetObject("8666786_x_octagon_delete_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _9004852_trash_delete_bin_remove_icon {
+            get {
+                object obj = ResourceManager.GetObject("9004852_trash_delete_bin_remove_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _9004852_trash_delete_bin_remove_icon__1_ {
+            get {
+                object obj = ResourceManager.GetObject("9004852_trash_delete_bin_remove_icon (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

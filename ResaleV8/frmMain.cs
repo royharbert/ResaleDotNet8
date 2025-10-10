@@ -36,9 +36,9 @@ namespace ResaleV8
         private void frmMain_Load(object sender, EventArgs e)
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
-                        
+
             GV.categories = DataAccess.getColumnList("categories", "Category");
-            
+
             GV.storageLocations = DataAccess.getColumnList("storagelocations", "Location");
 
             GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Source");
@@ -108,6 +108,40 @@ namespace ResaleV8
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
             allItemsForm.Task = "Search Items";
+        }
+
+        private void openListEditorForm(string cboName)
+        {
+            frmListEditor editor = new frmListEditor();
+            editor.cboName = cboName;
+            editor.MdiParent = this;
+            editor.Show();
+
+        }
+
+        private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openListEditorForm("cboCategory");
+        }
+
+        private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openListEditorForm("cboPurchaseSource");
+        }
+
+        private void brandToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openListEditorForm("cboBrand");
+        }
+
+        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openListEditorForm("cboStorage");
+        }
+
+        private void whereListedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openListEditorForm("cboWhereListed");
         }
     }
 }

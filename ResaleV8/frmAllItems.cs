@@ -436,7 +436,7 @@ namespace ResaleV8
                 MessageBoxButtons.OKCancel);
             if (dr == DialogResult.OK)
             {
-                DataAccess.deleteRecord(Convert.ToInt32(txtID.Text));
+                DataAccess.deleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
                 MessageBox.Show("Item Deleted");
             }
 

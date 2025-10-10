@@ -2,8 +2,10 @@
 using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.Models;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 
 namespace ResaleV8_ClassLibrary
 {
@@ -22,6 +24,24 @@ namespace ResaleV8_ClassLibrary
 
             con.Close();
             
+            return newID;
+        }
+
+        public static int addListToDropDownTable(string tableName, List<string> list)
+        {
+            string sql = "INSERT INTO " + tableName + " values " +
+                "('" + list[1] + "')";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            MySqlCommand cmd = new MySqlCommand();
+            con.Open();
+            foreach(var item in list)
+            {
+                cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@" + list[1], item);
+                object result = cmd.ExecuteScalar();
+            }
+            con.Close();
+            int newID = Convert.ToInt32(cmd.LastInsertedId);
             return newID;
         }
 
@@ -134,12 +154,25 @@ namespace ResaleV8_ClassLibrary
             return list;
         }
 
-        public static void deleteRecord(int ID)
+        public static void deleteRecord(int ID, string tableName)
         {
-            string sql = "delete from purchasedItems where ItemID = " + ID.ToString();
+            string sql = "delete from " + tableName + " where ItemID = " + ID.ToString();
             MySqlConnection con = ConnectToDB.OpenDB();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
+        }
+
+        public static DataTable GetComboItemList(string tableName)
+        {
+            DataTable dt = new DataTable();
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            string sql = "SELECT * FROM " + tableName;
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            con.Close();
+            return dt;
         }
     }
 }

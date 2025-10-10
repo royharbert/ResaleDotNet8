@@ -10,6 +10,10 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class FormControlOps
     {
+        public static void EditDropDownList(ComboBox cbo)
+        {
+            List<string> items = new List<string>();
+        }
         public static void toggleControlPairEnables(ValueTuple<Control, Control> ctlPair)
         {
             ctlPair.Item1.Enabled = !ctlPair.Item1.Enabled;
