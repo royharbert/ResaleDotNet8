@@ -22,14 +22,17 @@ namespace ResaleV8_ClassLibrary.Ops
             return properties;
         }
 
-        public static List<T> convertDataTableToList<T>(DataTable dt, string columnName) where T : new()
+        public static List<string> convertDataTableToList(DataTable dt, string columnName)         
         {
-            List<T> data = new List<T>();
-            foreach (DataRow row in dt.Rows)
+            List<string> data = new List<string>();
+            string item = "";
+            if (dt != null)
             {
-                // Assumes the column value can be cast to T
-                T item = (T)row[columnName];
-                data.Add(item);
+                foreach (DataRow row in dt.Rows)
+                {  
+                    item = row[columnName].ToString();
+                    data.Add(item);
+                } 
             }
             return data;
         }

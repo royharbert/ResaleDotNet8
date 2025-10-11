@@ -27,6 +27,36 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
+        public static List<string> ModifyListItem(string oldItem, string newItem, List<string> list)
+        { 
+            int index = list.IndexOf(oldItem);
+            if (index != -1)
+            {
+                list[index] = newItem;
+            }
+            return list;
+        }
+
+        public static void RemoveTableItems(string tableName)
+        {
+            string sql = "DELETE FROM " + tableName + " where ID > 0";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public static List<string> DeleteListItem(string item, List<string> list)
+        {
+            int index = list.IndexOf(item);
+            if (index != -1)
+            {
+                list.RemoveAt(index);
+            }
+            return list;
+        }
+
         public static int addListToDropDownTable(string tableName, List<string> list, string colName)
         {
             MySqlConnection con = new MySqlConnection(GV.conString);

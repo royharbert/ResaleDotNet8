@@ -1,4 +1,5 @@
 ﻿using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,19 +93,28 @@ namespace ResaleV8
             DataTable dt = (DataTable)dgvEditor.DataSource;
             if (dgvEditor.CurrentRow != null)
             {
-                int selectedIndex = dgvEditor.CurrentRow.Index;
-                int id = Convert.ToInt32(dt.Rows[selectedIndex]["ID"]);
-                string newValue = txtItem.Text.Trim();
-                if (!string.IsNullOrEmpty(newValue))
+                list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
+                    txtItem.Text.Trim(), list);
+                switch (tableName)
                 {
-                    dt.Rows[selectedIndex][1] = newValue;
-                    DataAccess.addListToDropDownTable(tableName, list, colName);
-                    MessageBox.Show("Item updated successfully.");
+                    case "categories":
+                        GV.categories = list;
+                        break;
+                    case "storageLocations":
+                        GV.storageLocations = list;
+                        break;
+                    case "purchasesources":
+                        GV.PurchaseSources = list;
+                        break;
+                    case "brands":
+                        GV.Brands = list;
+                        break;
+                    case "whereListed":
+                        GV.WhereListed = list;
+                        break;
                 }
-                else
-                {
-                    MessageBox.Show("Item cannot be empty.");
-                }
+                DataAccess.RemoveTableItems(tableName);
+                DataAccess.addListToDropDownTable(tableName, list, colName);
             }
             else
             {
@@ -112,9 +122,45 @@ namespace ResaleV8
             }
         }
 
+        private List<string> GetGVList()
+        {
+            switch (tableName)
+            {
+                case "categories":
+                    list = GV.categories;
+                    break;
+                case "storageLocations":
+                    list = GV.storageLocations;
+                    break;
+                case "purchasesources":
+                    list = GV.PurchaseSources;
+                    break;
+                case "brands":
+                    list = GV.Brands;
+                    break;
+                case "whereListed":
+                    list = GV.WhereListed;
+                    break;
+            }
+            return list;
+        }
+
         private void btnTest_Click(object sender, EventArgs e)
         {
             DataAccess.addListToDropDownTable("test", GV.categories, "info");
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string item = "";
+            List<string> list = Operations.convertDataTableToList
+                ((DataTable)dgvEditor.DataSource, "category");
+            item = txtItem.Text.Trim();
+            List<string> newList = DataAccess.DeleteListItem(item, list);
+            List<string> oldList = GetGVList();
+            oldList = newList;
+            dgvEditor.DataSource = null;
+            dgvEditor.DataSource = newList;
         }
     }
 }
