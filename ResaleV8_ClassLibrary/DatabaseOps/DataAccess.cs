@@ -27,17 +27,17 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
-        public static int addListToDropDownTable(string tableName, List<string> list)
+        public static int addListToDropDownTable(string tableName, List<string> list, string colName)
         {
-            string sql = "INSERT INTO " + tableName + " values " +
-                "('" + list[1] + "')";
             MySqlConnection con = new MySqlConnection(GV.conString);
             MySqlCommand cmd = new MySqlCommand();
             con.Open();
             foreach(var item in list)
             {
+                string sql = "INSERT INTO " + tableName + " (" + colName + ") values " +
+                    "('" + item + "')";
                 cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@" + list[1], item);
+                cmd.Parameters.AddWithValue("@" + colName, item);
                 object result = cmd.ExecuteScalar();
             }
             con.Close();

@@ -95,7 +95,7 @@ namespace ResaleV8
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            DataAccess.addListToDropDownTable("test", GV.categories);
+            DataAccess.addListToDropDownTable("test", GV.categories, "info");
         }
     }
 }
