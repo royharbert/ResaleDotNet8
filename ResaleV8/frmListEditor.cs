@@ -15,6 +15,10 @@ namespace ResaleV8
     public partial class frmListEditor : Form
     {
         public string cboName { get; set; }
+        private string tableName;
+        private string colName;
+        private List<string> list;
+
         public frmListEditor()
         {
             InitializeComponent();
@@ -28,18 +32,33 @@ namespace ResaleV8
             {
                 case "cboCategory":
                     dt = DataAccess.GetComboItemList("categories");
+                    tableName = "categories";
+                    colName = "category";
+                    list = GV.categories;
                     break;
                 case "cboStorage":
                     dt = DataAccess.GetComboItemList("storageLocations");
+                    tableName = "storageLocations";
+                    colName = "location";
+                    list = GV.storageLocations;
                     break;
                 case "cboPurchaseSource":
                     dt = DataAccess.GetComboItemList("purchasesources");
+                    tableName = "purchasesources";
+                    colName = "source";
+                    list = GV.PurchaseSources;
                     break;
                 case "cboBrand":
                     dt = DataAccess.GetComboItemList("brands");
+                    tableName = "brands";
+                    colName = "brand";
+                    list = GV.Brands;
                     break;
                 case "cboWhereListed":
                     dt = DataAccess.GetComboItemList("whereListed");
+                    tableName = "whereListed";
+                    colName = "listed";
+                    list = GV.WhereListed;
                     break;
             }
             dgvEditor.DataSource = dt;
@@ -79,7 +98,7 @@ namespace ResaleV8
                 if (!string.IsNullOrEmpty(newValue))
                 {
                     dt.Rows[selectedIndex][1] = newValue;
-                    //DataAccess.UpdateComboItem(cboName, id, newValue);
+                    DataAccess.addListToDropDownTable(tableName, list, colName);
                     MessageBox.Show("Item updated successfully.");
                 }
                 else
