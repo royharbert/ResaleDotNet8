@@ -47,15 +47,6 @@ namespace ResaleV8_ClassLibrary
             con.Close();
         }
 
-        public static List<string> DeleteListItem(string item, List<string> list)
-        {
-            int index = list.IndexOf(item);
-            if (index != -1)
-            {
-                list.RemoveAt(index);
-            }
-            return list;
-        }
 
         public static int addListToDropDownTable(string tableName, List<string> list, string colName)
         {

@@ -170,7 +170,7 @@ namespace ResaleV8
             {
                 ea.tableName = tableName;
                 ea.columnName = colName;
-                ea.newItem = listItem;
+                ea.newItem = ListItem;
                 DataAccess.addDropDownItemToTable(ea); 
             };
             dgvEditor.DataSource = null;
