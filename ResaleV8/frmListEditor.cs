@@ -174,6 +174,7 @@ namespace ResaleV8
                 DataAccess.addDropDownItemToTable(ea); 
             };
             dgvEditor.DataSource = null;
+            list = DataAccess.getColumnList(tableName, colName);
             dgvEditor.DataSource = list;
         }
     }
