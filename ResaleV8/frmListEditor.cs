@@ -64,6 +64,7 @@ namespace ResaleV8
             }
             dgvEditor.DataSource = dt;
             formatDGV();
+            txtItem.Focus();
         }
 
         private void formatDGV()
@@ -128,39 +129,52 @@ namespace ResaleV8
             {
                 case "categories":
                     list = GV.categories;
+                    colName = "category";
                     break;
                 case "storageLocations":
                     list = GV.storageLocations;
+                    colName = "location";
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
+                    colName = "source";
                     break;
                 case "brands":
                     list = GV.Brands;
+                    colName = "brand";
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
+                    colName = "listed";
                     break;
             }
             return list;
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            DataAccess.addListToDropDownTable("test", GV.categories, "info");
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             string item = "";
-            List<string> list = Operations.convertDataTableToList
-                ((DataTable)dgvEditor.DataSource, "category");
+            list = GetGVList();
             item = txtItem.Text.Trim();
-            List<string> newList = DataAccess.DeleteListItem(item, list);
-            List<string> oldList = GetGVList();
-            oldList = newList;
+            int index = list.IndexOf(item);
+            if (index == -1)
+            {
+                MessageBox.Show("Item not found in list.");
+                return;
+            }
+            list.RemoveAt(index);
+            DataAccess.RemoveTableItems(tableName);
+           // Operations.ConvertListToDataTable(list, colName);
+            ddEventArgs ea = new ddEventArgs();
+            foreach (var ListItem in list)
+            {
+                ea.tableName = tableName;
+                ea.columnName = colName;
+                ea.newItem = listItem;
+                DataAccess.addDropDownItemToTable(ea); 
+            };
             dgvEditor.DataSource = null;
-            dgvEditor.DataSource = newList;
+            dgvEditor.DataSource = list;
         }
     }
 }

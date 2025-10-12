@@ -22,7 +22,7 @@ namespace ResaleV8_ClassLibrary.Ops
             return properties;
         }
 
-        public static List<string> convertDataTableToList(DataTable dt, string columnName)         
+        public static List<string> ConvertDataTableToList(DataTable dt, string columnName)         
         {
             List<string> data = new List<string>();
             string item = "";
@@ -36,6 +36,18 @@ namespace ResaleV8_ClassLibrary.Ops
             }
             return data;
         }
+        //public static DataTable ConvertListToDataTable(List<string> list, string columnName)
+        //{
+        //    DataTable dt = new DataTable();
+        //    dt.Columns.Add("ID", typeof(int));
+        //    dt.Columns.Add(columnName, typeof(string));
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+        //        dt.Rows.Add(i + 1, list[i]);
+        //    }
+        //    DataAccess.addListToDropDownTable(dt, list, columnName);
+        //    return dt;
+        //}
     }
 
     
