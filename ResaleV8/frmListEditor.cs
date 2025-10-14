@@ -1,4 +1,5 @@
 ﻿using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace ResaleV8
         private string tableName;
         private string colName;
         private List<string> list;
+        private string oldItem;
 
         public frmListEditor()
         {
@@ -69,7 +71,7 @@ namespace ResaleV8
 
         private void formatDGV()
         {
-            dgvEditor.Columns[0].Visible = false;
+            //dgvEditor.Columns[0].Visible = false;
             dgvEditor.Columns[1].Width = 200;
             dgvEditor.Columns[1].HeaderText = "Item";
         }
@@ -85,7 +87,8 @@ namespace ResaleV8
             if (rowIndex >= 0) // Ensure the row index is valid
             {
                 DataGridViewRow selectedRow = dgvEditor.Rows[rowIndex];
-                txtItem.Text = selectedRow.Cells[1].Value.ToString();
+                oldItem = selectedRow.Cells[1].Value.ToString();
+                txtItem.Text = oldItem;
             }
         }
 
@@ -114,8 +117,9 @@ namespace ResaleV8
                         GV.WhereListed = list;
                         break;
                 }
-                DataAccess.RemoveTableItems(tableName);
-                DataAccess.addListToDropDownTable(tableName, list, colName);
+                //DataAccess.RemoveTableItems(tableName);
+                //DataAccess.AddListToDropDownTable(tableName, list, colName);
+                DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
             }
             else
             {
@@ -163,18 +167,10 @@ namespace ResaleV8
                 return;
             }
             list.RemoveAt(index);
-            DataAccess.RemoveTableItems(tableName);
-           // Operations.ConvertListToDataTable(list, colName);
-            ddEventArgs ea = new ddEventArgs();
-            foreach (var ListItem in list)
-            {
-                ea.tableName = tableName;
-                ea.columnName = colName;
-                ea.newItem = ListItem;
-                DataAccess.addDropDownItemToTable(ea); 
-            };
+            DataAccess.RemoveListItem(tableName,colName, item);
+            DialogResult result = MessageBox.Show("Item deleted");
+            //list = DataAccess.getColumnList(tableName, colName);
             dgvEditor.DataSource = null;
-            list = DataAccess.getColumnList(tableName, colName);
             dgvEditor.DataSource = list;
         }
     }

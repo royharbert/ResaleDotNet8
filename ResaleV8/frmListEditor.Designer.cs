@@ -90,7 +90,6 @@
             // 
             btnModify.Font = new Font("Segoe UI", 11F);
             btnModify.Image = Properties.Resources._408050_pencil_art_drawing_edit_modify_icon;
-            btnModify.ImageAlign = ContentAlignment.TopCenter;
             btnModify.Location = new Point(379, 259);
             btnModify.Name = "btnModify";
             btnModify.Size = new Size(116, 135);

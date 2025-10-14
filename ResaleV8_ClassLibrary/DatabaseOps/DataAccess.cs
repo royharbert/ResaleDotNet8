@@ -47,8 +47,17 @@ namespace ResaleV8_ClassLibrary
             con.Close();
         }
 
+        public static void RemoveListItem(string tableName, string colName, string item)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            string sql = "delete from " + tableName + " where " + colName + " = '" + item + "';";
+            MySqlCommand cmd = new MySqlCommand( sql, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
 
-        public static int addListToDropDownTable(string tableName, List<string> list, string colName)
+
+        public static int AddListToDropDownTable(string tableName, List<string> list, string colName)
         {
             MySqlConnection con = new MySqlConnection(GV.conString);
             MySqlCommand cmd = new MySqlCommand();
@@ -125,6 +134,16 @@ namespace ResaleV8_ClassLibrary
             return rowsAffected;
         }
 
+        public static void UpdateSingleDDItem(string tableName, string colName, string oldItem, string newItem)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            string sql = "update " + tableName + " set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "'";
+            MySqlCommand cmd =new MySqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+            con.Clone();
+            MessageBox.Show("Item updated");
+        }
+
         public static List<string> getColumnList(string tableName, string columnName)
         {
             List<string> list = new List<string>();
@@ -139,6 +158,26 @@ namespace ResaleV8_ClassLibrary
             }
             con.Close();
             return list;
+        }
+       
+        public static List<GenericModel> LoadDDModel(string tableName)
+        { 
+            List<GenericModel> model = new List<GenericModel>();
+            string sql = "SELECT * FROM " + tableName;
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                GenericModel item = new GenericModel();
+                item.ID = Convert.ToInt32(reader[0].ToString());
+                item.Data = reader[1].ToString();
+                model.Add(item);
+                item = null;
+            }
+            con.Close();
+            return model;
         }
 
         public static List<ItemModel> getModelList(string sql)
@@ -195,5 +234,7 @@ namespace ResaleV8_ClassLibrary
             con.Close();
             return dt;
         }
+
+
     }
 }

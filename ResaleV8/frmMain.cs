@@ -63,13 +63,6 @@ namespace ResaleV8
             unsoldReportForm.Show();
         }
 
-        //private void markIemAsSoldToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    frmMarkSold markSoldForm = new frmMarkSold();
-        //    markSoldForm.MdiParent = this;
-        //    markSoldForm.Show();
-        //}
-
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Add;
