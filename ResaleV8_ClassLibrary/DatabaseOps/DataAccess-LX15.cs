@@ -47,17 +47,8 @@ namespace ResaleV8_ClassLibrary
             con.Close();
         }
 
-        public static void RemoveListItem(string tableName, string colName, string item)
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            string sql = "delete from " + tableName + " where " + colName + " = '" + item + "';";
-            MySqlCommand cmd = new MySqlCommand( sql, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
 
-
-        public static int AddListToDropDownTable(string tableName, List<string> list, string colName)
+        public static int addListToDropDownTable(string tableName, List<string> list, string colName)
         {
             MySqlConnection con = new MySqlConnection(GV.conString);
             MySqlCommand cmd = new MySqlCommand();
@@ -134,16 +125,6 @@ namespace ResaleV8_ClassLibrary
             return rowsAffected;
         }
 
-        public static void UpdateSingleDDItem(string tableName, string colName, string oldItem, string newItem)
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            string sql = "update " + tableName + " set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "'";
-            MySqlCommand cmd =new MySqlCommand(sql, con);
-            cmd.ExecuteNonQuery();
-            con.Clone();
-            MessageBox.Show("Item updated");
-        }
-
         public static List<string> getColumnList(string tableName, string columnName)
         {
             List<string> list = new List<string>();
@@ -170,14 +151,12 @@ namespace ResaleV8_ClassLibrary
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                GenericModel item = new GenericModel();
-                item.ID = Convert.ToInt32(reader[0].ToString());
-                item.Data = reader[1].ToString();
-                model.Add(item);
-                item = null;
+                model.ID = Convert.ToInt32(reader[0].ToString());
+                model.Data = reader[1].ToString();
+                model.Add(model);
             }
             con.Close();
-            return model;
+            return list;
         }
 
         public static List<ItemModel> getModelList(string sql)
