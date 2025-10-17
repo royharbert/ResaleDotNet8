@@ -7,17 +7,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResaleV8_ClassLibrary.Ops
-{
+{  
     public static class FormControlOps
     {
         public static void EditDropDownList(ComboBox cbo)
         {
             List<string> items = new List<string>();
         }
+
         public static void toggleControlPairEnables(ValueTuple<Control, Control> ctlPair)
         {
             ctlPair.Item1.Enabled = !ctlPair.Item1.Enabled;
             ctlPair.Item2.Enabled = !ctlPair.Item2.Enabled;
+        }
+
+        public static void ClearDTP(DateTimePicker dtp)
+        {
+            dtp.Format = DateTimePickerFormat.Custom;
+            dtp.CustomFormat = " ";
+            dtp.Value = GV.emptyDate;
         }
 
         public static void clearDTPicker(DateTimePicker dtp)

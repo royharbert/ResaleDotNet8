@@ -14,8 +14,8 @@ namespace ResaleV8_ClassLibrary
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
         public static List<string>? categories { get; set; } = new List<string>();
         public static List<string>? storageLocations { get; set; } = new List<string>();
-        public static List<string> PurchaseSources { get; set; } = new List<string>();
-        public static List<string> Brands { get; set; } = new List<string>();
+        public static List<string>? PurchaseSources { get; set; } = new List<string>();
+        public static List<string>? Brands { get; set; } = new List<string>();
         public static List<ItemModel>? itemList { get; set; } = new List<ItemModel>();
         public static BusinessSummary? businessSummary { get; set; } = new BusinessSummary();
         public static Mode MODE
