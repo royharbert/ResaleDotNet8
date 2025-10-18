@@ -26,13 +26,6 @@ namespace ResaleV8
             Close();
         }
 
-        //private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    frmAdd addItemForm = new frmAdd();
-        //    addItemForm.MdiParent = this;
-        //    addItemForm.Show();
-        //}
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";

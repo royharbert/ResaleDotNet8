@@ -55,7 +55,6 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            //List<ItemModel> dt = (List<ItemModel>)dgvUnsold.DataSource;
             ExcelOps.createExcelSheet(GV.itemList, "Unsold Report",  hiddenColumns, ExportType.Unsold);
         }
 
