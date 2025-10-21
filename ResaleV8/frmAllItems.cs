@@ -30,17 +30,17 @@ namespace ResaleV8
                 _item = value;
                 txtID.Text = _item.ToString();
                 btnRetrieve.PerformClick();
-                if (model.SaleDate > GV.emptyDate)
+                if (model.SaleDate <= GV.emptyDate)
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.CustomFormat = " ";
+                }
+                else
                 {
                     txtProfit.Enabled = true;
                     txtProfit.Text = model.Profit.ToString("$0.00");
                     txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
-                }
-                else
-                {
-                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                    dtpSaleDate.CustomFormat = " ";
                 }
             }
         }
