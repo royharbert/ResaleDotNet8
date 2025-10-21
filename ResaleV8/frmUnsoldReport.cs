@@ -47,7 +47,7 @@ namespace ResaleV8
                 columnsToHide);
             GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");
-            GV.businessSummary.AvgUnsoldAge = (int)itemList.Average(item => item.ProductAge);
+            GV.businessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));
             txtAvgAge.Text = GV.businessSummary.AvgUnsoldAge.ToString("###.0");
             GV.businessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
             txtItemTotal.Text = GV.businessSummary.UnsoldItemsCount.ToString();

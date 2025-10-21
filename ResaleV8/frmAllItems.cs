@@ -214,6 +214,7 @@ namespace ResaleV8
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
+            cboWhereListed.SelectedIndex = -1;
             cboCategory.DataSource = GV.categories;
             cboCategory.SelectedIndex = -1;
             cboStorage.DataSource = GV.storageLocations;
