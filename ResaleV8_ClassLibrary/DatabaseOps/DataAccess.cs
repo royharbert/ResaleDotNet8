@@ -6,11 +6,32 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
+using Dapper;
 
 namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string colName)
+        {
+            int rows = 0;
+            string sql = $"UPDATE purchaseditems SET {colName} = '{newItem}' WHERE {colName} = '{oldItem}';" +
+                $"select row_count() as rows_affected";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            rows = con.Execute(sql);
+            if (rows > 0)
+            {
+                MessageBox.Show(rows.ToString() + " items affected"); 
+            }
+            else
+            {
+                MessageBox.Show("No existing rows required modification");
+            }
+                con.Close();
+            return;
+        }
+
         public static int addDropDownItemToTable(ddEventArgs ea)
         {
             string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values " +

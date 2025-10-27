@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Email;
 
 namespace ResaleV8
 {
@@ -93,6 +94,9 @@ namespace ResaleV8
 
         private void btnModify_Click(object sender, EventArgs e)
         {
+            //string oldItem = txtItem.Text.Trim();
+            string colName = "";
+            string itemColName = "";
             DataTable dt = (DataTable)dgvEditor.DataSource;
             if (dgvEditor.CurrentRow != null)
             {
@@ -102,21 +106,37 @@ namespace ResaleV8
                 {
                     case "categories":
                         GV.categories = list;
+                        colName  = "category";
+                        itemColName = "category";
                         break;
                     case "storageLocations":
                         GV.storageLocations = list;
+                        colName = "location";
+                        itemColName = "StorageLocation";
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
+                        colName = "source";
+                        itemColName = "purchaseSource";
                         break;
                     case "brands":
                         GV.Brands = list;
+                        colName = "Brand";
+                        itemColName = "Brand";
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
+                        colName = "listed";
+                        itemColName = "WhereListed";
                         break;
                 }
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
+                DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (reply == DialogResult.Yes)
+                {
+                    DataAccess.ModifySelectedFieldEntries(oldItem, txtItem.Text.Trim(), tableName, itemColName);
+                }
             }
             else
             {

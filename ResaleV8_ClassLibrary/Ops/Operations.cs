@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Data;
+using Dapper;
 
 namespace ResaleV8_ClassLibrary.Ops
 {
@@ -36,6 +37,8 @@ namespace ResaleV8_ClassLibrary.Ops
             }
             return data;
         }
+
+        
         //public static DataTable ConvertListToDataTable(List<string> list, string columnName)
         //{
         //    DataTable dt = new DataTable();
