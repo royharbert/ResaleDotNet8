@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,39 +23,33 @@ namespace ResaleV8
         /// </summary>
         public int item
         {
-            get
-            {
-                return _item;
-            }
+            get => _item;
 
             set
             {
                 _item = value;
                 txtID.Text = _item.ToString();
                 btnRetrieve.PerformClick();
-                if (model.SaleDate > new DateTime(1900, 01, 01))
+                if (model.SaleDate <= GV.emptyDate)
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.CustomFormat = " ";
+                }
+                else
                 {
                     txtProfit.Enabled = true;
                     txtProfit.Text = model.Profit.ToString("$0.00");
                     txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
                 }
-                else
-                {
-                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                    dtpSaleDate.CustomFormat = " ";
-                }
             }
         }
 
-        private string _task;
+        private string? _task;
 
         public string Task
         {
-            get
-            {
-                return _task;
-            }
+            get => _task;
             set
             {
                 _task = value;
@@ -65,8 +60,8 @@ namespace ResaleV8
 
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave", "btnAddAnother", "btnDelete",
-                        "btnClose", "btnSearch"};
+                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave", 
+                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
         void prepareForm()
         {
             string[] ctlsToEnable = { };
@@ -76,7 +71,7 @@ namespace ResaleV8
                     this.Text = this.Text + " Add New Item";
                     disableAllControls();
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose" };
+                        "cboStorage", "btnSave", "btnClose", "cboWhereListed", "dtpDateListed" };
                     enableDisableControls(ctlsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
@@ -92,7 +87,8 @@ namespace ResaleV8
                     this.Text = this.Text + " Edit Item";
                     enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID" };
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
+                        "dtpDateListed"};
                     enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
@@ -109,7 +105,7 @@ namespace ResaleV8
                 case Mode.Search:
                     enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose" };
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose", "cboWhereListed", "dtpDateListed" };
                     enableDisableControls(ctlsToEnable, true);
                     break;
             }
@@ -141,6 +137,7 @@ namespace ResaleV8
 
             return model;
         }
+
         void placeDataOnForm(ItemModel model)
         {
             if (model != null && model.ItemID != 0)
@@ -180,7 +177,7 @@ namespace ResaleV8
                 }
                 else
                 {
-                    ClearDTP(dtpDateListed);
+                    FormControlOps.ClearDTP(dtpDateListed);
 
                 }
             }
@@ -212,17 +209,10 @@ namespace ResaleV8
             Close();
         }
 
-        private void ClearDTP(DateTimePicker dtp)
-        {
-            dtp.Format = DateTimePickerFormat.Custom;
-            dtp.CustomFormat = " ";
-            dtp.Value = GV.emptyDate;
-        }
-
         private void frmAllItems_Load(object sender, EventArgs e)
         {
-            ClearDTP(dtpDateListed);
-            ClearDTP(dtpSaleDate);
+            FormControlOps.ClearDTP(dtpDateListed);
+            FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
             cboWhereListed.SelectedIndex = -1;
             cboCategory.DataSource = GV.categories;
@@ -235,11 +225,6 @@ namespace ResaleV8
             cboPurchaseSource.SelectedIndex = -1;
 
             prepareForm();
-            //if (GV.MODE == Mode.Add)
-            //{
-            //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-            //    dtpSaleDate.CustomFormat = " ";
-            //}
             txtID.Focus();
         }
 
@@ -337,7 +322,7 @@ namespace ResaleV8
              * If not, add it to listtrffrffd
              *  Insert it into data table
              */
-            ComboBox cbo = sender as ComboBox;
+            ComboBox? cbo = sender as ComboBox;
             ddEventArgs ea = new ddEventArgs();
             if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
             {
@@ -440,7 +425,6 @@ namespace ResaleV8
                 DataAccess.deleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
                 MessageBox.Show("Item Deleted");
             }
-
         }
 
         private void cboCategory_Leave(object sender, EventArgs e)
@@ -523,8 +507,6 @@ namespace ResaleV8
                     }
                 }
             }
-            //result.Add((dtpBuy.Tag.ToString(), dtpBuy.Value.ToString("yyyy-MM-dd")));
-            //result.Add((dtpSaleDate.Tag.ToString(), dtpSaleDate.Value.ToString("yyyy-MM-dd")));
             return result;
         }
 
@@ -558,7 +540,7 @@ namespace ResaleV8
             }
             else
             {
-                ClearDTP(dtpDateListed);
+                FormControlOps.ClearDTP(dtpDateListed);
             }
         }
     }

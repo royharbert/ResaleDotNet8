@@ -71,7 +71,6 @@ namespace ResaleV8
 
         private void formatDGV()
         {
-            //dgvEditor.Columns[0].Visible = false;
             dgvEditor.Columns[1].Width = 200;
             dgvEditor.Columns[1].HeaderText = "Item";
         }
@@ -117,8 +116,6 @@ namespace ResaleV8
                         GV.WhereListed = list;
                         break;
                 }
-                //DataAccess.RemoveTableItems(tableName);
-                //DataAccess.AddListToDropDownTable(tableName, list, colName);
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
             }
             else
@@ -169,7 +166,6 @@ namespace ResaleV8
             list.RemoveAt(index);
             DataAccess.RemoveListItem(tableName,colName, item);
             DialogResult result = MessageBox.Show("Item deleted");
-            //list = DataAccess.getColumnList(tableName, colName);
             dgvEditor.DataSource = null;
             dgvEditor.DataSource = list;
         }

@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Velopack" Version="0.0.1298" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ResaleV8_ClassLibrary\ResaleV8_ClassLibrary.csproj" />
   </ItemGroup>
 
