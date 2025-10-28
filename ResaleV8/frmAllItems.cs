@@ -318,12 +318,18 @@ namespace ResaleV8
         private void comboListMaintenance(object sender, EventArgs e)
         {
             /*
+             * Check for single quotes in text
+             * If found, escape them
              * Check to see if text is in items collection
-             * If not, add it to listtrffrffd
+             * If not, add it to list
              *  Insert it into data table
              */
             ComboBox? cbo = sender as ComboBox;
             ddEventArgs ea = new ddEventArgs();
+            if (cbo.Text.Contains("'"))
+            {
+                cbo.Text = cbo.Text.Replace("'", "''");
+            }
             if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
             {
                 switch (cbo.Name)

@@ -135,8 +135,11 @@ namespace ResaleV8
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (reply == DialogResult.Yes)
                 {
-                    DataAccess.ModifySelectedFieldEntries(oldItem, txtItem.Text.Trim(), tableName, itemColName);
+                    oldItem = Operations.EscapeApostrophes(oldItem);
+                    string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+                    DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
                 }
+                                                                                                                                                                   
             }
             else
             {

@@ -11,6 +11,19 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static string EscapeApostrophes(string input)
+        {
+            if (input.Contains("''"))
+            {
+                if (string.IsNullOrEmpty(input))
+                {
+                    return input;
+                }
+                return input;
+            }
+            return input.Replace("'", "''");
+        }
+
         public static List<string> getModelPtoperties<T>(T model)
         {
             List<string> properties = new List<string>();

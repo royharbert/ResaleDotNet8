@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
 using Dapper;
+using ResaleV8_ClassLibrary.Ops;
 
 namespace ResaleV8_ClassLibrary
 {
@@ -17,6 +18,7 @@ namespace ResaleV8_ClassLibrary
             int rows = 0;
             string sql = $"UPDATE purchaseditems SET {colName} = '{newItem}' WHERE {colName} = '{oldItem}';" +
                 $"select row_count() as rows_affected";
+            sql = Operations.EscapeApostrophes(sql);
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             rows = con.Execute(sql);
@@ -157,11 +159,19 @@ namespace ResaleV8_ClassLibrary
 
         public static void UpdateSingleDDItem(string tableName, string colName, string oldItem, string newItem)
         {
+            List<int> indx = new List<int>();
+            int index = -1;
+            if (newItem.Contains("'") || oldItem.Contains("'"))
+            {
+                oldItem = Operations.EscapeApostrophes(oldItem);
+                index = newItem.IndexOf("'");
+                newItem = Operations.EscapeApostrophes(newItem);
+            }
             MySqlConnection con = ConnectToDB.OpenDB();
             string sql = "update " + tableName + " set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "'";
             MySqlCommand cmd =new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
-            con.Clone();
+            con.Close();
             MessageBox.Show("Item updated");
         }
 
