@@ -177,6 +177,8 @@ namespace ResaleV8
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            List<CategoryModel> model = new List<CategoryModel>();
+
             string item = "";
             list = GetGVList();
             item = txtItem.Text.Trim();
