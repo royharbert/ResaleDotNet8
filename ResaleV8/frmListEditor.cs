@@ -1,4 +1,5 @@
-﻿using ResaleV8_ClassLibrary;
+﻿using Microsoft.Office.Interop.Excel;
+using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
@@ -20,7 +21,7 @@ namespace ResaleV8
         public string cboName { get; set; }
         private string tableName;
         private string colName;
-        private List<string> list;
+        private List<GenericModel> list;
         private string oldItem;
 
         public frmListEditor()
@@ -30,7 +31,7 @@ namespace ResaleV8
 
         private void frmListEditor_Load(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             switch (cboName)
             {
@@ -97,7 +98,7 @@ namespace ResaleV8
             //string oldItem = txtItem.Text.Trim();
             string colName = "";
             string itemColName = "";
-            DataTable dt = (DataTable)dgvEditor.DataSource;
+            System.Data.DataTable dt = (System.Data.DataTable)dgvEditor.DataSource;
             if (dgvEditor.CurrentRow != null)
             {
                 list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
@@ -154,22 +155,27 @@ namespace ResaleV8
                 case "categories":
                     list = GV.categories;
                     colName = "category";
+                    List<GenericModel> categoryModel = DataAccess.GetCategoryList();
                     break;
                 case "storageLocations":
                     list = GV.storageLocations;
                     colName = "location";
+                    List<GenericModel> storageModel = DataAccess.GetStorageLocationList();
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
                     colName = "source";
+                    List<GenericModel> purchaseModel = DataAccess.GetPurchaseSourceList();
                     break;
                 case "brands":
                     list = GV.Brands;
                     colName = "brand";
+                    List<GenericModel> brandModel = DataAccess.GetBrandList();
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
                     colName = "listed";
+                    List<GenericModel> whereListedModel = DataAccess.LoadDDModel("whereListed");
                     break;
             }
             return list;
@@ -177,22 +183,29 @@ namespace ResaleV8
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            List<CategoryModel> model = new List<CategoryModel>();
-
-            string item = "";
-            list = GetGVList();
-            item = txtItem.Text.Trim();
-            int index = list.IndexOf(item);
-            if (index == -1)
+            List<GenericModel> gvList = new List<GenericModel>();    
+            //List<string> gvList = GetGVList();
+            switch (tableName)
             {
-                MessageBox.Show("Item not found in list.");
-                return;
+                case "categories":
+                    gvList = DataAccess.GetCategoryList().Select(c => new GenericModel 
+                        { ID = c.ID, Data = c.Data }).ToList();
+                    break;
+                case "storageLocations":
+                    gvList = DataAccess.GetStorageLocationList().Select(c => new GenericModel
+                        { ID = c.ID, Data = c.Data }).ToList();
+                    //GV.storageLocations = gvList;
+                    break;
+                case "purchasesources":
+                    //GV.PurchaseSources = gvList;
+                    break;
+                case "brands":
+                    //GV.Brands = gvList;
+                    break;
+                case "whereListed":
+                    //GV.WhereListed = gvList;
+                    break;
             }
-            list.RemoveAt(index);
-            DataAccess.RemoveListItem(tableName,colName, item);
-            DialogResult result = MessageBox.Show("Item deleted");
-            dgvEditor.DataSource = null;
-            dgvEditor.DataSource = list;
         }
     }
 }

@@ -12,10 +12,10 @@ namespace ResaleV8_ClassLibrary
     {
         public static string conString { get; set; } = null!;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
-        public static List<string>? categories { get; set; } = new List<string>();
-        public static List<string>? storageLocations { get; set; } = new List<string>();
-        public static List<string>? PurchaseSources { get; set; } = new List<string>();
-        public static List<string>? Brands { get; set; } = new List<string>();
+        public static List<GenericModel>? categories { get; set; } = new List<GenericModel>();
+        public static List<GenericModel>? storageLocations { get; set; } = new List<GenericModel>();
+        public static List<GenericModel>? PurchaseSources { get; set; } = new List<GenericModel>();
+        public static List<GenericModel>? Brands { get; set; } = new List<GenericModel>();
         public static List<ItemModel>? itemList { get; set; } = new List<ItemModel>();
         public static BusinessSummary? businessSummary { get; set; } = new BusinessSummary();
         public static Mode MODE
@@ -34,7 +34,7 @@ namespace ResaleV8_ClassLibrary
             }
         }
         public static Mode PreviousMode { get; set; }
-        public static List<string> WhereListed { get; set; } = new List<string>();
+        public static List<GenericModel> WhereListed { get; set; } = new List<GenericModel>();
         
 
         public static Mode mode = Mode.None;

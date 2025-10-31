@@ -10,6 +10,11 @@
   <ItemGroup>
     <Compile Remove="DatabaseOps\DataAccess-LX15.cs" />
     <Compile Remove="ExcelOps.cs" />
+    <Compile Remove="Models\BrandModel.cs" />
+    <Compile Remove="Models\CategoryModel.cs" />
+    <Compile Remove="Models\PurchaseSourcesModel.cs" />
+    <Compile Remove="Models\StorageLocationsModel.cs" />
+    <Compile Remove="Models\WhereListedModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

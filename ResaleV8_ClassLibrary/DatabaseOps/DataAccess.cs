@@ -13,6 +13,50 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static List<GenericModel> GetCategoryList()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                List<GenericModel> calegoryList = 
+                        con.Query<GenericModel>("SELECT * FROM categories", commandType: CommandType.Text).AsList();
+                return calegoryList;
+            }
+        }
+
+        public static List<GenericModel> GetStorageLocationList()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                List<GenericModel> storageLocationList =
+                        con.Query<GenericModel>("SELECT * FROM storagelocations", commandType: CommandType.Text).AsList();
+                return storageLocationList;
+            }
+        }
+
+        public static List<GenericModel> GetPurchaseSourceList()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                List<GenericModel> purchaseSourceList =
+                        con.Query<GenericModel>("SELECT * FROM purchasesources", commandType: CommandType.Text).AsList();
+                return purchaseSourceList;
+            }
+        }
+
+        public static List<GenericModel> GetBrandList()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                List<GenericModel> brandList =
+                        con.Query<GenericModel>("SELECT * FROM brands", commandType: CommandType.Text).AsList();
+                return brandList;
+            }
+        }
+
         public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string colName)
         {
             int rows = 0;
@@ -50,7 +94,7 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
-        public static List<string> ModifyListItem(string oldItem, string newItem, List<string> list)
+        public static List<GenericModel> ModifyListItem(string oldItem, string newItem, List<GenericModel> list)
         { 
             int index = list.IndexOf(oldItem);
             if (index != -1)
@@ -175,18 +219,18 @@ namespace ResaleV8_ClassLibrary
             MessageBox.Show("Item updated");
         }
 
-        public static List<string> getColumnList(string tableName, string columnName)
+        public static List<GenericModel> getColumnList(string tableName, string columnName)
         {
-            List<string> list = new List<string>();
-            string sql = "SELECT " + columnName + " FROM " + tableName;
+            List<GenericModel> list = new List<GenericModel>();
+            string sql = "SELECT * FROM " + tableName;
             MySqlConnection con = new MySqlConnection(GV.conString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, con);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                list.Add(reader[columnName].ToString());
-            }
+            list = con.Query<GenericModel>(sql, commandType: CommandType.Text).AsList();
+            //MySqlCommand cmd = new MySqlCommand(sql, con);
+            //MySqlDataReader reader = cmd.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    list.Add(reader[columnName].ToString());
+            //}
             con.Close();
             return list;
         }
