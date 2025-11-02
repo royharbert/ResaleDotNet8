@@ -39,13 +39,13 @@ namespace ResaleV8
                     dt = DataAccess.GetComboItemList("categories");
                     tableName = "categories";
                     colName = "category";
-                    list = GV.categories;
+                    list = GV.Categories;
                     break;
                 case "cboStorage":
                     dt = DataAccess.GetComboItemList("storageLocations");
                     tableName = "storageLocations";
                     colName = "location";
-                    list = GV.storageLocations;
+                    list = GV.StorageLocations;
                     break;
                 case "cboPurchaseSource":
                     dt = DataAccess.GetComboItemList("purchasesources");
@@ -101,17 +101,17 @@ namespace ResaleV8
             System.Data.DataTable dt = (System.Data.DataTable)dgvEditor.DataSource;
             if (dgvEditor.CurrentRow != null)
             {
-                list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
-                    txtItem.Text.Trim(), list);
+                //list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
+                    //txtItem.Text.Trim(), list);
                 switch (tableName)
                 {
                     case "categories":
-                        GV.categories = list;
+                        GV.Categories = list;
                         colName  = "category";
                         itemColName = "category";
                         break;
-                    case "storageLocations":
-                        GV.storageLocations = list;
+                    case "StorageLocations":
+                        GV.StorageLocations = list;
                         colName = "location";
                         itemColName = "StorageLocation";
                         break;
@@ -148,34 +148,34 @@ namespace ResaleV8
             }
         }
 
-        private List<string> GetGVList()
+        private List<GenericModel> GetGVList()
         {
             switch (tableName)
             {
                 case "categories":
-                    list = GV.categories;
+                    list = GV.Categories;
                     colName = "category";
-                    List<GenericModel> categoryModel = DataAccess.GetCategoryList();
+                    List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
-                    list = GV.storageLocations;
+                    list = GV.StorageLocations;
                     colName = "location";
-                    List<GenericModel> storageModel = DataAccess.GetStorageLocationList();
+                    List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
                     colName = "source";
-                    List<GenericModel> purchaseModel = DataAccess.GetPurchaseSourceList();
+                    List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
                     colName = "brand";
-                    List<GenericModel> brandModel = DataAccess.GetBrandList();
+                    List<GenericModel> brandModel = DataAccess.GetDropDownList("Brands");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
                     colName = "listed";
-                    List<GenericModel> whereListedModel = DataAccess.LoadDDModel("whereListed");
+                    List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
                     break;
             }
             return list;
@@ -183,28 +183,49 @@ namespace ResaleV8
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            List<GenericModel> gvList = new List<GenericModel>();    
+            List<GenericModel> gvList = new List<GenericModel>();
             //List<string> gvList = GetGVList();
             switch (tableName)
             {
                 case "categories":
-                    gvList = DataAccess.GetCategoryList().Select(c => new GenericModel 
-                        { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("categories").Select(c => new GenericModel
+                    { ID = c.ID, Data = c.Data }).ToList();
                     break;
                 case "storageLocations":
-                    gvList = DataAccess.GetStorageLocationList().Select(c => new GenericModel
-                        { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("storagelocations").Select(c => new GenericModel
+                    { ID = c.ID, Data = c.Data }).ToList();
                     //GV.storageLocations = gvList;
                     break;
                 case "purchasesources":
                     //GV.PurchaseSources = gvList;
+                    gvList = DataAccess.GetDropDownList("PurchaseSources").Select(c => new GenericModel
+                    { ID = c.ID, Data = c.Data }).ToList();
                     break;
                 case "brands":
                     //GV.Brands = gvList;
+                    gvList = DataAccess.GetDropDownList("Brands").Select(c => new GenericModel
+                    { ID = c.ID, Data = c.Data }).ToList();
                     break;
                 case "whereListed":
                     //GV.WhereListed = gvList;
+                    gvList = DataAccess.GetDropDownList("WhereListed").Select(c => new GenericModel
+                    { ID = c.ID, Data = c.Data }).ToList();
                     break;
+            }
+
+            
+            int idx = Operations.FindStringInList(txtItem.Text.Trim(), gvList);
+            if (idx != -1)
+            {
+                DataAccess.DeleteRecord(idx, tableName);
+                gvList.RemoveAll(x => x.ID == idx);
+                MessageBox.Show("Item deleted.");
+                dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
+                formatDGV();
+            }
+            else
+            {
+                MessageBox.Show("Item not found in list.");
             }
         }
     }

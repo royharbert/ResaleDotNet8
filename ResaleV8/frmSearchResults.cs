@@ -44,9 +44,9 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             List<ItemModel> models = (List<ItemModel>)dgvSearchresults.DataSource;
-            GV.businessSummary.TotalCost = models.Sum(x => x.PurchasePrice * x.Quantity);
-            GV.businessSummary.AvgUnsoldAge = (int)models.Average(item => item.ProductAge);
-            GV.businessSummary.UnsoldItemsCount = models.Sum(item => item.Quantity);
+            GV.BusinessSummary.TotalCost = models.Sum(x => x.PurchasePrice * x.Quantity);
+            GV.BusinessSummary.AvgUnsoldAge = (int)models.Average(item => item.ProductAge);
+            GV.BusinessSummary.UnsoldItemsCount = models.Sum(item => item.Quantity);
             string[] hiddenColumns = new string[] { };
             ExcelOps.createExcelSheet((List<ItemModel>)models,
                 "Search Results", hiddenColumns, ExportType.SearchResults);

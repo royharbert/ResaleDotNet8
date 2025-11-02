@@ -6,11 +6,23 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Data;
 using Dapper;
+using ResaleV8_ClassLibrary.Models;
 
 namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static int FindStringInList(string searchString, List<GenericModel> list)
+        {
+            foreach (GenericModel item in list)
+            {
+                if (item.Data.Equals(searchString, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item.ID;
+                }
+            }
+            return -1; // Not found
+        }
         public static string EscapeApostrophes(string input)
         {
             if (input.Contains("''"))

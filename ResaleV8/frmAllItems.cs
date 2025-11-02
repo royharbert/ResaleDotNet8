@@ -214,14 +214,19 @@ namespace ResaleV8
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
+            cboWhereListed.DisplayMember = "Data";
             cboWhereListed.SelectedIndex = -1;
-            cboCategory.DataSource = GV.categories;
+            cboCategory.DataSource = GV.Categories;
+            cboCategory.DisplayMember = "Data";
             cboCategory.SelectedIndex = -1;
-            cboStorage.DataSource = GV.storageLocations;
+            cboStorage.DataSource = GV.StorageLocations;
+            cboStorage.DisplayMember = "Data";
             cboStorage.SelectedIndex = -1;
             cboBrand.DataSource = GV.Brands;
+            cboBrand.DisplayMember = "Data";
             cboBrand.SelectedIndex = -1;
             cboPurchaseSource.DataSource = GV.PurchaseSources;
+            cboPurchaseSource.DisplayMember = "Data";
             cboPurchaseSource.SelectedIndex = -1;
 
             prepareForm();
@@ -317,7 +322,7 @@ namespace ResaleV8
 
         private void comboListMaintenance(object sender, EventArgs e)
         {
-            /*
+             /*
              * Check for single quotes in text
              * If found, escape them
              * Check to see if text is in items collection
@@ -326,6 +331,7 @@ namespace ResaleV8
              */
             ComboBox? cbo = sender as ComboBox;
             ddEventArgs ea = new ddEventArgs();
+            GenericModel gm = new GenericModel();
             if (cbo.Text.Contains("'"))
             {
                 cbo.Text = cbo.Text.Replace("'", "''");
@@ -335,53 +341,59 @@ namespace ResaleV8
                 switch (cbo.Name)
                 {
                     case "cboCategory":
-                        GV.categories.Add(cbo.Text);
-                        GV.categories.Sort();
+                        List<GenericModel> existingCategories = DataAccess.GetDropDownList("categories");
+                        //GV.Categories.Add(cbo.Text);
+                        GV.Categories.Sort();
                         ea.newItem = cboCategory.Text;
                         ea.tableName = "Categories";
-                        ea.columnName = "Category";
+                        ea.columnName = "Data";
                         cboCategory.DataSource = null;
-                        cboCategory.DataSource = GV.categories;
+                        cboCategory.DataSource = GV.Categories;
+                        cboCategory.DisplayMember = "Data";
                         cboCategory.Text = ea.newItem;
                         break;
                     case "cboStorage":
-                        GV.storageLocations.Add(cbo.Text);
-                        GV.storageLocations.Sort();
+                        //GV.StorageLocations.Add(cbo.Text);
+                        //GV.StorageLocations.Sort();
                         ea.newItem = cboStorage.Text;
                         ea.tableName = "storageLocations";
-                        ea.columnName = "Location";
+                        ea.columnName = "Data";
                         cboStorage.DataSource = null;
-                        cboStorage.DataSource = GV.storageLocations;
+                        cboStorage.DataSource = GV.StorageLocations;
+                        cboStorage.DisplayMember = "Data";
                         cboStorage.Text = ea.newItem;
                         break;
                     case "cboPurchaseSource":
-                        GV.PurchaseSources.Add(cbo.Text);
+                        //GV.PurchaseSources.Add(cbo.Text);
                         GV.PurchaseSources.Sort();
                         ea.newItem = cboPurchaseSource.Text;
                         ea.tableName = "purchaseSources";
-                        ea.columnName = "source";
+                        ea.columnName = "Data";
                         cboPurchaseSource.DataSource = null;
                         cboPurchaseSource.DataSource = GV.PurchaseSources;
+                        cboPurchaseSource.DisplayMember = "Data";
                         cboPurchaseSource.Text = ea.newItem;
                         break;
                     case "cboBrand":
-                        GV.Brands.Add(cbo.Text);
+                        //GV.Brands.Add(cbo.Text);
                         GV.Brands.Sort();
                         ea.newItem = cboBrand.Text;
                         ea.tableName = "brands";
-                        ea.columnName = "brand";
+                        ea.columnName = "Data";
                         cboBrand.DataSource = null;
                         cboBrand.DataSource = GV.Brands;
+                        cboBrand.DisplayMember = "Data";
                         cboBrand.Text = ea.newItem;
                         break;
                     case "cboWhereListed":
-                        GV.WhereListed.Add(cbo.Text);
+                        //GV.WhereListed.Add(cbo.Text);
                         GV.WhereListed.Sort();
                         ea.newItem = cboWhereListed.Text;
                         ea.tableName = "WhereListed";
-                        ea.columnName = "Listed";
+                        ea.columnName = "Data";
                         cboWhereListed.DataSource = null;
                         cboWhereListed.DataSource = GV.WhereListed;
+                        cboWhereListed.DisplayMember = "Data";
                         cboWhereListed.Text = ea.newItem;
                         break;
                 }
@@ -428,7 +440,7 @@ namespace ResaleV8
                 MessageBoxButtons.OKCancel);
             if (dr == DialogResult.OK)
             {
-                DataAccess.deleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
+                DataAccess.DeleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
                 MessageBox.Show("Item Deleted");
             }
         }

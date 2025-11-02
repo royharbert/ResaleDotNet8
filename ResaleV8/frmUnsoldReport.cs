@@ -37,7 +37,7 @@ namespace ResaleV8
             MySqlConnection con = ConnectToDB.OpenDB();
             List<ItemModel> itemList =
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
-            GV.itemList = itemList;
+            GV.ItemList = itemList;
             dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { /**"Profit", "SalePrice"*/ };
             FormControlOps.formatDGV(dgvUnsold,
@@ -45,17 +45,17 @@ namespace ResaleV8
                     "Purchase Price", "Where Listed", "Date Listed", "Sale Date", "Sale Price", "Product Age",
                     "Profit", "Storage Location" }, 
                 columnsToHide);
-            GV.businessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
-            txtTotalCost.Text = GV.businessSummary.UnsoldCost.ToString("C2");
-            GV.businessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));
-            txtAvgAge.Text = GV.businessSummary.AvgUnsoldAge.ToString("###.0");
-            GV.businessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
-            txtItemTotal.Text = GV.businessSummary.UnsoldItemsCount.ToString();
+            GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = GV.BusinessSummary.UnsoldCost.ToString("C2");
+            GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));
+            txtAvgAge.Text = GV.BusinessSummary.AvgUnsoldAge.ToString("###.0");
+            GV.BusinessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
+            txtItemTotal.Text = GV.BusinessSummary.UnsoldItemsCount.ToString();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            ExcelOps.createExcelSheet(GV.itemList, "Unsold Report",  hiddenColumns, ExportType.Unsold);
+            ExcelOps.createExcelSheet(GV.ItemList, "Unsold Report",  hiddenColumns, ExportType.Unsold);
         }
 
         private void dgvUnsold_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

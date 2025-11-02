@@ -30,16 +30,16 @@ namespace ResaleV8
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
-            GV.categories = DataAccess.getColumnList("categories", "Category");
+            GV.Categories = DataAccess.GetDropDownList("categories");
 
-            GV.storageLocations = DataAccess.getColumnList("storagelocations", "Location");
+            GV.StorageLocations = DataAccess.GetDropDownList("storagelocations");
 
-            GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Source");
+            GV.PurchaseSources = DataAccess.GetDropDownList("purchasesources");
 
-            GV.Brands = DataAccess.getColumnList("brands", "Brand");
+            GV.Brands = DataAccess.GetDropDownList("brands");
 
-            GV.WhereListed = DataAccess.getColumnList("wherelisted", "listed");
-            GV.businessSummary = new BusinessSummary();
+            GV.WhereListed = DataAccess.GetDropDownList("wherelisted");
+            GV.BusinessSummary = new BusinessSummary();
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)

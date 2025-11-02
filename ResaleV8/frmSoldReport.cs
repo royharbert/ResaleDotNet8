@@ -43,7 +43,7 @@ namespace ResaleV8
                 + startDate + " and " + stopDate;
 
             List<ItemModel> dt = DataAccess.getModelList(query);
-            GV.itemList = dt;
+            GV.ItemList = dt;
             if (dt == null)
             {
                 MessageBox.Show("No items sold in DateBoldEventArgs range");
@@ -51,17 +51,17 @@ namespace ResaleV8
 
             dgvSoldReport.DataSource = dt;
             FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
-            GV.businessSummary.TotalSales = dt.Sum(item => item.SalePrice * item.Quantity);
-            txtTotRevenue.Text = GV.businessSummary.TotalSales.ToString("C2");
-            GV.businessSummary.TotalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
-            txtTotalCost.Text = GV.businessSummary.TotalCost.ToString("C2");
-            GV.businessSummary.TotalMargin = GV.businessSummary.TotalSales - GV.businessSummary.TotalCost;
-            txtTotMargin.Text = GV.businessSummary.TotalMargin.ToString("C2");
-            if (GV.businessSummary.TotalCost != 0)
+            GV.BusinessSummary.TotalSales = dt.Sum(item => item.SalePrice * item.Quantity);
+            txtTotRevenue.Text = GV.BusinessSummary.TotalSales.ToString("C2");
+            GV.BusinessSummary.TotalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
+            txtTotalCost.Text = GV.BusinessSummary.TotalCost.ToString("C2");
+            GV.BusinessSummary.TotalMargin = GV.BusinessSummary.TotalSales - GV.BusinessSummary.TotalCost;
+            txtTotMargin.Text = GV.BusinessSummary.TotalMargin.ToString("C2");
+            if (GV.BusinessSummary.TotalCost != 0)
             {
-                GV.businessSummary.MarginPercentage = (GV.businessSummary.TotalSales / GV.businessSummary.TotalCost)
+                GV.BusinessSummary.MarginPercentage = (GV.BusinessSummary.TotalSales / GV.BusinessSummary.TotalCost)
                     * 100;
-                txtAvgPct.Text = GV.businessSummary.MarginPercentage.ToString("####.00");
+                txtAvgPct.Text = GV.BusinessSummary.MarginPercentage.ToString("####.00");
             }
         }
 

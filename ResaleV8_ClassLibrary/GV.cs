@@ -12,12 +12,12 @@ namespace ResaleV8_ClassLibrary
     {
         public static string conString { get; set; } = null!;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
-        public static List<GenericModel>? categories { get; set; } = new List<GenericModel>();
-        public static List<GenericModel>? storageLocations { get; set; } = new List<GenericModel>();
+        public static List<GenericModel>? Categories { get; set; } = new List<GenericModel>();
+        public static List<GenericModel>? StorageLocations { get; set; } = new List<GenericModel>();
         public static List<GenericModel>? PurchaseSources { get; set; } = new List<GenericModel>();
         public static List<GenericModel>? Brands { get; set; } = new List<GenericModel>();
-        public static List<ItemModel>? itemList { get; set; } = new List<ItemModel>();
-        public static BusinessSummary? businessSummary { get; set; } = new BusinessSummary();
+        public static List<ItemModel>? ItemList { get; set; } = new List<ItemModel>();
+        public static BusinessSummary? BusinessSummary { get; set; } = new BusinessSummary();
         public static Mode MODE
         {
             get

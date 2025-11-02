@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿//using Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.Models;
@@ -13,13 +13,13 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
-        public static List<GenericModel> GetCategoryList()
+        public static List<GenericModel> GetDropDownList(string tableName)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
                 List<GenericModel> calegoryList = 
-                        con.Query<GenericModel>("SELECT * FROM categories", commandType: CommandType.Text).AsList();
+                        con.Query<GenericModel>("SELECT * FROM " + tableName, commandType: CommandType.Text).AsList();
                 return calegoryList;
             }
         }
@@ -94,15 +94,15 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
-        public static List<GenericModel> ModifyListItem(string oldItem, string newItem, List<GenericModel> list)
-        { 
-            int index = list.IndexOf(oldItem);
-            if (index != -1)
-            {
-                list[index] = newItem;
-            }
-            return list;
-        }
+        //public static List<GenericModel> ModifyListItem(string oldItem, string newItem, List<GenericModel> list)
+        //{ 
+        //    int index = list.IndexOf(oldItem);
+        //    if (index != -1)
+        //    {
+        //        list[index] = newItem;
+        //    }
+        //    return list;
+        //}
 
         public static void RemoveTableItems(string tableName)
         {
@@ -289,9 +289,9 @@ namespace ResaleV8_ClassLibrary
             return list;
         }
 
-        public static void deleteRecord(int ID, string tableName)
+        public static void DeleteRecord(int ID, string tableName)
         {
-            string sql = "delete from " + tableName + " where ItemID = " + ID.ToString();
+            string sql = "delete from " + tableName + " where ID = " + ID.ToString();
             MySqlConnection con = ConnectToDB.OpenDB();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
