@@ -94,16 +94,6 @@ namespace ResaleV8_ClassLibrary
             return newID;
         }
 
-        //public static List<GenericModel> ModifyListItem(string oldItem, string newItem, List<GenericModel> list)
-        //{ 
-        //    int index = list.IndexOf(oldItem);
-        //    if (index != -1)
-        //    {
-        //        list[index] = newItem;
-        //    }
-        //    return list;
-        //}
-
         public static void RemoveTableItems(string tableName)
         {
             string sql = "DELETE FROM " + tableName + " where ID > 0";
@@ -217,22 +207,6 @@ namespace ResaleV8_ClassLibrary
             cmd.ExecuteNonQuery();
             con.Close();
             MessageBox.Show("Item updated");
-        }
-
-        public static List<GenericModel> getColumnList(string tableName, string columnName)
-        {
-            List<GenericModel> list = new List<GenericModel>();
-            string sql = "SELECT * FROM " + tableName;
-            MySqlConnection con = new MySqlConnection(GV.conString);
-            list = con.Query<GenericModel>(sql, commandType: CommandType.Text).AsList();
-            //MySqlCommand cmd = new MySqlCommand(sql, con);
-            //MySqlDataReader reader = cmd.ExecuteReader();
-            //while (reader.Read())
-            //{
-            //    list.Add(reader[columnName].ToString());
-            //}
-            con.Close();
-            return list;
         }
        
         public static List<GenericModel> LoadDDModel(string tableName)

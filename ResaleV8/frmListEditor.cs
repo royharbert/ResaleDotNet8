@@ -38,31 +38,31 @@ namespace ResaleV8
                 case "cboCategory":
                     dt = DataAccess.GetComboItemList("categories");
                     tableName = "categories";
-                    colName = "category";
+                    colName = "Data";
                     list = GV.Categories;
                     break;
                 case "cboStorage":
                     dt = DataAccess.GetComboItemList("storageLocations");
                     tableName = "storageLocations";
-                    colName = "location";
+                    colName = "Data";
                     list = GV.StorageLocations;
                     break;
                 case "cboPurchaseSource":
                     dt = DataAccess.GetComboItemList("purchasesources");
                     tableName = "purchasesources";
-                    colName = "source";
+                    colName = "Data";
                     list = GV.PurchaseSources;
                     break;
                 case "cboBrand":
                     dt = DataAccess.GetComboItemList("brands");
                     tableName = "brands";
-                    colName = "brand";
+                    colName = "Data";
                     list = GV.Brands;
                     break;
                 case "cboWhereListed":
                     dt = DataAccess.GetComboItemList("whereListed");
                     tableName = "whereListed";
-                    colName = "listed";
+                    colName = "Data";
                     list = GV.WhereListed;
                     break;
             }
@@ -107,28 +107,28 @@ namespace ResaleV8
                 {
                     case "categories":
                         GV.Categories = list;
-                        colName  = "category";
-                        itemColName = "category";
+                        colName  = "Data";
+                        itemColName = "Data";
                         break;
                     case "StorageLocations":
                         GV.StorageLocations = list;
-                        colName = "location";
-                        itemColName = "StorageLocation";
+                        colName = "Data";
+                        itemColName = "Data";
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
-                        colName = "source";
-                        itemColName = "purchaseSource";
+                        colName = "Data";
+                        itemColName = "Data";
                         break;
                     case "brands":
                         GV.Brands = list;
-                        colName = "Brand";
-                        itemColName = "Brand";
+                        colName = "Data";
+                        itemColName = "Data";
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
-                        colName = "listed";
-                        itemColName = "WhereListed";
+                        colName = "Data";
+                        itemColName = "Data";
                         break;
                 }
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
@@ -154,27 +154,27 @@ namespace ResaleV8
             {
                 case "categories":
                     list = GV.Categories;
-                    colName = "category";
+                    colName = "Data";
                     List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
                     list = GV.StorageLocations;
-                    colName = "location";
+                    colName = "Data";
                     List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
-                    colName = "source";
+                    colName = "Data";
                     List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
-                    colName = "brand";
+                    colName = "Data";
                     List<GenericModel> brandModel = DataAccess.GetDropDownList("Brands");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
-                    colName = "listed";
+                    colName = "Data";
                     List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
                     break;
             }
@@ -194,20 +194,16 @@ namespace ResaleV8
                 case "storageLocations":
                     gvList = DataAccess.GetDropDownList("storagelocations").Select(c => new GenericModel
                     { ID = c.ID, Data = c.Data }).ToList();
-                    //GV.storageLocations = gvList;
                     break;
                 case "purchasesources":
-                    //GV.PurchaseSources = gvList;
                     gvList = DataAccess.GetDropDownList("PurchaseSources").Select(c => new GenericModel
                     { ID = c.ID, Data = c.Data }).ToList();
                     break;
                 case "brands":
-                    //GV.Brands = gvList;
                     gvList = DataAccess.GetDropDownList("Brands").Select(c => new GenericModel
                     { ID = c.ID, Data = c.Data }).ToList();
                     break;
                 case "whereListed":
-                    //GV.WhereListed = gvList;
                     gvList = DataAccess.GetDropDownList("WhereListed").Select(c => new GenericModel
                     { ID = c.ID, Data = c.Data }).ToList();
                     break;

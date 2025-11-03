@@ -7,11 +7,24 @@ using System.Reflection;
 using System.Data;
 using Dapper;
 using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.DatabaseOps;
+using MySql.Data.MySqlClient;
 
 namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static List<GenericModel> GetDDItems(string tableName)
+        { 
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string query = $"SELECT id AS ID, item AS Data FROM {tableName} ORDER BY {tableName.Substring(0, tableName.Length - 1)} ASC";
+                var result = con.Query<GenericModel>(query).ToList();
+                return result;
+            }
+        }
+
         public static int FindStringInList(string searchString, List<GenericModel> list)
         {
             foreach (GenericModel item in list)
