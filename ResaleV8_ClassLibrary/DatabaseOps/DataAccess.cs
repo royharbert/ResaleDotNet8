@@ -60,9 +60,9 @@ namespace ResaleV8_ClassLibrary
         public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string colName)
         {
             int rows = 0;
-            string sql = $"UPDATE purchaseditems SET {colName} = '{newItem}' WHERE {colName} = '{oldItem}';" +
+            string sql = "update purchasedItems set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "';" +
                 $"select row_count() as rows_affected";
-            sql = Operations.EscapeApostrophes(sql);
+            //sql = Operations.EscapeApostrophes(sql);
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             rows = con.Execute(sql);

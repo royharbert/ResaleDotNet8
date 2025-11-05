@@ -10,6 +10,18 @@ namespace ResaleV8_ClassLibrary.Ops
 {  
     public static class FormControlOps
     {
+        public static bool IsItemInDropDown(ComboBox cbo, string item)
+        {
+            foreach (var cboItem in cbo.Items)
+            {
+                if (cboItem.ToString() == item)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static void EditDropDownList(ComboBox cbo)
         {
             List<string> items = new List<string>();

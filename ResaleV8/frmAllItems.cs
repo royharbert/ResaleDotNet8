@@ -321,7 +321,34 @@ namespace ResaleV8
             }
         }
 
+        private void AddItemIfNeeded(ddEventArgs ea, List<GenericModel> ddList)
+        {
+            bool itemExists = false;
+            foreach (GenericModel item in ddList)
+            {
+                if (item.Data.Contains(ea.newItem))
+                {
+                    itemExists = true;
+                    break;
+                }
 
+            }
+            if (!itemExists)
+            {
+                DataAccess.addDropDownItemToTable(ea);
+            }
+        }
+
+        private ddEventArgs CreateEventArgs(string newItem, string tableName, 
+            string columnName, List<GenericModel> list)
+        {
+            ddEventArgs ea = new ddEventArgs();
+            ea.newItem = newItem;
+            ea.tableName = tableName;
+            ea.columnName = columnName;
+            ea.gvList = list;
+            return ea;
+        }
 
         private void comboListMaintenance(object sender, EventArgs e)
         {
@@ -333,10 +360,10 @@ namespace ResaleV8
             *  Insert it into data table
             */
             ComboBox? cbo = sender as ComboBox;
-            string? item = cbo.Text;
-            ddEventArgs ea = new ddEventArgs();
+            string? originalItem = cbo.Text;
+            //ddEventArgs ea = new ddEventArgs();
             GenericModel gm = new GenericModel();
-            item = Operations.EscapeApostrophes(item);
+            string escapedItem = Operations.EscapeApostrophes(originalItem);
             //if (item.Contains("''"))
             //{
             //    return;
@@ -345,41 +372,36 @@ namespace ResaleV8
             //{
             //    item = item.Replace("'", "''");
             //}
-            if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
+
+            if (!cbo.Items.Contains(originalItem) && cbo.Text != "")
             {
                 // Not in list, so add it refresh list add item to table
-                switch (cbo.Name)
+                switch (cbo.Name)                
                 {
                     case "cboCategory":
-                        List<GenericModel> existingCategories = DataAccess.GetDropDownList("categories");
-                        ea.newItem = item;
-                        ea.tableName = "Categories";
-                        ea.columnName = "Data";
-                        DataAccess.addDropDownItemToTable(ea);
-                        GV.Categories = DataAccess.GetDropDownList("categories");
+                        List<GenericModel> existingCategories = DataAccess.GetDropDownList("Categories");
+                        ddEventArgs ea = CreateEventArgs(escapedItem, "Categories", "Data", existingCategories);
+                        AddItemIfNeeded(ea, existingCategories);
+                        GV.Categories = DataAccess.GetDropDownList("Categories");
                         cboCategory.DataSource = null;
                         cboCategory.DataSource = GV.Categories;
                         cboCategory.DisplayMember = "Data";
                         cboCategory.Text = ea.newItem;
                         break;
                     case "cboStorage":
-                        ea.newItem = item;
-                        ea.tableName = "storageLocations";
-                        ea.columnName = "Data";
-                        List<GenericModel> existingStorage = DataAccess.GetDropDownList(ea.tableName);
-                        DataAccess.addDropDownItemToTable(ea);
+                        List<GenericModel> existingStorage = DataAccess.GetDropDownList("storageLocations");
+                        ea = CreateEventArgs(escapedItem, "storageLocations", "Data", existingStorage);
+                        AddItemIfNeeded(ea, existingStorage);
                         GV.StorageLocations = DataAccess.GetDropDownList(ea.tableName);
                         cboStorage.DataSource = null;
                         cboStorage.DataSource = GV.StorageLocations;
                         cboStorage.DisplayMember = "Data";
                         cboStorage.Text = ea.newItem;
                         break;
-                    case "cboPurchaseSource":                        
-                        ea.newItem = item;
-                        ea.tableName = "purchaseSources";
-                        ea.columnName = "Data";
-                        List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList(ea.tableName);
-                        DataAccess.addDropDownItemToTable(ea);
+                    case "cboPurchaseSource":
+                        List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList("PurchaseSources");
+                        ea = CreateEventArgs(escapedItem, "purchaseSources", "Data", existingPurchaseSources);                        
+                        AddItemIfNeeded(ea, existingPurchaseSources);
                         GV.PurchaseSources = DataAccess.GetDropDownList(ea.tableName);
                         cboPurchaseSource.DataSource = null;
                         cboPurchaseSource.DataSource = GV.PurchaseSources;
@@ -387,11 +409,9 @@ namespace ResaleV8
                         cboPurchaseSource.Text = ea.newItem;
                         break;
                     case "cboBrand":
-                        ea.newItem = item;
-                        ea.tableName = "brands";
-                        ea.columnName = "Data";
-                        List<GenericModel> existingrands = DataAccess.GetDropDownList(ea.tableName);
-                        DataAccess.addDropDownItemToTable(ea);
+                        List<GenericModel> existingBrands = DataAccess.GetDropDownList("Brands");
+                        ea = CreateEventArgs(escapedItem, "brands", "Data", existingBrands);
+                        AddItemIfNeeded(ea, existingBrands);
                         GV.Brands = DataAccess.GetDropDownList(ea.tableName);
                         cboBrand.DataSource = null;
                         cboBrand.DataSource = GV.Brands;
@@ -399,11 +419,9 @@ namespace ResaleV8
                         cboBrand.Text = ea.newItem;
                         break;
                     case "cboWhereListed":
-                        ea.newItem = item;
-                        ea.tableName = "WhereListed";
-                        ea.columnName = "Data";
-                        List<GenericModel> existingListLocations = DataAccess.GetDropDownList(ea.tableName);
-                        DataAccess.addDropDownItemToTable(ea);
+                        List<GenericModel> existingListLocations = DataAccess.GetDropDownList("WhereListed");
+                        ea = CreateEventArgs(escapedItem, "WhereListed", "Data", existingListLocations);
+                        AddItemIfNeeded(ea, existingListLocations);
                         GV.WhereListed = DataAccess.GetDropDownList(ea.tableName);
                         cboWhereListed.DataSource = null;
                         cboWhereListed.DataSource = GV.WhereListed;
