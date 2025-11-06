@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResaleV8_ClassLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -22,9 +23,11 @@ namespace ResaleV8_ClassLibrary.Ops
             return false;
         }
 
-        public static void EditDropDownList(ComboBox cbo)
+        public static void EditDropDownList(ComboBox cbo, List<GenericModel> list)
         {
-            List<string> items = new List<string>();
+            cbo.Items.Clear();
+            cbo.DataSource = list;
+            cbo.DisplayMember = "Data";
         }
 
         public static void toggleControlPairEnables(ValueTuple<Control, Control> ctlPair)

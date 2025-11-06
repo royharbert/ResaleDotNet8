@@ -523,7 +523,7 @@
         private Label label10;
         private TextBox txtDaysHeld;
         private Label label11;
-        private ComboBox cboCategory;
+        public static ComboBox cboCategory;
         private DateTimePicker dtpBuy;
         private DateTimePicker dtpSaleDate;
         private Button btnSave;
@@ -535,10 +535,10 @@
         private Button btnSearch;
         private Label label13;
         private Label label14;
-        private ComboBox cboStorage;
-        private ComboBox cboBrand;
-        private ComboBox cboPurchaseSource;
-        private ComboBox cboWhereListed;
+        public static ComboBox cboStorage;
+        public static ComboBox cboBrand;
+        public static ComboBox cboPurchaseSource;
+        public static ComboBox cboWhereListed;
         private DateTimePicker dtpDateListed;
         private Label label12;
         private Label label15;

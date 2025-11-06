@@ -95,7 +95,7 @@ namespace ResaleV8
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            //string oldItem = txtItem.Text.Trim();
+            ComboBox cbo = null;
             string colName = "";
             string itemColName = "";
             System.Data.DataTable dt = (System.Data.DataTable)dgvEditor.DataSource;
@@ -107,26 +107,31 @@ namespace ResaleV8
                 {
                     case "categories":
                         GV.Categories = list;
+                        cbo = frmAllItems.cboCategory;
                         colName  = "Data";
                         itemColName = "Category";
                         break;
                     case "StorageLocations":
                         GV.StorageLocations = list;
+                        cbo = frmAllItems.cboStorage;
                         colName = "Data";
                         itemColName = "StorageLocation";
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
+                        cbo = frmAllItems.cboPurchaseSource;
                         colName = "Data";
                         itemColName = "purchasesource";
                         break;
                     case "brands":
                         GV.Brands = list;
+                        cbo = frmAllItems.cboBrand;
                         colName = "Data";
                         itemColName = "Brand";
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
+                        cbo = frmAllItems.cboWhereListed;
                         colName = "Data";
                         itemColName = "WhereListed";
                         break;
@@ -146,6 +151,9 @@ namespace ResaleV8
             {
                 MessageBox.Show("No row selected.");
             }
+            //
+            //
+            FormControlOps.EditDropDownList(cbo, list);
         }
 
         private List<GenericModel> GetGVList()
@@ -183,27 +191,29 @@ namespace ResaleV8
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            ComboBox cbo = null;
             List<GenericModel> gvList = new List<GenericModel>();
             switch (tableName)
             {
                 case "categories":
                     gvList = DataAccess.GetDropDownList("categories").ToList();
+                    cbo = frmAllItems.cboCategory;
                     break;
                 case "storageLocations":
-                    gvList = DataAccess.GetDropDownList("storagelocations").Select(c => new GenericModel
-                    { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("storagelocations").ToList();
+                    cbo = frmAllItems.cboStorage;
                     break;
                 case "purchasesources":
-                    gvList = DataAccess.GetDropDownList("PurchaseSources").Select(c => new GenericModel
-                    { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("PurchaseSources").ToList();
+                    cbo = frmAllItems.cboPurchaseSource;
                     break;
                 case "brands":
-                    gvList = DataAccess.GetDropDownList("Brands").Select(c => new GenericModel
-                    { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("Brands").ToList();
+                    cbo = frmAllItems.cboBrand;
                     break;
                 case "whereListed":
-                    gvList = DataAccess.GetDropDownList("WhereListed").Select(c => new GenericModel
-                    { ID = c.ID, Data = c.Data }).ToList();
+                    gvList = DataAccess.GetDropDownList("WhereListed").ToList();
+                    cbo = frmAllItems.cboWhereListed;
                     break;
             }           
 
