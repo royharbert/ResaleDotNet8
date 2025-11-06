@@ -246,7 +246,6 @@ namespace ResaleV8
                     {
                         MessageBox.Show("Item Added");
                     }
-                    btnAddAnother.Enabled = true;
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -509,16 +508,21 @@ namespace ResaleV8
             txtQuantity.Text = "1";
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
             dtpSaleDate.CustomFormat = " ";
+            cboBrand.SelectedIndex = -1;
+            cboBrand.Text = "";
+            cboPurchaseSource.SelectedIndex = -1;
+            cboPurchaseSource.Text = "";
             cboCategory.SelectedIndex = -1;
             cboCategory.Text = "";
             cboStorage.SelectedIndex = -1;
             cboStorage.Text = "";
             this.AcceptButton = btnSave;
             disableAllControls();
-            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
+            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "btnSave", "btnClose" };
             enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
+            clearForm();
         }
 
         private void btnAddAnother_Click(object sender, EventArgs e)

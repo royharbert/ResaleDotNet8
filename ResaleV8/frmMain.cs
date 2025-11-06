@@ -16,6 +16,7 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
+        public frmAllItems allItemsForm = null;
         public frmMain()
         {
             InitializeComponent();
@@ -28,6 +29,8 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            frmAllItems allItemsForm = new frmAllItems();
+            
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
