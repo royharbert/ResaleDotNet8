@@ -99,10 +99,10 @@ namespace ResaleV8
             allItemsForm.Task = "Search Items";
         }
 
-        private void openListEditorForm(string cboName)
+        private void openListEditorForm(ComboBox cbo)
         {
             frmListEditor editor = new frmListEditor();
-            editor.cboName = cboName;
+            editor.cbo = cbo;
             editor.MdiParent = this;
             editor.Show();
 
@@ -110,27 +110,28 @@ namespace ResaleV8
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboCategory");
+            openListEditorForm(cbo);
         }
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboPurchaseSource");
+            ComboBox cbo = cbo
+            openListEditorForm(cbo);
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboBrand");
+            openListEditorForm(cbo);
         }
 
         private void sToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboStorage");
+            openListEditorForm(cbo);
         }
 
         private void whereListedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboWhereListed");
+            openListEditorForm(cbo);
         }
     }
 }

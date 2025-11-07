@@ -18,42 +18,9 @@ namespace ResaleV8_ClassLibrary
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
-                List<GenericModel> calegoryList = 
+                List<GenericModel> gvList = 
                         con.Query<GenericModel>("SELECT * FROM " + tableName, commandType: CommandType.Text).AsList();
-                return calegoryList;
-            }
-        }
-
-        public static List<GenericModel> GetStorageLocationList()
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            using (con)
-            {
-                List<GenericModel> storageLocationList =
-                        con.Query<GenericModel>("SELECT * FROM storagelocations", commandType: CommandType.Text).AsList();
-                return storageLocationList;
-            }
-        }
-
-        public static List<GenericModel> GetPurchaseSourceList()
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            using (con)
-            {
-                List<GenericModel> purchaseSourceList =
-                        con.Query<GenericModel>("SELECT * FROM purchasesources", commandType: CommandType.Text).AsList();
-                return purchaseSourceList;
-            }
-        }
-
-        public static List<GenericModel> GetBrandList()
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            using (con)
-            {
-                List<GenericModel> brandList =
-                        con.Query<GenericModel>("SELECT * FROM brands", commandType: CommandType.Text).AsList();
-                return brandList;
+                return gvList;
             }
         }
 
@@ -282,6 +249,18 @@ namespace ResaleV8_ClassLibrary
             da.Fill(dt);
             con.Close();
             return dt;
+        }
+
+        public static List<GenericModel> ModifyListItem(string? oldItem, string newItem, List<GenericModel> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.Data == oldItem)
+                {
+                    item.Data = newItem;
+                }
+            }
+            return list;
         }
     }
 }

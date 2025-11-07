@@ -14,6 +14,15 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static void RefreshDDList(ComboBox cbo, List<GenericModel> list)
+        {
+            cbo.Items.Clear();
+            foreach (GenericModel item in list)
+            {
+                cbo.Items.Add(item.Data);
+            }
+        }
+
         public static List<GenericModel> GetDDItems(string tableName)
         { 
             MySqlConnection con = ConnectToDB.OpenDB();

@@ -18,7 +18,7 @@ namespace ResaleV8
 {
     public partial class frmListEditor : Form
     {
-        public string cboName { get; set; }
+        public ComboBox cbo { get; set; }
         private string tableName;
         private string colName;
         private List<GenericModel> list;
@@ -31,42 +31,35 @@ namespace ResaleV8
 
         private void frmListEditor_Load(object sender, EventArgs e)
         {
-            System.Data.DataTable dt = new System.Data.DataTable();
-
-            switch (cboName)
+            //System.Data.DataTable dt = new System.Data.DataTable();
+            List<GenericModel> gvList = new List<GenericModel>();
+            cbo.DataSource = null;
+            switch (cbo.Name)
             {
                 case "cboCategory":
-                    dt = DataAccess.GetComboItemList("categories");
-                    tableName = "categories";
-                    colName = "Data";
+                    GV.Categories = DataAccess.GetDropDownList("categories");
                     list = GV.Categories;
                     break;
                 case "cboStorage":
-                    dt = DataAccess.GetComboItemList("storageLocations");
-                    tableName = "storageLocations";
-                    colName = "Data";
+                    GV.StorageLocations = DataAccess.GetDropDownList("storageLocations");
                     list = GV.StorageLocations;
                     break;
                 case "cboPurchaseSource":
-                    dt = DataAccess.GetComboItemList("purchasesources");
-                    tableName = "purchasesources";
-                    colName = "Data";
+                    GV.PurchaseSources = DataAccess.GetDropDownList("purchasesources");
                     list = GV.PurchaseSources;
                     break;
                 case "cboBrand":
-                    dt = DataAccess.GetComboItemList("brands");
-                    tableName = "brands";
-                    colName = "Data";
+                    GV.Brands = DataAccess.GetDropDownList("brands");
                     list = GV.Brands;
                     break;
                 case "cboWhereListed":
-                    dt = DataAccess.GetComboItemList("whereListed");
-                    tableName = "whereListed";
-                    colName = "Data";
+                    GV.WhereListed = DataAccess.GetDropDownList("whereListed");
                     list = GV.WhereListed;
                     break;
             }
-            dgvEditor.DataSource = dt;
+            cbo.DataSource = list;
+            cbo.DisplayMember = "Data";
+            dgvEditor.DataSource = list;
             formatDGV();
             txtItem.Focus();
         }
@@ -94,46 +87,30 @@ namespace ResaleV8
         }
 
         private void btnModify_Click(object sender, EventArgs e)
-        {
-            ComboBox cbo = null;
+        {            
             string colName = "";
             string itemColName = "";
             System.Data.DataTable dt = (System.Data.DataTable)dgvEditor.DataSource;
             if (dgvEditor.CurrentRow != null)
             {
-                //list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
-                    //txtItem.Text.Trim(), list);
+                list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
+                    txtItem.Text.Trim(), list);
                 switch (tableName)
                 {
                     case "categories":
-                        GV.Categories = list;
-                        cbo = frmAllItems.cboCategory;
-                        colName  = "Data";
-                        itemColName = "Category";
+                        GV.Categories = list;                      
                         break;
                     case "StorageLocations":
                         GV.StorageLocations = list;
-                        cbo = frmAllItems.cboStorage;
-                        colName = "Data";
-                        itemColName = "StorageLocation";
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
-                        cbo = frmAllItems.cboPurchaseSource;
-                        colName = "Data";
-                        itemColName = "purchasesource";
                         break;
                     case "brands":
                         GV.Brands = list;
-                        cbo = frmAllItems.cboBrand;
-                        colName = "Data";
-                        itemColName = "Brand";
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
-                        cbo = frmAllItems.cboWhereListed;
-                        colName = "Data";
-                        itemColName = "WhereListed";
                         break;
                 }
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
@@ -193,27 +170,28 @@ namespace ResaleV8
         {
             ComboBox cbo = null;
             List<GenericModel> gvList = new List<GenericModel>();
+            cbo.DataSource = null;
             switch (tableName)
             {
                 case "categories":
-                    gvList = DataAccess.GetDropDownList("categories").ToList();
-                    cbo = frmAllItems.cboCategory;
+                    GV.Categories = DataAccess.GetDropDownList("categories").ToList();
+                    gvList = GV.Categories;
                     break;
                 case "storageLocations":
-                    gvList = DataAccess.GetDropDownList("storagelocations").ToList();
-                    cbo = frmAllItems.cboStorage;
+                    GV.StorageLocations = DataAccess.GetDropDownList("storagelocations").ToList();
+                    gvList = GV.StorageLocations;
                     break;
                 case "purchasesources":
-                    gvList = DataAccess.GetDropDownList("PurchaseSources").ToList();
-                    cbo = frmAllItems.cboPurchaseSource;
+                    GV.PurchaseSources = DataAccess.GetDropDownList("PurchaseSources").ToList();
+                    gvList = GV.PurchaseSources;
                     break;
                 case "brands":
-                    gvList = DataAccess.GetDropDownList("Brands").ToList();
-                    cbo = frmAllItems.cboBrand;
+                    GV.Brands = DataAccess.GetDropDownList("Brands").ToList();
+                    gvList = GV.Brands;
                     break;
                 case "whereListed":
-                    gvList = DataAccess.GetDropDownList("WhereListed").ToList();
-                    cbo = frmAllItems.cboWhereListed;
+                    GV.WhereListed = DataAccess.GetDropDownList("WhereListed").ToList();
+                    gvList = GV.WhereListed;
                     break;
             }           
 

@@ -544,10 +544,10 @@
         private Label label15;
         private TextBox txtListPrice;
         private Label label16;
-        public ComboBox cboCategory;
-        public ComboBox cboStorage;
-        public ComboBox cboBrand;
-        public ComboBox cboPurchaseSource;
-        public ComboBox cboWhereListed;
+        private ComboBox cboCategory;
+        private ComboBox cboStorage;
+        private ComboBox cboBrand;
+        private ComboBox cboPurchaseSource;
+        private ComboBox cboWhereListed;
     }
 }
