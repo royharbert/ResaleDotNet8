@@ -2,6 +2,7 @@
 
 public class ddEventArgs : EventArgs
 {
+    public string? escapedItem { get; set; }
     public string? newItem { get; set; }
     public string? tableName { get; set; }
     public string? columnName { get; set; }

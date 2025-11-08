@@ -16,6 +16,7 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
+        public static frmAllItems allItemsForm = new frmAllItems();
         public frmMain()
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace ResaleV8
         }
 
         private void frmMain_Load(object sender, EventArgs e)
-        {
+        {            
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -59,7 +60,6 @@ namespace ResaleV8
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Add;
-            frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
             allItemsForm.Task = "Add New Item";

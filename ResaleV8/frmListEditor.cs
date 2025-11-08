@@ -113,25 +113,25 @@ namespace ResaleV8
                         break;
                     case "StorageLocations":
                         GV.StorageLocations = list;
-                        cbo = frmAllItems.cboStorage;
+                        cbo = frmMain.allItemsForm.cboStorage;
                         colName = "Data";
                         itemColName = "StorageLocation";
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
-                        cbo = frmAllItems.cboPurchaseSource;
+                        cbo = frmMain.allItemsForm.cboPurchaseSource;
                         colName = "Data";
                         itemColName = "purchasesource";
                         break;
                     case "brands":
                         GV.Brands = list;
-                        cbo = frmAllItems.cboBrand;
+                        cbo = frmMain.allItemsForm.cboBrand;
                         colName = "Data";
                         itemColName = "Brand";
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
-                        cbo = frmAllItems.cboWhereListed;
+                        cbo = frmMain.allItemsForm.cboWhereListed;
                         colName = "Data";
                         itemColName = "WhereListed";
                         break;
@@ -197,23 +197,23 @@ namespace ResaleV8
             {
                 case "categories":
                     gvList = DataAccess.GetDropDownList("categories").ToList();
-                    cbo = frmAllItems.cboCategory;
+                    cbo = frmMain.allItemsForm.cboCategory;
                     break;
                 case "storageLocations":
                     gvList = DataAccess.GetDropDownList("storagelocations").ToList();
-                    cbo = frmAllItems.cboStorage;
+                    cbo = frmMain.allItemsForm.cboStorage;
                     break;
-                case "purchasesources":
+                case "purchasesources": 
                     gvList = DataAccess.GetDropDownList("PurchaseSources").ToList();
-                    cbo = frmAllItems.cboPurchaseSource;
+                    cbo = frmMain.allItemsForm.cboPurchaseSource;
                     break;
                 case "brands":
                     gvList = DataAccess.GetDropDownList("Brands").ToList();
-                    cbo = frmAllItems.cboBrand;
+                    cbo = frmMain.allItemsForm.cboBrand;
                     break;
                 case "whereListed":
                     gvList = DataAccess.GetDropDownList("WhereListed").ToList();
-                    cbo = frmAllItems.cboWhereListed;
+                    cbo = frmMain.allItemsForm.cboWhereListed;
                     break;
             }           
 

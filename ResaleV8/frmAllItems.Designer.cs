@@ -498,6 +498,7 @@
             Margin = new Padding(4);
             Name = "frmAllItems";
             Text = "Resale Items";
+            FormClosing += frmAllItems_FormClosing;
             Load += frmAllItems_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -523,7 +524,6 @@
         private Label label10;
         private TextBox txtDaysHeld;
         private Label label11;
-        public static ComboBox cboCategory;
         private DateTimePicker dtpBuy;
         private DateTimePicker dtpSaleDate;
         private Button btnSave;
@@ -535,12 +535,13 @@
         private Button btnSearch;
         private Label label13;
         private Label label14;
-        public static ComboBox cboStorage;
-        public static ComboBox cboBrand;
-        public static ComboBox cboPurchaseSource;
-        public static ComboBox cboWhereListed;
         private DateTimePicker dtpDateListed;
         private Label label12;
         private Label label15;
+        public ComboBox cboCategory;
+        public ComboBox cboStorage;
+        public ComboBox cboBrand;
+        public ComboBox cboPurchaseSource;
+        public ComboBox cboWhereListed;
     }
 }

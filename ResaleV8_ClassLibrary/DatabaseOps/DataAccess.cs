@@ -81,11 +81,11 @@ namespace ResaleV8_ClassLibrary
         public static int addDropDownItemToTable(ddEventArgs ea)
         {
             string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values " +
-                "('" + ea.newItem + "')";
+                "('" + ea.escapedItem + "')";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@" + ea.columnName, ea.newItem);
+            cmd.Parameters.AddWithValue("@" + ea.columnName, ea.escapedItem);
             object result = cmd.ExecuteScalar();
             int newID = Convert.ToInt32(cmd.LastInsertedId);
 
