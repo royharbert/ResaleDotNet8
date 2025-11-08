@@ -107,7 +107,7 @@ namespace ResaleV8
                 {
                     case "categories":
                         GV.Categories = list;
-                        cbo = frmAllItems.cboCategory;
+                        cbo = frmMain.allItemsForm.cboCategory;
                         colName  = "Data";
                         itemColName = "Category";
                         break;
