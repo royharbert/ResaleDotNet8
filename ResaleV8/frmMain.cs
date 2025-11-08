@@ -115,7 +115,7 @@ namespace ResaleV8
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = cbo
+            ComboBox cbo = cbo;
             openListEditorForm(cbo);
         }
 
