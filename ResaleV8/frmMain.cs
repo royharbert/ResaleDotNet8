@@ -67,8 +67,8 @@ namespace ResaleV8
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Retrieve;
-            frmAllItems allItemsForm = new frmAllItems();
+            GV.MODE = Mode.Edit;
+            allItemsForm.Show();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
             allItemsForm.Task = "Edit Item";

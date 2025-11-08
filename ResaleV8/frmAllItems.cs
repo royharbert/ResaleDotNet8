@@ -61,7 +61,7 @@ namespace ResaleV8
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
-                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
+                        "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
         void prepareForm()
         {
             string[] ctlsToEnable = { };
@@ -88,7 +88,7 @@ namespace ResaleV8
                     enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
-                        "dtpDateListed"};
+                        "dtpDateListed", "txtID"};
                     enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
@@ -247,7 +247,6 @@ namespace ResaleV8
                         MessageBox.Show("Item Added");
                     }
                     clearForm();
-                    btnAddAnother.Enabled = true;
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -601,5 +600,12 @@ namespace ResaleV8
             e.Cancel = true;
             this.Hide();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
     }
 }
