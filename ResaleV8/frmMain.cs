@@ -37,15 +37,15 @@ namespace ResaleV8
         {
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
-            GV.categories = DataAccess.getColumnList("categories", "Category");
+            GV.categories = DataAccess.getColumnList("categories", "Data");
 
-            GV.storageLocations = DataAccess.getColumnList("storagelocations", "Location");
+            GV.storageLocations = DataAccess.getColumnList("storagelocations", "Data");
 
-            GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Source");
+            GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Data");
 
-            GV.Brands = DataAccess.getColumnList("brands", "Brand");
+            GV.Brands = DataAccess.getColumnList("brands", "Data");
 
-            GV.WhereListed = DataAccess.getColumnList("wherelisted", "listed");
+            GV.WhereListed = DataAccess.getColumnList("wherelisted", "Data");
             GV.businessSummary = new BusinessSummary();
         }
 

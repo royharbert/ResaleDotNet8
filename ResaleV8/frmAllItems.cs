@@ -76,7 +76,7 @@ namespace ResaleV8
                     this.Text = this.Text + " Add New Item";
                     disableAllControls();
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose" };
+                        "cboStorage", "btnSave", "btnClose", "txtListPrice" };
                     enableDisableControls(ctlsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
