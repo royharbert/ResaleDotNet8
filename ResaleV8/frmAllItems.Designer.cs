@@ -51,7 +51,6 @@
             dtpBuy = new DateTimePicker();
             dtpSaleDate = new DateTimePicker();
             btnSave = new Button();
-            btnAddAnother = new Button();
             btnClose = new Button();
             btnRetrieve = new Button();
             btnDelete = new Button();
@@ -83,7 +82,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(242, 115);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 34);
+            txtID.Size = new Size(338, 29);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
             // 
@@ -101,7 +100,7 @@
             // 
             txtDesc.Location = new Point(242, 236);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 34);
+            txtDesc.Size = new Size(338, 29);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
             // 
@@ -119,7 +118,7 @@
             // 
             txtQuantity.Location = new Point(242, 316);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 34);
+            txtQuantity.Size = new Size(338, 29);
             txtQuantity.TabIndex = 5;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
@@ -148,7 +147,7 @@
             // 
             txtPurchasePrice.Location = new Point(242, 394);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 34);
+            txtPurchasePrice.Size = new Size(338, 29);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
             // 
@@ -176,7 +175,7 @@
             // 
             txtPrice.Location = new Point(243, 557);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 34);
+            txtPrice.Size = new Size(338, 29);
             txtPrice.TabIndex = 9;
             txtPrice.Tag = "SalePrice";
             txtPrice.Leave += txtPrice_Leave;
@@ -206,7 +205,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(243, 635);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 34);
+            txtProfit.Size = new Size(338, 29);
             txtProfit.TabIndex = 11;
             txtProfit.Tag = "Profit";
             // 
@@ -225,7 +224,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(243, 674);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 34);
+            txtDaysHeld.Size = new Size(338, 29);
             txtDaysHeld.TabIndex = 12;
             txtDaysHeld.Tag = "ProductAge";
             // 
@@ -246,7 +245,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(242, 154);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 36);
+            cboCategory.Size = new Size(339, 29);
             cboCategory.TabIndex = 1;
             cboCategory.Tag = "Category";
             cboCategory.Leave += cboCategory_Leave;
@@ -255,7 +254,7 @@
             // 
             dtpBuy.Location = new Point(242, 355);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 34);
+            dtpBuy.Size = new Size(338, 29);
             dtpBuy.TabIndex = 6;
             dtpBuy.Tag = "PurchaseDate";
             // 
@@ -263,7 +262,7 @@
             // 
             dtpSaleDate.Location = new Point(243, 596);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 34);
+            dtpSaleDate.Size = new Size(338, 29);
             dtpSaleDate.TabIndex = 10;
             dtpSaleDate.Tag = "SaleDate";
             // 
@@ -280,20 +279,6 @@
             btnSave.TextAlign = ContentAlignment.MiddleRight;
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
-            // 
-            // btnAddAnother
-            // 
-            btnAddAnother.BackColor = Color.FromArgb(192, 255, 192);
-            btnAddAnother.Image = Properties.Resources._8666610_plus_square_icon;
-            btnAddAnother.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddAnother.Location = new Point(742, 253);
-            btnAddAnother.Name = "btnAddAnother";
-            btnAddAnother.Size = new Size(190, 50);
-            btnAddAnother.TabIndex = 15;
-            btnAddAnother.Text = "Add Another";
-            btnAddAnother.TextAlign = ContentAlignment.MiddleRight;
-            btnAddAnother.UseVisualStyleBackColor = false;
-            btnAddAnother.Click += btnAddAnother_Click;
             // 
             // btnClose
             // 
@@ -386,7 +371,7 @@
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(242, 433);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(338, 36);
+            cboStorage.Size = new Size(338, 29);
             cboStorage.TabIndex = 8;
             cboStorage.Leave += cboStorage_Leave;
             // 
@@ -397,7 +382,7 @@
             cboBrand.FormattingEnabled = true;
             cboBrand.Location = new Point(242, 275);
             cboBrand.Name = "cboBrand";
-            cboBrand.Size = new Size(338, 36);
+            cboBrand.Size = new Size(338, 29);
             cboBrand.TabIndex = 4;
             cboBrand.Tag = "Brand";
             cboBrand.Leave += cboBrand_Leave;
@@ -409,7 +394,7 @@
             cboPurchaseSource.FormattingEnabled = true;
             cboPurchaseSource.Location = new Point(242, 196);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(339, 36);
+            cboPurchaseSource.Size = new Size(339, 29);
             cboPurchaseSource.TabIndex = 2;
             cboPurchaseSource.Tag = "Category";
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
@@ -419,7 +404,7 @@
             cboWhereListed.FormattingEnabled = true;
             cboWhereListed.Location = new Point(243, 475);
             cboWhereListed.Name = "cboWhereListed";
-            cboWhereListed.Size = new Size(338, 36);
+            cboWhereListed.Size = new Size(338, 29);
             cboWhereListed.TabIndex = 27;
             cboWhereListed.Tag = "WhereListed";
             cboWhereListed.Leave += cboWhereListed_Leave;
@@ -428,7 +413,7 @@
             // 
             dtpDateListed.Location = new Point(242, 517);
             dtpDateListed.Name = "dtpDateListed";
-            dtpDateListed.Size = new Size(339, 34);
+            dtpDateListed.Size = new Size(339, 29);
             dtpDateListed.TabIndex = 28;
             dtpDateListed.Tag = "ListingDate";
             // 
@@ -454,7 +439,7 @@
             // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 866);
             Controls.Add(label15);
@@ -471,7 +456,6 @@
             Controls.Add(btnDelete);
             Controls.Add(btnRetrieve);
             Controls.Add(btnClose);
-            Controls.Add(btnAddAnother);
             Controls.Add(btnSave);
             Controls.Add(dtpSaleDate);
             Controls.Add(dtpBuy);
@@ -527,7 +511,6 @@
         private DateTimePicker dtpBuy;
         private DateTimePicker dtpSaleDate;
         private Button btnSave;
-        private Button btnAddAnother;
         private Button btnClose;
         private Button btnRetrieve;
         private Button btnDelete;

@@ -255,7 +255,7 @@ namespace ResaleV8
                     {
                         MessageBox.Show("Item Added");
                     }
-                    btnAddAnother.Enabled = true;
+                    clearForm();
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -484,11 +484,6 @@ namespace ResaleV8
                         "cboStorage", "btnSave", "btnClose" };
             enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
-        }
-
-        private void btnAddAnother_Click(object sender, EventArgs e)
-        {
-            clearForm();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
