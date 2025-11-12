@@ -30,7 +30,8 @@ namespace ResaleV8
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmAllItems allItemsForm = new frmAllItems();
-            
+            GV.AllItemsForm = allItemsForm;
+
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -99,10 +100,10 @@ namespace ResaleV8
             allItemsForm.Task = "Search Items";
         }
 
-        private void openListEditorForm(ComboBox cbo)
+        private void openListEditorForm()
         {
             frmListEditor editor = new frmListEditor();
-            editor.cbo = cbo;
+            //editor.cbo = cbo;
             editor.MdiParent = this;
             editor.Show();
 
@@ -116,13 +117,14 @@ namespace ResaleV8
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = allItemsForm.cboPurchaseSource;
-            openListEditorForm(cbo);
+            
+            openListEditorForm();
+            
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = allItemsForm.cboBrand;
+            ComboBox cbo = GV.AllItemsForm.cboBrand;
             openListEditorForm(cbo);
         }
 
