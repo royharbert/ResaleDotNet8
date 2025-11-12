@@ -60,7 +60,7 @@ namespace ResaleV8
 
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave", 
+                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
                         "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
         void prepareForm()
         {
@@ -182,7 +182,7 @@ namespace ResaleV8
                 }
             }
         }
-        
+
 
         void disableAllControls()
         {
@@ -268,7 +268,7 @@ namespace ResaleV8
             if (model != null)
             {
                 model.WhereListed = cboWhereListed.Text;
-                model.DateListed = dtpDateListed.Value; 
+                model.DateListed = dtpDateListed.Value;
                 model.PurchaseSource = cboPurchaseSource.Text;
                 model.Brand = cboBrand.Text;
                 model.ItemDesc = txtDesc.Text;
@@ -282,7 +282,7 @@ namespace ResaleV8
                 {
                     if (txtPurchasePrice.Text != "")
                     {
-                        model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text); 
+                        model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
                     }
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
@@ -338,7 +338,7 @@ namespace ResaleV8
             }
         }
 
-        private ddEventArgs CreateEventArgs(string newItem, string tableName, 
+        private ddEventArgs CreateEventArgs(string newItem, string tableName,
             string columnName, List<GenericModel> list)
         {
             ddEventArgs ea = new ddEventArgs();
@@ -375,7 +375,7 @@ namespace ResaleV8
             if (!cbo.Items.Contains(originalItem) && cbo.Text != "")
             {
                 // Not in list, so add it refresh list add item to table
-                switch (cbo.Name)                
+                switch (cbo.Name)
                 {
                     case "cboCategory":
                         List<GenericModel> existingCategories = DataAccess.GetDropDownList("Categories");
@@ -399,7 +399,7 @@ namespace ResaleV8
                         break;
                     case "cboPurchaseSource":
                         List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList("PurchaseSources");
-                        ea = CreateEventArgs(escapedItem, "purchaseSources", "Data", existingPurchaseSources);                        
+                        ea = CreateEventArgs(escapedItem, "purchaseSources", "Data", existingPurchaseSources);
                         AddItemIfNeeded(ea, existingPurchaseSources);
                         GV.PurchaseSources = DataAccess.GetDropDownList(ea.tableName);
                         cboPurchaseSource.DataSource = null;
@@ -428,7 +428,7 @@ namespace ResaleV8
                         cboWhereListed.Text = ea.newItem;
                         break;
                 }
-                
+
             }
         }
 
@@ -587,7 +587,7 @@ namespace ResaleV8
         private void cboWhereListed_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
-            if(cboWhereListed.Text != "")
+            if (cboWhereListed.Text != "")
             {
                 dtpDateListed.Value = DateTime.Now;
                 dtpDateListed.Format = DateTimePickerFormat.Long;
@@ -596,6 +596,12 @@ namespace ResaleV8
             {
                 FormControlOps.ClearDTP(dtpDateListed);
             }
+        }
+
+        private void frmAllItems_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

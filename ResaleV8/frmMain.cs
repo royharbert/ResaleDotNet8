@@ -110,27 +110,31 @@ namespace ResaleV8
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ComboBox cbo = allItemsForm.cboCategory;
             openListEditorForm(cbo);
         }
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = cbo;
+            ComboBox cbo = allItemsForm.cboPurchaseSource;
             openListEditorForm(cbo);
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ComboBox cbo = allItemsForm.cboBrand;
             openListEditorForm(cbo);
         }
 
         private void sToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ComboBox cbo = allItemsForm.cboStorage;
             openListEditorForm(cbo);
         }
 
         private void whereListedToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ComboBox cbo = allItemsForm.cboWhereListed;
             openListEditorForm(cbo);
         }
     }
