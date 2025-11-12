@@ -36,7 +36,7 @@ namespace ResaleV8
         {
             MySqlConnection con = ConnectToDB.OpenDB();
             List<ItemModel> itemList =
-                    DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
+                    DataAccess.GetModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.itemList = itemList;
             dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { /**"Profit", "SalePrice"*/ };

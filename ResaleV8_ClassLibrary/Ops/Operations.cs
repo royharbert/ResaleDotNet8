@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dapper;
 namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
@@ -28,7 +28,9 @@ namespace ResaleV8_ClassLibrary.Ops
             
             using (con)
             {
-                string query = $"SELECT id AS ID, item AS Data FROM {tableName} ORDER BY {tableName.Substring(0, tableName.Length - 1)} ASC";
+                string query = $"SELECT id AS ID, item AS Data FROM {tableName} ORDER BY {tableName.Substring(0, 
+                    tableName.Length - 1)} ASC";
+                //MySqlCommand command = new MySqlCommand(query, con);
                 var result = con.Query<GenericModel>(query).ToList();
                 return result;
             }

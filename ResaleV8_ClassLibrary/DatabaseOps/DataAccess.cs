@@ -180,7 +180,7 @@ namespace ResaleV8_ClassLibrary
             return model;
         }
 
-        public static List<ItemModel> getModelList(string sql)
+        public static List<ItemModel> GetModelList(string sql)
         {
             List<ItemModel> list = new List<ItemModel>();
             //string sql = "SELECT * FROM PurchasedItems";

@@ -129,7 +129,7 @@ namespace ResaleV8
                 MessageBox.Show("Please enter an Item ID");
                 return null;
             }
-            List<ItemModel> items = DataAccess.getModelList(sql);
+            List<ItemModel> items = DataAccess.GetModelList(sql);
             if (items.Count > 0)
             {
                 model = items[0];
@@ -477,12 +477,33 @@ namespace ResaleV8
             cboCategory.SelectedIndex = -1;
             cboCategory.Text = "";
             cboStorage.SelectedIndex = -1;
+            cboWhereListed.SelectedIndex = -1;
+            cboWhereListed.Text = "";
+            cboBrand.SelectedIndex = -1;
+            cboBrand.Text = "";
+            cboPurchaseSource.SelectedIndex = -1;
+            cboPurchaseSource.Text = "";
             cboStorage.Text = "";
+            txtListPrice.Text = "";
             this.AcceptButton = btnSave;
             disableAllControls();
-            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose" };
-            enableDisableControls(ctlsToEnable, true);
+            string ctlsToEnable = "";
+            switch (GV.MODE)
+            {
+                case Mode.Add:
+                    txtDesc.Enabled = true;
+                         ctlsToEnable = "txtDesc,cboCategory,dtpPurchaseDate,txtPurchasePrice,txtQuantity," +
+                                    "cboStorage,btnSave,btnClose";                    
+                    break;
+                case Mode.Edit:
+
+                    break;
+                case Mode.Delete:
+
+                    break;
+            }
+            string[] enabledCtls = ctlsToEnable.Split(',');
+            enableDisableControls(enabledCtls, true);
             cboCategory.Focus();
         }
 
@@ -498,7 +519,7 @@ namespace ResaleV8
                 sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
             }
             sql = sql.Substring(0, sql.Length - 5);
-            List<ItemModel> models = DataAccess.getModelList(sql);
+            List<ItemModel> models = DataAccess.GetModelList(sql);
             frmSearchResults resultsForm = new frmSearchResults();
             resultsForm.Models = models;
             resultsForm.ShowDialog();

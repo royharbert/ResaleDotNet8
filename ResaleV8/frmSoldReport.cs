@@ -42,7 +42,7 @@ namespace ResaleV8
             string query = "Select * from purchasedItems where SaleDate between "
                 + startDate + " and " + stopDate;
 
-            List<ItemModel> dt = DataAccess.getModelList(query);
+            List<ItemModel> dt = DataAccess.GetModelList(query);
             GV.itemList = dt;
             if (dt == null)
             {
