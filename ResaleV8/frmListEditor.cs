@@ -18,7 +18,7 @@ namespace ResaleV8
 {
     public partial class frmListEditor : Form
     {
-        public ComboBox cbo { get; set; }
+        public string cboName { get; set; }
         private string tableName;
         private string colName;
         private List<GenericModel> list;
@@ -31,7 +31,17 @@ namespace ResaleV8
 
         private void frmListEditor_Load(object sender, EventArgs e)
         {
-            //System.Data.DataTable dt = new System.Data.DataTable();
+            ComboBox cbo = null;
+            if (this.Owner != null && !string.IsNullOrEmpty(cboName))
+            {
+                cbo = this.Owner.Controls.Find(cboName, true).FirstOrDefault() as ComboBox;
+            }
+            if (cbo == null)
+            {
+                MessageBox.Show("ComboBox not found.");
+                return;
+            }
+
             List<GenericModel> gvList = new List<GenericModel>();
             cbo.DataSource = null;
             switch (cbo.Name)

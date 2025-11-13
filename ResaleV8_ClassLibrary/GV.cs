@@ -10,7 +10,6 @@ namespace ResaleV8_ClassLibrary
 {
     public class GV
     {
-        public static Form AllItemsForm { get; set; }
         public static string conString { get; set; } = null!;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
         public static List<GenericModel>? Categories { get; set; } = new List<GenericModel>();

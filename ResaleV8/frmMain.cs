@@ -16,6 +16,7 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
+        public string cboName { get; set; }
         public frmAllItems allItemsForm = null;
         public frmMain()
         {
@@ -30,7 +31,6 @@ namespace ResaleV8
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmAllItems allItemsForm = new frmAllItems();
-            GV.AllItemsForm = allItemsForm;
 
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
@@ -100,10 +100,9 @@ namespace ResaleV8
             allItemsForm.Task = "Search Items";
         }
 
-        private void openListEditorForm()
+        private void openListEditorForm(ComboBox cbo)
         {
             frmListEditor editor = new frmListEditor();
-            //editor.cbo = cbo;
             editor.MdiParent = this;
             editor.Show();
 
@@ -111,20 +110,36 @@ namespace ResaleV8
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = allItemsForm.cboCategory;
-            openListEditorForm(cbo);
+            string cboName = "cboCategory";
+            openListEditorForm(cboName);
         }
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
-            openListEditorForm();
+            openListEditorForm(cboName);
             
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = GV.AllItemsForm.cboBrand;
+            switch (GV.MODE)
+            {
+                case Mode.Add:
+                    cbo = allItemsForm.cboBrand;
+                    break;
+                case Mode.Retrieve:
+                    cbo = allItemsForm.cboBrand;
+                    break;
+                case Mode.Delete:
+                    cbo = allItemsForm.cboBrand;
+                    break;
+                case Mode.Search:
+                    cbo = allItemsForm.cboBrand;
+                    break;
+                default:
+                    break;
+            }
             openListEditorForm(cbo);
         }
 
