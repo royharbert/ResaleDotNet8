@@ -149,6 +149,7 @@ namespace ResaleV8
                 txtPurchasePrice.Text = model.PurchasePrice.ToString("$0.00");
                 txtQuantity.Text = model.Quantity.ToString();
                 cboStorage.Text = model.StorageLocation;
+                txtListPrice.Text = model.ListPrice.ToString("$0.00");
                 if (model.SaleDate > new DateTime(1900, 01, 01))
                 {
                     dtpSaleDate.Value = model.SaleDate;
@@ -274,6 +275,17 @@ namespace ResaleV8
                 model.ItemDesc = txtDesc.Text;
                 model.Category = cboCategory.Text;
                 model.PurchaseDate = dtpBuy.Value;
+                if (txtListPrice.Text.Contains('$'))
+                {
+                    model.ListPrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
+                }
+                else
+                {
+                    if (txtListPrice.Text != "")
+                    {
+                        model.ListPrice = Convert.ToDecimal(txtListPrice.Text);
+                    }
+                }
                 if (txtPurchasePrice.Text.Contains('$'))
                 {
                     model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));

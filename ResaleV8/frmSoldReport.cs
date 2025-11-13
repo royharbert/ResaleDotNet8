@@ -34,7 +34,7 @@ namespace ResaleV8
         private void btnRun_Click(object sender, EventArgs e)
         {
             string[] headers =  { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
-                    "Purchase Price", "Where Listed", "Date Listed", "Sale Date", "Sale Price", "Product Age",
+                    "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Product Age",
                     "Profit", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);

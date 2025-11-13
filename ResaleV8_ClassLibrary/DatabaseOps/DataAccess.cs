@@ -101,9 +101,9 @@ namespace ResaleV8_ClassLibrary
         public static int addItemToDatabase(ItemModel model)
         {            
             string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, PurchaseDate, PurchasePrice, " +
-                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed) VALUES (@Category, " +
+                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed, ListPrice) VALUES (@Category, " +
                 "@ItemDesc, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation," +
-                "@PurchaseSource, @Brand, @DateListed, @WhereListed )";
+                "@PurchaseSource, @Brand, @DateListed, @WhereListed, @ListPrice )";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -121,6 +121,7 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
             cmd.Parameters.AddWithValue("@Profit", model.Profit);
             cmd.Parameters.AddWithValue("@ProductAge", model.ProductAge);
+            cmd.Parameters.AddWithValue("@ListPrice", model.ListPrice);
 
             object result = cmd.ExecuteScalar();
             int newID = Convert.ToInt32(cmd.LastInsertedId);
@@ -135,7 +136,7 @@ namespace ResaleV8_ClassLibrary
                          "PurchasePrice = @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
                          "SalePrice = @SalePrice, StorageLocation = @StorageLocation, Brand = @Brand, " +
                          "purchaseSource = @PurchaseSource, WhereListed = @WhereListed, " +
-                         "ListingDate = @DateListed WHERE ItemID = @ItemID";
+                         "ListingDate = @DateListed, ListPrice = @ListPrice WHERE ItemID = @ItemID";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -151,6 +152,7 @@ namespace ResaleV8_ClassLibrary
             cmd.Parameters.AddWithValue("@SaleDate", model.SaleDate);
             cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
             cmd.Parameters.AddWithValue("@StorageLocation", model.StorageLocation);
+            cmd.Parameters.AddWithValue("@ListPrice", model.ListPrice);
             cmd.Parameters.AddWithValue("@ItemID", itemID);
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
@@ -211,6 +213,7 @@ namespace ResaleV8_ClassLibrary
                 model.ItemDesc = reader["ItemDesc"]?.ToString() ?? string.Empty;
                 model.PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]);
                 model.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"]);
+                //model.ListPrice = Convert.ToDecimal(reader["ListPrice"]);
                 model.Quantity = Convert.ToInt32(reader["Quantity"]);
                 if (reader["SaleDate"] != DBNull.Value)
                     model.SaleDate = Convert.ToDateTime(reader["SaleDate"]);

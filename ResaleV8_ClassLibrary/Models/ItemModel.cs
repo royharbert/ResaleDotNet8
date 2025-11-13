@@ -36,6 +36,7 @@ namespace ResaleV8_ClassLibrary.Models
         public decimal PurchasePrice { get; set; }
         public string? WhereListed { get; set; }
         public DateTime DateListed { get; set; } = GV.emptyDate;
+        public decimal ListPrice { get; set; }
         public DateTime SaleDate
         {
             get

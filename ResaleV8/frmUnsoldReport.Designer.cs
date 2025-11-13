@@ -47,7 +47,7 @@
             dgvUnsold.Margin = new Padding(3, 2, 3, 2);
             dgvUnsold.Name = "dgvUnsold";
             dgvUnsold.RowHeadersWidth = 51;
-            dgvUnsold.Size = new Size(1137, 409);
+            dgvUnsold.Size = new Size(1301, 409);
             dgvUnsold.TabIndex = 0;
             dgvUnsold.RowHeaderMouseDoubleClick += dgvUnsold_RowHeaderMouseDoubleClick;
             // 
@@ -130,7 +130,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1165, 585);
+            ClientSize = new Size(1331, 585);
             Controls.Add(label3);
             Controls.Add(txtItemTotal);
             Controls.Add(label2);
