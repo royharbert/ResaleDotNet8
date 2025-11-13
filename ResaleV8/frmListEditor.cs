@@ -21,6 +21,7 @@ namespace ResaleV8
         public string cboName { get; set; }
         private string tableName;
         private string colName;
+        private string itemColName;
         private List<GenericModel> list;
         private string oldItem;
 
@@ -31,44 +32,44 @@ namespace ResaleV8
 
         private void frmListEditor_Load(object sender, EventArgs e)
         {
-            ComboBox cbo = null;
-            if (this.Owner != null && !string.IsNullOrEmpty(cboName))
+            switch (GV.MODE)
             {
-                cbo = this.Owner.Controls.Find(cboName, true).FirstOrDefault() as ComboBox;
-            }
-            if (cbo == null)
-            {
-                MessageBox.Show("ComboBox not found.");
-                return;
-            }
-
-            List<GenericModel> gvList = new List<GenericModel>();
-            cbo.DataSource = null;
-            switch (cbo.Name)
-            {
-                case "cboCategory":
-                    GV.Categories = DataAccess.GetDropDownList("categories");
+                case Mode.EditCategories:
+                    tableName = "categories";
+                    cboName = "cboCategory";
+                    itemColName = "Category";
+                    this.Text = "Category List Editor";
                     list = GV.Categories;
                     break;
-                case "cboStorage":
-                    GV.StorageLocations = DataAccess.GetDropDownList("storageLocations");
+                case Mode.EditStorageLocations:
+                    tableName = "storageLocations";
+                    cboName = "cboStorage";
+                    itemColName = "StorageLocation";
+                    this.Text = "Storage Location List Editor";
                     list = GV.StorageLocations;
                     break;
-                case "cboPurchaseSource":
-                    GV.PurchaseSources = DataAccess.GetDropDownList("purchasesources");
+                case Mode.EditPurchaseSources:
+                    tableName = "purchasesources";
+                    cboName = "cboPurchaseSource";
+                    itemColName = "PurchaseSource";
+                    this.Text = "Purchase Source List Editor";
                     list = GV.PurchaseSources;
                     break;
-                case "cboBrand":
-                    GV.Brands = DataAccess.GetDropDownList("brands");
+                case Mode.EditBrands:
+                    tableName = "brands";
+                    cboName = "cboBrand";
+                    itemColName = "Brand";
+                    this.Text = "Brand List Editor";
                     list = GV.Brands;
                     break;
-                case "cboWhereListed":
-                    GV.WhereListed = DataAccess.GetDropDownList("whereListed");
+                case Mode.EditWhereListed:
+                    tableName = "whereListed";
+                    cboName = "cboWhereListed";
+                    itemColName = "WhereListed";
+                    this.Text = "Where Listed List Editor";
                     list = GV.WhereListed;
                     break;
             }
-            cbo.DataSource = list;
-            cbo.DisplayMember = "Data";
             dgvEditor.DataSource = list;
             formatDGV();
             txtItem.Focus();
@@ -97,10 +98,7 @@ namespace ResaleV8
         }
 
         private void btnModify_Click(object sender, EventArgs e)
-        {            
-            string colName = "";
-            string itemColName = "";
-            System.Data.DataTable dt = (System.Data.DataTable)dgvEditor.DataSource;
+        {    
             if (dgvEditor.CurrentRow != null)
             {
                 list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
@@ -138,9 +136,6 @@ namespace ResaleV8
             {
                 MessageBox.Show("No row selected.");
             }
-            //
-            //
-            FormControlOps.EditDropDownList(cbo, list);
         }
 
         private List<GenericModel> GetGVList()

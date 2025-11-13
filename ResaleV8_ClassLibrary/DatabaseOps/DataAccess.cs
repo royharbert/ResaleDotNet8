@@ -24,12 +24,11 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
-        public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string colName)
+        public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string itemColName)
         {
             int rows = 0;
-            string sql = "update purchasedItems set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "';" +
+            string sql = "update purchasedItems set " + itemColName + " = '" + newItem + "' where " + itemColName + " = '" + oldItem + "';" +
                 $"select row_count() as rows_affected";
-            //sql = Operations.EscapeApostrophes(sql);
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             rows = con.Execute(sql);
@@ -169,7 +168,7 @@ namespace ResaleV8_ClassLibrary
                 newItem = Operations.EscapeApostrophes(newItem);
             }
             MySqlConnection con = ConnectToDB.OpenDB();
-            string sql = "update " + tableName + " set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "'";
+            string sql = "update " + tableName + " set Data = '" + newItem + "' where Data = '" + oldItem + "'";
             MySqlCommand cmd =new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
             con.Close();

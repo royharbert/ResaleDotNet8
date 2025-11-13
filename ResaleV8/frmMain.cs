@@ -16,7 +16,6 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
-        public string cboName { get; set; }
         public frmAllItems allItemsForm = null;
         public frmMain()
         {
@@ -31,7 +30,7 @@ namespace ResaleV8
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmAllItems allItemsForm = new frmAllItems();
-
+            
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -100,59 +99,41 @@ namespace ResaleV8
             allItemsForm.Task = "Search Items";
         }
 
-        private void openListEditorForm(ComboBox cbo)
+        private void openListEditorForm()
         {
             frmListEditor editor = new frmListEditor();
             editor.MdiParent = this;
             editor.Show();
-
         }
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string cboName = "cboCategory";
-            openListEditorForm(cboName);
+            GV.mode = Mode.EditCategories;
+            openListEditorForm();
         }
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            openListEditorForm(cboName);
-            
+            GV.mode = Mode.EditPurchaseSources;
+            openListEditorForm();
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (GV.MODE)
-            {
-                case Mode.Add:
-                    cbo = allItemsForm.cboBrand;
-                    break;
-                case Mode.Retrieve:
-                    cbo = allItemsForm.cboBrand;
-                    break;
-                case Mode.Delete:
-                    cbo = allItemsForm.cboBrand;
-                    break;
-                case Mode.Search:
-                    cbo = allItemsForm.cboBrand;
-                    break;
-                default:
-                    break;
-            }
-            openListEditorForm(cbo);
+            GV.mode = Mode.EditBrands;
+            openListEditorForm();
         }
 
         private void sToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = allItemsForm.cboStorage;
-            openListEditorForm(cbo);
+            GV.mode = Mode.EditStorageLocations;
+            openListEditorForm();
         }
 
         private void whereListedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComboBox cbo = allItemsForm.cboWhereListed;
-            openListEditorForm(cbo);
+            GV.mode = Mode.EditWhereListed;
+            openListEditorForm();
         }
     }
 }
