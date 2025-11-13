@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,39 +23,33 @@ namespace ResaleV8
         /// </summary>
         public int item
         {
-            get
-            {
-                return _item;
-            }
+            get => _item;
 
             set
             {
                 _item = value;
                 txtID.Text = _item.ToString();
                 btnRetrieve.PerformClick();
-                if (model.SaleDate > new DateTime(1900, 01, 01))
+                if (model.SaleDate <= GV.emptyDate)
+                {
+                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                    dtpSaleDate.CustomFormat = " ";
+                }
+                else
                 {
                     txtProfit.Enabled = true;
                     txtProfit.Text = model.Profit.ToString("$0.00");
                     txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
                 }
-                else
-                {
-                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                    dtpSaleDate.CustomFormat = " ";
-                }
             }
         }
 
-        private string _task;
+        private string? _task;
 
         public string Task
         {
-            get
-            {
-                return _task;
-            }
+            get => _task;
             set
             {
                 _task = value;
@@ -65,8 +60,8 @@ namespace ResaleV8
 
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave", "btnAddAnother", "btnDelete",
-                        "btnClose", "btnSearch"};
+                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
+                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
         void prepareForm()
         {
             string[] ctlsToEnable = { };
@@ -76,7 +71,7 @@ namespace ResaleV8
                     this.Text = this.Text + " Add New Item";
                     disableAllControls();
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose" };
+                        "cboStorage", "btnSave", "btnClose", "cboWhereListed", "dtpDateListed" };
                     enableDisableControls(ctlsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
@@ -92,7 +87,8 @@ namespace ResaleV8
                     this.Text = this.Text + " Edit Item";
                     enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID" };
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
+                        "dtpDateListed"};
                     enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
@@ -109,7 +105,7 @@ namespace ResaleV8
                 case Mode.Search:
                     enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose" };
+                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose", "cboWhereListed", "dtpDateListed" };
                     enableDisableControls(ctlsToEnable, true);
                     break;
             }
@@ -141,6 +137,7 @@ namespace ResaleV8
 
             return model;
         }
+
         void placeDataOnForm(ItemModel model)
         {
             if (model != null && model.ItemID != 0)
@@ -180,12 +177,12 @@ namespace ResaleV8
                 }
                 else
                 {
-                    ClearDTP(dtpDateListed);
+                    FormControlOps.ClearDTP(dtpDateListed);
 
                 }
             }
         }
-        
+
 
         void disableAllControls()
         {
@@ -212,34 +209,27 @@ namespace ResaleV8
             Close();
         }
 
-        private void ClearDTP(DateTimePicker dtp)
-        {
-            dtp.Format = DateTimePickerFormat.Custom;
-            dtp.CustomFormat = " ";
-            dtp.Value = GV.emptyDate;
-        }
-
         private void frmAllItems_Load(object sender, EventArgs e)
         {
-            ClearDTP(dtpDateListed);
-            ClearDTP(dtpSaleDate);
+            FormControlOps.ClearDTP(dtpDateListed);
+            FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
+            cboWhereListed.DisplayMember = "Data";
             cboWhereListed.SelectedIndex = -1;
-            cboCategory.DataSource = GV.categories;
+            cboCategory.DataSource = GV.Categories;
+            cboCategory.DisplayMember = "Data";
             cboCategory.SelectedIndex = -1;
-            cboStorage.DataSource = GV.storageLocations;
+            cboStorage.DataSource = GV.StorageLocations;
+            cboStorage.DisplayMember = "Data";
             cboStorage.SelectedIndex = -1;
             cboBrand.DataSource = GV.Brands;
+            cboBrand.DisplayMember = "Data";
             cboBrand.SelectedIndex = -1;
             cboPurchaseSource.DataSource = GV.PurchaseSources;
+            cboPurchaseSource.DisplayMember = "Data";
             cboPurchaseSource.SelectedIndex = -1;
 
             prepareForm();
-            //if (GV.MODE == Mode.Add)
-            //{
-            //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-            //    dtpSaleDate.CustomFormat = " ";
-            //}
             txtID.Focus();
         }
 
@@ -256,7 +246,6 @@ namespace ResaleV8
                     {
                         MessageBox.Show("Item Added");
                     }
-                    btnAddAnother.Enabled = true;
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -279,7 +268,7 @@ namespace ResaleV8
             if (model != null)
             {
                 model.WhereListed = cboWhereListed.Text;
-                model.DateListed = dtpDateListed.Value; 
+                model.DateListed = dtpDateListed.Value;
                 model.PurchaseSource = cboPurchaseSource.Text;
                 model.Brand = cboBrand.Text;
                 model.ItemDesc = txtDesc.Text;
@@ -291,7 +280,10 @@ namespace ResaleV8
                 }
                 else
                 {
-                    model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
+                    if (txtPurchasePrice.Text != "")
+                    {
+                        model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text);
+                    }
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
@@ -328,73 +320,115 @@ namespace ResaleV8
             }
         }
 
+        private void AddItemIfNeeded(ddEventArgs ea, List<GenericModel> ddList)
+        {
+            bool itemExists = false;
+            foreach (GenericModel item in ddList)
+            {
+                if (item.Data.Contains(ea.newItem))
+                {
+                    itemExists = true;
+                    break;
+                }
 
+            }
+            if (!itemExists)
+            {
+                DataAccess.addDropDownItemToTable(ea);
+            }
+        }
+
+        private ddEventArgs CreateEventArgs(string newItem, string tableName,
+            string columnName, List<GenericModel> list)
+        {
+            ddEventArgs ea = new ddEventArgs();
+            ea.newItem = newItem;
+            ea.tableName = tableName;
+            ea.columnName = columnName;
+            ea.gvList = list;
+            return ea;
+        }
 
         private void comboListMaintenance(object sender, EventArgs e)
         {
             /*
-             * Check to see if text is in items collection
-             * If not, add it to listtrffrffd
-             *  Insert it into data table
-             */
-            ComboBox cbo = sender as ComboBox;
-            ddEventArgs ea = new ddEventArgs();
-            if (!cbo.Items.Contains(cbo.Text) && cbo.Text != "")
+            * Check for single quotes in text
+            * If found, escape them
+            * Check to see if text is in items collection
+            * If not, add it to list
+            *  Insert it into data table
+            */
+            ComboBox? cbo = sender as ComboBox;
+            string? originalItem = cbo.Text;
+            //ddEventArgs ea = new ddEventArgs();
+            GenericModel gm = new GenericModel();
+            string escapedItem = Operations.EscapeApostrophes(originalItem);
+            //if (item.Contains("''"))
+            //{
+            //    return;
+            //}
+            //if (item.Contains("'"))
+            //{
+            //    item = item.Replace("'", "''");
+            //}
+
+            if (!cbo.Items.Contains(originalItem) && cbo.Text != "")
             {
+                // Not in list, so add it refresh list add item to table
                 switch (cbo.Name)
                 {
                     case "cboCategory":
-                        GV.categories.Add(cbo.Text);
-                        GV.categories.Sort();
-                        ea.newItem = cboCategory.Text;
-                        ea.tableName = "Categories";
-                        ea.columnName = "Category";
+                        List<GenericModel> existingCategories = DataAccess.GetDropDownList("Categories");
+                        ddEventArgs ea = CreateEventArgs(escapedItem, "Categories", "Data", existingCategories);
+                        AddItemIfNeeded(ea, existingCategories);
+                        GV.Categories = DataAccess.GetDropDownList("Categories");
                         cboCategory.DataSource = null;
-                        cboCategory.DataSource = GV.categories;
+                        cboCategory.DataSource = GV.Categories;
+                        cboCategory.DisplayMember = "Data";
                         cboCategory.Text = ea.newItem;
                         break;
                     case "cboStorage":
-                        GV.storageLocations.Add(cbo.Text);
-                        GV.storageLocations.Sort();
-                        ea.newItem = cboStorage.Text;
-                        ea.tableName = "storageLocations";
-                        ea.columnName = "Location";
+                        List<GenericModel> existingStorage = DataAccess.GetDropDownList("storageLocations");
+                        ea = CreateEventArgs(escapedItem, "storageLocations", "Data", existingStorage);
+                        AddItemIfNeeded(ea, existingStorage);
+                        GV.StorageLocations = DataAccess.GetDropDownList(ea.tableName);
                         cboStorage.DataSource = null;
-                        cboStorage.DataSource = GV.storageLocations;
+                        cboStorage.DataSource = GV.StorageLocations;
+                        cboStorage.DisplayMember = "Data";
                         cboStorage.Text = ea.newItem;
                         break;
                     case "cboPurchaseSource":
-                        GV.PurchaseSources.Add(cbo.Text);
-                        GV.PurchaseSources.Sort();
-                        ea.newItem = cboPurchaseSource.Text;
-                        ea.tableName = "purchaseSources";
-                        ea.columnName = "source";
+                        List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList("PurchaseSources");
+                        ea = CreateEventArgs(escapedItem, "purchaseSources", "Data", existingPurchaseSources);
+                        AddItemIfNeeded(ea, existingPurchaseSources);
+                        GV.PurchaseSources = DataAccess.GetDropDownList(ea.tableName);
                         cboPurchaseSource.DataSource = null;
                         cboPurchaseSource.DataSource = GV.PurchaseSources;
+                        cboPurchaseSource.DisplayMember = "Data";
                         cboPurchaseSource.Text = ea.newItem;
                         break;
                     case "cboBrand":
-                        GV.Brands.Add(cbo.Text);
-                        GV.Brands.Sort();
-                        ea.newItem = cboBrand.Text;
-                        ea.tableName = "brands";
-                        ea.columnName = "brand";
+                        List<GenericModel> existingBrands = DataAccess.GetDropDownList("Brands");
+                        ea = CreateEventArgs(escapedItem, "brands", "Data", existingBrands);
+                        AddItemIfNeeded(ea, existingBrands);
+                        GV.Brands = DataAccess.GetDropDownList(ea.tableName);
                         cboBrand.DataSource = null;
                         cboBrand.DataSource = GV.Brands;
+                        cboBrand.DisplayMember = "Data";
                         cboBrand.Text = ea.newItem;
                         break;
                     case "cboWhereListed":
-                        GV.WhereListed.Add(cbo.Text);
-                        GV.WhereListed.Sort();
-                        ea.newItem = cboWhereListed.Text;
-                        ea.tableName = "WhereListed";
-                        ea.columnName = "Listed";
+                        List<GenericModel> existingListLocations = DataAccess.GetDropDownList("WhereListed");
+                        ea = CreateEventArgs(escapedItem, "WhereListed", "Data", existingListLocations);
+                        AddItemIfNeeded(ea, existingListLocations);
+                        GV.WhereListed = DataAccess.GetDropDownList(ea.tableName);
                         cboWhereListed.DataSource = null;
                         cboWhereListed.DataSource = GV.WhereListed;
+                        cboWhereListed.DisplayMember = "Data";
                         cboWhereListed.Text = ea.newItem;
                         break;
                 }
-                DataAccess.addDropDownItemToTable(ea);
+
             }
         }
 
@@ -437,10 +471,9 @@ namespace ResaleV8
                 MessageBoxButtons.OKCancel);
             if (dr == DialogResult.OK)
             {
-                DataAccess.deleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
+                DataAccess.DeleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
                 MessageBox.Show("Item Deleted");
             }
-
         }
 
         private void cboCategory_Leave(object sender, EventArgs e)
@@ -475,16 +508,21 @@ namespace ResaleV8
             txtQuantity.Text = "1";
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
             dtpSaleDate.CustomFormat = " ";
+            cboBrand.SelectedIndex = -1;
+            cboBrand.Text = "";
+            cboPurchaseSource.SelectedIndex = -1;
+            cboPurchaseSource.Text = "";
             cboCategory.SelectedIndex = -1;
             cboCategory.Text = "";
             cboStorage.SelectedIndex = -1;
             cboStorage.Text = "";
             this.AcceptButton = btnSave;
             disableAllControls();
-            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpPurchaseDate", "txtPurchasePrice", "txtQuantity",
+            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "btnSave", "btnClose" };
             enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
+            clearForm();
         }
 
         private void btnAddAnother_Click(object sender, EventArgs e)
@@ -523,8 +561,6 @@ namespace ResaleV8
                     }
                 }
             }
-            //result.Add((dtpBuy.Tag.ToString(), dtpBuy.Value.ToString("yyyy-MM-dd")));
-            //result.Add((dtpSaleDate.Tag.ToString(), dtpSaleDate.Value.ToString("yyyy-MM-dd")));
             return result;
         }
 
@@ -551,15 +587,21 @@ namespace ResaleV8
         private void cboWhereListed_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
-            if(cboWhereListed.Text != "")
+            if (cboWhereListed.Text != "")
             {
                 dtpDateListed.Value = DateTime.Now;
                 dtpDateListed.Format = DateTimePickerFormat.Long;
             }
             else
             {
-                ClearDTP(dtpDateListed);
+                FormControlOps.ClearDTP(dtpDateListed);
             }
+        }
+
+        private void frmAllItems_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

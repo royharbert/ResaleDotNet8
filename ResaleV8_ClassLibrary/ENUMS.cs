@@ -11,6 +11,11 @@ namespace ResaleV8
         Add,
         Retrieve,
         Edit,
+        EditCategories,
+        EditPurchaseSources,
+        EditBrands,
+        EditStorageLocations,
+        EditWhereListed,
         Delete,
         Search,
         None

@@ -79,7 +79,7 @@
             // 
             btnDelete.Font = new Font("Segoe UI", 11F);
             btnDelete.Image = Properties.Resources._9004852_trash_delete_bin_remove_icon__1_;
-            btnDelete.Location = new Point(567, 345);
+            btnDelete.Location = new Point(567, 401);
             btnDelete.Margin = new Padding(3, 4, 3, 4);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(133, 180);
@@ -93,7 +93,7 @@
             // 
             btnModify.Font = new Font("Segoe UI", 11F);
             btnModify.Image = Properties.Resources._408050_pencil_art_drawing_edit_modify_icon;
-            btnModify.Location = new Point(433, 345);
+            btnModify.Location = new Point(433, 401);
             btnModify.Margin = new Padding(3, 4, 3, 4);
             btnModify.Name = "btnModify";
             btnModify.Size = new Size(133, 180);

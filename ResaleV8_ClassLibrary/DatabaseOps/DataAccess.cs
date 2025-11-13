@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿//using Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.Models;
@@ -6,11 +6,44 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
+using Dapper;
+using ResaleV8_ClassLibrary.Ops;
 
 namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static List<GenericModel> GetDropDownList(string tableName)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                List<GenericModel> gvList = 
+                        con.Query<GenericModel>("SELECT * FROM " + tableName, commandType: CommandType.Text).AsList();
+                return gvList;
+            }
+        }
+
+        public static void ModifySelectedFieldEntries(string oldItem, string newItem, string tableName, string itemColName)
+        {
+            int rows = 0;
+            string sql = "update purchasedItems set " + itemColName + " = '" + newItem + "' where " + itemColName + " = '" + oldItem + "';" +
+                $"select row_count() as rows_affected";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            con.Open();
+            rows = con.Execute(sql);
+            if (rows > 0)
+            {
+                MessageBox.Show(rows.ToString() + " items affected"); 
+            }
+            else
+            {
+                MessageBox.Show("No existing rows required modification");
+            }
+                con.Close();
+            return;
+        }
+
         public static int addDropDownItemToTable(ddEventArgs ea)
         {
             string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values " +
@@ -25,16 +58,6 @@ namespace ResaleV8_ClassLibrary
             con.Close();
             
             return newID;
-        }
-
-        public static List<string> ModifyListItem(string oldItem, string newItem, List<string> list)
-        { 
-            int index = list.IndexOf(oldItem);
-            if (index != -1)
-            {
-                list[index] = newItem;
-            }
-            return list;
         }
 
         public static void RemoveTableItems(string tableName)
@@ -136,28 +159,20 @@ namespace ResaleV8_ClassLibrary
 
         public static void UpdateSingleDDItem(string tableName, string colName, string oldItem, string newItem)
         {
+            List<int> indx = new List<int>();
+            int index = -1;
+            if (newItem.Contains("'") || oldItem.Contains("'"))
+            {
+                oldItem = Operations.EscapeApostrophes(oldItem);
+                index = newItem.IndexOf("'");
+                newItem = Operations.EscapeApostrophes(newItem);
+            }
             MySqlConnection con = ConnectToDB.OpenDB();
-            string sql = "update " + tableName + " set " + colName + " = '" + newItem + "' where " + colName + " = '" + oldItem + "'";
+            string sql = "update " + tableName + " set Data = '" + newItem + "' where Data = '" + oldItem + "'";
             MySqlCommand cmd =new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
-            con.Clone();
-            MessageBox.Show("Item updated");
-        }
-
-        public static List<string> getColumnList(string tableName, string columnName)
-        {
-            List<string> list = new List<string>();
-            string sql = "SELECT " + columnName + " FROM " + tableName;
-            MySqlConnection con = new MySqlConnection(GV.conString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, con);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                list.Add(reader[columnName].ToString());
-            }
             con.Close();
-            return list;
+            MessageBox.Show("Item updated");
         }
        
         public static List<GenericModel> LoadDDModel(string tableName)
@@ -214,9 +229,9 @@ namespace ResaleV8_ClassLibrary
             return list;
         }
 
-        public static void deleteRecord(int ID, string tableName)
+        public static void DeleteRecord(int ID, string tableName)
         {
-            string sql = "delete from " + tableName + " where ItemID = " + ID.ToString();
+            string sql = "delete from " + tableName + " where ID = " + ID.ToString();
             MySqlConnection con = ConnectToDB.OpenDB();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();
@@ -233,6 +248,18 @@ namespace ResaleV8_ClassLibrary
             da.Fill(dt);
             con.Close();
             return dt;
+        }
+
+        public static List<GenericModel> ModifyListItem(string? oldItem, string newItem, List<GenericModel> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.Data == oldItem)
+                {
+                    item.Data = newItem;
+                }
+            }
+            return list;
         }
     }
 }

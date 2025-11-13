@@ -1,4 +1,5 @@
-﻿using ResaleV8_ClassLibrary;
+﻿using Microsoft.Office.Interop.Excel;
+using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Email;
 
 namespace ResaleV8
 {
@@ -19,7 +21,8 @@ namespace ResaleV8
         public string cboName { get; set; }
         private string tableName;
         private string colName;
-        private List<string> list;
+        private string itemColName;
+        private List<GenericModel> list;
         private string oldItem;
 
         public frmListEditor()
@@ -29,49 +32,51 @@ namespace ResaleV8
 
         private void frmListEditor_Load(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-
-            switch (cboName)
+            switch (GV.MODE)
             {
-                case "cboCategory":
-                    dt = DataAccess.GetComboItemList("categories");
+                case Mode.EditCategories:
                     tableName = "categories";
-                    colName = "category";
-                    list = GV.categories;
+                    cboName = "cboCategory";
+                    itemColName = "Category";
+                    this.Text = "Category List Editor";
+                    list = GV.Categories;
                     break;
-                case "cboStorage":
-                    dt = DataAccess.GetComboItemList("storageLocations");
+                case Mode.EditStorageLocations:
                     tableName = "storageLocations";
-                    colName = "location";
-                    list = GV.storageLocations;
+                    cboName = "cboStorage";
+                    itemColName = "StorageLocation";
+                    this.Text = "Storage Location List Editor";
+                    list = GV.StorageLocations;
                     break;
-                case "cboPurchaseSource":
-                    dt = DataAccess.GetComboItemList("purchasesources");
+                case Mode.EditPurchaseSources:
                     tableName = "purchasesources";
-                    colName = "source";
+                    cboName = "cboPurchaseSource";
+                    itemColName = "PurchaseSource";
+                    this.Text = "Purchase Source List Editor";
                     list = GV.PurchaseSources;
                     break;
-                case "cboBrand":
-                    dt = DataAccess.GetComboItemList("brands");
+                case Mode.EditBrands:
                     tableName = "brands";
-                    colName = "brand";
+                    cboName = "cboBrand";
+                    itemColName = "Brand";
+                    this.Text = "Brand List Editor";
                     list = GV.Brands;
                     break;
-                case "cboWhereListed":
-                    dt = DataAccess.GetComboItemList("whereListed");
+                case Mode.EditWhereListed:
                     tableName = "whereListed";
-                    colName = "listed";
+                    cboName = "cboWhereListed";
+                    itemColName = "WhereListed";
+                    this.Text = "Where Listed List Editor";
                     list = GV.WhereListed;
                     break;
             }
-            dgvEditor.DataSource = dt;
+            dgvEditor.DataSource = list;
             formatDGV();
             txtItem.Focus();
         }
 
         private void formatDGV()
         {
-            //dgvEditor.Columns[0].Visible = false;
             dgvEditor.Columns[1].Width = 200;
             dgvEditor.Columns[1].HeaderText = "Item";
         }
@@ -93,8 +98,7 @@ namespace ResaleV8
         }
 
         private void btnModify_Click(object sender, EventArgs e)
-        {
-            DataTable dt = (DataTable)dgvEditor.DataSource;
+        {    
             if (dgvEditor.CurrentRow != null)
             {
                 list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
@@ -102,10 +106,10 @@ namespace ResaleV8
                 switch (tableName)
                 {
                     case "categories":
-                        GV.categories = list;
+                        GV.Categories = list;                      
                         break;
-                    case "storageLocations":
-                        GV.storageLocations = list;
+                    case "StorageLocations":
+                        GV.StorageLocations = list;
                         break;
                     case "purchasesources":
                         GV.PurchaseSources = list;
@@ -117,9 +121,16 @@ namespace ResaleV8
                         GV.WhereListed = list;
                         break;
                 }
-                //DataAccess.RemoveTableItems(tableName);
-                //DataAccess.AddListToDropDownTable(tableName, list, colName);
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
+                DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (reply == DialogResult.Yes)
+                {
+                    oldItem = Operations.EscapeApostrophes(oldItem);
+                    string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+                    DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
+                }
+                                                                                                                                                                   
             }
             else
             {
@@ -127,29 +138,34 @@ namespace ResaleV8
             }
         }
 
-        private List<string> GetGVList()
+        private List<GenericModel> GetGVList()
         {
             switch (tableName)
             {
                 case "categories":
-                    list = GV.categories;
-                    colName = "category";
+                    list = GV.Categories;
+                    colName = "Data";
+                    List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
-                    list = GV.storageLocations;
-                    colName = "location";
+                    list = GV.StorageLocations;
+                    colName = "Data";
+                    List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
-                    colName = "source";
+                    colName = "Data";
+                    List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
-                    colName = "brand";
+                    colName = "Data";
+                    List<GenericModel> brandModel = DataAccess.GetDropDownList("Brands");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
-                    colName = "listed";
+                    colName = "Data";
+                    List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
                     break;
             }
             return list;
@@ -157,21 +173,48 @@ namespace ResaleV8
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string item = "";
-            list = GetGVList();
-            item = txtItem.Text.Trim();
-            int index = list.IndexOf(item);
-            if (index == -1)
+            ComboBox cbo = null;
+            List<GenericModel> gvList = new List<GenericModel>();
+            cbo.DataSource = null;
+            switch (tableName)
+            {
+                case "categories":
+                    GV.Categories = DataAccess.GetDropDownList("categories").ToList();
+                    gvList = GV.Categories;
+                    break;
+                case "storageLocations":
+                    GV.StorageLocations = DataAccess.GetDropDownList("storagelocations").ToList();
+                    gvList = GV.StorageLocations;
+                    break;
+                case "purchasesources":
+                    GV.PurchaseSources = DataAccess.GetDropDownList("PurchaseSources").ToList();
+                    gvList = GV.PurchaseSources;
+                    break;
+                case "brands":
+                    GV.Brands = DataAccess.GetDropDownList("Brands").ToList();
+                    gvList = GV.Brands;
+                    break;
+                case "whereListed":
+                    GV.WhereListed = DataAccess.GetDropDownList("WhereListed").ToList();
+                    gvList = GV.WhereListed;
+                    break;
+            }           
+
+            
+            int idx = Operations.FindStringInList(txtItem.Text.Trim(), gvList);
+            if (idx != -1)
+            {
+                DataAccess.DeleteRecord(idx, tableName);
+                gvList.RemoveAll(x => x.ID == idx);
+                MessageBox.Show("Item deleted.");
+                txtItem.Text = "";
+                dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
+                formatDGV();
+            }
+            else
             {
                 MessageBox.Show("Item not found in list.");
-                return;
             }
-            list.RemoveAt(index);
-            DataAccess.RemoveListItem(tableName,colName, item);
-            DialogResult result = MessageBox.Show("Item deleted");
-            //list = DataAccess.getColumnList(tableName, colName);
-            dgvEditor.DataSource = null;
-            dgvEditor.DataSource = list;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
+        public frmAllItems allItemsForm = null;
         public frmMain()
         {
             InitializeComponent();
@@ -26,27 +27,22 @@ namespace ResaleV8
             Close();
         }
 
-        //private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    frmAdd addItemForm = new frmAdd();
-        //    addItemForm.MdiParent = this;
-        //    addItemForm.Show();
-        //}
-
         private void frmMain_Load(object sender, EventArgs e)
         {
+            frmAllItems allItemsForm = new frmAllItems();
+            
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
-            GV.categories = DataAccess.getColumnList("categories", "Category");
+            GV.Categories = DataAccess.GetDropDownList("categories");
 
-            GV.storageLocations = DataAccess.getColumnList("storagelocations", "Location");
+            GV.StorageLocations = DataAccess.GetDropDownList("storagelocations");
 
-            GV.PurchaseSources = DataAccess.getColumnList("purchasesources", "Source");
+            GV.PurchaseSources = DataAccess.GetDropDownList("purchasesources");
 
-            GV.Brands = DataAccess.getColumnList("brands", "Brand");
+            GV.Brands = DataAccess.GetDropDownList("brands");
 
-            GV.WhereListed = DataAccess.getColumnList("wherelisted", "listed");
-            GV.businessSummary = new BusinessSummary();
+            GV.WhereListed = DataAccess.GetDropDownList("wherelisted");
+            GV.BusinessSummary = new BusinessSummary();
         }
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,38 +99,41 @@ namespace ResaleV8
             allItemsForm.Task = "Search Items";
         }
 
-        private void openListEditorForm(string cboName)
+        private void openListEditorForm()
         {
             frmListEditor editor = new frmListEditor();
-            editor.cboName = cboName;
             editor.MdiParent = this;
             editor.Show();
-
         }
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboCategory");
+            GV.mode = Mode.EditCategories;
+            openListEditorForm();
         }
 
         private void purchaseSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboPurchaseSource");
+            GV.mode = Mode.EditPurchaseSources;
+            openListEditorForm();
         }
 
         private void brandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboBrand");
+            GV.mode = Mode.EditBrands;
+            openListEditorForm();
         }
 
         private void sToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboStorage");
+            GV.mode = Mode.EditStorageLocations;
+            openListEditorForm();
         }
 
         private void whereListedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openListEditorForm("cboWhereListed");
+            GV.mode = Mode.EditWhereListed;
+            openListEditorForm();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResaleV8_ClassLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -7,17 +8,39 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResaleV8_ClassLibrary.Ops
-{
+{  
     public static class FormControlOps
     {
-        public static void EditDropDownList(ComboBox cbo)
+        public static bool IsItemInDropDown(ComboBox cbo, string item)
         {
-            List<string> items = new List<string>();
+            foreach (var cboItem in cbo.Items)
+            {
+                if (cboItem.ToString() == item)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+
+        public static void EditDropDownList(ComboBox cbo, List<GenericModel> list)
+        {
+            cbo.Items.Clear();
+            cbo.DataSource = list;
+            cbo.DisplayMember = "Data";
+        }
+
         public static void toggleControlPairEnables(ValueTuple<Control, Control> ctlPair)
         {
             ctlPair.Item1.Enabled = !ctlPair.Item1.Enabled;
             ctlPair.Item2.Enabled = !ctlPair.Item2.Enabled;
+        }
+
+        public static void ClearDTP(DateTimePicker dtp)
+        {
+            dtp.Format = DateTimePickerFormat.Custom;
+            dtp.CustomFormat = " ";
+            dtp.Value = GV.emptyDate;
         }
 
         public static void clearDTPicker(DateTimePicker dtp)
