@@ -62,6 +62,8 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
 
+        public decimal CostOfSale { get; set; } = 0.0M;
+
         public int ProductAge
         {
             get
