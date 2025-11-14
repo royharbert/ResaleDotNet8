@@ -68,8 +68,8 @@ namespace ResaleV8
 
         private void formatDGVSearchResults()
         {
-            string[] headers = { "ID", "Category", "Item Description", "Quantity", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Days Held", "Profit", "Storage Location" };
+            string[] headers = { "ID", "Category", "Item Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
+                "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Days Held", "Profit", "Storage Location" };
             string[] hiddenColumns = new string[] { };
             FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
         }
