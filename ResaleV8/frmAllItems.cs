@@ -148,6 +148,7 @@ namespace ResaleV8
                 cboCategory.Text = model.Category;
                 dtpBuy.Value = model.PurchaseDate;
                 txtPurchasePrice.Text = model.PurchasePrice.ToString("$0.00");
+                txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
                 txtQuantity.Text = model.Quantity.ToString();
                 cboStorage.Text = model.StorageLocation;
                 txtListPrice.Text = model.ListPrice.ToString("$0.00");
@@ -283,6 +284,17 @@ namespace ResaleV8
                 model.ItemDesc = txtDesc.Text;
                 model.Category = cboCategory.Text;
                 model.PurchaseDate = dtpBuy.Value;
+                if (txtCostOfSale.Text.Contains('$'))
+                {
+                    model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Substring(1));
+                }
+                else
+                {
+                    if (txtCostOfSale.Text != "")
+                    {
+                        model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text);
+                    }
+                }
                 if (txtListPrice.Text.Contains('$'))
                 {
                     model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Substring(1));
@@ -512,6 +524,13 @@ namespace ResaleV8
             {
                 dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
+            }
+            if (model.WhereListed != "" && model.WhereListed == "Poshmark")
+            {
+                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+                txtPrice.Text = model.SalePrice.ToString("$0.00");
+                model.CostOfSale = model.SalePrice * 0.2M;
+                txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
             }
         }
 

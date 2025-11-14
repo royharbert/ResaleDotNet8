@@ -526,6 +526,7 @@
             Margin = new Padding(4);
             Name = "frmAllItems";
             Text = "Resale Items";
+            WindowState = FormWindowState.Maximized;
             FormClosing += frmAllItems_FormClosing;
             Load += frmAllItems_Load;
             ResumeLayout(false);

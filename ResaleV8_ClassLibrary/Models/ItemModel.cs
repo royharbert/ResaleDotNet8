@@ -58,7 +58,7 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _salePrice = value;
-                _profit = _salePrice - PurchasePrice;
+                _profit = _salePrice - PurchasePrice - CostOfSale;
             }
         }
 
