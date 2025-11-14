@@ -67,6 +67,8 @@
             label15 = new Label();
             txtListPrice = new TextBox();
             label16 = new Label();
+            txtCostOfSale = new TextBox();
+            label17 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -84,7 +86,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(284, 64);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 29);
+            txtID.Size = new Size(338, 34);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
             // 
@@ -100,16 +102,16 @@
             // 
             // txtDesc
             // 
-            txtDesc.Location = new Point(284, 217);
+            txtDesc.Location = new Point(284, 208);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 29);
+            txtDesc.Size = new Size(338, 34);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
             // 
             // label3
             // 
             label3.Font = new Font("Segoe UI", 11.25F);
-            label3.Location = new Point(78, 217);
+            label3.Location = new Point(77, 217);
             label3.Name = "label3";
             label3.Size = new Size(200, 25);
             label3.TabIndex = 4;
@@ -118,9 +120,9 @@
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new Point(284, 370);
+            txtQuantity.Location = new Point(284, 355);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 29);
+            txtQuantity.Size = new Size(338, 34);
             txtQuantity.TabIndex = 6;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
@@ -128,7 +130,7 @@
             // label4
             // 
             label4.Font = new Font("Segoe UI", 11.25F);
-            label4.Location = new Point(78, 371);
+            label4.Location = new Point(78, 360);
             label4.Name = "label4";
             label4.Size = new Size(200, 25);
             label4.TabIndex = 6;
@@ -138,7 +140,7 @@
             // label5
             // 
             label5.Font = new Font("Segoe UI", 11.25F);
-            label5.Location = new Point(78, 320);
+            label5.Location = new Point(78, 311);
             label5.Name = "label5";
             label5.Size = new Size(200, 25);
             label5.TabIndex = 8;
@@ -147,16 +149,16 @@
             // 
             // txtPurchasePrice
             // 
-            txtPurchasePrice.Location = new Point(286, 421);
+            txtPurchasePrice.Location = new Point(286, 403);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 29);
+            txtPurchasePrice.Size = new Size(338, 34);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
             // 
             // label6
             // 
             label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(80, 420);
+            label6.Location = new Point(80, 406);
             label6.Name = "label6";
             label6.Size = new Size(200, 25);
             label6.TabIndex = 10;
@@ -166,7 +168,7 @@
             // label7
             // 
             label7.Font = new Font("Segoe UI", 11.25F);
-            label7.Location = new Point(80, 730);
+            label7.Location = new Point(80, 761);
             label7.Name = "label7";
             label7.Size = new Size(200, 23);
             label7.TabIndex = 12;
@@ -175,9 +177,9 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(287, 684);
+            txtPrice.Location = new Point(287, 665);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 29);
+            txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
             txtPrice.Leave += txtPrice_Leave;
@@ -185,7 +187,7 @@
             // label8
             // 
             label8.Font = new Font("Segoe UI", 11.25F);
-            label8.Location = new Point(80, 687);
+            label8.Location = new Point(80, 668);
             label8.Name = "label8";
             label8.Size = new Size(200, 23);
             label8.TabIndex = 14;
@@ -195,7 +197,7 @@
             // label9
             // 
             label9.Font = new Font("Segoe UI", 11.25F);
-            label9.Location = new Point(78, 523);
+            label9.Location = new Point(78, 508);
             label9.Name = "label9";
             label9.Size = new Size(200, 25);
             label9.TabIndex = 16;
@@ -205,16 +207,16 @@
             // txtProfit
             // 
             txtProfit.Enabled = false;
-            txtProfit.Location = new Point(284, 778);
+            txtProfit.Location = new Point(284, 805);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 29);
+            txtProfit.Size = new Size(338, 34);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
             // 
             // label10
             // 
             label10.Font = new Font("Segoe UI", 11.25F);
-            label10.Location = new Point(78, 782);
+            label10.Location = new Point(78, 809);
             label10.Name = "label10";
             label10.Size = new Size(200, 23);
             label10.TabIndex = 18;
@@ -224,16 +226,16 @@
             // txtDaysHeld
             // 
             txtDaysHeld.Enabled = false;
-            txtDaysHeld.Location = new Point(284, 837);
+            txtDaysHeld.Location = new Point(284, 856);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 29);
+            txtDaysHeld.Size = new Size(338, 34);
             txtDaysHeld.TabIndex = 15;
             txtDaysHeld.Tag = "ProductAge";
             // 
             // label11
             // 
             label11.Font = new Font("Segoe UI", 11.25F);
-            label11.Location = new Point(80, 839);
+            label11.Location = new Point(80, 858);
             label11.Name = "label11";
             label11.Size = new Size(200, 23);
             label11.TabIndex = 20;
@@ -245,26 +247,26 @@
             cboCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboCategory.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboCategory.FormattingEnabled = true;
-            cboCategory.Location = new Point(285, 166);
+            cboCategory.Location = new Point(285, 160);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 29);
+            cboCategory.Size = new Size(339, 36);
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
             cboCategory.Leave += cboCategory_Leave;
             // 
             // dtpBuy
             // 
-            dtpBuy.Location = new Point(284, 319);
+            dtpBuy.Location = new Point(284, 307);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 29);
+            dtpBuy.Size = new Size(338, 34);
             dtpBuy.TabIndex = 5;
             dtpBuy.Tag = "PurchaseDate";
             // 
             // dtpSaleDate
             // 
-            dtpSaleDate.Location = new Point(287, 727);
+            dtpSaleDate.Location = new Point(287, 758);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 29);
+            dtpSaleDate.Size = new Size(338, 34);
             dtpSaleDate.TabIndex = 13;
             dtpSaleDate.Tag = "SaleDate";
             // 
@@ -351,7 +353,7 @@
             // label13
             // 
             label13.Font = new Font("Segoe UI", 11.25F);
-            label13.Location = new Point(75, 269);
+            label13.Location = new Point(77, 261);
             label13.Name = "label13";
             label13.Size = new Size(200, 25);
             label13.TabIndex = 25;
@@ -371,9 +373,9 @@
             // cboStorage
             // 
             cboStorage.FormattingEnabled = true;
-            cboStorage.Location = new Point(284, 523);
+            cboStorage.Location = new Point(284, 508);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(338, 29);
+            cboStorage.Size = new Size(338, 36);
             cboStorage.TabIndex = 9;
             cboStorage.Leave += cboStorage_Leave;
             // 
@@ -382,9 +384,9 @@
             cboBrand.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboBrand.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboBrand.FormattingEnabled = true;
-            cboBrand.Location = new Point(284, 115);
+            cboBrand.Location = new Point(284, 112);
             cboBrand.Name = "cboBrand";
-            cboBrand.Size = new Size(338, 29);
+            cboBrand.Size = new Size(338, 36);
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
             cboBrand.Leave += cboBrand_Leave;
@@ -394,9 +396,9 @@
             cboPurchaseSource.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboPurchaseSource.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPurchaseSource.FormattingEnabled = true;
-            cboPurchaseSource.Location = new Point(284, 268);
+            cboPurchaseSource.Location = new Point(284, 256);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(339, 29);
+            cboPurchaseSource.Size = new Size(339, 36);
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
@@ -404,25 +406,25 @@
             // cboWhereListed
             // 
             cboWhereListed.FormattingEnabled = true;
-            cboWhereListed.Location = new Point(284, 472);
+            cboWhereListed.Location = new Point(284, 454);
             cboWhereListed.Name = "cboWhereListed";
-            cboWhereListed.Size = new Size(338, 29);
+            cboWhereListed.Size = new Size(338, 36);
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
             cboWhereListed.Leave += cboWhereListed_Leave;
             // 
             // dtpDateListed
             // 
-            dtpDateListed.Location = new Point(286, 574);
+            dtpDateListed.Location = new Point(286, 559);
             dtpDateListed.Name = "dtpDateListed";
-            dtpDateListed.Size = new Size(339, 29);
+            dtpDateListed.Size = new Size(339, 34);
             dtpDateListed.TabIndex = 10;
             dtpDateListed.Tag = "ListingDate";
             // 
             // label12
             // 
             label12.Font = new Font("Segoe UI", 11.25F);
-            label12.Location = new Point(78, 472);
+            label12.Location = new Point(78, 460);
             label12.Name = "label12";
             label12.Size = new Size(200, 25);
             label12.TabIndex = 29;
@@ -432,7 +434,7 @@
             // label15
             // 
             label15.Font = new Font("Segoe UI", 11.25F);
-            label15.Location = new Point(81, 577);
+            label15.Location = new Point(81, 562);
             label15.Name = "label15";
             label15.Size = new Size(200, 23);
             label15.TabIndex = 30;
@@ -441,27 +443,47 @@
             // 
             // txtListPrice
             // 
-            txtListPrice.Location = new Point(285, 625);
+            txtListPrice.Location = new Point(285, 611);
             txtListPrice.Name = "txtListPrice";
-            txtListPrice.Size = new Size(338, 29);
+            txtListPrice.Size = new Size(338, 34);
             txtListPrice.TabIndex = 11;
             txtListPrice.Tag = "Quantity";
             // 
             // label16
             // 
             label16.Font = new Font("Segoe UI", 11.25F);
-            label16.Location = new Point(79, 626);
+            label16.Location = new Point(79, 612);
             label16.Name = "label16";
             label16.Size = new Size(200, 23);
             label16.TabIndex = 32;
             label16.Text = "List Price";
             label16.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // txtCostOfSale
+            // 
+            txtCostOfSale.Location = new Point(284, 714);
+            txtCostOfSale.Name = "txtCostOfSale";
+            txtCostOfSale.Size = new Size(338, 34);
+            txtCostOfSale.TabIndex = 33;
+            txtCostOfSale.Tag = "SalePrice";
+            // 
+            // label17
+            // 
+            label17.Font = new Font("Segoe UI", 11.25F);
+            label17.Location = new Point(77, 717);
+            label17.Name = "label17";
+            label17.Size = new Size(200, 23);
+            label17.TabIndex = 34;
+            label17.Text = "Cost of Sale";
+            label17.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 974);
+            Controls.Add(txtCostOfSale);
+            Controls.Add(label17);
             Controls.Add(txtListPrice);
             Controls.Add(label16);
             Controls.Add(label15);
@@ -550,5 +572,7 @@
         public ComboBox cboBrand;
         public ComboBox cboPurchaseSource;
         public ComboBox cboWhereListed;
+        private TextBox txtCostOfSale;
+        private Label label17;
     }
 }
