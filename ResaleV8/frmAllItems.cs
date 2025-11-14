@@ -78,6 +78,7 @@ namespace ResaleV8
                     break;
                 case Mode.Retrieve:
                     this.Text = this.Text + " Retrieve Item";
+                    txtID.Focus();
                     disableAllControls();
                     ctlsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
                     enableDisableControls(ctlsToEnable, true);
@@ -231,7 +232,14 @@ namespace ResaleV8
             cboPurchaseSource.SelectedIndex = -1;
 
             prepareForm();
-            txtID.Focus();
+            if (GV.MODE == Mode.Retrieve)
+            {
+                txtID.Focus();
+            }
+            else
+            {
+                cboBrand.Focus();
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -277,7 +285,7 @@ namespace ResaleV8
                 model.PurchaseDate = dtpBuy.Value;
                 if (txtListPrice.Text.Contains('$'))
                 {
-                    model.ListPrice = Convert.ToDecimal(txtPurchasePrice.Text.Substring(1));
+                    model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Substring(1));
                 }
                 else
                 {

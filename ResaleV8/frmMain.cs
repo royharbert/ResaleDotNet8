@@ -74,6 +74,7 @@ namespace ResaleV8
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
+            
             allItemsForm.Task = "Edit Item";
         }
 

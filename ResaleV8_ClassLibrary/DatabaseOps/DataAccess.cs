@@ -197,6 +197,8 @@ namespace ResaleV8_ClassLibrary
             return model;
         }
 
+       
+
         public static List<ItemModel> getModelList(string sql)
         {
             List<ItemModel> list = new List<ItemModel>();
@@ -213,7 +215,8 @@ namespace ResaleV8_ClassLibrary
                 model.ItemDesc = reader["ItemDesc"]?.ToString() ?? string.Empty;
                 model.PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]);
                 model.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"]);
-                //model.ListPrice = Convert.ToDecimal(reader["ListPrice"]);
+                if (reader["ListPrice"] != DBNull.Value)
+                    model.ListPrice = Convert.ToDecimal(reader["ListPrice"]);
                 model.Quantity = Convert.ToInt32(reader["Quantity"]);
                 if (reader["SaleDate"] != DBNull.Value)
                     model.SaleDate = Convert.ToDateTime(reader["SaleDate"]);
