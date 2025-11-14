@@ -466,6 +466,7 @@
             txtCostOfSale.Size = new Size(338, 34);
             txtCostOfSale.TabIndex = 33;
             txtCostOfSale.Tag = "SalePrice";
+            txtCostOfSale.Leave += txtCostOfSale_Leave;
             // 
             // label17
             // 

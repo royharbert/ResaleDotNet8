@@ -322,13 +322,17 @@ namespace ResaleV8_ClassLibrary.ExcelOps
         }
 
         public static void createExcelSheet(List<ItemModel> dt, string title,
-            string[] hiddenColumns, ExportType reportType)
+            string[] hiddenColumns, ExportType reportType, string sheetName)
         {
             Excel.Application xlApp = ExcelOps.makeExcelApp();
             Workbook workbook = ExcelOps.makeExcelWorkbook(xlApp);
-            Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, "Sold Report");
+            
+            
+            Worksheet wks = ExcelOps.makeExcelWorksheet(workbook, sheetName);
+            
+            
             string[] headers = { "ID", "Purchase Source", "Item Category", "Brand", "Item Description", "Quantity", "Purchase Date",
-                "Purchase Price", "Sale Date", "Sale Price", "Cost of Sale", "Storage Location", "Where Listed", "Date Listed", "List Price", "Profit", "Days Held" };
+            "Purchase Price", "Sale Date", "Sale Price", "Cost of Sale", "Storage Location", "Where Listed", "Date Listed", "List Price", "Profit", "Days Held" };
             //                 1  2   3   4   5   6   7   8   9   10  11  12  13  14  15
             int[] colWidth = { 5, 30, 30, 15, 30, 10, 10, 15, 12, 12, 15, 20, 15, 12, 12 };
             int dataStartRow = ExcelOps.makeTitle(wks, 1, headers.Length, title, headers);

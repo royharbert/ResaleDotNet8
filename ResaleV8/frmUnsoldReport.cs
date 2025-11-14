@@ -42,7 +42,7 @@ namespace ResaleV8
             string[] columnsToHide = { /**"Profit", "SalePrice"*/ };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
-                    "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Product Age",
+                    "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale", "Product Age",
                     "Profit", "Storage Location" }, 
                 columnsToHide);
             GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
@@ -55,7 +55,7 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            ExcelOps.createExcelSheet(GV.ItemList, "Unsold Report",  hiddenColumns, ExportType.Unsold);
+            ExcelOps.createExcelSheet(GV.ItemList, "Unsold Report",  hiddenColumns, ExportType.Unsold, "Unsold Items");
         }
 
         private void dgvUnsold_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
