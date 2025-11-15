@@ -72,6 +72,7 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _CostOfSale = value;
+                CalculateProfit(_salePrice, PurchasePrice, _CostOfSale);
             }
         }
 
