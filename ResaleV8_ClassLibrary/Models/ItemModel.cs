@@ -103,7 +103,7 @@ namespace ResaleV8_ClassLibrary.Models
     
 
     private decimal CalculateProfit(decimal salePrice, decimal purchasePrice, decimal costOfSale)
-            {
+        {
             _profit = salePrice - purchasePrice - costOfSale;
             return _profit;
         }

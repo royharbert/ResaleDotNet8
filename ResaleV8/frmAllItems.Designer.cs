@@ -269,6 +269,7 @@
             dtpSaleDate.Size = new Size(338, 34);
             dtpSaleDate.TabIndex = 13;
             dtpSaleDate.Tag = "SaleDate";
+            dtpSaleDate.ValueChanged += dtpSaleDate_ValueChanged;
             // 
             // btnSave
             // 

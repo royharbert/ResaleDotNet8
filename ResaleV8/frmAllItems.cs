@@ -648,10 +648,15 @@ namespace ResaleV8
         }
 
         private void txtCostOfSale_Leave(object sender, EventArgs e)
-        {   
-            model.CostOfSale  = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
+        {
+            model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
             txtProfit.Text = model.Profit.ToString("$0.00");
             txtDaysHeld.Text = model.ProductAge.ToString();
+        }
+
+        private void dtpSaleDate_ValueChanged(object sender, EventArgs e)
+        {
+            model.SaleDate = dtpSaleDate.Value;
         }
     }
 }
