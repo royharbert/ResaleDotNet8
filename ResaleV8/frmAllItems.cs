@@ -69,28 +69,28 @@ namespace ResaleV8
             {
                 case Mode.Add:
                     this.Text = this.Text + " Add New Item";
-                    disableAllControls();
+                    //disableAllControls();
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "btnSave", "btnClose", "cboWhereListed", "dtpDateListed" };
-                    enableDisableControls(ctlsToEnable, true);
+                    //enableDisableControls(ctlsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
                     break;
                 case Mode.Retrieve:
                     this.Text = this.Text + " Retrieve Item";
                     txtID.Focus();
-                    disableAllControls();
+                    //disableAllControls();
                     ctlsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
-                    enableDisableControls(ctlsToEnable, true);
+                    //enableDisableControls(ctlsToEnable, true);
                     this.AcceptButton = btnRetrieve;
                     break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
-                    enableDisableControls(allControls, false);
+                    //enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
                         "dtpDateListed"};
-                    enableDisableControls(ctlsToEnable, true);
+                    //enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
                         txtPrice.Text = "0";
@@ -100,14 +100,14 @@ namespace ResaleV8
                 case Mode.Delete:
                     this.Text = this.Text + " Delete Item";
                     this.AcceptButton = btnDelete;
-                    enableDisableControls(allControls, false);
+                    //enableDisableControls(allControls, false);
                     txtID.Enabled = true;
                     break;
                 case Mode.Search:
-                    enableDisableControls(allControls, false);
+                    //enableDisableControls(allControls, false);
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose", "cboWhereListed", "dtpDateListed" };
-                    enableDisableControls(ctlsToEnable, true);
+                    //enableDisableControls(ctlsToEnable, true);
                     break;
             }
         }
@@ -121,7 +121,7 @@ namespace ResaleV8
             }
             else
             {
-                enableDisableControls(allControls, false);
+                //enableDisableControls(allControls, false);
                 txtID.Enabled = true;
                 MessageBox.Show("Please enter an Item ID");
                 return null;
@@ -187,21 +187,21 @@ namespace ResaleV8
         }
 
 
-        void disableAllControls()
-        {
-            enableDisableControls(allControls, false);
-        }
-        void enableDisableControls(string[] controlArray, bool enable)
-        {
-            foreach (string ctrlName in controlArray)
-            {
-                Control[] ctrls = this.Controls.Find(ctrlName, true);
-                if (ctrls.Length > 0)
-                {
-                    ctrls[0].Enabled = enable;
-                }
-            }
-        }
+        //void disableAllControls()
+        //{
+        //    enableDisableControls(allControls, false);
+        //}
+        //void enableDisableControls(string[] controlArray, bool enable)
+        //{
+        //    foreach (string ctrlName in controlArray)
+        //    {
+        //        Control[] ctrls = this.Controls.Find(ctrlName, true);
+        //        if (ctrls.Length > 0)
+        //        {
+        //            ctrls[0].Enabled = enable;
+        //        }
+        //    }
+        //}
         public frmAllItems()
         {
             InitializeComponent();
@@ -470,7 +470,7 @@ namespace ResaleV8
             if (model != null)
             {
                 GV.MODE = Mode.Edit;
-                disableAllControls();
+                //disableAllControls();
                 placeDataOnForm(model);
                 if (model.SalePrice == 0)
                 {
@@ -485,7 +485,7 @@ namespace ResaleV8
                 }
                 string[] ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnSave", "btnClose" };
-                enableDisableControls(ctlsToEnable, true);
+                //enableDisableControls(ctlsToEnable, true);
                 this.AcceptButton = btnSave;
             }
             else
@@ -519,6 +519,8 @@ namespace ResaleV8
             {
                 dtpSaleDate.Format = DateTimePickerFormat.Long;
                 dtpSaleDate.Value = DateTime.Now;
+                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+                txtPrice.Text = model.SalePrice.ToString("$0.00");
             }
             else
             {
@@ -560,10 +562,10 @@ namespace ResaleV8
             cboStorage.SelectedIndex = -1;
             cboStorage.Text = "";
             this.AcceptButton = btnSave;
-            disableAllControls();
+            //disableAllControls();
             string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "btnSave", "btnClose" };
-            enableDisableControls(ctlsToEnable, true);
+            //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
             clearForm();
         }
@@ -644,6 +646,17 @@ namespace ResaleV8
         private void frmAllItems_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
+            DialogResult result = MessageBox.Show("Save changses before closing?", "Confirm Close",
+                MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.Yes)
+            {
+                btnSave.PerformClick();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+                this.Hide();
+            }
             this.Hide();
         }
 
