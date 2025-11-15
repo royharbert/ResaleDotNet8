@@ -13,6 +13,7 @@ namespace ResaleV8_ClassLibrary.Models
         DateTime _purchaseDate;
         decimal _salePrice = 0.0M;
         decimal _profit = 0.0M;
+        decimal _CostOfSale = 0.0M;
 
         public int ItemID { get; set; }
         public string? Category { get; set; }
@@ -58,11 +59,21 @@ namespace ResaleV8_ClassLibrary.Models
             set
             {
                 _salePrice = value;
-                _profit = _salePrice - PurchasePrice - CostOfSale;
+               CalculateProfit(_salePrice, PurchasePrice, CostOfSale);
             }
         }
 
-        public decimal CostOfSale { get; set; } = 0.0M;
+        public decimal CostOfSale
+        {
+            get
+            {
+                return _CostOfSale;
+            }
+            set
+            {
+                _CostOfSale = value;
+            }
+        }
 
         public int ProductAge
         {
@@ -88,5 +99,12 @@ namespace ResaleV8_ClassLibrary.Models
             }
         }
         public string? StorageLocation { get; set; } = null!;
+    
+
+    private decimal CalculateProfit(decimal salePrice, decimal purchasePrice, decimal costOfSale)
+            {
+            _profit = salePrice - purchasePrice - costOfSale;
+            return _profit;
+        }
     }
 }

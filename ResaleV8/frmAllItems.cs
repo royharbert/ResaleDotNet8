@@ -533,7 +533,9 @@ namespace ResaleV8
                 txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
             }
             txtProfit.Enabled = true;
+            txtProfit.Text = model.Profit.ToString("$0.00");
             txtDaysHeld.Enabled = true;
+            txtDaysHeld.Text = model.ProductAge.ToString();
         }
 
         private void clearForm()
@@ -646,9 +648,9 @@ namespace ResaleV8
         }
 
         private void txtCostOfSale_Leave(object sender, EventArgs e)
-        {            
+        {   
+            model.CostOfSale  = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
             txtProfit.Text = model.Profit.ToString("$0.00");
-            //model.ProductAge = (dtpSaleDate.Value - model.PurchaseDate).Days;
             txtDaysHeld.Text = model.ProductAge.ToString();
         }
     }
