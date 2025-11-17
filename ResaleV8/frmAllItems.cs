@@ -17,7 +17,9 @@ namespace ResaleV8
 {
     public partial class frmAllItems : Form
     {
+        private bool formDirty = false;
         private int _item;
+
         /// <summary>
         /// Property to accept ItemID from calling form
         /// </summary>
@@ -57,6 +59,11 @@ namespace ResaleV8
             }
         }
 
+        private void MarkFormDirty(object sender, EventArgs e)
+        {
+            formDirty = true;
+        }
+
 
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
@@ -90,6 +97,7 @@ namespace ResaleV8
                     ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
                         "dtpDateListed"};
+                    txtID.Enabled = true;
                     //enableDisableControls(ctlsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
@@ -646,8 +654,12 @@ namespace ResaleV8
         private void frmAllItems_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            DialogResult result = MessageBox.Show("Save changses before closing?", "Confirm Close",
-                MessageBoxButtons.YesNoCancel);
+            DialogResult result = DialogResult.None;
+            if (formDirty)
+            {
+                result = MessageBox.Show("Save changses before closing?", "Confirm Close",
+                                MessageBoxButtons.YesNoCancel);  
+            }
             if (result == DialogResult.Yes)
             {
                 btnSave.PerformClick();
@@ -670,6 +682,7 @@ namespace ResaleV8
         private void dtpSaleDate_ValueChanged(object sender, EventArgs e)
         {
             model.SaleDate = dtpSaleDate.Value;
+            formDirty = true;
         }
     }
 }
