@@ -272,6 +272,7 @@ namespace ResaleV8
                     {
                         MessageBox.Show("Item Added");
                     }
+                    clearForm();
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -513,16 +514,20 @@ namespace ResaleV8
 
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
-            getItem();
-            placeDataOnForm(model);
+            //getItem();
+            //placeDataOnForm(model);
             DialogResult dr = MessageBox.Show("Are you sure?", "Confirm Delete",
-                MessageBoxButtons.OKCancel);
+               MessageBoxButtons.OKCancel);
             if (dr == DialogResult.OK)
             {
                 DataAccess.DeleteRecord(Convert.ToInt32(txtID.Text), "purchasedItems");
                 MessageBox.Show("Item Deleted");
+
             }
         }
+
+
+
 
         private void cboCategory_Leave(object sender, EventArgs e)
         {
@@ -566,6 +571,7 @@ namespace ResaleV8
             txtPurchasePrice.Text = "";
             txtID.Text = "";
             txtID.Enabled = false;
+            txtListPrice.Text = "";
             txtQuantity.Text = "1";
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
             dtpSaleDate.CustomFormat = " ";
@@ -577,13 +583,15 @@ namespace ResaleV8
             cboCategory.Text = "";
             cboStorage.SelectedIndex = -1;
             cboStorage.Text = "";
+            cboWhereListed.SelectedIndex = -1;
+            cboWhereListed.Text = "";
             this.AcceptButton = btnSave;
             //disableAllControls();
             string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "btnSave", "btnClose" };
             //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
-            clearForm();
+            
         }
 
         private void btnAddAnother_Click(object sender, EventArgs e)

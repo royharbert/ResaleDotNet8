@@ -243,7 +243,7 @@ namespace ResaleV8_ClassLibrary
 
         public static void DeleteRecord(int ID, string tableName)
         {
-            string sql = "delete from " + tableName + " where ID = " + ID.ToString();
+            string sql = "delete from " + tableName + " where itemID = " + ID.ToString();
             MySqlConnection con = ConnectToDB.OpenDB();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();

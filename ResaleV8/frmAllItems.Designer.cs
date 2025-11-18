@@ -186,8 +186,8 @@
             txtPrice.Size = new Size(338, 34);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
-            txtPrice.Leave += txtPrice_Leave;
             txtPrice.TextChanged += MarkFormDirty;
+            txtPrice.Leave += txtPrice_Leave;
             // 
             // label8
             // 
@@ -255,10 +255,10 @@
             cboCategory.Location = new Point(285, 160);
             cboCategory.Name = "cboCategory";
             cboCategory.Size = new Size(339, 36);
+            cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
             cboCategory.Leave += cboCategory_Leave;
-            cboBrand.TextChanged += MarkFormDirty;
             // 
             // dtpBuy
             // 
@@ -384,9 +384,10 @@
             cboStorage.Location = new Point(284, 508);
             cboStorage.Name = "cboStorage";
             cboStorage.Size = new Size(338, 36);
+            cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
-            cboStorage.Leave += cboStorage_Leave;
             cboStorage.TextChanged += MarkFormDirty;
+            cboStorage.Leave += cboStorage_Leave;
             // 
             // cboBrand
             // 
@@ -396,10 +397,11 @@
             cboBrand.Location = new Point(284, 112);
             cboBrand.Name = "cboBrand";
             cboBrand.Size = new Size(338, 36);
+            cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
-            cboBrand.Leave += cboBrand_Leave;
             cboBrand.TextChanged += MarkFormDirty;
+            cboBrand.Leave += cboBrand_Leave;
             // 
             // cboPurchaseSource
             // 
@@ -409,10 +411,11 @@
             cboPurchaseSource.Location = new Point(284, 256);
             cboPurchaseSource.Name = "cboPurchaseSource";
             cboPurchaseSource.Size = new Size(339, 36);
+            cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
-            cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             cboPurchaseSource.TextChanged += MarkFormDirty;
+            cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 
             // cboWhereListed
             // 
@@ -420,10 +423,11 @@
             cboWhereListed.Location = new Point(284, 454);
             cboWhereListed.Name = "cboWhereListed";
             cboWhereListed.Size = new Size(338, 36);
+            cboWhereListed.Sorted = true;
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
-            cboWhereListed.Leave += cboWhereListed_Leave;
             cboWhereListed.TextChanged += MarkFormDirty;
+            cboWhereListed.Leave += cboWhereListed_Leave;
             // 
             // dtpDateListed
             // 
