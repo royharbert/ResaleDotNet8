@@ -64,7 +64,7 @@ namespace ResaleV8
         {
             if (!formLoading)
             {
-                formDirty = true; 
+                formDirty = true;
             }
         }
 
@@ -666,7 +666,7 @@ namespace ResaleV8
             if (formDirty)
             {
                 result = MessageBox.Show("Save changses before closing?", "Confirm Close",
-                                MessageBoxButtons.YesNoCancel);  
+                                MessageBoxButtons.YesNoCancel);
             }
             if (result == DialogResult.Yes)
             {
@@ -691,6 +691,16 @@ namespace ResaleV8
         {
             model.SaleDate = dtpSaleDate.Value;
             //formDirty = true;
+        }
+
+        private void dtpDateListed_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpDateListed.Value != GV.emptyDate)
+            {
+                model.DateListed = dtpDateListed.Value;
+                dtpDateListed.Format = DateTimePickerFormat.Long;
+                MarkFormDirty(sender, e);
+            }
         }
     }
 }
