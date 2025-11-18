@@ -86,7 +86,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(284, 64);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 34);
+            txtID.Size = new Size(338, 29);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
             txtID.TextChanged += MarkFormDirty;
@@ -105,7 +105,7 @@
             // 
             txtDesc.Location = new Point(284, 208);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 34);
+            txtDesc.Size = new Size(338, 29);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
             txtDesc.TextChanged += MarkFormDirty;
@@ -124,7 +124,7 @@
             // 
             txtQuantity.Location = new Point(284, 355);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 34);
+            txtQuantity.Size = new Size(338, 29);
             txtQuantity.TabIndex = 6;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
@@ -154,7 +154,7 @@
             // 
             txtPurchasePrice.Location = new Point(286, 403);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 34);
+            txtPurchasePrice.Size = new Size(338, 29);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
             txtPurchasePrice.TextChanged += MarkFormDirty;
@@ -183,7 +183,7 @@
             // 
             txtPrice.Location = new Point(287, 665);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 34);
+            txtPrice.Size = new Size(338, 29);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
             txtPrice.TextChanged += MarkFormDirty;
@@ -214,7 +214,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(284, 805);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 34);
+            txtProfit.Size = new Size(338, 29);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
             // 
@@ -233,7 +233,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(284, 856);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 34);
+            txtDaysHeld.Size = new Size(338, 29);
             txtDaysHeld.TabIndex = 15;
             txtDaysHeld.Tag = "ProductAge";
             // 
@@ -264,7 +264,7 @@
             // 
             dtpBuy.Location = new Point(284, 307);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 34);
+            dtpBuy.Size = new Size(338, 29);
             dtpBuy.TabIndex = 5;
             dtpBuy.Tag = "PurchaseDate";
             dtpBuy.ValueChanged += MarkFormDirty;
@@ -273,7 +273,7 @@
             // 
             dtpSaleDate.Location = new Point(287, 758);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 34);
+            dtpSaleDate.Size = new Size(338, 29);
             dtpSaleDate.TabIndex = 13;
             dtpSaleDate.Tag = "SaleDate";
             dtpSaleDate.ValueChanged += dtpSaleDate_ValueChanged;
@@ -433,10 +433,10 @@
             // 
             dtpDateListed.Location = new Point(286, 559);
             dtpDateListed.Name = "dtpDateListed";
-            dtpDateListed.Size = new Size(339, 34);
+            dtpDateListed.Size = new Size(339, 29);
             dtpDateListed.TabIndex = 10;
             dtpDateListed.Tag = "ListingDate";
-            dtpDateListed.ValueChanged += MarkFormDirty;
+            dtpDateListed.ValueChanged += dtpDateListed_ValueChanged;
             // 
             // label12
             // 
@@ -462,7 +462,7 @@
             // 
             txtListPrice.Location = new Point(285, 611);
             txtListPrice.Name = "txtListPrice";
-            txtListPrice.Size = new Size(338, 34);
+            txtListPrice.Size = new Size(338, 29);
             txtListPrice.TabIndex = 11;
             txtListPrice.Tag = "ListPrice";
             // 
@@ -480,7 +480,7 @@
             // 
             txtCostOfSale.Location = new Point(284, 714);
             txtCostOfSale.Name = "txtCostOfSale";
-            txtCostOfSale.Size = new Size(338, 34);
+            txtCostOfSale.Size = new Size(338, 29);
             txtCostOfSale.TabIndex = 33;
             txtCostOfSale.Tag = "SalePrice";
             txtCostOfSale.Leave += txtCostOfSale_Leave;
@@ -497,7 +497,7 @@
             // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 974);
             Controls.Add(txtCostOfSale);
