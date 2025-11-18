@@ -70,16 +70,6 @@ namespace ResaleV8_ClassLibrary
             con.Close();
         }
 
-        public static void RemoveListItem(string tableName, string colName, string item)
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            string sql = "delete from " + tableName + " where " + colName + " = '" + item + "';";
-            MySqlCommand cmd = new MySqlCommand( sql, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
-
         public static int AddListToDropDownTable(string tableName, List<string> list, string colName)
         {
             MySqlConnection con = new MySqlConnection(GV.conString);
@@ -241,9 +231,17 @@ namespace ResaleV8_ClassLibrary
             return list;
         }
 
+        public static int DeleteDropDownItem(string tableName, int ID)
+        {
+            string sql = "delete from " + tableName + " where ID = " + ID + ";" + $"select row_count() as rows_affected; "; 
+            MySqlConnection con = ConnectToDB.OpenDB();
+            int rows = con.Execute(sql);
+            return rows;
+        }
+
         public static void DeleteRecord(int ID, string tableName)
         {
-            string sql = "delete from " + tableName + " where itemID = " + ID.ToString();
+            string sql = "delete from " + tableName + " where ItemID = " + ID.ToString();
             MySqlConnection con = ConnectToDB.OpenDB();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.ExecuteNonQuery();

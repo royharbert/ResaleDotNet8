@@ -175,7 +175,7 @@ namespace ResaleV8
         {
             ComboBox cbo = null;
             List<GenericModel> gvList = new List<GenericModel>();
-            cbo.DataSource = null;
+            //cbo.DataSource = null;
             switch (tableName)
             {
                 case "categories":
@@ -204,9 +204,9 @@ namespace ResaleV8
             int idx = Operations.FindStringInList(txtItem.Text.Trim(), gvList);
             if (idx != -1)
             {
-                DataAccess.DeleteRecord(idx, tableName);
+                int result = DataAccess.DeleteDropDownItem(tableName, idx);
                 gvList.RemoveAll(x => x.ID == idx);
-                MessageBox.Show("Item deleted.");
+                MessageBox.Show(result.ToString() + " Item deleted.");
                 txtItem.Text = "";
                 dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
                 formatDGV();
