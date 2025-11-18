@@ -18,6 +18,7 @@ namespace ResaleV8
     public partial class frmAllItems : Form
     {
         private bool formDirty = false;
+        private bool formLoading = false;
         private int _item;
 
         /// <summary>
@@ -61,7 +62,10 @@ namespace ResaleV8
 
         private void MarkFormDirty(object sender, EventArgs e)
         {
-            formDirty = true;
+            if (!formLoading)
+            {
+                formDirty = true; 
+            }
         }
 
 
@@ -88,6 +92,7 @@ namespace ResaleV8
                     txtID.Focus();
                     //disableAllControls();
                     ctlsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
+                    txtID.Enabled = true;
                     //enableDisableControls(ctlsToEnable, true);
                     this.AcceptButton = btnRetrieve;
                     break;
@@ -151,6 +156,7 @@ namespace ResaleV8
         {
             if (model != null && model.ItemID != 0)
             {
+                formLoading = true;
                 txtID.Text = model.ItemID.ToString();
                 txtDesc.Text = model.ItemDesc;
                 cboCategory.Text = model.Category;
@@ -191,6 +197,7 @@ namespace ResaleV8
                     FormControlOps.ClearDTP(dtpDateListed);
 
                 }
+                formLoading = false;
             }
         }
 
@@ -222,6 +229,7 @@ namespace ResaleV8
 
         private void frmAllItems_Load(object sender, EventArgs e)
         {
+            formLoading = true;
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
@@ -682,7 +690,7 @@ namespace ResaleV8
         private void dtpSaleDate_ValueChanged(object sender, EventArgs e)
         {
             model.SaleDate = dtpSaleDate.Value;
-            formDirty = true;
+            //formDirty = true;
         }
     }
 }
