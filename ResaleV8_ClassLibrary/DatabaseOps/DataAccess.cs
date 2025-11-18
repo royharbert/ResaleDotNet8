@@ -19,7 +19,7 @@ namespace ResaleV8_ClassLibrary
             using (con)
             {
                 List<GenericModel> gvList = 
-                        con.Query<GenericModel>("SELECT * FROM " + tableName, commandType: CommandType.Text).AsList();
+                        con.Query<GenericModel>("SELECT * FROM " + tableName + " order by Data", commandType: CommandType.Text). AsList();
                 return gvList;
             }
         }

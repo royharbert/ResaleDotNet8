@@ -70,40 +70,41 @@ namespace ResaleV8
 
 
         ItemModel? model = new ItemModel();
-        string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
-                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
+        //string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+        //                "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
+        //                "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
+
+        string [] allButtons = { "btnRetrieve",  "btnSave",
+                        "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
+                        "cboBrand", "cboPurchaseSource", "txtListPrice", "txtCostOfSale"};
         void prepareForm()
         {
-            string[] ctlsToEnable = { };
+            string[] buttonsToEnable = { };
             switch (GV.MODE)
             {
                 case Mode.Add:
                     this.Text = this.Text + " Add New Item";
-                    //disableAllControls();
-                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose", "cboWhereListed", "dtpDateListed" };
-                    //enableDisableControls(ctlsToEnable, true);
+                    disableAllButtons();
+                    buttonsToEnable = new string[] { "btnSave", "btnClose" };
+                    enableDisableButtons(buttonsToEnable, true);
                     txtPrice.Text = "0";
                     this.AcceptButton = btnSave;
                     break;
                 case Mode.Retrieve:
                     this.Text = this.Text + " Retrieve Item";
                     txtID.Focus();
-                    //disableAllControls();
-                    ctlsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
+                    disableAllButtons();
+                    buttonsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
                     txtID.Enabled = true;
-                    //enableDisableControls(ctlsToEnable, true);
+                    enableDisableButtons(buttonsToEnable, true);
                     this.AcceptButton = btnRetrieve;
                     break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
-                    //enableDisableControls(allControls, false);
-                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnRetrieve", "btnClose", "txtItemID", "cboWhereListed",
-                        "dtpDateListed"};
+                    enableDisableButtons(allButtons, false);
+                    buttonsToEnable = new string[] { "btnClose", "txtItemID", "btnASave" };
                     txtID.Enabled = true;
-                    //enableDisableControls(ctlsToEnable, true);
+                    enableDisableButtons(buttonsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
                         txtPrice.Text = "0";
@@ -113,14 +114,15 @@ namespace ResaleV8
                 case Mode.Delete:
                     this.Text = this.Text + " Delete Item";
                     this.AcceptButton = btnDelete;
-                    //enableDisableControls(allControls, false);
+                    buttonsToEnable = new string[] { "btnDelete", "btnClose" }; 
+                    enableDisableButtons(allButtons, false);
+                    enableDisableButtons(buttonsToEnable, true);
                     txtID.Enabled = true;
                     break;
                 case Mode.Search:
-                    //enableDisableControls(allControls, false);
-                    ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSearch", "btnClose", "cboWhereListed", "dtpDateListed" };
-                    //enableDisableControls(ctlsToEnable, true);
+                    enableDisableButtons(allButtons, false);
+                    buttonsToEnable = new string[] { "btnSearch", "btnClose" };
+                    enableDisableButtons(buttonsToEnable, true);
                     break;
             }
         }
@@ -201,22 +203,23 @@ namespace ResaleV8
             }
         }
 
+        void disableAllButtons()
+        {
+            enableDisableButtons(allButtons, false);
+        }
 
-        //void disableAllControls()
-        //{
-        //    enableDisableControls(allControls, false);
-        //}
-        //void enableDisableControls(string[] controlArray, bool enable)
-        //{
-        //    foreach (string ctrlName in controlArray)
-        //    {
-        //        Control[] ctrls = this.Controls.Find(ctrlName, true);
-        //        if (ctrls.Length > 0)
-        //        {
-        //            ctrls[0].Enabled = enable;
-        //        }
-        //    }
-        //}
+        void enableDisableButtons(string[] controlArray, bool enable)
+        {
+            foreach (string ctrlName in controlArray)
+            {
+                Control[] ctrls = this.Controls.Find(ctrlName, true);
+                if (ctrls.Length > 0)
+                {
+                    ctrls[0].Enabled = enable;
+                }
+            }
+        }
+
         public frmAllItems()
         {
             InitializeComponent();

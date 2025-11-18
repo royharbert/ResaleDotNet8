@@ -125,6 +125,7 @@
             Controls.Add(dgvEditor);
             Name = "frmListEditor";
             Text = "Drop Down List Editor";
+            WindowState = FormWindowState.Maximized;
             Load += frmListEditor_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEditor).EndInit();
             ResumeLayout(false);
