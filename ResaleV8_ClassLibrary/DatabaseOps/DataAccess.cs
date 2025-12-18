@@ -13,6 +13,18 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static ItemModel GetItemByID(int itemID)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                ItemModel model =
+                        con.QuerySingle<ItemModel>("SELECT * FROM purchasedItems where ItemID = @ItemID",
+                        new { ItemID = itemID }, commandType: CommandType.Text);
+                return model;
+            }
+        }
+
         public static List<GenericModel> GetDropDownList(string tableName)
         {
             MySqlConnection con = ConnectToDB.OpenDB();

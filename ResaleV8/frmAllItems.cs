@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace ResaleV8
 {
     public partial class frmAllItems : Form
-    {
+    {        
         private bool formDirty = false;
         private bool formLoading = false;
         private int _item;
@@ -32,7 +32,9 @@ namespace ResaleV8
             {
                 _item = value;
                 txtID.Text = _item.ToString();
-                btnRetrieve.PerformClick();
+                //btnRetrieve.PerformClick();
+                ItemModel? model = DataAccess.GetItemByID(_item);
+                placeDataOnForm(model);
                 if (model.SaleDate <= GV.emptyDate)
                 {
                     dtpSaleDate.Format = DateTimePickerFormat.Custom;
@@ -45,6 +47,9 @@ namespace ResaleV8
                     txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
                 }
+                GV.MODE = Mode.Edit;
+                this.Task = "Edit Item";
+                prepareForm();
             }
         }
 
@@ -70,9 +75,9 @@ namespace ResaleV8
 
 
         ItemModel? model = new ItemModel();
-        //string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-        //                "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
-        //                "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
+        string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
+                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
 
         string [] allButtons = { "btnRetrieve",  "btnSave",
                         "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
@@ -80,6 +85,7 @@ namespace ResaleV8
         void prepareForm()
         {
             string[] buttonsToEnable = { };
+            string[] controlsToEnable = { };
             switch (GV.MODE)
             {
                 case Mode.Add:
@@ -102,14 +108,14 @@ namespace ResaleV8
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
                     enableDisableButtons(allButtons, false);
-                    buttonsToEnable = new string[] { "btnClose", "txtItemID", "btnASave" };
+                    buttonsToEnable = new string[] { "btnClose", "txtItemID", "btnSave" };
                     txtID.Enabled = true;
                     enableDisableButtons(buttonsToEnable, true);
                     if (model != null && model.SalePrice == 0)
                     {
                         txtPrice.Text = "0";
                     }
-                    this.AcceptButton = btnRetrieve;
+                    this.AcceptButton = btnSave;
                     break;
                 case Mode.Delete:
                     this.Text = this.Text + " Delete Item";
@@ -120,9 +126,14 @@ namespace ResaleV8
                     txtID.Enabled = true;
                     break;
                 case Mode.Search:
+                    this.AcceptButton = btnRetrieve;
                     enableDisableButtons(allButtons, false);
+                    controlsToEnable = new string[] { "txtID", "cboBrabd", "txtDesc", "cboCategory", 
+                        "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice", 
+                        "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand" };
                     buttonsToEnable = new string[] { "btnSearch", "btnClose" };
                     enableDisableButtons(buttonsToEnable, true);
+                    enableDisableControls(controlsToEnable, true);
                     break;
             }
         }
@@ -209,6 +220,18 @@ namespace ResaleV8
         }
 
         void enableDisableButtons(string[] controlArray, bool enable)
+        {
+            foreach (string ctrlName in controlArray)
+            {
+                Control[] ctrls = this.Controls.Find(ctrlName, true);
+                if (ctrls.Length > 0)
+                {
+                    ctrls[0].Enabled = enable;
+                }
+            }
+        }
+
+        void enableDisableControls(string[] controlArray, bool enable)
         {
             foreach (string ctrlName in controlArray)
             {
