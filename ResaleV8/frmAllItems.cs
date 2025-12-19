@@ -309,6 +309,7 @@ namespace ResaleV8
                     {
                         MessageBox.Show("Item Updated");
                     }
+                    formDirty = false;
                     break;
                 case Mode.Delete:
                     // Delete item from database
@@ -371,7 +372,7 @@ namespace ResaleV8
                 {
                     model.SaleDate = dtpSaleDate.Value;
                     dtpSaleDate.Format = DateTimePickerFormat.Long;
-                    dtpSaleDate.Value = DateTime.Now;
+                    //dtpSaleDate.Value = DateTime.Now;
                 }
 
 
@@ -534,7 +535,8 @@ namespace ResaleV8
             else
             {
                 MessageBox.Show("Item not found");
-            }
+            }btnRetrieve.Enabled = false;
+            btnSave.Enabled = true;
             this.AcceptButton = btnSave;
         }
 
