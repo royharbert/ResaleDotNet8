@@ -17,7 +17,6 @@ namespace ResaleV8
     public partial class frmMain : Form
     {
         public frmAllItems AllItemsForm { get; set; }
-        //public frmAllItems allItemsForm = null;
         public frmMain()
         {
             InitializeComponent();

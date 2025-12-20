@@ -69,6 +69,7 @@
             label16 = new Label();
             txtCostOfSale = new TextBox();
             label17 = new Label();
+            btnMarkSold = new Button();
             SuspendLayout();
             // 
             // label1
@@ -254,7 +255,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(285, 160);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 36);
+            cboCategory.Size = new Size(339, 29);
             cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
@@ -297,7 +298,7 @@
             btnClose.BackColor = Color.FromArgb(192, 255, 192);
             btnClose.Image = Properties.Resources._5402366_delete_remove_cross_cancel_close_icon;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(742, 478);
+            btnClose.Location = new Point(742, 559);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(190, 50);
             btnClose.TabIndex = 20;
@@ -383,7 +384,7 @@
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(284, 508);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(338, 36);
+            cboStorage.Size = new Size(338, 29);
             cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
             cboStorage.TextChanged += MarkFormDirty;
@@ -396,7 +397,7 @@
             cboBrand.FormattingEnabled = true;
             cboBrand.Location = new Point(284, 112);
             cboBrand.Name = "cboBrand";
-            cboBrand.Size = new Size(338, 36);
+            cboBrand.Size = new Size(338, 29);
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
@@ -410,7 +411,7 @@
             cboPurchaseSource.FormattingEnabled = true;
             cboPurchaseSource.Location = new Point(284, 256);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(339, 36);
+            cboPurchaseSource.Size = new Size(339, 29);
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
@@ -422,7 +423,7 @@
             cboWhereListed.FormattingEnabled = true;
             cboWhereListed.Location = new Point(284, 454);
             cboWhereListed.Name = "cboWhereListed";
-            cboWhereListed.Size = new Size(338, 36);
+            cboWhereListed.Size = new Size(338, 29);
             cboWhereListed.Sorted = true;
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
@@ -495,11 +496,26 @@
             label17.Text = "Cost of Sale";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // btnMarkSold
+            // 
+            btnMarkSold.BackColor = Color.FromArgb(192, 255, 192);
+            btnMarkSold.Image = (Image)resources.GetObject("btnMarkSold.Image");
+            btnMarkSold.ImageAlign = ContentAlignment.MiddleLeft;
+            btnMarkSold.Location = new Point(742, 403);
+            btnMarkSold.Name = "btnMarkSold";
+            btnMarkSold.Size = new Size(190, 80);
+            btnMarkSold.TabIndex = 35;
+            btnMarkSold.Text = "Mark Sold";
+            btnMarkSold.TextAlign = ContentAlignment.MiddleRight;
+            btnMarkSold.UseVisualStyleBackColor = false;
+            btnMarkSold.Click += btnMarkSold_Click;
+            // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 974);
+            Controls.Add(btnMarkSold);
             Controls.Add(txtCostOfSale);
             Controls.Add(label17);
             Controls.Add(txtListPrice);
@@ -593,5 +609,6 @@
         public ComboBox cboWhereListed;
         private TextBox txtCostOfSale;
         private Label label17;
+        private Button btnMarkSold;
     }
 }

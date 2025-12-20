@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResaleV8
-{
+{         
     public partial class frmAllItems : Form
-    {        
+    {
+        frmMarkSold SoldForm = new frmMarkSold();
         private bool formDirty = false;
         private bool formLoading = false;
         private int _item;
@@ -74,12 +75,12 @@ namespace ResaleV8
         }
 
 
-        ItemModel? model = new ItemModel();
+        public ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
                         "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed, txtPrice"};
 
-        string [] allButtons = { "btnRetrieve",  "btnSave",
+        string[] allButtons = { "btnRetrieve",  "btnSave",
                         "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
                         "cboBrand", "cboPurchaseSource", "txtListPrice", "txtCostOfSale"};
 
@@ -88,24 +89,24 @@ namespace ResaleV8
         string[] addControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
                         "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtSalePrice" };
 
-        string [] retrieveButtons = { "btnRetrieve", "btnClose" };
+        string[] retrieveButtons = { "btnRetrieve", "btnClose" };
 
-        string [] retrieveControls = { "txtID" };
+        string[] retrieveControls = { "txtID" };
 
-        string [] editButtons = { "btnSave", "btnClose" };
+        string[] editButtons = { "btnSave", "btnClose" };
 
-        string [] editControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
+        string[] editControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
                         "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtPrice", "txtCostOfSale",
                         "dtpSaleDate" };
 
-        string [] deleteButtons = { "btnDelete", "btnClose" };
+        string[] deleteButtons = { "btnDelete", "btnClose" };
 
-        string [] deleteControls = { "txtID" };
+        string[] deleteControls = { "txtID" };
 
-        string [] searchButtons = { "btnSearch", "btnClose" };  
+        string[] searchButtons = { "btnSearch", "btnClose" };
 
-        string [] searchControls = { "txtID", "cboBrabd", "txtDesc", "cboCategory", 
-                        "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice", 
+        string[] searchControls = { "txtID", "cboBrabd", "txtDesc", "cboCategory",
+                        "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice",
                         "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand" };
 
 
@@ -132,8 +133,8 @@ namespace ResaleV8
                     break;
 
             }
-            prepareForm ();
-        }   
+            prepareForm();
+        }
 
         void prepareForm()
         {
@@ -303,7 +304,7 @@ namespace ResaleV8
 
         private void frmAllItems_Load(object sender, EventArgs e)
         {
-            formLoading = true;
+            formLoading = true
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
@@ -427,7 +428,7 @@ namespace ResaleV8
                         model.SalePrice = Convert.ToDecimal(txtPrice.Text);
                     }
                     txtProfit.Text = model.Profit.ToString("$0.00");
-                    txtDaysHeld.Text = model.ProductAge.ToString(); 
+                    txtDaysHeld.Text = model.ProductAge.ToString();
                 }
 
                 return model;
@@ -572,7 +573,8 @@ namespace ResaleV8
             else
             {
                 MessageBox.Show("Item not found");
-            }btnRetrieve.Enabled = false;
+            }
+            btnRetrieve.Enabled = false;
             btnSave.Enabled = true;
             this.AcceptButton = btnSave;
         }
@@ -654,7 +656,7 @@ namespace ResaleV8
                         "cboStorage", "btnSave", "btnClose" };
             //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
-            
+
         }
 
         private void btnAddAnother_Click(object sender, EventArgs e)
@@ -771,6 +773,12 @@ namespace ResaleV8
                 dtpDateListed.Format = DateTimePickerFormat.Long;
                 MarkFormDirty(sender, e);
             }
+        }
+
+        private void btnMarkSold_Click(object sender, EventArgs e)
+        {
+            SoldForm.model = model;
+            SoldForm.ShowDialog();
         }
     }
 }
