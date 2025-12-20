@@ -47,7 +47,7 @@ namespace ResaleV8
                     txtDaysHeld.Enabled = true;
                     txtDaysHeld.Text = model.ProductAge.ToString();
                 }
-                GV.MODE = Mode.Edit;
+                changeMode(Mode.Edit);
                 this.Task = "Edit Item";
                 prepareForm();
             }
@@ -76,12 +76,65 @@ namespace ResaleV8
 
         ItemModel? model = new ItemModel();
         string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorageLocation", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
-                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed"};
+                        "cboStorage", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
+                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed, txtPrice"};
 
         string [] allButtons = { "btnRetrieve",  "btnSave",
                         "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
                         "cboBrand", "cboPurchaseSource", "txtListPrice", "txtCostOfSale"};
+
+        string[] addButtons = { "btnSave", "btnClose" };
+
+        string[] addControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
+                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtSalePrice" };
+
+        string [] retrieveButtons = { "btnRetrieve", "btnClose" };
+
+        string [] retrieveControls = { "txtID" };
+
+        string [] editButtons = { "btnSave", "btnClose" };
+
+        string [] editControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
+                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtPrice", "txtCostOfSale",
+                        "dtpSaleDate" };
+
+        string [] deleteButtons = { "btnDelete", "btnClose" };
+
+        string [] deleteControls = { "txtID" };
+
+        string [] searchButtons = { "btnSearch", "btnClose" };  
+
+        string [] searchControls = { "txtID", "cboBrabd", "txtDesc", "cboCategory", 
+                        "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice", 
+                        "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand" };
+
+
+        void changeMode(Mode mode)
+        {
+            GV.MODE = mode;
+            prepareForm();
+            switch (mode)
+            {
+                case Mode.Add:
+                    cboBrand.Focus();
+                    break;
+                case Mode.Retrieve:
+                    txtID.Focus();
+                    break;
+                case Mode.Edit:
+                    cboBrand.Focus();
+                    break;
+                case Mode.Delete:
+                    txtID.Focus();
+                    break;
+                case Mode.Search:
+                    txtID.Focus();
+                    break;
+
+            }
+            prepareForm ();
+        }   
+
         void prepareForm()
         {
             string[] buttonsToEnable = { };
@@ -90,50 +143,44 @@ namespace ResaleV8
             {
                 case Mode.Add:
                     this.Text = this.Text + " Add New Item";
-                    disableAllButtons();
-                    buttonsToEnable = new string[] { "btnSave", "btnClose" };
-                    enableDisableButtons(buttonsToEnable, true);
-                    txtPrice.Text = "0";
+                    disableAllControls();
+                    enableDisableButtons(addButtons, true);
+                    enableDisableControls(addControls, true);
+                    txtPrice.Text = "";
                     this.AcceptButton = btnSave;
                     break;
                 case Mode.Retrieve:
                     this.Text = this.Text + " Retrieve Item";
                     txtID.Focus();
-                    disableAllButtons();
-                    buttonsToEnable = new string[] { "txtID", "btnRetrieve", "btnClose" };
-                    txtID.Enabled = true;
-                    enableDisableButtons(buttonsToEnable, true);
+                    disableAllControls();
+                    enableDisableControls(retrieveControls, true);
+                    enableDisableButtons(retrieveButtons, true);
                     this.AcceptButton = btnRetrieve;
                     break;
                 case Mode.Edit:
                     this.Text = this.Text + " Edit Item";
                     enableDisableButtons(allButtons, false);
-                    buttonsToEnable = new string[] { "btnClose", "txtItemID", "btnSave" };
-                    txtID.Enabled = true;
-                    enableDisableButtons(buttonsToEnable, true);
+                    enableDisableControls(editControls, true);
+                    enableDisableButtons(editButtons, true);
                     if (model != null && model.SalePrice == 0)
                     {
-                        txtPrice.Text = "0";
+                        txtPrice.Text = "";
                     }
                     this.AcceptButton = btnSave;
                     break;
                 case Mode.Delete:
                     this.Text = this.Text + " Delete Item";
                     this.AcceptButton = btnDelete;
-                    buttonsToEnable = new string[] { "btnDelete", "btnClose" }; 
-                    enableDisableButtons(allButtons, false);
-                    enableDisableButtons(buttonsToEnable, true);
+                    disableAllControls();
+                    enableDisableControls(deleteControls, true);
+                    enableDisableButtons(deleteButtons, true);
                     txtID.Enabled = true;
                     break;
                 case Mode.Search:
                     this.AcceptButton = btnRetrieve;
-                    enableDisableButtons(allButtons, false);
-                    controlsToEnable = new string[] { "txtID", "cboBrabd", "txtDesc", "cboCategory", 
-                        "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice", 
-                        "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand" };
-                    buttonsToEnable = new string[] { "btnSearch", "btnClose" };
-                    enableDisableButtons(buttonsToEnable, true);
-                    enableDisableControls(controlsToEnable, true);
+                    disableAllControls();
+                    enableDisableButtons(searchButtons, true);
+                    enableDisableControls(searchControls, true);
                     break;
             }
         }
@@ -214,9 +261,10 @@ namespace ResaleV8
             }
         }
 
-        void disableAllButtons()
+        void disableAllControls()
         {
             enableDisableButtons(allButtons, false);
+            enableDisableControls(allControls, false);
         }
 
         void enableDisableButtons(string[] controlArray, bool enable)
@@ -275,14 +323,6 @@ namespace ResaleV8
             cboPurchaseSource.SelectedIndex = -1;
 
             prepareForm();
-            if (GV.MODE == Mode.Retrieve)
-            {
-                txtID.Focus();
-            }
-            else
-            {
-                cboBrand.Focus();
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -376,16 +416,19 @@ namespace ResaleV8
                 }
 
 
-                if (txtPrice.Text.Contains('$'))
+                if (txtPrice.Text != "")
                 {
-                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Substring(1));
+                    if (txtPrice.Text.Contains('$'))
+                    {
+                        model.SalePrice = Convert.ToDecimal(txtPrice.Text.Substring(1));
+                    }
+                    else
+                    {
+                        model.SalePrice = Convert.ToDecimal(txtPrice.Text);
+                    }
+                    txtProfit.Text = model.Profit.ToString("$0.00");
+                    txtDaysHeld.Text = model.ProductAge.ToString(); 
                 }
-                else
-                {
-                    model.SalePrice = Convert.ToDecimal(txtPrice.Text);
-                }
-                txtProfit.Text = model.Profit.ToString("$0.00");
-                txtDaysHeld.Text = model.ProductAge.ToString();
 
                 return model;
             }
@@ -513,8 +556,7 @@ namespace ResaleV8
             ItemModel? model = getItem();
             if (model != null)
             {
-                GV.MODE = Mode.Edit;
-                //disableAllControls();
+                changeMode(Mode.Edit);
                 placeDataOnForm(model);
                 if (model.SalePrice == 0)
                 {
@@ -627,8 +669,7 @@ namespace ResaleV8
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Search;
-
+            changeMode(Mode.Search);
             txtQuantity.Text = "";
             List<(string, string)> searchQuery = buildSearchQuery();
             string sql = "Select * from purchasedItems where ";
