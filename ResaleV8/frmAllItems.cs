@@ -564,11 +564,6 @@ namespace ResaleV8
                     dtpSaleDate.Format = DateTimePickerFormat.Custom;
                     dtpSaleDate.Value = GV.emptyDate;
                 }
-                else
-                {
-                    dtpSaleDate.Format = DateTimePickerFormat.Long;
-                    dtpSaleDate.Value = DateTime.Now;
-                }
                 string[] ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
                         "cboStorage", "txtPrice", "dtpSaleDate", "btnSave", "btnClose" };
                 //enableDisableControls(ctlsToEnable, true);

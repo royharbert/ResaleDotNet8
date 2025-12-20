@@ -13,13 +13,10 @@
     <Compile Remove="ENUMS.cs" />
     <Compile Remove="frmAdd.cs" />
     <Compile Remove="frmAdd.Designer.cs" />
-    <Compile Remove="frmMarkSold.cs" />
-    <Compile Remove="frmMarkSold.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="frmAdd.resx" />
-    <EmbeddedResource Remove="frmMarkSold.resx" />
   </ItemGroup>
 
   <ItemGroup>
