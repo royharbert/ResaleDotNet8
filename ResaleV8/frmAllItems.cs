@@ -304,7 +304,7 @@ namespace ResaleV8
 
         private void frmAllItems_Load(object sender, EventArgs e)
         {
-            formLoading = true
+            formLoading = true;
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
