@@ -31,7 +31,6 @@ namespace ResaleV8
         private void btnDone_Click(object sender, EventArgs e)
         {
             LoadModel();
-            frmMain.all
         }
     }
 }
