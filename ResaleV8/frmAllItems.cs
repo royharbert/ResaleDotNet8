@@ -613,7 +613,7 @@ namespace ResaleV8
                 dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
             }
-            if (model.WhereListed != "" && model.WhereListed == "Poshmark")
+            if (cboWhereListed.Text == "Poshmark")
             {
                 model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
                 txtPrice.Text = model.SalePrice.ToString("$0.00");
