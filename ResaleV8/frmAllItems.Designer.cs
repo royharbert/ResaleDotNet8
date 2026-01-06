@@ -157,7 +157,7 @@
             txtPurchasePrice.Size = new Size(394, 39);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
-            txtPurchasePrice.TextChanged += MarkFormDirty;
+            txtPurchasePrice.TextChanged += txtPurchasePrice_TextChanged;
             // 
             // label6
             // 

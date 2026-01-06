@@ -248,7 +248,7 @@ namespace ResaleV8
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
                 cboWhereListed.Text = model.WhereListed;
-                if(model.DateListed > new DateTime(1900, 01, 01))
+                if (model.DateListed > new DateTime(1900, 01, 01))
                 {
                     dtpDateListed.Value = model.DateListed;
                     dtpDateListed.Format = DateTimePickerFormat.Long;
@@ -809,6 +809,12 @@ namespace ResaleV8
         private void dtpBuy_ValueChanged(object sender, EventArgs e)
         {
             model.PurchaseDate = dtpBuy.Value;
+        }
+
+        private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
+        {
+            model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
+            MarkFormDirty(sender, e);
         }
     }
 }
