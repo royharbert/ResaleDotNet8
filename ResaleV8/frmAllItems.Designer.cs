@@ -89,7 +89,7 @@
             txtID.Size = new Size(394, 39);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
-            txtID.TextChanged += MarkFormDirty;
+            txtID.TextChanged += txtID_TextChanged;
             // 
             // label2
             // 
@@ -108,7 +108,7 @@
             txtDesc.Size = new Size(394, 39);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
-            txtDesc.TextChanged += MarkFormDirty;
+            txtDesc.TextChanged += txtDesc_TextChanged;
             // 
             // label3
             // 
@@ -128,7 +128,7 @@
             txtQuantity.TabIndex = 6;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
-            txtQuantity.TextChanged += MarkFormDirty;
+            txtQuantity.TextChanged += txtQuantity_TextChanged;
             // 
             // label4
             // 
@@ -186,7 +186,7 @@
             txtPrice.Size = new Size(415, 39);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
-            txtPrice.TextChanged += MarkFormDirty;
+            txtPrice.TextChanged += txtPrice_TextChanged;
             txtPrice.Leave += txtPrice_Leave;
             // 
             // label8
@@ -217,6 +217,7 @@
             txtProfit.Size = new Size(415, 39);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
+            txtProfit.TextChanged += txtProfit_TextChanged;
             // 
             // label10
             // 
@@ -258,6 +259,7 @@
             cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
+            cboCategory.TextUpdate += cboCategory_TextUpdate;
             cboCategory.Leave += cboCategory_Leave;
             // 
             // dtpBuy
@@ -386,7 +388,7 @@
             cboStorage.Size = new Size(394, 40);
             cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
-            cboStorage.TextChanged += MarkFormDirty;
+            cboStorage.TextChanged += cboStorage_TextChanged;
             cboStorage.Leave += cboStorage_Leave;
             // 
             // cboBrand
@@ -400,7 +402,7 @@
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
-            cboBrand.TextChanged += MarkFormDirty;
+            cboBrand.TextChanged += cboBrand_TextChanged;
             cboBrand.Leave += cboBrand_Leave;
             // 
             // cboPurchaseSource
@@ -414,7 +416,7 @@
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
-            cboPurchaseSource.TextChanged += MarkFormDirty;
+            cboPurchaseSource.TextChanged += cboPurchaseSource_TextChanged;
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 
             // cboWhereListed
@@ -426,7 +428,7 @@
             cboWhereListed.Sorted = true;
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
-            cboWhereListed.TextChanged += MarkFormDirty;
+            cboWhereListed.TextChanged += cboWhereListed_TextChanged;
             cboWhereListed.Leave += cboWhereListed_Leave;
             // 
             // dtpDateListed
@@ -465,6 +467,7 @@
             txtListPrice.Size = new Size(394, 39);
             txtListPrice.TabIndex = 11;
             txtListPrice.Tag = "ListPrice";
+            txtListPrice.TextChanged += txtListPrice_TextChanged;
             // 
             // label16
             // 
@@ -483,6 +486,7 @@
             txtCostOfSale.Size = new Size(415, 39);
             txtCostOfSale.TabIndex = 33;
             txtCostOfSale.Tag = "SalePrice";
+            txtCostOfSale.TextChanged += txtCostOfSale_TextChanged;
             txtCostOfSale.Leave += txtCostOfSale_Leave;
             // 
             // label17
