@@ -29,8 +29,8 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            AllItemsForm = new frmAllItems();            
-            
+            AllItemsForm = new frmAllItems();
+
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -75,7 +75,7 @@ namespace ResaleV8
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
-            
+
             allItemsForm.Task = "Edit Item";
         }
 
@@ -136,6 +136,25 @@ namespace ResaleV8
         {
             GV.mode = Mode.EditWhereListed;
             openListEditorForm();
+        }
+
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string constring = "server=localhost;user=root;pwd=qwerty;database=test;";
+            string file = "C:\\backup.sql";
+            using (MySqlConnection conn = new MySqlConnection(constring))
+            {
+                using (MySqlCommand cmd = new MySqlCommand())
+                {
+                    using (MySqlBackup mb = new MySqlBackup(cmd))
+                    {
+                        cmd.Connection = conn;
+                        conn.Open();
+                        mb.ExportToFile(file);
+                        conn.Close();
+                    }
+                }
+            }
         }
     }
 }

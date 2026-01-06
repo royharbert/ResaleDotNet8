@@ -45,16 +45,20 @@
             brandToolStripMenuItem = new ToolStripMenuItem();
             sToolStripMenuItem = new ToolStripMenuItem();
             whereListedToolStripMenuItem = new ToolStripMenuItem();
+            databaseBackupToolStripMenuItem = new ToolStripMenuItem();
+            backupToolStripMenuItem = new ToolStripMenuItem();
+            restoreToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem, databaseBackupToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1448, 24);
+            menuStrip1.Padding = new Padding(9, 3, 0, 3);
+            menuStrip1.Size = new Size(2069, 35);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -62,13 +66,13 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Size = new Size(54, 29);
             fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(92, 22);
+            exitToolStripMenuItem.Size = new Size(141, 34);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -76,20 +80,20 @@
             // 
             reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { soldItemReportToolStripMenuItem, unsoldItemToolStripMenuItem });
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            reportsToolStripMenuItem.Size = new Size(62, 20);
+            reportsToolStripMenuItem.Size = new Size(94, 29);
             reportsToolStripMenuItem.Text = " Reports";
             // 
             // soldItemReportToolStripMenuItem
             // 
             soldItemReportToolStripMenuItem.Name = "soldItemReportToolStripMenuItem";
-            soldItemReportToolStripMenuItem.Size = new Size(176, 22);
+            soldItemReportToolStripMenuItem.Size = new Size(269, 34);
             soldItemReportToolStripMenuItem.Text = "Sold Item Report";
             soldItemReportToolStripMenuItem.Click += soldItemReportToolStripMenuItem_Click;
             // 
             // unsoldItemToolStripMenuItem
             // 
             unsoldItemToolStripMenuItem.Name = "unsoldItemToolStripMenuItem";
-            unsoldItemToolStripMenuItem.Size = new Size(176, 22);
+            unsoldItemToolStripMenuItem.Size = new Size(269, 34);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
             // 
@@ -97,35 +101,35 @@
             // 
             editRecordToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addItemToolStripMenuItem1, editItemToolStripMenuItem, deleteItemToolStripMenuItem, searchToolStripMenuItem });
             editRecordToolStripMenuItem.Name = "editRecordToolStripMenuItem";
-            editRecordToolStripMenuItem.Size = new Size(141, 20);
+            editRecordToolStripMenuItem.Size = new Size(208, 29);
             editRecordToolStripMenuItem.Text = "Inventory Maintenance";
             editRecordToolStripMenuItem.Click += editRecordToolStripMenuItem_Click;
             // 
             // addItemToolStripMenuItem1
             // 
             addItemToolStripMenuItem1.Name = "addItemToolStripMenuItem1";
-            addItemToolStripMenuItem1.Size = new Size(134, 22);
+            addItemToolStripMenuItem1.Size = new Size(205, 34);
             addItemToolStripMenuItem1.Text = "Add Item";
             addItemToolStripMenuItem1.Click += addItemToolStripMenuItem1_Click;
             // 
             // editItemToolStripMenuItem
             // 
             editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
-            editItemToolStripMenuItem.Size = new Size(134, 22);
+            editItemToolStripMenuItem.Size = new Size(205, 34);
             editItemToolStripMenuItem.Text = "Edit Item";
             editItemToolStripMenuItem.Click += editItemToolStripMenuItem_Click;
             // 
             // deleteItemToolStripMenuItem
             // 
             deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            deleteItemToolStripMenuItem.Size = new Size(134, 22);
+            deleteItemToolStripMenuItem.Size = new Size(205, 34);
             deleteItemToolStripMenuItem.Text = "Delete Item";
             deleteItemToolStripMenuItem.Click += deleteItemToolStripMenuItem_Click;
             // 
             // searchToolStripMenuItem
             // 
             searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            searchToolStripMenuItem.Size = new Size(134, 22);
+            searchToolStripMenuItem.Size = new Size(205, 34);
             searchToolStripMenuItem.Text = "Search";
             searchToolStripMenuItem.Click += searchToolStripMenuItem_Click;
             // 
@@ -133,52 +137,73 @@
             // 
             dropDownEditToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, purchaseSourceToolStripMenuItem, brandToolStripMenuItem, sToolStripMenuItem, whereListedToolStripMenuItem });
             dropDownEditToolStripMenuItem.Name = "dropDownEditToolStripMenuItem";
-            dropDownEditToolStripMenuItem.Size = new Size(102, 20);
+            dropDownEditToolStripMenuItem.Size = new Size(156, 29);
             dropDownEditToolStripMenuItem.Text = "Drop Down Edit";
             // 
             // categoriesToolStripMenuItem
             // 
             categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
-            categoriesToolStripMenuItem.Size = new Size(180, 22);
+            categoriesToolStripMenuItem.Size = new Size(255, 34);
             categoriesToolStripMenuItem.Text = "Categories";
             categoriesToolStripMenuItem.Click += categoriesToolStripMenuItem_Click;
             // 
             // purchaseSourceToolStripMenuItem
             // 
             purchaseSourceToolStripMenuItem.Name = "purchaseSourceToolStripMenuItem";
-            purchaseSourceToolStripMenuItem.Size = new Size(180, 22);
+            purchaseSourceToolStripMenuItem.Size = new Size(255, 34);
             purchaseSourceToolStripMenuItem.Text = "Purchase Source";
             purchaseSourceToolStripMenuItem.Click += purchaseSourceToolStripMenuItem_Click;
             // 
             // brandToolStripMenuItem
             // 
             brandToolStripMenuItem.Name = "brandToolStripMenuItem";
-            brandToolStripMenuItem.Size = new Size(180, 22);
+            brandToolStripMenuItem.Size = new Size(255, 34);
             brandToolStripMenuItem.Text = "Brand";
             brandToolStripMenuItem.Click += brandToolStripMenuItem_Click;
             // 
             // sToolStripMenuItem
             // 
             sToolStripMenuItem.Name = "sToolStripMenuItem";
-            sToolStripMenuItem.Size = new Size(180, 22);
+            sToolStripMenuItem.Size = new Size(255, 34);
             sToolStripMenuItem.Text = "Storage Locations";
             sToolStripMenuItem.Click += sToolStripMenuItem_Click;
             // 
             // whereListedToolStripMenuItem
             // 
             whereListedToolStripMenuItem.Name = "whereListedToolStripMenuItem";
-            whereListedToolStripMenuItem.Size = new Size(180, 22);
+            whereListedToolStripMenuItem.Size = new Size(255, 34);
             whereListedToolStripMenuItem.Text = "Where Listed";
             whereListedToolStripMenuItem.Click += whereListedToolStripMenuItem_Click;
             // 
+            // databaseBackupToolStripMenuItem
+            // 
+            databaseBackupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backupToolStripMenuItem, restoreToolStripMenuItem });
+            databaseBackupToolStripMenuItem.Name = "databaseBackupToolStripMenuItem";
+            databaseBackupToolStripMenuItem.Size = new Size(164, 29);
+            databaseBackupToolStripMenuItem.Text = "Database Backup";
+            // 
+            // backupToolStripMenuItem
+            // 
+            backupToolStripMenuItem.Name = "backupToolStripMenuItem";
+            backupToolStripMenuItem.Size = new Size(270, 34);
+            backupToolStripMenuItem.Text = "Backup";
+            backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
+            // 
+            // restoreToolStripMenuItem
+            // 
+            restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
+            restoreToolStripMenuItem.Size = new Size(270, 34);
+            restoreToolStripMenuItem.Text = "Restore";
+            // 
             // frmMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1448, 779);
+            ClientSize = new Size(2069, 1298);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "frmMain";
             Text = "Resale Database";
             WindowState = FormWindowState.Maximized;
@@ -208,5 +233,8 @@
         private ToolStripMenuItem brandToolStripMenuItem;
         private ToolStripMenuItem sToolStripMenuItem;
         private ToolStripMenuItem whereListedToolStripMenuItem;
+        private ToolStripMenuItem databaseBackupToolStripMenuItem;
+        private ToolStripMenuItem backupToolStripMenuItem;
+        private ToolStripMenuItem restoreToolStripMenuItem;
     }
 }
