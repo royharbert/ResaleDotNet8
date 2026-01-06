@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResaleV8
-{         
+{
     public partial class frmAllItems : Form
     {
         frmMarkSold SoldForm = new frmMarkSold();
@@ -248,7 +248,7 @@ namespace ResaleV8
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
                 cboWhereListed.Text = model.WhereListed;
-                if (model.WhereListed != "")
+                if(model.DateListed > new DateTime(1900, 01, 01))
                 {
                     dtpDateListed.Value = model.DateListed;
                     dtpDateListed.Format = DateTimePickerFormat.Long;
@@ -257,8 +257,17 @@ namespace ResaleV8
                 {
                     FormControlOps.ClearDTP(dtpDateListed);
                 }
+                //if (model.WhereListed != "")
+                //{
+                //    dtpDateListed.Value = model.DateListed;
+                //    dtpDateListed.Format = DateTimePickerFormat.Long;
+                //}
+                //else
+                //{
+                //    FormControlOps.ClearDTP(dtpDateListed);
+                //}
                 if (model.WhereListed == "Poshmark")
-                {                    
+                {
                     calculateCostOfSale(model.SalePrice, model.WhereListed);
                 }
                 formLoading = false;
@@ -267,7 +276,7 @@ namespace ResaleV8
 
         private void calculateCostOfSale(decimal salePrice, string whereListed)
         {
-            switch(whereListed)
+            switch (whereListed)
             {
                 case "Poshmark":
                     model.CostOfSale = salePrice * 0.2M;
@@ -771,8 +780,9 @@ namespace ResaleV8
 
         private void dtpSaleDate_ValueChanged(object sender, EventArgs e)
         {
+            dtpSaleDate.Format = DateTimePickerFormat.Long;
             model.SaleDate = dtpSaleDate.Value;
-            //formDirty = true;
+            formDirty = true;
         }
 
         private void dtpDateListed_ValueChanged(object sender, EventArgs e)
@@ -789,6 +799,16 @@ namespace ResaleV8
         {
             SoldForm.model = model;
             SoldForm.ShowDialog();
+        }
+
+        private void dtpBuy_Leave(object sender, EventArgs e)
+        {
+            model.PurchaseDate = dtpBuy.Value;
+        }
+
+        private void dtpBuy_ValueChanged(object sender, EventArgs e)
+        {
+            model.PurchaseDate = dtpBuy.Value;
         }
     }
 }
