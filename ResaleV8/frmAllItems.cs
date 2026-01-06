@@ -256,9 +256,23 @@ namespace ResaleV8
                 else
                 {
                     FormControlOps.ClearDTP(dtpDateListed);
-
+                }
+                if (model.WhereListed == "Poshmark")
+                {                    
+                    calculateCostOfSale(model.SalePrice, model.WhereListed);
                 }
                 formLoading = false;
+            }
+        }
+
+        private void calculateCostOfSale(decimal salePrice, string whereListed)
+        {
+            switch(whereListed)
+            {
+                case "Poshmark":
+                    model.CostOfSale = salePrice * 0.2M;
+                    txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                    break;
             }
         }
 
@@ -413,7 +427,6 @@ namespace ResaleV8
                 {
                     model.SaleDate = dtpSaleDate.Value;
                     dtpSaleDate.Format = DateTimePickerFormat.Long;
-                    //dtpSaleDate.Value = DateTime.Now;
                 }
 
 
@@ -613,12 +626,9 @@ namespace ResaleV8
                 dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
             }
-            if (cboWhereListed.Text == "Poshmark")
+            if (model.WhereListed == "Poshmark" || cboWhereListed.Text == "Poshmark")
             {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
-                txtPrice.Text = model.SalePrice.ToString("$0.00");
-                model.CostOfSale = model.SalePrice * 0.2M;
-                txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                calculateCostOfSale(model.SalePrice, "Poshmark");
             }
             txtProfit.Enabled = true;
             txtProfit.Text = model.Profit.ToString("$0.00");
