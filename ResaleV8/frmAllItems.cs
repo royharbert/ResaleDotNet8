@@ -75,9 +75,9 @@ namespace ResaleV8
 
 
         public ItemModel? model = new ItemModel();
-        string[] allControls = { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "dtpSaleDate", "txtPrice", "txtID", "btnRetrieve",  "btnSave",
-                        "btnAddAnother", "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed, txtPrice"};
+        string[] allControls = { "txtID", "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy",
+                        "txtQuantity", "txtPurchasePrice", "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice",
+                        "txtPrice", "txtCostOfSale", "dtpSaleDate", "txtProfit", "txtDaysHeld" };
 
         string[] allButtons = { "btnRetrieve",  "btnSave",
                         "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
@@ -145,7 +145,9 @@ namespace ResaleV8
                     this.Text = this.Text + " Add New Item";
                     disableAllControls();
                     enableDisableButtons(addButtons, true);
-                    enableDisableControls(addControls, true);
+                    enableDisableControls(allControls, true);
+                    txtID.Enabled = false;
+                    cboBrand.Focus();
                     txtPrice.Text = "";
                     this.AcceptButton = btnSave;
                     break;
@@ -375,6 +377,7 @@ namespace ResaleV8
                     // Delete item from database
                     break;
             }
+            Close();
         }
 
         private ItemModel loadModel()
