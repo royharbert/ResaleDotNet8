@@ -187,7 +187,7 @@
             backupToolStripMenuItem.Name = "backupToolStripMenuItem";
             backupToolStripMenuItem.Size = new Size(270, 34);
             backupToolStripMenuItem.Text = "Backup";
-            backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
+            //backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
             // 
             // restoreToolStripMenuItem
             // 

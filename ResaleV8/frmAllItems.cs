@@ -840,7 +840,10 @@ namespace ResaleV8
 
         private void txtQuantity_TextChanged(object sender, EventArgs e)
         {
-            model.Quantity = Convert.ToInt32(txtQuantity.Text);
+            if (txtQuantity.Text != "")
+            {
+                model.Quantity = Convert.ToInt32(txtQuantity.Text); 
+            }
             MarkFormDirty(sender, e);
         }
 
