@@ -214,6 +214,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(876, 434);
             txtProfit.Name = "txtProfit";
+            txtProfit.ReadOnly = true;
             txtProfit.Size = new Size(415, 39);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
@@ -234,6 +235,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(876, 501);
             txtDaysHeld.Name = "txtDaysHeld";
+            txtDaysHeld.ReadOnly = true;
             txtDaysHeld.Size = new Size(415, 39);
             txtDaysHeld.TabIndex = 15;
             txtDaysHeld.Tag = "ProductAge";

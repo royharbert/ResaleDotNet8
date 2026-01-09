@@ -45,16 +45,13 @@
             brandToolStripMenuItem = new ToolStripMenuItem();
             sToolStripMenuItem = new ToolStripMenuItem();
             whereListedToolStripMenuItem = new ToolStripMenuItem();
-            databaseBackupToolStripMenuItem = new ToolStripMenuItem();
-            backupToolStripMenuItem = new ToolStripMenuItem();
-            restoreToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem, databaseBackupToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(9, 3, 0, 3);
@@ -72,7 +69,7 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(141, 34);
+            exitToolStripMenuItem.Size = new Size(270, 34);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -175,26 +172,6 @@
             whereListedToolStripMenuItem.Text = "Where Listed";
             whereListedToolStripMenuItem.Click += whereListedToolStripMenuItem_Click;
             // 
-            // databaseBackupToolStripMenuItem
-            // 
-            databaseBackupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backupToolStripMenuItem, restoreToolStripMenuItem });
-            databaseBackupToolStripMenuItem.Name = "databaseBackupToolStripMenuItem";
-            databaseBackupToolStripMenuItem.Size = new Size(164, 29);
-            databaseBackupToolStripMenuItem.Text = "Database Backup";
-            // 
-            // backupToolStripMenuItem
-            // 
-            backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            backupToolStripMenuItem.Size = new Size(270, 34);
-            backupToolStripMenuItem.Text = "Backup";
-            //backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
-            // 
-            // restoreToolStripMenuItem
-            // 
-            restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            restoreToolStripMenuItem.Size = new Size(270, 34);
-            restoreToolStripMenuItem.Text = "Restore";
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -233,8 +210,5 @@
         private ToolStripMenuItem brandToolStripMenuItem;
         private ToolStripMenuItem sToolStripMenuItem;
         private ToolStripMenuItem whereListedToolStripMenuItem;
-        private ToolStripMenuItem databaseBackupToolStripMenuItem;
-        private ToolStripMenuItem backupToolStripMenuItem;
-        private ToolStripMenuItem restoreToolStripMenuItem;
     }
 }
