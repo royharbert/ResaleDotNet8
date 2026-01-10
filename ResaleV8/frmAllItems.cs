@@ -14,10 +14,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResaleV8
-{         
+{
     public partial class frmAllItems : Form
     {
-        frmMarkSold SoldForm = new frmMarkSold();
         private bool formDirty = false;
         private bool formLoading = false;
         private int _item;
@@ -97,7 +96,7 @@ namespace ResaleV8
 
         string[] editControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
                         "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtPrice", "txtCostOfSale",
-                        "dtpSaleDate" };
+                        "dtpSaleDate", "txtProfit", "txtDaysHeld" };
 
         string[] deleteButtons = { "btnDelete", "btnClose" };
 
@@ -248,7 +247,7 @@ namespace ResaleV8
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
                 cboWhereListed.Text = model.WhereListed;
-                if (model.WhereListed != "")
+                if (model.DateListed > new DateTime(1900, 01, 01))
                 {
                     dtpDateListed.Value = model.DateListed;
                     dtpDateListed.Format = DateTimePickerFormat.Long;
@@ -256,9 +255,29 @@ namespace ResaleV8
                 else
                 {
                     FormControlOps.ClearDTP(dtpDateListed);
-
+                }
+                if (model.WhereListed == "Poshmark")
+                {
+                    calculateCostOfSale(model.SalePrice, model.WhereListed);
+                }
+                txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                txtDaysHeld.Text = model.ProductAge.ToString();
+                if (model.Profit > 0)
+                {
+                    txtProfit.Text = model.Profit.ToString("$0.00"); 
                 }
                 formLoading = false;
+            }
+        }
+
+        private void calculateCostOfSale(decimal salePrice, string whereListed)
+        {
+            switch (whereListed)
+            {
+                case "Poshmark":
+                    model.CostOfSale = salePrice * 0.2M;
+                    txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                    break;
             }
         }
 
@@ -413,7 +432,6 @@ namespace ResaleV8
                 {
                     model.SaleDate = dtpSaleDate.Value;
                     dtpSaleDate.Format = DateTimePickerFormat.Long;
-                    //dtpSaleDate.Value = DateTime.Now;
                 }
 
 
@@ -613,12 +631,9 @@ namespace ResaleV8
                 dtpSaleDate.Format = DateTimePickerFormat.Custom;
                 dtpSaleDate.CustomFormat = " ";
             }
-            if (cboWhereListed.Text == "Poshmark")
+            if (model.WhereListed == "Poshmark" || cboWhereListed.Text == "Poshmark")
             {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
-                txtPrice.Text = model.SalePrice.ToString("$0.00");
-                model.CostOfSale = model.SalePrice * 0.2M;
-                txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                calculateCostOfSale(model.SalePrice, "Poshmark");
             }
             txtProfit.Enabled = true;
             txtProfit.Text = model.Profit.ToString("$0.00");
@@ -699,27 +714,32 @@ namespace ResaleV8
 
         private void cboStorage_Leave(object sender, EventArgs e)
         {
+            model.StorageLocation = cboStorage.Text;
             comboListMaintenance(sender, e);
         }
 
         private void cboPurchaseSource_Leave(object sender, EventArgs e)
         {
+            model.PurchaseSource = cboPurchaseSource.Text;
             comboListMaintenance(sender, e);
         }
 
         private void cboBrand_Leave(object sender, EventArgs e)
         {
+            model.Brand = cboBrand.Text;
             comboListMaintenance(sender, e);
         }
 
         private void cboPurchaseSource_Leave_1(object sender, EventArgs e)
         {
+            model.PurchaseSource = cboPurchaseSource.Text;
             comboListMaintenance(sender, e);
         }
 
         private void cboWhereListed_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
+            model.WhereListed = cboWhereListed.Text;
             if (cboWhereListed.Text != "")
             {
                 dtpDateListed.Value = DateTime.Now;
@@ -761,8 +781,9 @@ namespace ResaleV8
 
         private void dtpSaleDate_ValueChanged(object sender, EventArgs e)
         {
+            dtpSaleDate.Format = DateTimePickerFormat.Long;
             model.SaleDate = dtpSaleDate.Value;
-            //formDirty = true;
+            formDirty = true;
         }
 
         private void dtpDateListed_ValueChanged(object sender, EventArgs e)
@@ -775,10 +796,95 @@ namespace ResaleV8
             }
         }
 
-        private void btnMarkSold_Click(object sender, EventArgs e)
+        private void dtpBuy_ValueChanged(object sender, EventArgs e)
         {
-            SoldForm.model = model;
-            SoldForm.ShowDialog();
+            model.PurchaseDate = dtpBuy.Value;
+            MarkFormDirty(sender, e);
         }
+
+        private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
+        {
+            model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtID_TextChanged(object sender, EventArgs e)
+        {
+            model.ItemID = Convert.ToInt32(txtID.Text);
+            MarkFormDirty(sender, e);
+        }
+
+        private void cboBrand_TextChanged(object sender, EventArgs e)
+        {
+            model.Brand = cboBrand.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void cboCategory_TextUpdate(object sender, EventArgs e)
+        {
+            model.Category = cboCategory.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtDesc_TextChanged(object sender, EventArgs e)
+        {
+            model.ItemDesc = txtDesc.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void cboPurchaseSource_TextChanged(object sender, EventArgs e)
+        {
+            model.PurchaseSource = cboPurchaseSource.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            if (txtQuantity.Text != "")
+            {
+                model.Quantity = Convert.ToInt32(txtQuantity.Text); 
+            }
+            MarkFormDirty(sender, e);
+        }
+
+        private void cboWhereListed_TextChanged(object sender, EventArgs e)
+        {
+            model.WhereListed = cboWhereListed.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void cboStorage_TextChanged(object sender, EventArgs e)
+        {
+            model.StorageLocation = cboStorage.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtListPrice_TextChanged(object sender, EventArgs e)
+        {
+            model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", ""));
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPrice.Text != "")
+            {
+                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", "")); 
+            }
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtCostOfSale_TextChanged(object sender, EventArgs e)
+        {
+            model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtProfit_TextChanged(object sender, EventArgs e)
+        {
+            MarkFormDirty(sender, e);
+        }
+
+        
     }
 }

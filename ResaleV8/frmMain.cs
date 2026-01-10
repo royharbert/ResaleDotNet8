@@ -6,11 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ResaleV8
 {
@@ -29,8 +34,8 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            AllItemsForm = new frmAllItems();            
-            
+            AllItemsForm = new frmAllItems();
+
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -44,8 +49,13 @@ namespace ResaleV8
             GV.WhereListed = DataAccess.GetDropDownList("wherelisted");
 
             GV.BusinessSummary = new BusinessSummary();
-        }
 
+            // Get file version of the application
+            var fileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+            Console.WriteLine($"File Version: {fileVersion}");
+            this.Text = $"Resale Inventory Management System - Version {fileVersion}";
+        }
+        
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmSoldReport soldReportForm = new frmSoldReport();
@@ -75,7 +85,7 @@ namespace ResaleV8
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
-            
+
             allItemsForm.Task = "Edit Item";
         }
 
@@ -137,5 +147,7 @@ namespace ResaleV8
             GV.mode = Mode.EditWhereListed;
             openListEditorForm();
         }
+        
+        
     }
 }

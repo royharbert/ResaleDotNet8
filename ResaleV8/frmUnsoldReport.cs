@@ -43,7 +43,7 @@ namespace ResaleV8
             FormControlOps.formatDGV(dgvUnsold,
                 headers: new string[] { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
                     "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale", "Product Age",
-                    "Profit", "Storage Location" }, 
+                    "Profit", "Storage Location" },
                 columnsToHide);
             GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.BusinessSummary.UnsoldCost.ToString("C2");
@@ -55,10 +55,23 @@ namespace ResaleV8
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            ExcelOps.createExcelSheet(GV.ItemList, "Unsold Report",  hiddenColumns, ExportType.Unsold, "Unsold Items");
+            ExcelOps.createExcelSheet(GV.ItemList, "Unsold Report", hiddenColumns, ExportType.Unsold, "Unsold Items");
         }
 
         private void dgvUnsold_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int row = e.RowIndex;
+            int itemID = (int)dgvUnsold.Rows[row].Cells["ItemID"].Value;
+            GV.MODE = Mode.Edit;
+            frmAllItems allItemsForm = new frmAllItems();
+            allItemsForm.MdiParent = this.MdiParent;
+            allItemsForm.Show();
+            allItemsForm.item = itemID;
+            allItemsForm.Task = "Edit Item";
+            allItemsForm.Focus();
+        }
+
+        private void dgvUnsold_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int row = e.RowIndex;
             int itemID = (int)dgvUnsold.Rows[row].Cells["ItemID"].Value;

@@ -69,15 +69,14 @@
             label16 = new Label();
             txtCostOfSale = new TextBox();
             label17 = new Label();
-            btnMarkSold = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI", 11.25F);
-            label1.Location = new Point(78, 66);
+            label1.Location = new Point(89, 116);
             label1.Name = "label1";
-            label1.Size = new Size(200, 25);
+            label1.Size = new Size(210, 32);
             label1.TabIndex = 0;
             label1.Text = "Item ID#";
             label1.TextAlign = ContentAlignment.MiddleRight;
@@ -85,58 +84,58 @@
             // txtID
             // 
             txtID.Enabled = false;
-            txtID.Location = new Point(284, 64);
+            txtID.Location = new Point(320, 116);
             txtID.Name = "txtID";
-            txtID.Size = new Size(338, 29);
+            txtID.Size = new Size(394, 39);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
-            txtID.TextChanged += MarkFormDirty;
+            txtID.TextChanged += txtID_TextChanged;
             // 
             // label2
             // 
             label2.Font = new Font("Segoe UI", 11.25F);
-            label2.Location = new Point(78, 166);
+            label2.Location = new Point(89, 214);
             label2.Name = "label2";
-            label2.Size = new Size(200, 25);
+            label2.Size = new Size(210, 32);
             label2.TabIndex = 2;
             label2.Text = "Category";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtDesc
             // 
-            txtDesc.Location = new Point(284, 208);
+            txtDesc.Location = new Point(320, 260);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(338, 29);
+            txtDesc.Size = new Size(394, 39);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
-            txtDesc.TextChanged += MarkFormDirty;
+            txtDesc.TextChanged += txtDesc_TextChanged;
             // 
             // label3
             // 
             label3.Font = new Font("Segoe UI", 11.25F);
-            label3.Location = new Point(77, 217);
+            label3.Location = new Point(88, 263);
             label3.Name = "label3";
-            label3.Size = new Size(200, 25);
+            label3.Size = new Size(210, 32);
             label3.TabIndex = 4;
             label3.Text = "Description";
             label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new Point(284, 355);
+            txtQuantity.Location = new Point(320, 407);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(338, 29);
+            txtQuantity.Size = new Size(394, 39);
             txtQuantity.TabIndex = 6;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
-            txtQuantity.TextChanged += MarkFormDirty;
+            txtQuantity.TextChanged += txtQuantity_TextChanged;
             // 
             // label4
             // 
             label4.Font = new Font("Segoe UI", 11.25F);
-            label4.Location = new Point(78, 360);
+            label4.Location = new Point(89, 410);
             label4.Name = "label4";
-            label4.Size = new Size(200, 25);
+            label4.Size = new Size(210, 32);
             label4.TabIndex = 6;
             label4.Text = "Quantity";
             label4.TextAlign = ContentAlignment.MiddleRight;
@@ -144,28 +143,28 @@
             // label5
             // 
             label5.Font = new Font("Segoe UI", 11.25F);
-            label5.Location = new Point(78, 311);
+            label5.Location = new Point(89, 361);
             label5.Name = "label5";
-            label5.Size = new Size(200, 25);
+            label5.Size = new Size(210, 32);
             label5.TabIndex = 8;
             label5.Text = "Purchase Date";
             label5.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtPurchasePrice
             // 
-            txtPurchasePrice.Location = new Point(286, 403);
+            txtPurchasePrice.Location = new Point(322, 455);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(338, 29);
+            txtPurchasePrice.Size = new Size(394, 39);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
-            txtPurchasePrice.TextChanged += MarkFormDirty;
+            txtPurchasePrice.TextChanged += txtPurchasePrice_TextChanged;
             // 
             // label6
             // 
             label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(80, 406);
+            label6.Location = new Point(91, 456);
             label6.Name = "label6";
-            label6.Size = new Size(200, 25);
+            label6.Size = new Size(210, 32);
             label6.TabIndex = 10;
             label6.Text = "Purchase Price";
             label6.TextAlign = ContentAlignment.MiddleRight;
@@ -173,29 +172,29 @@
             // label7
             // 
             label7.Font = new Font("Segoe UI", 11.25F);
-            label7.Location = new Point(80, 761);
+            label7.Location = new Point(726, 373);
             label7.Name = "label7";
-            label7.Size = new Size(200, 23);
+            label7.Size = new Size(146, 27);
             label7.TabIndex = 12;
             label7.Text = "Sale Date";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(287, 665);
+            txtPrice.Location = new Point(879, 246);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(338, 29);
+            txtPrice.Size = new Size(415, 39);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
-            txtPrice.TextChanged += MarkFormDirty;
+            txtPrice.TextChanged += txtPrice_TextChanged;
             txtPrice.Leave += txtPrice_Leave;
             // 
             // label8
             // 
             label8.Font = new Font("Segoe UI", 11.25F);
-            label8.Location = new Point(80, 668);
+            label8.Location = new Point(726, 248);
             label8.Name = "label8";
-            label8.Size = new Size(200, 23);
+            label8.Size = new Size(146, 27);
             label8.TabIndex = 14;
             label8.Text = "Sale Price";
             label8.TextAlign = ContentAlignment.MiddleRight;
@@ -203,9 +202,9 @@
             // label9
             // 
             label9.Font = new Font("Segoe UI", 11.25F);
-            label9.Location = new Point(78, 508);
+            label9.Location = new Point(89, 561);
             label9.Name = "label9";
-            label9.Size = new Size(200, 25);
+            label9.Size = new Size(210, 32);
             label9.TabIndex = 16;
             label9.Text = "Storage Location";
             label9.TextAlign = ContentAlignment.MiddleRight;
@@ -213,18 +212,20 @@
             // txtProfit
             // 
             txtProfit.Enabled = false;
-            txtProfit.Location = new Point(284, 805);
+            txtProfit.Location = new Point(876, 434);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(338, 29);
+            txtProfit.ReadOnly = true;
+            txtProfit.Size = new Size(415, 39);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
+            txtProfit.TextChanged += txtProfit_TextChanged;
             // 
             // label10
             // 
             label10.Font = new Font("Segoe UI", 11.25F);
-            label10.Location = new Point(78, 809);
+            label10.Location = new Point(724, 437);
             label10.Name = "label10";
-            label10.Size = new Size(200, 23);
+            label10.Size = new Size(146, 27);
             label10.TabIndex = 18;
             label10.Text = "Profit";
             label10.TextAlign = ContentAlignment.MiddleRight;
@@ -232,18 +233,19 @@
             // txtDaysHeld
             // 
             txtDaysHeld.Enabled = false;
-            txtDaysHeld.Location = new Point(284, 856);
+            txtDaysHeld.Location = new Point(876, 501);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(338, 29);
+            txtDaysHeld.ReadOnly = true;
+            txtDaysHeld.Size = new Size(415, 39);
             txtDaysHeld.TabIndex = 15;
             txtDaysHeld.Tag = "ProductAge";
             // 
             // label11
             // 
             label11.Font = new Font("Segoe UI", 11.25F);
-            label11.Location = new Point(80, 858);
+            label11.Location = new Point(726, 502);
             label11.Name = "label11";
-            label11.Size = new Size(200, 23);
+            label11.Size = new Size(146, 27);
             label11.TabIndex = 20;
             label11.Text = "Days Held";
             label11.TextAlign = ContentAlignment.MiddleRight;
@@ -253,28 +255,29 @@
             cboCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboCategory.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboCategory.FormattingEnabled = true;
-            cboCategory.Location = new Point(285, 160);
+            cboCategory.Location = new Point(321, 212);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(339, 29);
+            cboCategory.Size = new Size(395, 40);
             cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
+            cboCategory.TextUpdate += cboCategory_TextUpdate;
             cboCategory.Leave += cboCategory_Leave;
             // 
             // dtpBuy
             // 
-            dtpBuy.Location = new Point(284, 307);
+            dtpBuy.Location = new Point(320, 359);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(338, 29);
+            dtpBuy.Size = new Size(394, 39);
             dtpBuy.TabIndex = 5;
             dtpBuy.Tag = "PurchaseDate";
-            dtpBuy.ValueChanged += MarkFormDirty;
+            dtpBuy.ValueChanged += dtpBuy_ValueChanged;
             // 
             // dtpSaleDate
             // 
-            dtpSaleDate.Location = new Point(287, 758);
+            dtpSaleDate.Location = new Point(879, 371);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(338, 29);
+            dtpSaleDate.Size = new Size(415, 39);
             dtpSaleDate.TabIndex = 13;
             dtpSaleDate.Tag = "SaleDate";
             dtpSaleDate.ValueChanged += dtpSaleDate_ValueChanged;
@@ -284,7 +287,7 @@
             btnSave.BackColor = Color.FromArgb(192, 255, 192);
             btnSave.Image = (Image)resources.GetObject("btnSave.Image");
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSave.Location = new Point(742, 185);
+            btnSave.Location = new Point(1388, 279);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(190, 58);
             btnSave.TabIndex = 17;
@@ -298,7 +301,7 @@
             btnClose.BackColor = Color.FromArgb(192, 255, 192);
             btnClose.Image = Properties.Resources._5402366_delete_remove_cross_cancel_close_icon;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(742, 559);
+            btnClose.Location = new Point(1388, 513);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(190, 50);
             btnClose.TabIndex = 20;
@@ -312,7 +315,7 @@
             btnRetrieve.BackColor = Color.FromArgb(192, 255, 192);
             btnRetrieve.Image = Properties.Resources._8140873_pos_billing_retrieve_download_revoke_icon;
             btnRetrieve.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRetrieve.Location = new Point(742, 123);
+            btnRetrieve.Location = new Point(1388, 214);
             btnRetrieve.Name = "btnRetrieve";
             btnRetrieve.Size = new Size(190, 50);
             btnRetrieve.TabIndex = 16;
@@ -326,7 +329,7 @@
             btnDelete.BackColor = Color.FromArgb(192, 255, 192);
             btnDelete.Image = Properties.Resources._8666786_x_octagon_delete_icon;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(742, 259);
+            btnDelete.Location = new Point(1388, 353);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(190, 50);
             btnDelete.TabIndex = 18;
@@ -338,7 +341,7 @@
             // lblTask
             // 
             lblTask.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTask.Location = new Point(524, 9);
+            lblTask.Location = new Point(652, 20);
             lblTask.Name = "lblTask";
             lblTask.Size = new Size(276, 41);
             lblTask.TabIndex = 22;
@@ -350,7 +353,7 @@
             btnSearch.BackColor = Color.FromArgb(192, 255, 192);
             btnSearch.Image = Properties.Resources._8666693_search_icon;
             btnSearch.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSearch.Location = new Point(742, 327);
+            btnSearch.Location = new Point(1388, 421);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(190, 50);
             btnSearch.TabIndex = 19;
@@ -362,9 +365,9 @@
             // label13
             // 
             label13.Font = new Font("Segoe UI", 11.25F);
-            label13.Location = new Point(77, 261);
+            label13.Location = new Point(88, 311);
             label13.Name = "label13";
-            label13.Size = new Size(200, 25);
+            label13.Size = new Size(210, 32);
             label13.TabIndex = 25;
             label13.Text = "Purchase Source";
             label13.TextAlign = ContentAlignment.MiddleRight;
@@ -372,9 +375,9 @@
             // label14
             // 
             label14.Font = new Font("Segoe UI", 11.25F);
-            label14.Location = new Point(77, 116);
+            label14.Location = new Point(88, 166);
             label14.Name = "label14";
-            label14.Size = new Size(200, 25);
+            label14.Size = new Size(210, 32);
             label14.TabIndex = 26;
             label14.Text = "Brand";
             label14.TextAlign = ContentAlignment.MiddleRight;
@@ -382,12 +385,12 @@
             // cboStorage
             // 
             cboStorage.FormattingEnabled = true;
-            cboStorage.Location = new Point(284, 508);
+            cboStorage.Location = new Point(320, 560);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(338, 29);
+            cboStorage.Size = new Size(394, 40);
             cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
-            cboStorage.TextChanged += MarkFormDirty;
+            cboStorage.TextChanged += cboStorage_TextChanged;
             cboStorage.Leave += cboStorage_Leave;
             // 
             // cboBrand
@@ -395,13 +398,13 @@
             cboBrand.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboBrand.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboBrand.FormattingEnabled = true;
-            cboBrand.Location = new Point(284, 112);
+            cboBrand.Location = new Point(320, 164);
             cboBrand.Name = "cboBrand";
-            cboBrand.Size = new Size(338, 29);
+            cboBrand.Size = new Size(394, 40);
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
-            cboBrand.TextChanged += MarkFormDirty;
+            cboBrand.TextChanged += cboBrand_TextChanged;
             cboBrand.Leave += cboBrand_Leave;
             // 
             // cboPurchaseSource
@@ -409,32 +412,32 @@
             cboPurchaseSource.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboPurchaseSource.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPurchaseSource.FormattingEnabled = true;
-            cboPurchaseSource.Location = new Point(284, 256);
+            cboPurchaseSource.Location = new Point(320, 308);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(339, 29);
+            cboPurchaseSource.Size = new Size(395, 40);
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
-            cboPurchaseSource.TextChanged += MarkFormDirty;
+            cboPurchaseSource.TextChanged += cboPurchaseSource_TextChanged;
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 
             // cboWhereListed
             // 
             cboWhereListed.FormattingEnabled = true;
-            cboWhereListed.Location = new Point(284, 454);
+            cboWhereListed.Location = new Point(320, 506);
             cboWhereListed.Name = "cboWhereListed";
-            cboWhereListed.Size = new Size(338, 29);
+            cboWhereListed.Size = new Size(394, 40);
             cboWhereListed.Sorted = true;
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
-            cboWhereListed.TextChanged += MarkFormDirty;
+            cboWhereListed.TextChanged += cboWhereListed_TextChanged;
             cboWhereListed.Leave += cboWhereListed_Leave;
             // 
             // dtpDateListed
             // 
-            dtpDateListed.Location = new Point(286, 559);
+            dtpDateListed.Location = new Point(322, 611);
             dtpDateListed.Name = "dtpDateListed";
-            dtpDateListed.Size = new Size(339, 29);
+            dtpDateListed.Size = new Size(395, 39);
             dtpDateListed.TabIndex = 10;
             dtpDateListed.Tag = "ListingDate";
             dtpDateListed.ValueChanged += dtpDateListed_ValueChanged;
@@ -442,9 +445,9 @@
             // label12
             // 
             label12.Font = new Font("Segoe UI", 11.25F);
-            label12.Location = new Point(78, 460);
+            label12.Location = new Point(89, 510);
             label12.Name = "label12";
-            label12.Size = new Size(200, 25);
+            label12.Size = new Size(210, 32);
             label12.TabIndex = 29;
             label12.Text = "Where Listed";
             label12.TextAlign = ContentAlignment.MiddleRight;
@@ -452,70 +455,57 @@
             // label15
             // 
             label15.Font = new Font("Segoe UI", 11.25F);
-            label15.Location = new Point(81, 562);
+            label15.Location = new Point(92, 615);
             label15.Name = "label15";
-            label15.Size = new Size(200, 23);
+            label15.Size = new Size(210, 30);
             label15.TabIndex = 30;
             label15.Text = "Date Listed";
             label15.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtListPrice
             // 
-            txtListPrice.Location = new Point(285, 611);
+            txtListPrice.Location = new Point(321, 663);
             txtListPrice.Name = "txtListPrice";
-            txtListPrice.Size = new Size(338, 29);
+            txtListPrice.Size = new Size(394, 39);
             txtListPrice.TabIndex = 11;
             txtListPrice.Tag = "ListPrice";
+            txtListPrice.TextChanged += txtListPrice_TextChanged;
             // 
             // label16
             // 
             label16.Font = new Font("Segoe UI", 11.25F);
-            label16.Location = new Point(79, 612);
+            label16.Location = new Point(90, 665);
             label16.Name = "label16";
-            label16.Size = new Size(200, 23);
+            label16.Size = new Size(210, 30);
             label16.TabIndex = 32;
             label16.Text = "List Price";
             label16.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtCostOfSale
             // 
-            txtCostOfSale.Location = new Point(284, 714);
+            txtCostOfSale.Location = new Point(876, 311);
             txtCostOfSale.Name = "txtCostOfSale";
-            txtCostOfSale.Size = new Size(338, 29);
+            txtCostOfSale.Size = new Size(415, 39);
             txtCostOfSale.TabIndex = 33;
             txtCostOfSale.Tag = "SalePrice";
+            txtCostOfSale.TextChanged += txtCostOfSale_TextChanged;
             txtCostOfSale.Leave += txtCostOfSale_Leave;
             // 
             // label17
             // 
             label17.Font = new Font("Segoe UI", 11.25F);
-            label17.Location = new Point(77, 717);
+            label17.Location = new Point(723, 313);
             label17.Name = "label17";
-            label17.Size = new Size(200, 23);
+            label17.Size = new Size(146, 27);
             label17.TabIndex = 34;
             label17.Text = "Cost of Sale";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnMarkSold
-            // 
-            btnMarkSold.BackColor = Color.FromArgb(192, 255, 192);
-            btnMarkSold.Image = (Image)resources.GetObject("btnMarkSold.Image");
-            btnMarkSold.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMarkSold.Location = new Point(742, 403);
-            btnMarkSold.Name = "btnMarkSold";
-            btnMarkSold.Size = new Size(190, 80);
-            btnMarkSold.TabIndex = 35;
-            btnMarkSold.Text = "Mark Sold";
-            btnMarkSold.TextAlign = ContentAlignment.MiddleRight;
-            btnMarkSold.UseVisualStyleBackColor = false;
-            btnMarkSold.Click += btnMarkSold_Click;
-            // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1100, 974);
-            Controls.Add(btnMarkSold);
+            ClientSize = new Size(1580, 745);
             Controls.Add(txtCostOfSale);
             Controls.Add(label17);
             Controls.Add(txtListPrice);
@@ -609,6 +599,5 @@
         public ComboBox cboWhereListed;
         private TextBox txtCostOfSale;
         private Label label17;
-        private Button btnMarkSold;
     }
 }
