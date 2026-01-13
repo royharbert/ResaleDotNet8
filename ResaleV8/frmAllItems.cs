@@ -807,7 +807,12 @@ namespace ResaleV8
 
         private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
         {
-            model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
+            if (txtPurchasePrice.Text != "") ;
+            {
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
+
+            }
+            
             MarkFormDirty(sender, e);
         }
 
