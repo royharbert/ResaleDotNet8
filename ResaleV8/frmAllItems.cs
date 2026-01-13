@@ -426,16 +426,16 @@ namespace ResaleV8
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
-                if (GV.MODE != Mode.Edit)
-                {
-                    model.SaleDate = new DateTime(1900, 01, 01);
-                    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                }
-                else
-                {
-                    model.SaleDate = dtpSaleDate.Value;
-                    dtpSaleDate.Format = DateTimePickerFormat.Long;
-                }
+                //if (GV.MODE != Mode.Edit)
+                //{
+                //    model.SaleDate = new DateTime(1900, 01, 01);
+                //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
+                //}
+                //else
+                //{
+                //    model.SaleDate = dtpSaleDate.Value;
+                //    dtpSaleDate.Format = DateTimePickerFormat.Long;
+                //}
 
 
                 if (txtPrice.Text != "")
@@ -729,7 +729,7 @@ namespace ResaleV8
 
         private void cboBrand_Leave(object sender, EventArgs e)
         {
-            model.Brand = cboBrand.Text;
+            //model.Brand = cboBrand.Text;
             comboListMaintenance(sender, e);
         }
 
@@ -807,20 +807,20 @@ namespace ResaleV8
 
         private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
         {
-            if (txtPurchasePrice.Text != "") ;
-            {
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
+            if (txtPurchasePrice.Text != "")
+            {                
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));                 
 
             }
             
             MarkFormDirty(sender, e);
         }
 
-        private void txtID_TextChanged(object sender, EventArgs e)
-        {
-            model.ItemID = Convert.ToInt32(txtID.Text);
-            MarkFormDirty(sender, e);
-        }
+        //private void txtID_TextChanged(object sender, EventArgs e)
+        //{
+        //    model.ItemID = Convert.ToInt32(txtID.Text);
+        //    MarkFormDirty(sender, e);
+        //}
 
         private void cboBrand_TextChanged(object sender, EventArgs e)
         {
@@ -869,7 +869,10 @@ namespace ResaleV8
 
         private void txtListPrice_TextChanged(object sender, EventArgs e)
         {
-            model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", ""));
+            if (txtListPrice.Text != "")
+            {
+                model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", "")); 
+            }
             MarkFormDirty(sender, e);
         }
 

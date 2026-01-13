@@ -89,7 +89,7 @@
             txtID.Size = new Size(394, 29);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
-            txtID.TextChanged += txtID_TextChanged;
+            //txtID.TextChanged += txtID_TextChanged;
             // 
             // label2
             // 
