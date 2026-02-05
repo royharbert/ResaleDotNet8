@@ -921,6 +921,7 @@ namespace ResaleV8
         {
             if(GV.MODE == Mode.SellThru)
             {
+                lblTask.Text = "Sell Thru Report";
                 enableDisableControls(allControls, false);
                 cboBrand.Enabled = true;
             }
