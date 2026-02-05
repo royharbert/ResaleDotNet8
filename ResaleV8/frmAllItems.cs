@@ -626,7 +626,10 @@ namespace ResaleV8
             {
                 dtpSaleDate.Format = DateTimePickerFormat.Long;
                 dtpSaleDate.Value = DateTime.Now;
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+                if (txtPrice.Text != "")
+                {
+                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", "")); 
+                }
                 txtPrice.Text = model.SalePrice.ToString("$0.00");
             }
             else
