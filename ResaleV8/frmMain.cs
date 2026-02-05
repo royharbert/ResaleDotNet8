@@ -148,6 +148,7 @@ namespace ResaleV8
 
         private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            GV.MODE = Mode.SellThru;
             AllItemsForm.Show();
         }
     }

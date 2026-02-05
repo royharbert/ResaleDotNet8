@@ -563,6 +563,7 @@
             Name = "frmAllItems";
             Text = "Resale Items";
             WindowState = FormWindowState.Maximized;
+            Activated += frmAllItems_Activated;
             FormClosing += frmAllItems_FormClosing;
             Load += frmAllItems_Load;
             ResumeLayout(false);

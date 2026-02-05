@@ -904,7 +904,10 @@ namespace ResaleV8
             int totalItems = allItems.Count;
             int totalSold = soldItems.Count;
             Single pctSellThru = totalSold * 100 / totalItems;
-            decimal profitPct = soldItems.Sum(i => i.Profit) / soldItems.Sum(i => i.PurchasePrice) * 100;
+            //if (soldItems.Sum(i => i.PurchasePrice != 0)
+            //{
+                decimal profitPct = soldItems.Sum(i => i.Profit) / soldItems.Sum(i => i.PurchasePrice) * 100; 
+            //}
             decimal financialPoition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
             MessageBox.Show($"Brand: {cboBrand.Text}\n" +
                 $"Total Items: {totalItems}\n" +
@@ -912,6 +915,15 @@ namespace ResaleV8
                 $"Sell Thru %: {pctSellThru}%\n" +
                 $"Profit %: {profitPct.ToString("0.00")}%\n" +
                 $"Financial Position: {financialPoition.ToString("C")}");
+        }
+
+        private void frmAllItems_Activated(object sender, EventArgs e)
+        {
+            if(GV.MODE == Mode.SellThru)
+            {
+                enableDisableControls(allControls, false);
+                cboBrand.Enabled = true;
+            }
         }
     }
 }
