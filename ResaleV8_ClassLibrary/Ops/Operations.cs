@@ -14,6 +14,12 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static List<ItemModel> DoBrandSellThru(string brand)
+        {
+            List<ItemModel> brandList = DataAccess.GetItemsByBrand(brand);
+            return brandList;
+        }
+
         public static void RefreshDDList(ComboBox cbo, List<GenericModel> list)
         {
             cbo.Items.Clear();

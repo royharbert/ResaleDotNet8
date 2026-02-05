@@ -13,6 +13,18 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static List<ItemModel> GetItemsByBrand(string brand)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string sql = "SELECT * FROM purchaseditems where Brand = '" + brand + "';";
+                List<ItemModel> models =
+                        con.Query<ItemModel>(sql, commandType: CommandType.Text).AsList();
+                return models;
+            }
+        }
+
         public static ItemModel GetItemByID(int itemID)
         {
             MySqlConnection con = ConnectToDB.OpenDB();

@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>ResaleV8.Program</StartupObject>
-    <AssemblyVersion>1.0.0.7</AssemblyVersion>
+    <AssemblyVersion>1.0.0.8</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

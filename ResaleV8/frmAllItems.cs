@@ -266,7 +266,7 @@ namespace ResaleV8
                 txtDaysHeld.Text = model.ProductAge.ToString();
                 if (model.Profit > 0)
                 {
-                    txtProfit.Text = model.Profit.ToString("$0.00"); 
+                    txtProfit.Text = model.Profit.ToString("$0.00");
                 }
                 formLoading = false;
             }
@@ -617,7 +617,7 @@ namespace ResaleV8
                 dtpSaleDate.Value = DateTime.Now;
                 if (txtPrice.Text != "")
                 {
-                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", "")); 
+                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
                 }
                 txtPrice.Text = model.SalePrice.ToString("$0.00");
             }
@@ -809,11 +809,11 @@ namespace ResaleV8
         private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
         {
             if (txtPurchasePrice.Text != "")
-            {                
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));                 
+            {
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
 
             }
-            
+
             MarkFormDirty(sender, e);
         }
 
@@ -851,7 +851,7 @@ namespace ResaleV8
         {
             if (txtQuantity.Text != "")
             {
-                model.Quantity = Convert.ToInt32(txtQuantity.Text); 
+                model.Quantity = Convert.ToInt32(txtQuantity.Text);
             }
             MarkFormDirty(sender, e);
         }
@@ -872,7 +872,7 @@ namespace ResaleV8
         {
             if (txtListPrice.Text != "")
             {
-                model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", "")); 
+                model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", ""));
             }
             MarkFormDirty(sender, e);
         }
@@ -881,7 +881,7 @@ namespace ResaleV8
         {
             if (txtPrice.Text != "")
             {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", "")); 
+                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
             }
             MarkFormDirty(sender, e);
         }
@@ -897,6 +897,21 @@ namespace ResaleV8
             MarkFormDirty(sender, e);
         }
 
-        
+        private void btnSellThru_Click(object sender, EventArgs e)
+        {
+            List<ItemModel> allItems = Operations.DoBrandSellThru(cboBrand.Text);
+            List<ItemModel> soldItems = allItems.Where(i => i.SalePrice > 0).ToList();
+            int totalItems = allItems.Count;
+            int totalSold = soldItems.Count;
+            Single pctSellThru = totalSold * 100 / totalItems;
+            decimal profitPct = soldItems.Sum(i => i.Profit) / soldItems.Sum(i => i.PurchasePrice) * 100;
+            decimal financialPoition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
+            MessageBox.Show($"Brand: {cboBrand.Text}\n" +
+                $"Total Items: {totalItems}\n" +
+                $"Total Sold: {totalSold}\n" +
+                $"Sell Thru %: {pctSellThru}%\n" +
+                $"Profit %: {profitPct.ToString("0.00")}%\n" +
+                $"Financial Position: {financialPoition.ToString("C")}");
+        }
     }
 }
