@@ -426,17 +426,6 @@ namespace ResaleV8
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
-                //if (GV.MODE != Mode.Edit)
-                //{
-                //    model.SaleDate = new DateTime(1900, 01, 01);
-                //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                //}
-                //else
-                //{
-                //    model.SaleDate = dtpSaleDate.Value;
-                //    dtpSaleDate.Format = DateTimePickerFormat.Long;
-                //}
-
 
                 if (txtPrice.Text != "")
                 {
@@ -693,12 +682,21 @@ namespace ResaleV8
             string sql = "Select * from purchasedItems where ";
             foreach ((string, string) c in searchQuery)
             {
-                sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                if (c.Item1 == "ProductAge" && c.Item2.Length >= 5)
+                {
+                    //sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                    break;
+                }
+                else
+                {
+                    sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                }
             }
             sql = sql.Substring(0, sql.Length - 5);
             List<ItemModel> models = DataAccess.getModelList(sql);
             frmSearchResults resultsForm = new frmSearchResults();
             resultsForm.Models = models;
+            Close();
             resultsForm.ShowDialog();
         }
 
@@ -761,7 +759,7 @@ namespace ResaleV8
         {
             e.Cancel = true;
             DialogResult result = DialogResult.None;
-            if (formDirty)
+            if (formDirty && GV.MODE != Mode.Search)
             {
                 result = MessageBox.Show("Save changses before closing?", "Confirm Close",
                                 MessageBoxButtons.YesNoCancel);

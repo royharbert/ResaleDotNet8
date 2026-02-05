@@ -37,12 +37,13 @@
             // dgvSearchresults
             // 
             dgvSearchresults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSearchresults.Location = new Point(0, 32);
-            dgvSearchresults.Margin = new Padding(3, 4, 3, 4);
+            dgvSearchresults.Location = new Point(0, 40);
+            dgvSearchresults.Margin = new Padding(4, 5, 4, 5);
             dgvSearchresults.Name = "dgvSearchresults";
             dgvSearchresults.RowHeadersWidth = 51;
-            dgvSearchresults.Size = new Size(1728, 703);
+            dgvSearchresults.Size = new Size(2160, 879);
             dgvSearchresults.TabIndex = 0;
+            dgvSearchresults.CellContentDoubleClick += dgvSearchresults_CellContentDoubleClick;
             dgvSearchresults.RowHeaderMouseDoubleClick += dgvSearchresults_RowHeaderMouseDoubleClick;
             // 
             // btnExport
@@ -51,9 +52,10 @@
             btnExport.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnExport.Image = Properties.Resources.icons8_excel_50;
             btnExport.ImageAlign = ContentAlignment.TopCenter;
-            btnExport.Location = new Point(840, 777);
+            btnExport.Location = new Point(1050, 971);
+            btnExport.Margin = new Padding(4);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(128, 125);
+            btnExport.Size = new Size(160, 156);
             btnExport.TabIndex = 2;
             btnExport.Text = "Export to Excel";
             btnExport.TextAlign = ContentAlignment.BottomCenter;
@@ -66,9 +68,10 @@
             btnClose.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnClose.Image = Properties.Resources._5402366_delete_remove_cross_cancel_close_icon;
             btnClose.ImageAlign = ContentAlignment.TopCenter;
-            btnClose.Location = new Point(1586, 777);
+            btnClose.Location = new Point(1982, 971);
+            btnClose.Margin = new Padding(4);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(128, 125);
+            btnClose.Size = new Size(160, 156);
             btnClose.TabIndex = 3;
             btnClose.Text = "Close";
             btnClose.TextAlign = ContentAlignment.BottomCenter;
@@ -77,13 +80,13 @@
             // 
             // frmSearchResults
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1742, 940);
+            ClientSize = new Size(2178, 1175);
             Controls.Add(btnClose);
             Controls.Add(btnExport);
             Controls.Add(dgvSearchresults);
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "frmSearchResults";
             Text = "Search Results";
             Load += frmSearchResults_Load;
