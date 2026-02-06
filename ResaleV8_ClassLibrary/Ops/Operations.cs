@@ -14,6 +14,44 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static SellThruModel DoSellThru(string brand, List<ItemModel> allItems)
+        {
+            SellThruModel sellThru = new SellThruModel();
+            List<ItemModel> soldItems = allItems.Where(i => i.SalePrice > 0).ToList();
+            sellThru.TotalItems = allItems.Count;
+            sellThru.TotalSold = soldItems.Count;
+            sellThru.SellThruPct = sellThru.TotalSold * 100 / sellThru.TotalItems;
+            //if (soldItems.Sum(i => i.PurchasePrice != 0)
+            //{
+            decimal totalPurchasePrice = soldItems.Sum(i => i.PurchasePrice);
+            if (totalPurchasePrice > 0)
+            {
+                sellThru.ProfitPct = soldItems.Sum(i => i.Profit) / totalPurchasePrice * 100; 
+            }
+            //}
+            sellThru.FinancialPosition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
+            //MessageBox.Show($"Brand: {brand}\n" +
+            //    $"Total Items: {totalItems}\n" +
+            //    $"Total Sold: {totalSold}\n" +
+            //    $"Sell Thru %: {pctSellThru}%\n" +
+            //    $"Profit %: {profitPct.ToString("0.00")}%\n" +
+            //    $"Financial Position: {financialPoition.ToString("C")}");
+            return sellThru;
+        }
+
+        public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
+        {
+            List<SellThruModel> sellThruList = new List<SellThruModel>();
+            foreach (string brand in brands)
+            {
+                List<ItemModel> brandList = DoBrandSellThru(brand);
+                SellThruModel sellThru = DoSellThru(brand, brandList);
+                sellThruList.Add(sellThru);
+            }
+
+            return sellThruList;
+        }
+
         public static List<ItemModel> DoBrandSellThru(string brand)
         {
             List<ItemModel> brandList = DataAccess.GetItemsByBrand(brand);

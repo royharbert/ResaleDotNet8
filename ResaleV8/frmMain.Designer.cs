@@ -34,6 +34,7 @@
             reportsToolStripMenuItem = new ToolStripMenuItem();
             soldItemReportToolStripMenuItem = new ToolStripMenuItem();
             unsoldItemToolStripMenuItem = new ToolStripMenuItem();
+            brandSellthruToolStripMenuItem = new ToolStripMenuItem();
             editRecordToolStripMenuItem = new ToolStripMenuItem();
             addItemToolStripMenuItem1 = new ToolStripMenuItem();
             editItemToolStripMenuItem = new ToolStripMenuItem();
@@ -45,7 +46,6 @@
             brandToolStripMenuItem = new ToolStripMenuItem();
             sToolStripMenuItem = new ToolStripMenuItem();
             whereListedToolStripMenuItem = new ToolStripMenuItem();
-            brandSellthruToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,6 +80,7 @@
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
             reportsToolStripMenuItem.Size = new Size(94, 29);
             reportsToolStripMenuItem.Text = " Reports";
+            reportsToolStripMenuItem.Click += reportsToolStripMenuItem_Click;
             // 
             // soldItemReportToolStripMenuItem
             // 
@@ -94,6 +95,13 @@
             unsoldItemToolStripMenuItem.Size = new Size(270, 34);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
+            // 
+            // brandSellthruToolStripMenuItem
+            // 
+            brandSellthruToolStripMenuItem.Name = "brandSellthruToolStripMenuItem";
+            brandSellthruToolStripMenuItem.Size = new Size(270, 34);
+            brandSellthruToolStripMenuItem.Text = "Brand Sell-thru";
+            brandSellthruToolStripMenuItem.Click += brandSellthruToolStripMenuItem_Click;
             // 
             // editRecordToolStripMenuItem
             // 
@@ -172,13 +180,6 @@
             whereListedToolStripMenuItem.Size = new Size(255, 34);
             whereListedToolStripMenuItem.Text = "Where Listed";
             whereListedToolStripMenuItem.Click += whereListedToolStripMenuItem_Click;
-            // 
-            // brandSellthruToolStripMenuItem
-            // 
-            brandSellthruToolStripMenuItem.Name = "brandSellthruToolStripMenuItem";
-            brandSellthruToolStripMenuItem.Size = new Size(270, 34);
-            brandSellthruToolStripMenuItem.Text = "Brand Sell-thru";
-            brandSellthruToolStripMenuItem.Click += brandSellthruToolStripMenuItem_Click;
             // 
             // frmMain
             // 

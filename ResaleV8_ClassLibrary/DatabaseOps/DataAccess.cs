@@ -13,6 +13,18 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static List<string> GetAllBrands()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string sql = "SELECT DISTINCT Brand FROM purchaseditems;";
+                List<string> brands =
+                        con.Query<string>(sql, commandType: CommandType.Text).AsList();
+                return brands;
+            }
+        }
+
         public static List<ItemModel> GetItemsByBrand(string brand)
         {
             MySqlConnection con = ConnectToDB.OpenDB();

@@ -899,22 +899,8 @@ namespace ResaleV8
 
         private void btnSellThru_Click(object sender, EventArgs e)
         {
-            List<ItemModel> allItems = Operations.DoBrandSellThru(cboBrand.Text);
-            List<ItemModel> soldItems = allItems.Where(i => i.SalePrice > 0).ToList();
-            int totalItems = allItems.Count;
-            int totalSold = soldItems.Count;
-            Single pctSellThru = totalSold * 100 / totalItems;
-            //if (soldItems.Sum(i => i.PurchasePrice != 0)
-            //{
-                decimal profitPct = soldItems.Sum(i => i.Profit) / soldItems.Sum(i => i.PurchasePrice) * 100; 
-            //}
-            decimal financialPoition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
-            MessageBox.Show($"Brand: {cboBrand.Text}\n" +
-                $"Total Items: {totalItems}\n" +
-                $"Total Sold: {totalSold}\n" +
-                $"Sell Thru %: {pctSellThru}%\n" +
-                $"Profit %: {profitPct.ToString("0.00")}%\n" +
-                $"Financial Position: {financialPoition.ToString("C")}");
+            List<string> brands = DataAccess.GetAllBrands();
+            List<SellThruModel> allItems = Operations.DoBrandsSellThru(brands);
         }
 
         private void frmAllItems_Activated(object sender, EventArgs e)

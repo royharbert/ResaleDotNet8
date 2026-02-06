@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
@@ -149,7 +150,13 @@ namespace ResaleV8
         private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.SellThru;
-            AllItemsForm.Show();
+            List<string> brands =DataAccess.GetAllBrands();
+            List<SellThruModel> sellThrus =Operations.DoBrandsSellThru(brands);
+        }
+
+        private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
