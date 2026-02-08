@@ -8,6 +8,7 @@ namespace ResaleV8_ClassLibrary.Models
 {
     public class SellThruModel
     {
+        public string Brand { get; set; }
         public int TotalItems { get; set; }
         public int TotalSold { get; set; }
         public Single SellThruPct { get; set; }

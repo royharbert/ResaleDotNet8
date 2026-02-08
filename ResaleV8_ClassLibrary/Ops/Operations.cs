@@ -18,24 +18,16 @@ namespace ResaleV8_ClassLibrary.Ops
         {
             SellThruModel sellThru = new SellThruModel();
             List<ItemModel> soldItems = allItems.Where(i => i.SalePrice > 0).ToList();
+            sellThru.Brand = brand;
             sellThru.TotalItems = allItems.Count;
             sellThru.TotalSold = soldItems.Count;
             sellThru.SellThruPct = sellThru.TotalSold * 100 / sellThru.TotalItems;
-            //if (soldItems.Sum(i => i.PurchasePrice != 0)
-            //{
             decimal totalPurchasePrice = soldItems.Sum(i => i.PurchasePrice);
             if (totalPurchasePrice > 0)
             {
                 sellThru.ProfitPct = soldItems.Sum(i => i.Profit) / totalPurchasePrice * 100; 
             }
-            //}
             sellThru.FinancialPosition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
-            //MessageBox.Show($"Brand: {brand}\n" +
-            //    $"Total Items: {totalItems}\n" +
-            //    $"Total Sold: {totalSold}\n" +
-            //    $"Sell Thru %: {pctSellThru}%\n" +
-            //    $"Profit %: {profitPct.ToString("0.00")}%\n" +
-            //    $"Financial Position: {financialPoition.ToString("C")}");
             return sellThru;
         }
 
@@ -43,12 +35,15 @@ namespace ResaleV8_ClassLibrary.Ops
         {
             List<SellThruModel> sellThruList = new List<SellThruModel>();
             foreach (string brand in brands)
-            {
-                List<ItemModel> brandList = DoBrandSellThru(brand);
-                SellThruModel sellThru = DoSellThru(brand, brandList);
-                sellThruList.Add(sellThru);
-            }
-
+                if (brand != null)
+                {
+                    {
+                        List<ItemModel> brandList = DoBrandSellThru(brand);
+                        SellThruModel sellThru = DoSellThru(brand, brandList);
+                        sellThruList.Add(sellThru);
+                    } 
+                }
+            sellThruList = sellThruList.OrderByDescending(s => s.SellThruPct).ToList();
             return sellThruList;
         }
 
@@ -129,19 +124,30 @@ namespace ResaleV8_ClassLibrary.Ops
             return data;
         }
 
-        
-        //public static DataTable ConvertListToDataTable(List<string> list, string columnName)
-        //{
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("ID", typeof(int));
-        //    dt.Columns.Add(columnName, typeof(string));
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        dt.Rows.Add(i + 1, list[i]);
-        //    }
-        //    DataAccess.addListToDropDownTable(dt, list, columnName);
-        //    return dt;
-        //}
+        public static void FormatSellThruDGV(DataGridView dgv)
+        {
+            string[] headers = new string[] { "Brand", "Total Items", "Total Sold", "Sell Thru %", "Profit %", "Financial Position" };
+            for (int i = 0; i < headers.Length; i++)
+            {
+                if (i < dgv.Columns.Count)
+                {
+                    dgv.Columns[i].HeaderText = headers[i];
+                }
+            }
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.ReadOnly = true;
+            dgv.MultiSelect = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.RowHeadersVisible = true;
+            dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
+        }
     }
 
     

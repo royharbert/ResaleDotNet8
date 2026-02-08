@@ -80,7 +80,6 @@
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
             reportsToolStripMenuItem.Size = new Size(94, 29);
             reportsToolStripMenuItem.Text = " Reports";
-            reportsToolStripMenuItem.Click += reportsToolStripMenuItem_Click;
             // 
             // soldItemReportToolStripMenuItem
             // 

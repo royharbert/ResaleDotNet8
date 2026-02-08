@@ -150,13 +150,9 @@ namespace ResaleV8
         private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.SellThru;
-            List<string> brands =DataAccess.GetAllBrands();
-            List<SellThruModel> sellThrus =Operations.DoBrandsSellThru(brands);
-        }
-
-        private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            frmSellThru sellThruForm = new frmSellThru();
+            sellThruForm.MdiParent = this;  
+            sellThruForm.Show();
         }
     }
 }
