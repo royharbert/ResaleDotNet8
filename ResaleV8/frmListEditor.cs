@@ -3,6 +3,7 @@ using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -116,6 +117,8 @@ namespace ResaleV8
                         break;
                     case "brands":
                         GV.Brands = list;
+                        list.RemoveAll(x => x.ID == idx);
+                        GV.Brands = list;   
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
@@ -130,7 +133,9 @@ namespace ResaleV8
                     string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
                     DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
                 }
-                                                                                                                                                                   
+                dgvEditor.DataSource = null;
+                dgvEditor.DataSource = list
+
             }
             else
             {
