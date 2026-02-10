@@ -145,6 +145,8 @@ namespace ResaleV8_ClassLibrary.Ops
             dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             foreach (DataGridViewColumn col in dgv.Columns)
             {
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
         }

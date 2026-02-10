@@ -28,6 +28,9 @@ namespace ResaleV8
             Operations.FormatSellThruDGV(dgvSellThru);
         }
 
-        
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

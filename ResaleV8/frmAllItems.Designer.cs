@@ -69,7 +69,6 @@
             label16 = new Label();
             txtCostOfSale = new TextBox();
             label17 = new Label();
-            btnSellThru = new Button();
             SuspendLayout();
             // 
             // label1
@@ -499,25 +498,11 @@
             label17.Text = "Cost of Sale";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnSellThru
-            // 
-            btnSellThru.BackColor = Color.FromArgb(192, 255, 192);
-            btnSellThru.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSellThru.Location = new Point(1388, 490);
-            btnSellThru.Name = "btnSellThru";
-            btnSellThru.Size = new Size(190, 50);
-            btnSellThru.TabIndex = 35;
-            btnSellThru.Text = "Brand SellThru";
-            btnSellThru.TextAlign = ContentAlignment.BottomLeft;
-            btnSellThru.UseVisualStyleBackColor = false;
-            btnSellThru.Click += btnSellThru_Click;
-            // 
             // frmAllItems
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1630, 745);
-            Controls.Add(btnSellThru);
             Controls.Add(txtCostOfSale);
             Controls.Add(label17);
             Controls.Add(txtListPrice);
@@ -612,6 +597,5 @@
         public ComboBox cboWhereListed;
         private TextBox txtCostOfSale;
         private Label label17;
-        private Button btnSellThru;
     }
 }
