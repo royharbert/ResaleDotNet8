@@ -42,6 +42,7 @@
             dgvSellThru.RowHeadersWidth = 62;
             dgvSellThru.Size = new Size(964, 874);
             dgvSellThru.TabIndex = 0;
+            dgvSellThru.ColumnHeaderMouseClick += dgvSellThru_ColumnHeaderMouseClick;
             // 
             // btnClose
             // 

@@ -149,6 +149,9 @@ namespace ResaleV8_ClassLibrary.Ops
                 col.HeaderCell.Style.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
+            dgv.Columns["FinancialPosition"].DefaultCellStyle.Format = "c";
+            dgv.Columns["SellThruPct"].DefaultCellStyle.Format = "N2";
+            dgv.Columns["ProfitPct"].DefaultCellStyle.Format = "N2";
         }
     }
 

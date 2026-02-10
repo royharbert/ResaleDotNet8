@@ -32,5 +32,33 @@ namespace ResaleV8
         {
             Close();
         }
+
+        private void dgvSellThru_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int colIndex = e.ColumnIndex;
+            List<SellThruModel> sellThruList = (List<SellThruModel>)dgvSellThru.DataSource;
+            switch (colIndex)
+            {   case 0: // Brand
+                    sellThruList = sellThruList.OrderByDescending(s => s.Brand).ToList();
+                    break;
+                case 1: // Total Items
+                    sellThruList = sellThruList.OrderByDescending(s => s.TotalItems).ToList();
+                    break;
+                case 2: // Total Sold
+                    sellThruList = sellThruList.OrderByDescending(s => s.TotalSold).ToList();
+                    break;
+                case 3: // Sell Thru %
+                    sellThruList = sellThruList.OrderByDescending(s => s.SellThruPct).ToList();
+                    break;
+                case 4: // Profit %
+                    sellThruList = sellThruList.OrderByDescending(s => s.ProfitPct).ToList();
+                    break;
+                case 5: // Financial Position
+                    sellThruList = sellThruList.OrderByDescending(s => s.FinancialPosition).ToList();
+                    break;                    
+            }
+            dgvSellThru.DataSource = null;
+            dgvSellThru.DataSource = sellThruList;
+        }
     }
 }
