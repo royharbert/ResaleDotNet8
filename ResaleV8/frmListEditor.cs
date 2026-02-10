@@ -101,6 +101,9 @@ namespace ResaleV8
         {    
             if (dgvEditor.CurrentRow != null)
             {
+                int oldIndex = Convert.ToInt32(dgvEditor.CurrentRow.Cells[0].Value);
+                DataAccess.DeleteDropDownItem(tableName, oldIndex);
+
                 list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
                     txtItem.Text.Trim(), list);
                 switch (tableName)
@@ -122,6 +125,8 @@ namespace ResaleV8
                         break;
                 }
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
+                dgvEditor.DataSource = null;
+                dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
                 DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (reply == DialogResult.Yes)
