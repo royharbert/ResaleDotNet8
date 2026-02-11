@@ -49,6 +49,19 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
+        public static GenericModel GetItemByDataField(string tableName, string data)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                GenericModel model =
+                        con.QuerySingle<GenericModel>("SELECT * FROM " + tableName + " where Data = '"
+                            + "@" + data + "'",
+                        new { Data = data }, commandType: CommandType.Text);
+                return model;
+            }
+        }
+
         public static List<GenericModel> GetDropDownList(string tableName)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -94,16 +107,6 @@ namespace ResaleV8_ClassLibrary
             con.Close();
             
             return newID;
-        }
-
-        public static void RemoveTableItems(string tableName)
-        {
-            string sql = "DELETE FROM " + tableName + " where ID > 0";
-            MySqlConnection con = new MySqlConnection(GV.conString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
         }
 
         public static int AddListToDropDownTable(string tableName, List<string> list, string colName)

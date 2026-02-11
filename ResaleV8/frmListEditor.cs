@@ -148,6 +148,29 @@ namespace ResaleV8
             }
         }
 
+        private void DoModification()
+        {
+            //Get current list from DB
+            List<GenericModel> list = GetGVList();
+            //Find oldItem
+            GenericModel item = list.Find(x => x.Data == oldItem);
+            //Check if newItem already exists in DB
+            GenericModel dbMatch = null;
+            dbMatch = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
+            //If not, update DB with newItem
+            if(dbMatch == null)
+            {
+                DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
+            }
+            //Else, delete oldItem from DB
+            else
+            {
+                DataAccess.DeleteDropDownItem(tableName, item.ID);
+            }
+            //Update GV list with DB changes
+            //Refresh DGV with DB changes
+        }
+
         private List<GenericModel> GetGVList()
         {
             switch (tableName)
