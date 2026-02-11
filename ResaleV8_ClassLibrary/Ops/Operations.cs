@@ -14,6 +14,45 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     {
+        public static SellThruModel DoSellThru(string brand, List<ItemModel> allItems)
+        {
+            SellThruModel sellThru = new SellThruModel();
+            List<ItemModel> soldItems = allItems.Where(i => i.SalePrice > 0).ToList();
+            sellThru.Brand = brand;
+            sellThru.TotalItems = allItems.Count;
+            sellThru.TotalSold = soldItems.Count;
+            sellThru.SellThruPct = sellThru.TotalSold * 100 / sellThru.TotalItems;
+            decimal totalPurchasePrice = soldItems.Sum(i => i.PurchasePrice);
+            if (totalPurchasePrice > 0)
+            {
+                sellThru.ProfitPct = soldItems.Sum(i => i.Profit) / totalPurchasePrice * 100; 
+            }
+            sellThru.FinancialPosition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
+            return sellThru;
+        }
+
+        public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
+        {
+            List<SellThruModel> sellThruList = new List<SellThruModel>();
+            foreach (string brand in brands)
+                if (brand != null)
+                {
+                    {
+                        List<ItemModel> brandList = DoBrandSellThru(brand);
+                        SellThruModel sellThru = DoSellThru(brand, brandList);
+                        sellThruList.Add(sellThru);
+                    } 
+                }
+            sellThruList = sellThruList.OrderByDescending(s => s.SellThruPct).ToList();
+            return sellThruList;
+        }
+
+        public static List<ItemModel> DoBrandSellThru(string brand)
+        {
+            List<ItemModel> brandList = DataAccess.GetItemsByBrand(brand);
+            return brandList;
+        }
+
         public static void RefreshDDList(ComboBox cbo, List<GenericModel> list)
         {
             cbo.Items.Clear();
@@ -85,19 +124,35 @@ namespace ResaleV8_ClassLibrary.Ops
             return data;
         }
 
-        
-        //public static DataTable ConvertListToDataTable(List<string> list, string columnName)
-        //{
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("ID", typeof(int));
-        //    dt.Columns.Add(columnName, typeof(string));
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        dt.Rows.Add(i + 1, list[i]);
-        //    }
-        //    DataAccess.addListToDropDownTable(dt, list, columnName);
-        //    return dt;
-        //}
+        public static void FormatSellThruDGV(DataGridView dgv)
+        {
+            string[] headers = new string[] { "Brand", "Total Items", "Total Sold", "Sell Thru %", "Profit %", "Financial Position" };
+            for (int i = 0; i < headers.Length; i++)
+            {
+                if (i < dgv.Columns.Count)
+                {
+                    dgv.Columns[i].HeaderText = headers[i];
+                }
+            }
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.ReadOnly = true;
+            dgv.MultiSelect = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.RowHeadersVisible = true;
+            dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
+            dgv.Columns["FinancialPosition"].DefaultCellStyle.Format = "c";
+            dgv.Columns["SellThruPct"].DefaultCellStyle.Format = "N2";
+            dgv.Columns["ProfitPct"].DefaultCellStyle.Format = "N2";
+        }
     }
 
     

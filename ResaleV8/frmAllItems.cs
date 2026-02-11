@@ -266,7 +266,7 @@ namespace ResaleV8
                 txtDaysHeld.Text = model.ProductAge.ToString();
                 if (model.Profit > 0)
                 {
-                    txtProfit.Text = model.Profit.ToString("$0.00"); 
+                    txtProfit.Text = model.Profit.ToString("$0.00");
                 }
                 formLoading = false;
             }
@@ -426,17 +426,6 @@ namespace ResaleV8
                 }
                 model.Quantity = int.Parse(txtQuantity.Text);
                 model.StorageLocation = cboStorage.Text;
-                //if (GV.MODE != Mode.Edit)
-                //{
-                //    model.SaleDate = new DateTime(1900, 01, 01);
-                //    dtpSaleDate.Format = DateTimePickerFormat.Custom;
-                //}
-                //else
-                //{
-                //    model.SaleDate = dtpSaleDate.Value;
-                //    dtpSaleDate.Format = DateTimePickerFormat.Long;
-                //}
-
 
                 if (txtPrice.Text != "")
                 {
@@ -626,7 +615,10 @@ namespace ResaleV8
             {
                 dtpSaleDate.Format = DateTimePickerFormat.Long;
                 dtpSaleDate.Value = DateTime.Now;
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+                if (txtPrice.Text != "")
+                {
+                    model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+                }
                 txtPrice.Text = model.SalePrice.ToString("$0.00");
             }
             else
@@ -690,12 +682,21 @@ namespace ResaleV8
             string sql = "Select * from purchasedItems where ";
             foreach ((string, string) c in searchQuery)
             {
-                sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                if (c.Item1 == "ProductAge" && c.Item2.Length >= 5)
+                {
+                    //sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                    break;
+                }
+                else
+                {
+                    sql = sql + c.Item1 + " = '" + c.Item2 + "' and ";
+                }
             }
             sql = sql.Substring(0, sql.Length - 5);
             List<ItemModel> models = DataAccess.getModelList(sql);
             frmSearchResults resultsForm = new frmSearchResults();
             resultsForm.Models = models;
+            Close();
             resultsForm.ShowDialog();
         }
 
@@ -758,7 +759,7 @@ namespace ResaleV8
         {
             e.Cancel = true;
             DialogResult result = DialogResult.None;
-            if (formDirty)
+            if (formDirty && GV.MODE != Mode.Search)
             {
                 result = MessageBox.Show("Save changses before closing?", "Confirm Close",
                                 MessageBoxButtons.YesNoCancel);
@@ -808,11 +809,11 @@ namespace ResaleV8
         private void txtPurchasePrice_TextChanged(object sender, EventArgs e)
         {
             if (txtPurchasePrice.Text != "")
-            {                
-                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));                 
+            {
+                model.PurchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Replace("$", ""));
 
             }
-            
+
             MarkFormDirty(sender, e);
         }
 
@@ -850,7 +851,7 @@ namespace ResaleV8
         {
             if (txtQuantity.Text != "")
             {
-                model.Quantity = Convert.ToInt32(txtQuantity.Text); 
+                model.Quantity = Convert.ToInt32(txtQuantity.Text);
             }
             MarkFormDirty(sender, e);
         }
@@ -871,7 +872,7 @@ namespace ResaleV8
         {
             if (txtListPrice.Text != "")
             {
-                model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", "")); 
+                model.ListPrice = Convert.ToDecimal(txtListPrice.Text.Replace("$", ""));
             }
             MarkFormDirty(sender, e);
         }
@@ -880,7 +881,7 @@ namespace ResaleV8
         {
             if (txtPrice.Text != "")
             {
-                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", "")); 
+                model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
             }
             MarkFormDirty(sender, e);
         }
@@ -896,6 +897,20 @@ namespace ResaleV8
             MarkFormDirty(sender, e);
         }
 
-        
+        private void btnSellThru_Click(object sender, EventArgs e)
+        {
+            List<string> brands = DataAccess.GetAllBrands();
+            List<SellThruModel> allItems = Operations.DoBrandsSellThru(brands);
+        }
+
+        private void frmAllItems_Activated(object sender, EventArgs e)
+        {
+            if(GV.MODE == Mode.SellThru)
+            {
+                lblTask.Text = "Sell Thru Report";
+                enableDisableControls(allControls, false);
+                cboBrand.Enabled = true;
+            }
+        }
     }
 }

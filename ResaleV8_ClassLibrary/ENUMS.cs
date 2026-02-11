@@ -18,6 +18,7 @@ namespace ResaleV8
         EditWhereListed,
         Delete,
         Search,
+        SellThru,
         None
     }
 

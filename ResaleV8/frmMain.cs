@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,8 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            AllItemsForm = new frmAllItems();            
-            
+            AllItemsForm = new frmAllItems();
+
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
             GV.Categories = DataAccess.GetDropDownList("categories");
@@ -52,7 +53,7 @@ namespace ResaleV8
             Console.WriteLine($"File Version: {fileVersion}");
             this.Text = $"Resale Inventory Management System - Version {fileVersion}";
         }
-        
+
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -83,7 +84,7 @@ namespace ResaleV8
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this;
             allItemsForm.Show();
-            
+
             allItemsForm.Task = "Edit Item";
         }
 
@@ -144,6 +145,14 @@ namespace ResaleV8
         {
             GV.mode = Mode.EditWhereListed;
             openListEditorForm();
+        }
+
+        private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.MODE = Mode.SellThru;
+            frmSellThru sellThruForm = new frmSellThru();
+            sellThruForm.MdiParent = this;  
+            sellThruForm.Show();
         }
     }
 }

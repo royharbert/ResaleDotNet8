@@ -3,6 +3,7 @@ using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -101,6 +102,9 @@ namespace ResaleV8
         {    
             if (dgvEditor.CurrentRow != null)
             {
+                int oldIndex = Convert.ToInt32(dgvEditor.CurrentRow.Cells[0].Value);
+                DataAccess.DeleteDropDownItem(tableName, oldIndex);
+
                 list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
                     txtItem.Text.Trim(), list);
                 switch (tableName)
@@ -116,12 +120,16 @@ namespace ResaleV8
                         break;
                     case "brands":
                         GV.Brands = list;
+                        list.RemoveAll(x => x.ID == oldIndex);
+                        GV.Brands = list;   
                         break;
                     case "whereListed":
                         GV.WhereListed = list;
                         break;
                 }
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
+                dgvEditor.DataSource = null;
+                dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
                 DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (reply == DialogResult.Yes)
@@ -130,12 +138,37 @@ namespace ResaleV8
                     string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
                     DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
                 }
-                                                                                                                                                                   
+                dgvEditor.DataSource = null;
+                dgvEditor.DataSource = list;
+
             }
             else
             {
                 MessageBox.Show("No row selected.");
             }
+        }
+
+        private void DoModification()
+        {
+            //Get current list from DB
+            List<GenericModel> list = GetGVList();
+            //Find oldItem
+            GenericModel item = list.Find(x => x.Data == oldItem);
+            //Check if newItem already exists in DB
+            GenericModel dbMatch = null;
+            dbMatch = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
+            //If not, update DB with newItem
+            if(dbMatch == null)
+            {
+                DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
+            }
+            //Else, delete oldItem from DB
+            else
+            {
+                DataAccess.DeleteDropDownItem(tableName, item.ID);
+            }
+            //Update GV list with DB changes
+            //Refresh DGV with DB changes
         }
 
         private List<GenericModel> GetGVList()

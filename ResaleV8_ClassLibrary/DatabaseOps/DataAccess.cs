@@ -13,6 +13,30 @@ namespace ResaleV8_ClassLibrary
 {
     public class DataAccess
     {
+        public static List<string> GetAllBrands()
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string sql = "SELECT DISTINCT Brand FROM purchaseditems;";
+                List<string> brands =
+                        con.Query<string>(sql, commandType: CommandType.Text).AsList();
+                return brands;
+            }
+        }
+
+        public static List<ItemModel> GetItemsByBrand(string brand)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string sql = "SELECT * FROM purchaseditems where Brand = '" + brand + "';";
+                List<ItemModel> models =
+                        con.Query<ItemModel>(sql, commandType: CommandType.Text).AsList();
+                return models;
+            }
+        }
+
         public static ItemModel GetItemByID(int itemID)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -21,6 +45,19 @@ namespace ResaleV8_ClassLibrary
                 ItemModel model =
                         con.QuerySingle<ItemModel>("SELECT * FROM purchasedItems where ItemID = @ItemID",
                         new { ItemID = itemID }, commandType: CommandType.Text);
+                return model;
+            }
+        }
+
+        public static GenericModel GetItemByDataField(string tableName, string data)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                GenericModel model =
+                        con.QuerySingle<GenericModel>("SELECT * FROM " + tableName + " where Data = '"
+                            + "@" + data + "'",
+                        new { Data = data }, commandType: CommandType.Text);
                 return model;
             }
         }
@@ -70,16 +107,6 @@ namespace ResaleV8_ClassLibrary
             con.Close();
             
             return newID;
-        }
-
-        public static void RemoveTableItems(string tableName)
-        {
-            string sql = "DELETE FROM " + tableName + " where ID > 0";
-            MySqlConnection con = new MySqlConnection(GV.conString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
         }
 
         public static int AddListToDropDownTable(string tableName, List<string> list, string colName)

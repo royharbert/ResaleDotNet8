@@ -52,11 +52,10 @@ namespace ResaleV8
                 "Search Results", hiddenColumns, ExportType.SearchResults, "Search Results");
         }
 
-
-        private void dgvSearchresults_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void loadDataOnForm(int row)
         {
             GV.MODE = Mode.Edit;
-            int row = e.RowIndex;
+            //int row = e.RowIndex;
             int itemID = (int)dgvSearchresults.Rows[row].Cells["ItemID"].Value;
             frmAllItems allItemsForm = new frmAllItems();
             allItemsForm.MdiParent = this.MdiParent;
@@ -64,6 +63,13 @@ namespace ResaleV8
             allItemsForm.item = itemID;
             allItemsForm.Task = "Edit Item";
             allItemsForm.Focus();
+        }
+
+
+        private void dgvSearchresults_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int row = e.RowIndex;
+            loadDataOnForm(row);
         }
 
         private void formatDGVSearchResults()
@@ -78,6 +84,12 @@ namespace ResaleV8
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void dgvSearchresults_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = e.RowIndex;
+            loadDataOnForm(row);
         }
     }
 }

@@ -34,6 +34,7 @@
             reportsToolStripMenuItem = new ToolStripMenuItem();
             soldItemReportToolStripMenuItem = new ToolStripMenuItem();
             unsoldItemToolStripMenuItem = new ToolStripMenuItem();
+            brandSellthruToolStripMenuItem = new ToolStripMenuItem();
             editRecordToolStripMenuItem = new ToolStripMenuItem();
             addItemToolStripMenuItem1 = new ToolStripMenuItem();
             editItemToolStripMenuItem = new ToolStripMenuItem();
@@ -69,13 +70,13 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(270, 34);
+            exitToolStripMenuItem.Size = new Size(141, 34);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // reportsToolStripMenuItem
             // 
-            reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { soldItemReportToolStripMenuItem, unsoldItemToolStripMenuItem });
+            reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { soldItemReportToolStripMenuItem, unsoldItemToolStripMenuItem, brandSellthruToolStripMenuItem });
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
             reportsToolStripMenuItem.Size = new Size(94, 29);
             reportsToolStripMenuItem.Text = " Reports";
@@ -83,16 +84,23 @@
             // soldItemReportToolStripMenuItem
             // 
             soldItemReportToolStripMenuItem.Name = "soldItemReportToolStripMenuItem";
-            soldItemReportToolStripMenuItem.Size = new Size(269, 34);
+            soldItemReportToolStripMenuItem.Size = new Size(270, 34);
             soldItemReportToolStripMenuItem.Text = "Sold Item Report";
             soldItemReportToolStripMenuItem.Click += soldItemReportToolStripMenuItem_Click;
             // 
             // unsoldItemToolStripMenuItem
             // 
             unsoldItemToolStripMenuItem.Name = "unsoldItemToolStripMenuItem";
-            unsoldItemToolStripMenuItem.Size = new Size(269, 34);
+            unsoldItemToolStripMenuItem.Size = new Size(270, 34);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
+            // 
+            // brandSellthruToolStripMenuItem
+            // 
+            brandSellthruToolStripMenuItem.Name = "brandSellthruToolStripMenuItem";
+            brandSellthruToolStripMenuItem.Size = new Size(270, 34);
+            brandSellthruToolStripMenuItem.Text = "Brand Sell-thru";
+            brandSellthruToolStripMenuItem.Click += brandSellthruToolStripMenuItem_Click;
             // 
             // editRecordToolStripMenuItem
             // 
@@ -210,5 +218,6 @@
         private ToolStripMenuItem brandToolStripMenuItem;
         private ToolStripMenuItem sToolStripMenuItem;
         private ToolStripMenuItem whereListedToolStripMenuItem;
+        private ToolStripMenuItem brandSellthruToolStripMenuItem;
     }
 }
