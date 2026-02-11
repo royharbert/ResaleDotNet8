@@ -120,7 +120,7 @@ namespace ResaleV8
                         break;
                     case "brands":
                         GV.Brands = list;
-                        list.RemoveAll(x => x.ID == idx);
+                        list.RemoveAll(x => x.ID == oldIndex);
                         GV.Brands = list;   
                         break;
                     case "whereListed":
@@ -139,7 +139,7 @@ namespace ResaleV8
                     DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
                 }
                 dgvEditor.DataSource = null;
-                dgvEditor.DataSource = list
+                dgvEditor.DataSource = list;
 
             }
             else
