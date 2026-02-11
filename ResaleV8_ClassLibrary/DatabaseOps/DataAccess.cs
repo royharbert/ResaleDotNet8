@@ -54,10 +54,9 @@ namespace ResaleV8_ClassLibrary
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
+                string sql = "SELECT * FROM " + tableName + " where Data = '" + data + "'";
                 GenericModel model =
-                        con.QuerySingle<GenericModel>("SELECT * FROM " + tableName + " where Data = '"
-                            + "@" + data + "'",
-                        new { Data = data }, commandType: CommandType.Text);
+                        con.Query<GenericModel>(sql, new { Data = data }, commandType: CommandType.Text);
                 return model;
             }
         }
