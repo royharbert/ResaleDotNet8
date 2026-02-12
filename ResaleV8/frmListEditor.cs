@@ -170,7 +170,18 @@ namespace ResaleV8
                 DataAccess.DeleteDropDownItem(tableName, item.ID);
             }
             //Update GV list with DB changes
+            DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (reply == DialogResult.Yes)
+            {
+                oldItem = Operations.EscapeApostrophes(oldItem);
+                string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+                DataAccess.ModifySelectedFieldEntries(oldItem, newItem, tableName, itemColName);
+            }
+            list = GetGVList();
             //Refresh DGV with DB changes
+            dgvEditor.DataSource = null;
+            dgvEditor.DataSource = list;
         }
 
         private List<GenericModel> GetGVList()
@@ -179,26 +190,32 @@ namespace ResaleV8
             {
                 case "categories":
                     list = GV.Categories;
+                    list.Clear();
                     colName = "Data";
                     List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
                     list = GV.StorageLocations;
+                    list.Clear();
                     colName = "Data";
                     List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
+
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
+                    list.Clear();
                     colName = "Data";
                     List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> brandModel = DataAccess.GetDropDownList("Brands");
+                    list = DataAccess.GetDropDownList("Brands");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
+                    list.Clear();
                     colName = "Data";
                     List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
                     break;
