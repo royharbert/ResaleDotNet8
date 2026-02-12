@@ -49,15 +49,15 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
-        public static GenericModel GetItemByDataField(string tableName, string data)
+        public static int GetItemByDataField(string tableName, string data)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
-                string sql = "SELECT * FROM " + tableName + " where Data = '" + data + "'";
-                GenericModel model =
-                        con.Query<GenericModel>(sql, new { Data = data }, commandType: CommandType.Text);
-                return model;
+                string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
+                int count =
+                        con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
+                return count;
             }
         }
 

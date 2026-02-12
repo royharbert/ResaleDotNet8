@@ -157,10 +157,10 @@ namespace ResaleV8
             //Find oldItem
             GenericModel item = list.Find(x => x.Data == oldItem);
             //Check if newItem already exists in DB
-            GenericModel dbMatch = null;
-            dbMatch = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
+            int numMatches = 0;
+            numMatches = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
             //If not, update DB with newItem
-            if(dbMatch == null)
+            if(numMatches == 1)
             {
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
             }
