@@ -99,54 +99,56 @@ namespace ResaleV8
         }
 
         private void btnModify_Click(object sender, EventArgs e)
-        {    
-            if (dgvEditor.CurrentRow != null)
-            {
-                int oldIndex = Convert.ToInt32(dgvEditor.CurrentRow.Cells[0].Value);
-                DataAccess.DeleteDropDownItem(tableName, oldIndex);
-
-                list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
-                    txtItem.Text.Trim(), list);
-                switch (tableName)
-                {
-                    case "categories":
-                        GV.Categories = list;                      
-                        break;
-                    case "StorageLocations":
-                        GV.StorageLocations = list;
-                        break;
-                    case "purchasesources":
-                        GV.PurchaseSources = list;
-                        break;
-                    case "brands":
-                        GV.Brands = list;
-                        list.RemoveAll(x => x.ID == oldIndex);
-                        GV.Brands = list;   
-                        break;
-                    case "whereListed":
-                        GV.WhereListed = list;
-                        break;
-                }
-                DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
-                dgvEditor.DataSource = null;
-                dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
-                DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (reply == DialogResult.Yes)
-                {
-                    oldItem = Operations.EscapeApostrophes(oldItem);
-                    string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
-                    DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
-                }
-                dgvEditor.DataSource = null;
-                dgvEditor.DataSource = list;
-
-            }
-            else
-            {
-                MessageBox.Show("No row selected.");
-            }
+        {
+            DoModification();
         }
+        //    if (dgvEditor.CurrentRow != null)
+        //    {
+        //        int oldIndex = Convert.ToInt32(dgvEditor.CurrentRow.Cells[0].Value);
+        //        DataAccess.DeleteDropDownItem(tableName, oldIndex);
+
+            //        list = DataAccess.ModifyListItem(dgvEditor.CurrentRow.Cells[1].Value.ToString(),
+            //            txtItem.Text.Trim(), list);
+            //        switch (tableName)
+            //        {
+            //            case "categories":
+            //                GV.Categories = list;                      
+            //                break;
+            //            case "StorageLocations":
+            //                GV.StorageLocations = list;
+            //                break;
+            //            case "purchasesources":
+            //                GV.PurchaseSources = list;
+            //                break;
+            //            case "brands":
+            //                GV.Brands = list;
+            //                list.RemoveAll(x => x.ID == oldIndex);
+            //                GV.Brands = list;   
+            //                break;
+            //            case "whereListed":
+            //                GV.WhereListed = list;
+            //                break;
+            //        }
+            //        DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text);
+            //        dgvEditor.DataSource = null;
+            //        dgvEditor.DataSource = DataAccess.GetComboItemList(tableName);
+            //        DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
+            //            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //        if (reply == DialogResult.Yes)
+            //        {
+            //            oldItem = Operations.EscapeApostrophes(oldItem);
+            //            string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+            //            DataAccess.ModifySelectedFieldEntries(oldItem, newItem , tableName, itemColName);
+            //        }
+            //        dgvEditor.DataSource = null;
+            //        dgvEditor.DataSource = list;
+
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No row selected.");
+            //    }
+            //}
 
         private void DoModification()
         {
@@ -155,10 +157,10 @@ namespace ResaleV8
             //Find oldItem
             GenericModel item = list.Find(x => x.Data == oldItem);
             //Check if newItem already exists in DB
-            GenericModel dbMatch = null;
-            dbMatch = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
+            int numMatches = 0;
+            numMatches = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
             //If not, update DB with newItem
-            if(dbMatch == null)
+            if(numMatches == 1)
             {
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
             }
@@ -168,37 +170,55 @@ namespace ResaleV8
                 DataAccess.DeleteDropDownItem(tableName, item.ID);
             }
             //Update GV list with DB changes
+            DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (reply == DialogResult.Yes)
+            {
+                oldItem = Operations.EscapeApostrophes(oldItem);
+                string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+                DataAccess.ModifySelectedFieldEntries(oldItem, newItem, tableName, itemColName);
+            }
+            list = GetGVList();
             //Refresh DGV with DB changes
+            dgvEditor.DataSource = null;
+            dgvEditor.DataSource = list;
         }
 
         private List<GenericModel> GetGVList()
         {
+            List<GenericModel> list = new List<GenericModel>();
             switch (tableName)
             {
                 case "categories":
                     list = GV.Categories;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
+                    list = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
                     list = GV.StorageLocations;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
+                    list = DataAccess.GetDropDownList("storagelocations");
+
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
+                    list = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> brandModel = DataAccess.GetDropDownList("Brands");
+                    list = DataAccess.GetDropDownList("Brands");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
+                    list.Clear();
                     colName = "Data";
-                    List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
+                    list = DataAccess.GetDropDownList("whereListed");
                     break;
             }
             return list;
