@@ -186,26 +186,27 @@ namespace ResaleV8
 
         private List<GenericModel> GetGVList()
         {
+            List<GenericModel> list = new List<GenericModel>();
             switch (tableName)
             {
                 case "categories":
                     list = GV.Categories;
                     list.Clear();
                     colName = "Data";
-                    List<GenericModel> categoryModel = DataAccess.GetDropDownList("categories");
+                    list = DataAccess.GetDropDownList("categories");
                     break;
                 case "storageLocations":
                     list = GV.StorageLocations;
                     list.Clear();
                     colName = "Data";
-                    List<GenericModel> storageModel = DataAccess.GetDropDownList("storagelocations");
+                    list = DataAccess.GetDropDownList("storagelocations");
 
                     break;
                 case "purchasesources":
                     list = GV.PurchaseSources;
                     list.Clear();
                     colName = "Data";
-                    List<GenericModel> purchaseModel = DataAccess.GetDropDownList("PurchaseSources");
+                    list = DataAccess.GetDropDownList("PurchaseSources");
                     break;
                 case "brands":
                     list = GV.Brands;
@@ -217,7 +218,7 @@ namespace ResaleV8
                     list = GV.WhereListed;
                     list.Clear();
                     colName = "Data";
-                    List<GenericModel> whereListedModel = DataAccess.GetDropDownList("whereListed");
+                    list = DataAccess.GetDropDownList("whereListed");
                     break;
             }
             return list;
