@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Chart.Controls" Version="4.7.2046" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
     <PackageReference Include="Velopack" Version="0.0.1298" />
   </ItemGroup>

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+
 
 namespace ResaleV8
 {
@@ -26,6 +28,13 @@ namespace ResaleV8
             List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
             dgvSellThru.DataSource = sellThrus;
             Operations.FormatSellThruDGV(dgvSellThru);
+
+            Chart chart = new Chart();
+            chart.Dock = DockStyle.Left;
+            this.Controls.Add(chart);
+
+            //ChartArea chartArea = new ChartArea();
+            //chart.ChartAreas.Add(chartArea);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
