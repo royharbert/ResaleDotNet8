@@ -10,16 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-
+using ZedGraph;
 
 namespace ResaleV8
 {
     public partial class frmSellThru : Form
     {
+        GraphPane graphPane;
         public frmSellThru()
         {
             InitializeComponent();
+            graphPane = zgc.GraphPane;
+            graphPane.Title.Text = "Sell Thru by Brand";
+            graphPane.XAxis.Title.Text = "Brand";
+            graphPane.YAxis.Title.Text = "Sell Thru %";
         }
 
         private void frmSellThru_Load(object sender, EventArgs e)
@@ -29,14 +33,9 @@ namespace ResaleV8
             dgvSellThru.DataSource = sellThrus;
             Operations.FormatSellThruDGV(dgvSellThru);
 
-            Chart chart = new Chart();
-            chart.Dock = DockStyle.Left;
-            this.Controls.Add(chart);
-
-            //ChartArea chartArea = new ChartArea();
-            //chart.ChartAreas.Add(chartArea);
+            
         }
-
+        
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -68,6 +67,7 @@ namespace ResaleV8
             }
             dgvSellThru.DataSource = null;
             dgvSellThru.DataSource = sellThruList;
+            Operations.FormatSellThruDGV(dgvSellThru);
         }
     }
 }
