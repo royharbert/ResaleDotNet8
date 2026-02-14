@@ -22,8 +22,18 @@ namespace ResaleV8
             InitializeComponent();
             graphPane = zgc.GraphPane;
             graphPane.Title.Text = "Sell Thru by Brand";
-            graphPane.XAxis.Title.Text = "Brand";
-            graphPane.YAxis.Title.Text = "Sell Thru %";
+            graphPane.YAxis.Title.Text = "Brand";
+            graphPane.XAxis.Title.Text = "Sell Thru %";
+
+            BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
+            bar.Bar.Fill = new Fill(Color.LightBlue, Color.Blue, 45F);
+            bar.Bar.Border.IsVisible = true;
+            bar.Bar.Border.Color = Color.DarkBlue;
+            bar.Bar.Border.Width = 1.0f;
+            CurveItem curve = graphPane.CurveList[0];
+            curve.YAxisIndex = 0;
+            curve.AddPoint(0, 0); // Placeholder point
+            curve.AddPoint(0.8, -curve.YAxisIndex);
         }
 
         private void frmSellThru_Load(object sender, EventArgs e)
@@ -32,8 +42,6 @@ namespace ResaleV8
             List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
             dgvSellThru.DataSource = sellThrus;
             Operations.FormatSellThruDGV(dgvSellThru);
-
-            
         }
         
         private void btnClose_Click(object sender, EventArgs e)
