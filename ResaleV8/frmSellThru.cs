@@ -1,4 +1,5 @@
-﻿using ResaleV8_ClassLibrary;
+﻿using Google.Protobuf.WellKnownTypes;
+using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
@@ -21,20 +22,40 @@ namespace ResaleV8
         {
             InitializeComponent();
             graphPane = zgc.GraphPane;
-            graphPane.Title.Text = "Sell Thru by Brand";
-            graphPane.YAxis.Title.Text = "Brand";
-            graphPane.XAxis.Title.Text = "Sell Thru %";
+            //graphPane.Title.Text = "Sell Thru by Brand";
+            //graphPane.YAxis.Title.Text = "Brand";
+            //graphPane.XAxis.Title.Text = "Sell Thru %";
 
+            //BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
+            //bar.Points[i].Y = value;
+            //graphPane.GraphObjList.Add(bar);
+
+
+            List<string> brands = DataAccess.GetAllBrands();
+            List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
+            dgvSellThru.DataSource = sellThrus;
+            Operations.FormatSellThruDGV(dgvSellThru);
+
+            // Build the bar series from the sellThrus list
+            graphPane.CurveList.Clear();
+            graphPane.GraphObjList.Clear();
+
+            // Create bar and add points safely
             BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
-            bar.Bar.Fill = new Fill(Color.LightBlue, Color.Blue, 45F);
-            bar.Bar.Border.IsVisible = true;
-            bar.Bar.Border.Color = Color.DarkBlue;
-            bar.Bar.Border.Width = 1.0f;
-            CurveItem curve = graphPane.CurveList[0];
-            curve.YAxisIndex = 0;
-            curve.AddPoint(0, 0); // Placeholder point
-            curve.AddPoint(0.8, -curve.YAxisIndex);
+            for (int i = 0; i < sellThrus.Count; i++)
+            {
+                // Use X = category index, Y = sell-thru value
+                bar.AddPoint(i, sellThrus[i].SellThruPct);
+            }
+            // Show brand names as text labels along the X axis (adjust if you prefer them on Y)
+            graphPane.XAxis.Type = AxisType.Text;
+            graphPane.XAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+
+            zgc.AxisChange();
+            zgc.Invalidate();
         }
+
+        
 
         private void frmSellThru_Load(object sender, EventArgs e)
         {
