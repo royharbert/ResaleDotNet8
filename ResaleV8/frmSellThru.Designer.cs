@@ -52,7 +52,7 @@
             btnClose.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.Image = Properties.Resources._8666786_x_octagon_delete_icon;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(897, 881);
+            btnClose.Location = new Point(1310, 1101);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(333, 83);
             btnClose.TabIndex = 1;
@@ -62,8 +62,9 @@
             // 
             // zgc
             // 
-            zgc.Location = new Point(14, 15);
-            zgc.Margin = new Padding(5, 6, 5, 6);
+            zgc.Font = new Font("Segoe UI", 6F);
+            zgc.Location = new Point(10, 9);
+            zgc.Margin = new Padding(4, 4, 4, 4);
             zgc.Name = "zgc";
             zgc.ScrollGrace = 0D;
             zgc.ScrollMaxX = 0D;
@@ -72,7 +73,7 @@
             zgc.ScrollMinX = 0D;
             zgc.ScrollMinY = 0D;
             zgc.ScrollMinY2 = 0D;
-            zgc.Size = new Size(1216, 813);
+            zgc.Size = new Size(851, 1223);
             zgc.TabIndex = 3;
             zgc.UseExtendedPrintDialog = true;
             // 
@@ -80,7 +81,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2260, 992);
+            ClientSize = new Size(2260, 1245);
             Controls.Add(zgc);
             Controls.Add(btnClose);
             Controls.Add(dgvSellThru);

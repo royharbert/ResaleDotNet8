@@ -22,13 +22,6 @@ namespace ResaleV8
         {
             InitializeComponent();
             graphPane = zgc.GraphPane;
-            //graphPane.Title.Text = "Sell Thru by Brand";
-            //graphPane.YAxis.Title.Text = "Brand";
-            //graphPane.XAxis.Title.Text = "Sell Thru %";
-
-            //BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
-            //bar.Points[i].Y = value;
-            //graphPane.GraphObjList.Add(bar);
 
 
             List<string> brands = DataAccess.GetAllBrands();
@@ -37,25 +30,58 @@ namespace ResaleV8
             Operations.FormatSellThruDGV(dgvSellThru);
 
             // Build the bar series from the sellThrus list
+            //graphPane.CurveList.Clear();
+            //graphPane.GraphObjList.Clear();
+
+            // Create bar and add points safely
+            //BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
+            //for (int i = 0; i < sellThrus.Count; i++)
+            //{
+            //     Use X = category index, Y = sell-thru value
+            //    bar.AddPoint(i, sellThrus[i].SellThruPct);
+            //}
+            // Show brand names as text labels along the X axis (adjust if you prefer them on Y)
+            //graphPane.YAxis.Type = AxisType.Text;
+            //graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+
+            //zgc.AxisChange();
+            //zgc.Invalidate();
+
+
+            // prepare pane
+            graphPane = zgc.GraphPane;
+            graphPane.Title.Text = "Sell Thru by Brand";
+            graphPane.XAxis.Title.Text = "Sell Thru %";
+            graphPane.YAxis.Title.Text = "Brand";
+
+            // clear existing curves/objects
             graphPane.CurveList.Clear();
             graphPane.GraphObjList.Clear();
 
-            // Create bar and add points safely
-            BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
+            // create bar series
+            BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.SteelBlue);
+
+            // add points: X = sell-thru value (bar length), Y = ordinal index (category)
             for (int i = 0; i < sellThrus.Count; i++)
             {
-                // Use X = category index, Y = sell-thru value
-                bar.AddPoint(i, sellThrus[i].SellThruPct);
+                double value = sellThrus[i].SellThruPct;   // bar length on X
+                bar.AddPoint(value, i);                    // category index on Y
             }
-            // Show brand names as text labels along the X axis (adjust if you prefer them on Y)
-            graphPane.XAxis.Type = AxisType.Text;
-            graphPane.XAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
 
+            // make Y axis show brand names
+            graphPane.YAxis.Type = AxisType.Text;
+            graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+
+            // optional styling
+            bar.Bar.Fill = new Fill(Color.SteelBlue);
+            bar.Bar.Border.Color = Color.Black;
+
+            // refresh
             zgc.AxisChange();
             zgc.Invalidate();
         }
 
-        
+
 
         private void frmSellThru_Load(object sender, EventArgs e)
         {
