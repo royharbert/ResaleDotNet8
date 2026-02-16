@@ -65,7 +65,7 @@ namespace ResaleV8
             for (int i = 0; i < sellThrus.Count; i++)
             {
                 double value = sellThrus[i].SellThruPct;   // bar length on X
-                bar.AddPoint(value, i);                    // category index on Y
+                bar.AddPoint(value, i);                    // category index on Y                
             }
 
             // make Y axis show brand names

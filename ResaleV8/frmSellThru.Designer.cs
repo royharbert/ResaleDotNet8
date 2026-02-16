@@ -38,11 +38,10 @@
             // dgvSellThru
             // 
             dgvSellThru.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSellThru.Location = new Point(1296, 0);
-            dgvSellThru.Margin = new Padding(4, 5, 4, 5);
+            dgvSellThru.Location = new Point(907, 0);
             dgvSellThru.Name = "dgvSellThru";
             dgvSellThru.RowHeadersWidth = 62;
-            dgvSellThru.Size = new Size(964, 992);
+            dgvSellThru.Size = new Size(675, 595);
             dgvSellThru.TabIndex = 0;
             dgvSellThru.ColumnHeaderMouseClick += dgvSellThru_ColumnHeaderMouseClick;
             // 
@@ -52,9 +51,10 @@
             btnClose.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.Image = Properties.Resources._8666786_x_octagon_delete_icon;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(1310, 1101);
+            btnClose.Location = new Point(917, 661);
+            btnClose.Margin = new Padding(2);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(333, 83);
+            btnClose.Size = new Size(233, 50);
             btnClose.TabIndex = 1;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = false;
@@ -62,9 +62,9 @@
             // 
             // zgc
             // 
-            zgc.Font = new Font("Segoe UI", 6F);
-            zgc.Location = new Point(10, 9);
-            zgc.Margin = new Padding(4, 4, 4, 4);
+            zgc.Font = new Font("Segoe UI", 3.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            zgc.Location = new Point(4, 3);
+            zgc.Margin = new Padding(2, 1, 2, 1);
             zgc.Name = "zgc";
             zgc.ScrollGrace = 0D;
             zgc.ScrollMaxX = 0D;
@@ -73,19 +73,18 @@
             zgc.ScrollMinX = 0D;
             zgc.ScrollMinY = 0D;
             zgc.ScrollMinY2 = 0D;
-            zgc.Size = new Size(851, 1223);
+            zgc.Size = new Size(358, 772);
             zgc.TabIndex = 3;
             zgc.UseExtendedPrintDialog = true;
             // 
             // frmSellThru
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2260, 1245);
+            ClientSize = new Size(1582, 869);
             Controls.Add(zgc);
             Controls.Add(btnClose);
             Controls.Add(dgvSellThru);
-            Margin = new Padding(4, 5, 4, 5);
             Name = "frmSellThru";
             Text = "Sell Thru List";
             WindowState = FormWindowState.Maximized;
