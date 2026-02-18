@@ -77,7 +77,7 @@ namespace ResaleV8
         public ItemModel? model = new ItemModel();
         string[] allControls = { "txtID", "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy",
                         "txtQuantity", "txtPurchasePrice", "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice",
-                        "txtPrice", "txtCostOfSale", "dtpSaleDate", "txtProfit", "txtDaysHeld" };
+                        "txtPrice", "txtCostOfSale", "DiscountPct", "dtpSaleDate", "txtProfit", "txtDaysHeld", "txtSKU" };
 
         string[] allButtons = { "btnRetrieve",  "btnSave",
                         "btnDelete", "btnClose", "btnSearch", "cboWhereListed", "dtpDateListed",
@@ -86,7 +86,7 @@ namespace ResaleV8
         string[] addButtons = { "btnSave", "btnClose" };
 
         string[] addControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
-                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtSalePrice" };
+                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtSalePrice", "txtSKU", "txtDiscountPct" };
 
         string[] retrieveButtons = { "btnRetrieve", "btnClose" };
 
@@ -95,8 +95,8 @@ namespace ResaleV8
         string[] editButtons = { "btnSave", "btnClose" };
 
         string[] editControls = { "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy", "txtQuantity", "txtPurchasePrice",
-                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtPrice", "txtCostOfSale",
-                        "dtpSaleDate", "txtProfit", "txtDaysHeld" };
+                        "cboWhereListed", "cboStorage", "dtpDateListed", "txtListPrice", "txtPrice", "txtCostOfSale", "txtDiscountPct",
+                        "dtpSaleDate", "txtProfit", "txtDaysHeld", "txtSKU" };
 
         string[] deleteButtons = { "btnDelete", "btnClose" };
 
@@ -106,7 +106,7 @@ namespace ResaleV8
 
         string[] searchControls = { "txtID", "cboBrabd", "txtDesc", "cboCategory",
                         "dtpBuy", "txtPurchasePrice", "txtQuantity", "cboWhereListed", "dtpDateListed", "txtListPrice",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand" };
+                        "cboStorage", "txtPrice", "dtpSaleDate", "cboPurchaseSource", "cboBrand", "txtSKU", "txtDiscountPct" };
 
 
         void changeMode(Mode mode)
@@ -225,6 +225,7 @@ namespace ResaleV8
                 dtpBuy.Value = model.PurchaseDate;
                 txtPurchasePrice.Text = model.PurchasePrice.ToString("$0.00");
                 txtCostOfSale.Text = model.CostOfSale.ToString("$0.00");
+                txtDiscountPct.Text = model.DiscountPct.ToString("0.00");
                 txtQuantity.Text = model.Quantity.ToString();
                 cboStorage.Text = model.StorageLocation;
                 txtListPrice.Text = model.ListPrice.ToString("$0.00");
@@ -249,6 +250,7 @@ namespace ResaleV8
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
                 cboWhereListed.Text = model.WhereListed;
+                txtSKU.Text = model.ListerSKU;
                 if (model.DateListed > new DateTime(1900, 01, 01))
                 {
                     dtpDateListed.Value = model.DateListed;
@@ -385,6 +387,7 @@ namespace ResaleV8
             if (model != null)
             {
                 model.WhereListed = cboWhereListed.Text;
+                model.ListerSKU = txtSKU.Text;
                 model.DateListed = dtpDateListed.Value;
                 model.PurchaseSource = cboPurchaseSource.Text;
                 model.Brand = cboBrand.Text;
@@ -601,9 +604,6 @@ namespace ResaleV8
             }
         }
 
-
-
-
         private void cboCategory_Leave(object sender, EventArgs e)
         {
             comboListMaintenance(sender, e);
@@ -640,12 +640,14 @@ namespace ResaleV8
         {
             model = new ItemModel();
             txtPrice.Text = "0";
+            txtDiscountPct.Text = "0";
             txtProfit.Text = "";
             txtDaysHeld.Text = "";
             txtDesc.Text = "";
             txtPurchasePrice.Text = "";
             txtID.Text = "";
             txtID.Enabled = false;
+            txtSKU.Text = "";
             txtListPrice.Text = "";
             txtQuantity.Text = "1";
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
@@ -663,7 +665,7 @@ namespace ResaleV8
             this.AcceptButton = btnSave;
             //disableAllControls();
             string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose" };
+                        "cboStorage", "btnSave", "btnClose", "txtSKU" };
             //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
 
@@ -817,12 +819,6 @@ namespace ResaleV8
             MarkFormDirty(sender, e);
         }
 
-        //private void txtID_TextChanged(object sender, EventArgs e)
-        //{
-        //    model.ItemID = Convert.ToInt32(txtID.Text);
-        //    MarkFormDirty(sender, e);
-        //}
-
         private void cboBrand_TextChanged(object sender, EventArgs e)
         {
             model.Brand = cboBrand.Text;
@@ -905,11 +901,25 @@ namespace ResaleV8
 
         private void frmAllItems_Activated(object sender, EventArgs e)
         {
-            if(GV.MODE == Mode.SellThru)
+            if (GV.MODE == Mode.SellThru)
             {
                 lblTask.Text = "Sell Thru Report";
                 enableDisableControls(allControls, false);
                 cboBrand.Enabled = true;
+            }
+        }
+
+        private void txtSKU_TextChanged(object sender, EventArgs e)
+        {
+            model.ListerSKU = txtSKU.Text;
+            MarkFormDirty(sender, e);
+        }
+
+        private void txtDiscountPct_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDiscountPct.Text != "")
+            {
+                model.DiscountPct = Convert.ToDecimal(txtDiscountPct.Text.Replace("%", "")); 
             }
         }
     }

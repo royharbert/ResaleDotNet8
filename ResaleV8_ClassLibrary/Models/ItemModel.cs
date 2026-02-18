@@ -14,6 +14,7 @@ namespace ResaleV8_ClassLibrary.Models
         decimal _salePrice = 0.0M;
         decimal _profit = 0.0M;
         decimal _CostOfSale = 0.0M;
+        decimal _discountPct = 0.0M;
 
         public int ItemID { get; set; }
         public string? Category { get; set; }
@@ -36,6 +37,7 @@ namespace ResaleV8_ClassLibrary.Models
         }
         public decimal PurchasePrice { get; set; }
         public string? WhereListed { get; set; }
+        public string? ListerSKU { get; set; }
         public DateTime DateListed { get; set; } = GV.emptyDate;
         public decimal ListPrice { get; set; }
         public DateTime SaleDate
@@ -75,6 +77,18 @@ namespace ResaleV8_ClassLibrary.Models
                 CalculateProfit(_salePrice, PurchasePrice, _CostOfSale);
             }
         }
+        public decimal DiscountPct
+        {
+            get
+            {
+                return _discountPct;    
+            }
+            set
+            {
+                _discountPct = value;
+                CalculateProfit(_salePrice, PurchasePrice, _CostOfSale);
+            }
+        }
 
         public int ProductAge
         {
@@ -104,7 +118,7 @@ namespace ResaleV8_ClassLibrary.Models
 
     private decimal CalculateProfit(decimal salePrice, decimal purchasePrice, decimal costOfSale)
         {            
-            _profit = salePrice - purchasePrice - costOfSale;
+            _profit = salePrice - purchasePrice - costOfSale - (this.DiscountPct * salePrice / 100);
             return _profit;
         }
     }
