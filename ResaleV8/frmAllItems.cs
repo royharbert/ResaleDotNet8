@@ -919,7 +919,8 @@ namespace ResaleV8
         {
             if (txtDiscountPct.Text != "")
             {
-                model.DiscountPct = Convert.ToDecimal(txtDiscountPct.Text.Replace("%", "")); 
+                model.DiscountPct = Convert.ToDecimal(txtDiscountPct.Text.Replace("%", ""));
+                txtProfit.Text = model.Profit.ToString();
             }
         }
     }
