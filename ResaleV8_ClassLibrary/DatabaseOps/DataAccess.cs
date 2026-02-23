@@ -54,6 +54,10 @@ namespace ResaleV8_ClassLibrary
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
+                if(data.Contains("'"))
+                {
+                    data = Operations.EscapeApostrophes(data);
+                }
                 string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
                 int count =
                         con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);

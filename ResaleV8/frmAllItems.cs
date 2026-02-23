@@ -504,8 +504,13 @@ namespace ResaleV8
             //{
             //    item = item.Replace("'", "''");
             //}
-
-            if (!cbo.Items.Contains(originalItem) && cbo.Text != "")
+            bool itemExists = false;
+            foreach (GenericModel item in cbo.Items)
+            {
+                itemExists = item.Data == originalItem;
+                if (itemExists) break;
+            }
+            if (!itemExists && cbo.Text != "")
             {
                 // Not in list, so add it refresh list add item to table
                 switch (cbo.Name)
