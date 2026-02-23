@@ -21,7 +21,7 @@ namespace ResaleV8
     public partial class frmUnsoldReport : Form
     {
         EventArgs e = new EventArgs();
-        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit" };
+        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "ListerSKU"};
         public frmUnsoldReport()
         {
             InitializeComponent();
@@ -39,12 +39,11 @@ namespace ResaleV8
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.ItemList = itemList;
             dgvUnsold.DataSource = itemList;
-            string[] columnsToHide = { /**"Profit", "SalePrice"*/ };
+            string[] columnsToHide = {"Profit", "SalePrice", "Quantity", "ListerSKU", "SaleDate", "DiscountPCT", "CostOfSale" };
             FormControlOps.formatDGV(dgvUnsold,
-                headers: new string[] { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
-                    "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale", "Product Age",
-                    "Profit", "Storage Location" },
+                headers: GV.DGVHeaders ,
                 columnsToHide);
+            dgvUnsold.Columns["ItemDesc"].Width = 450;
             GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.BusinessSummary.UnsoldCost.ToString("C2");
             GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));

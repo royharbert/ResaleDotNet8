@@ -74,11 +74,10 @@ namespace ResaleV8
 
         private void formatDGVSearchResults()
         {
-            string[] headers = { "ID", "Category", "Item Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
-                "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale",
-                "Days Held", "Profit", "Storage Location" };
-            string[] hiddenColumns = new string[] { };
+            string[] headers = GV.DGVHeaders;
+            string[] hiddenColumns = new string[] {"Quantity", "ListerSKU" };
             FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
+            dgvSearchresults.Columns["ItemDesc"].Width = 450;
         }
 
         private void button1_Click(object sender, EventArgs e)

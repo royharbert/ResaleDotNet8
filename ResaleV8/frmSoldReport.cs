@@ -33,9 +33,6 @@ namespace ResaleV8
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            string[] headers =  { "ID", "Category", "Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
-                    "Purchase Price", "Where Listed", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale", "Product Age",
-                    "Profit", "Storage Location" };
             string startDate = FormControlOps.dtpValueToString(dtpStart);
             string stopDate = FormControlOps.dtpValueToString(dtpStop);
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -50,7 +47,9 @@ namespace ResaleV8
             }
 
             dgvSoldReport.DataSource = dt;
-            FormControlOps.formatDGV(dgvSoldReport, headers, hiddenColumns);
+            FormControlOps.formatDGV(dgvSoldReport, GV.DGVHeaders, hiddenColumns);
+            dgvSoldReport.Columns["ItemDesc"].Width = 450;
+            dgvSoldReport.RowHeadersVisible = false;
             GV.BusinessSummary.TotalSales = dt.Sum(item => item.SalePrice * item.Quantity);
             txtTotRevenue.Text = GV.BusinessSummary.TotalSales.ToString("C2");
             GV.BusinessSummary.TotalCost = dt.Sum(item => item.PurchasePrice * item.Quantity);
@@ -68,15 +67,10 @@ namespace ResaleV8
         private void btnExport_Click(object sender, EventArgs e)
         {
             List<ItemModel> dt = (List<ItemModel>)dgvSoldReport.DataSource;
-            ExcelOps.createExcelSheet(dt, "Sold Report",  hiddenColumns, ExportType.Sold, "Sold Items");
+            ExcelOps.createExcelSheet(dt, "Sold Report", hiddenColumns, ExportType.Sold, "Sold Items");
         }
 
-        private void frmSoldReport_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvSoldReport_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvSoldReport_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int row = e.RowIndex;
             int itemID = (int)dgvSoldReport.Rows[row].Cells["ItemID"].Value;
@@ -86,11 +80,6 @@ namespace ResaleV8
             allItemsForm.Show();
             allItemsForm.item = itemID;
             allItemsForm.Focus();
-        }
-
-        private void frmSoldReport_Leave(object sender, EventArgs e)
-        {
-
         }
     }
 }

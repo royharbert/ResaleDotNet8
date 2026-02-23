@@ -18,6 +18,9 @@ namespace ResaleV8_ClassLibrary
         public static List<GenericModel>? Brands { get; set; } = new List<GenericModel>();
         public static List<ItemModel>? ItemList { get; set; } = new List<ItemModel>();
         public static BusinessSummary? BusinessSummary { get; set; } = new BusinessSummary();
+        public static string[] DGVHeaders = new string[] { "ID", "Category", "Item Description", "Brand", "Purchase Source", "Quantity", "Purchase Date",
+                "Purchase Price", "Where Listed", "Lister SKU", "Date Listed", "List Price", "Sale Date", "Sale Price", "Cost of Sale",
+                "Discount Pct", "Days Held", "Profit", "Storage Location" };
         public static Mode MODE
         {
             get
