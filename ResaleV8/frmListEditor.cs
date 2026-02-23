@@ -118,9 +118,17 @@ namespace ResaleV8
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
             }
             //Else, delete oldItem from DB
-            else
+            else if(numMatches == 2)
             {
                 DataAccess.DeleteDropDownItem(tableName, item.ID);
+            }
+            else
+            {
+                ddEventArgs ea = new ddEventArgs();
+                ea.newItem = txtItem.Text.Trim();
+                ea.tableName = tableName;
+                ea.columnName = "Data";
+                DataAccess.addDropDownItemToTable(ea);
             }
             //Update GV list with DB changes
             DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
