@@ -650,6 +650,7 @@ namespace ResaleV8
             txtSKU.Text = "";
             txtListPrice.Text = "";
             txtQuantity.Text = "1";
+            txtCostOfSale.Text = "";
             dtpSaleDate.Format = DateTimePickerFormat.Custom;
             dtpSaleDate.CustomFormat = " ";
             cboBrand.SelectedIndex = -1;
@@ -884,7 +885,10 @@ namespace ResaleV8
 
         private void txtCostOfSale_TextChanged(object sender, EventArgs e)
         {
-            model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
+            if (txtCostOfSale.Text != "")
+            {
+                model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", "")); 
+            }
             MarkFormDirty(sender, e);
         }
 
