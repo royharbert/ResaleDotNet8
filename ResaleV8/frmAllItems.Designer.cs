@@ -73,6 +73,7 @@
             label18 = new Label();
             txtDiscountPct = new TextBox();
             label19 = new Label();
+            lblDBMode = new Label();
             SuspendLayout();
             // 
             // label1
@@ -90,7 +91,7 @@
             txtID.Enabled = false;
             txtID.Location = new Point(320, 116);
             txtID.Name = "txtID";
-            txtID.Size = new Size(394, 29);
+            txtID.Size = new Size(394, 39);
             txtID.TabIndex = 0;
             txtID.Tag = "ItemID";
             // 
@@ -108,7 +109,7 @@
             // 
             txtDesc.Location = new Point(320, 260);
             txtDesc.Name = "txtDesc";
-            txtDesc.Size = new Size(394, 29);
+            txtDesc.Size = new Size(394, 39);
             txtDesc.TabIndex = 3;
             txtDesc.Tag = "ItemDesc";
             txtDesc.TextChanged += txtDesc_TextChanged;
@@ -127,7 +128,7 @@
             // 
             txtQuantity.Location = new Point(320, 407);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(394, 29);
+            txtQuantity.Size = new Size(394, 39);
             txtQuantity.TabIndex = 6;
             txtQuantity.Tag = "Quantity";
             txtQuantity.Text = "1";
@@ -157,7 +158,7 @@
             // 
             txtPurchasePrice.Location = new Point(322, 455);
             txtPurchasePrice.Name = "txtPurchasePrice";
-            txtPurchasePrice.Size = new Size(394, 29);
+            txtPurchasePrice.Size = new Size(394, 39);
             txtPurchasePrice.TabIndex = 7;
             txtPurchasePrice.Tag = "PurchasePrice";
             txtPurchasePrice.TextChanged += txtPurchasePrice_TextChanged;
@@ -186,7 +187,7 @@
             // 
             txtPrice.Location = new Point(879, 246);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(415, 29);
+            txtPrice.Size = new Size(415, 39);
             txtPrice.TabIndex = 12;
             txtPrice.Tag = "SalePrice";
             txtPrice.TextChanged += txtPrice_TextChanged;
@@ -217,7 +218,7 @@
             txtProfit.Enabled = false;
             txtProfit.Location = new Point(876, 505);
             txtProfit.Name = "txtProfit";
-            txtProfit.Size = new Size(415, 29);
+            txtProfit.Size = new Size(415, 39);
             txtProfit.TabIndex = 14;
             txtProfit.Tag = "Profit";
             txtProfit.TextChanged += txtProfit_TextChanged;
@@ -237,7 +238,7 @@
             txtDaysHeld.Enabled = false;
             txtDaysHeld.Location = new Point(876, 572);
             txtDaysHeld.Name = "txtDaysHeld";
-            txtDaysHeld.Size = new Size(415, 29);
+            txtDaysHeld.Size = new Size(415, 39);
             txtDaysHeld.TabIndex = 15;
             txtDaysHeld.Tag = "ProductAge";
             // 
@@ -258,7 +259,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(321, 212);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(395, 29);
+            cboCategory.Size = new Size(395, 40);
             cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
             cboCategory.Tag = "Category";
@@ -269,7 +270,7 @@
             // 
             dtpBuy.Location = new Point(320, 359);
             dtpBuy.Name = "dtpBuy";
-            dtpBuy.Size = new Size(394, 29);
+            dtpBuy.Size = new Size(394, 39);
             dtpBuy.TabIndex = 5;
             dtpBuy.Tag = "PurchaseDate";
             dtpBuy.ValueChanged += dtpBuy_ValueChanged;
@@ -278,7 +279,7 @@
             // 
             dtpSaleDate.Location = new Point(879, 442);
             dtpSaleDate.Name = "dtpSaleDate";
-            dtpSaleDate.Size = new Size(415, 29);
+            dtpSaleDate.Size = new Size(415, 39);
             dtpSaleDate.TabIndex = 13;
             dtpSaleDate.Tag = "SaleDate";
             dtpSaleDate.ValueChanged += dtpSaleDate_ValueChanged;
@@ -388,7 +389,7 @@
             cboStorage.FormattingEnabled = true;
             cboStorage.Location = new Point(320, 615);
             cboStorage.Name = "cboStorage";
-            cboStorage.Size = new Size(394, 29);
+            cboStorage.Size = new Size(394, 40);
             cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
             cboStorage.TextChanged += cboStorage_TextChanged;
@@ -401,7 +402,7 @@
             cboBrand.FormattingEnabled = true;
             cboBrand.Location = new Point(320, 164);
             cboBrand.Name = "cboBrand";
-            cboBrand.Size = new Size(394, 29);
+            cboBrand.Size = new Size(394, 40);
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
             cboBrand.Tag = "Brand";
@@ -415,7 +416,7 @@
             cboPurchaseSource.FormattingEnabled = true;
             cboPurchaseSource.Location = new Point(320, 308);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(395, 29);
+            cboPurchaseSource.Size = new Size(395, 40);
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "Category";
@@ -427,7 +428,7 @@
             cboWhereListed.FormattingEnabled = true;
             cboWhereListed.Location = new Point(320, 506);
             cboWhereListed.Name = "cboWhereListed";
-            cboWhereListed.Size = new Size(394, 29);
+            cboWhereListed.Size = new Size(394, 40);
             cboWhereListed.Sorted = true;
             cboWhereListed.TabIndex = 8;
             cboWhereListed.Tag = "WhereListed";
@@ -438,7 +439,7 @@
             // 
             dtpDateListed.Location = new Point(322, 666);
             dtpDateListed.Name = "dtpDateListed";
-            dtpDateListed.Size = new Size(395, 29);
+            dtpDateListed.Size = new Size(395, 39);
             dtpDateListed.TabIndex = 10;
             dtpDateListed.Tag = "ListingDate";
             dtpDateListed.ValueChanged += dtpDateListed_ValueChanged;
@@ -467,7 +468,7 @@
             // 
             txtListPrice.Location = new Point(321, 718);
             txtListPrice.Name = "txtListPrice";
-            txtListPrice.Size = new Size(394, 29);
+            txtListPrice.Size = new Size(394, 39);
             txtListPrice.TabIndex = 11;
             txtListPrice.Tag = "ListPrice";
             txtListPrice.TextChanged += txtListPrice_TextChanged;
@@ -486,7 +487,7 @@
             // 
             txtCostOfSale.Location = new Point(876, 311);
             txtCostOfSale.Name = "txtCostOfSale";
-            txtCostOfSale.Size = new Size(415, 29);
+            txtCostOfSale.Size = new Size(415, 39);
             txtCostOfSale.TabIndex = 33;
             txtCostOfSale.Tag = "SalePrice";
             txtCostOfSale.TextChanged += txtCostOfSale_TextChanged;
@@ -506,7 +507,7 @@
             // 
             txtSKU.Location = new Point(323, 559);
             txtSKU.Name = "txtSKU";
-            txtSKU.Size = new Size(394, 29);
+            txtSKU.Size = new Size(394, 39);
             txtSKU.TabIndex = 35;
             txtSKU.Tag = "ListerSKU";
             txtSKU.TextChanged += txtSKU_TextChanged;
@@ -525,7 +526,7 @@
             // 
             txtDiscountPct.Location = new Point(879, 374);
             txtDiscountPct.Name = "txtDiscountPct";
-            txtDiscountPct.Size = new Size(415, 29);
+            txtDiscountPct.Size = new Size(415, 39);
             txtDiscountPct.TabIndex = 37;
             txtDiscountPct.Tag = "DiscountPct";
             txtDiscountPct.TextChanged += txtDiscountPct_TextChanged;
@@ -540,11 +541,22 @@
             label19.Text = "Discount %";
             label19.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // lblDBMode
+            // 
+            lblDBMode.AutoSize = true;
+            lblDBMode.Location = new Point(19, 11);
+            lblDBMode.Name = "lblDBMode";
+            lblDBMode.Size = new Size(91, 32);
+            lblDBMode.TabIndex = 39;
+            lblDBMode.Text = "label20";
+            lblDBMode.TextChanged += lblDBMode_TextChanged;
+            // 
             // frmAllItems
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1630, 786);
+            Controls.Add(lblDBMode);
             Controls.Add(txtDiscountPct);
             Controls.Add(label19);
             Controls.Add(txtSKU);
@@ -647,5 +659,6 @@
         private Label label18;
         private TextBox txtDiscountPct;
         private Label label19;
+        private Label lblDBMode;
     }
 }

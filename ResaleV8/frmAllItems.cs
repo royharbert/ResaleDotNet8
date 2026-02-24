@@ -328,6 +328,7 @@ namespace ResaleV8
         private void frmAllItems_Load(object sender, EventArgs e)
         {
             formLoading = true;
+            lblDBMode.Text = GV.dbMode.ToString();
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
@@ -892,7 +893,7 @@ namespace ResaleV8
         {
             if (txtCostOfSale.Text != "")
             {
-                model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", "")); 
+                model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
             }
             MarkFormDirty(sender, e);
         }
@@ -930,6 +931,18 @@ namespace ResaleV8
             {
                 model.DiscountPct = Convert.ToDecimal(txtDiscountPct.Text.Replace("%", ""));
                 txtProfit.Text = model.Profit.ToString();
+            }
+        }
+
+        private void lblDBMode_TextChanged(object sender, EventArgs e)
+        {
+            if (GV.dbMode == DataMode.SandboxDB)
+            {
+                lblDBMode.BackColor = Color.IndianRed;
+            }
+            else
+            {
+                lblDBMode.BackColor = Color.LightGreen;
             }
         }
     }

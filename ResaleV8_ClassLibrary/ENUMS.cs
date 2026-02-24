@@ -28,5 +28,11 @@ namespace ResaleV8
         Sold,
         Unsold
     }
+
+    public enum DataMode
+    {
+        LiveDB,
+        SandboxDB
+    }
 }
 

@@ -11,6 +11,7 @@ namespace ResaleV8_ClassLibrary
     public class GV
     {
         public static string conString { get; set; } = null!;
+        public static DataMode dbMode { get; set; } = DataMode.LiveDB;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
         public static List<GenericModel>? Categories { get; set; } = new List<GenericModel>();
         public static List<GenericModel>? StorageLocations { get; set; } = new List<GenericModel>();

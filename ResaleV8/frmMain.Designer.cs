@@ -46,13 +46,16 @@
             brandToolStripMenuItem = new ToolStripMenuItem();
             sToolStripMenuItem = new ToolStripMenuItem();
             whereListedToolStripMenuItem = new ToolStripMenuItem();
+            databaseModeToolStripMenuItem = new ToolStripMenuItem();
+            liveToolStripMenuItem = new ToolStripMenuItem();
+            sandboxToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, reportsToolStripMenuItem, editRecordToolStripMenuItem, dropDownEditToolStripMenuItem, databaseModeToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(9, 3, 0, 3);
@@ -84,21 +87,21 @@
             // soldItemReportToolStripMenuItem
             // 
             soldItemReportToolStripMenuItem.Name = "soldItemReportToolStripMenuItem";
-            soldItemReportToolStripMenuItem.Size = new Size(270, 34);
+            soldItemReportToolStripMenuItem.Size = new Size(269, 34);
             soldItemReportToolStripMenuItem.Text = "Sold Item Report";
             soldItemReportToolStripMenuItem.Click += soldItemReportToolStripMenuItem_Click;
             // 
             // unsoldItemToolStripMenuItem
             // 
             unsoldItemToolStripMenuItem.Name = "unsoldItemToolStripMenuItem";
-            unsoldItemToolStripMenuItem.Size = new Size(270, 34);
+            unsoldItemToolStripMenuItem.Size = new Size(269, 34);
             unsoldItemToolStripMenuItem.Text = "Unsold Item Report";
             unsoldItemToolStripMenuItem.Click += unsoldItemToolStripMenuItem_Click;
             // 
             // brandSellthruToolStripMenuItem
             // 
             brandSellthruToolStripMenuItem.Name = "brandSellthruToolStripMenuItem";
-            brandSellthruToolStripMenuItem.Size = new Size(270, 34);
+            brandSellthruToolStripMenuItem.Size = new Size(269, 34);
             brandSellthruToolStripMenuItem.Text = "Brand Sell-thru";
             brandSellthruToolStripMenuItem.Click += brandSellthruToolStripMenuItem_Click;
             // 
@@ -180,6 +183,27 @@
             whereListedToolStripMenuItem.Text = "Where Listed";
             whereListedToolStripMenuItem.Click += whereListedToolStripMenuItem_Click;
             // 
+            // databaseModeToolStripMenuItem
+            // 
+            databaseModeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { liveToolStripMenuItem, sandboxToolStripMenuItem });
+            databaseModeToolStripMenuItem.Name = "databaseModeToolStripMenuItem";
+            databaseModeToolStripMenuItem.Size = new Size(154, 29);
+            databaseModeToolStripMenuItem.Text = "Database Mode";
+            // 
+            // liveToolStripMenuItem
+            // 
+            liveToolStripMenuItem.Name = "liveToolStripMenuItem";
+            liveToolStripMenuItem.Size = new Size(270, 34);
+            liveToolStripMenuItem.Text = "Live";
+            liveToolStripMenuItem.Click += liveToolStripMenuItem_Click;
+            // 
+            // sandboxToolStripMenuItem
+            // 
+            sandboxToolStripMenuItem.Name = "sandboxToolStripMenuItem";
+            sandboxToolStripMenuItem.Size = new Size(270, 34);
+            sandboxToolStripMenuItem.Text = "Sandbox";
+            sandboxToolStripMenuItem.Click += sandboxToolStripMenuItem_Click;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -219,5 +243,8 @@
         private ToolStripMenuItem sToolStripMenuItem;
         private ToolStripMenuItem whereListedToolStripMenuItem;
         private ToolStripMenuItem brandSellthruToolStripMenuItem;
+        private ToolStripMenuItem databaseModeToolStripMenuItem;
+        private ToolStripMenuItem liveToolStripMenuItem;
+        private ToolStripMenuItem sandboxToolStripMenuItem;
     }
 }

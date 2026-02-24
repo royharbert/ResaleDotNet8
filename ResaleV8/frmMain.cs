@@ -19,7 +19,9 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
-        public frmAllItems AllItemsForm { get; set; }
+        public event EventHandler DatabaseModeChanged;
+        public frmAllItems AllItemsForm;
+
         public frmMain()
         {
             InitializeComponent();
@@ -151,8 +153,18 @@ namespace ResaleV8
         {
             GV.MODE = Mode.SellThru;
             frmSellThru sellThruForm = new frmSellThru();
-            sellThruForm.MdiParent = this;  
+            sellThruForm.MdiParent = this;
             sellThruForm.Show();
+        }
+
+        private void liveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.dbMode = DataMode.LiveDB;
+        }
+
+        private void sandboxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GV.dbMode = DataMode.SandboxDB;
         }
     }
 }
