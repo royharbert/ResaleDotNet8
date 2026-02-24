@@ -111,7 +111,6 @@
             editRecordToolStripMenuItem.Name = "editRecordToolStripMenuItem";
             editRecordToolStripMenuItem.Size = new Size(208, 29);
             editRecordToolStripMenuItem.Text = "Inventory Maintenance";
-            editRecordToolStripMenuItem.Click += editRecordToolStripMenuItem_Click;
             // 
             // addItemToolStripMenuItem1
             // 

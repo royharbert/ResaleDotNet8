@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using ResaleV8_ClassLibrary.Models;
@@ -10,7 +12,9 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,9 +23,10 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
-        public event EventHandler DatabaseModeChanged;
+        
         public frmAllItems AllItemsForm;
 
+        public event EventHandler<DataModeChangedEventArgs> OnDatabaseModeChanged;
         public frmMain()
         {
             InitializeComponent();
@@ -33,8 +38,10 @@ namespace ResaleV8
         }
 
         private void frmMain_Load(object sender, EventArgs e)
-        {
+        {            
             AllItemsForm = new frmAllItems();
+
+            GV.MainForm = this;
 
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
 
@@ -74,33 +81,28 @@ namespace ResaleV8
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Add;
-            frmAllItems allItemsForm = new frmAllItems();
-            allItemsForm.MdiParent = this;
-            allItemsForm.Show();
-            allItemsForm.Task = "Add New Item";
-        }
+            //AllItemsForm = new frmAllItems();
+            AllItemsForm.MdiParent = this;
+            AllItemsForm.Show();
+            AllItemsForm.Task = "Add New Item";
+        }   
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Retrieve;
-            frmAllItems allItemsForm = new frmAllItems();
-            allItemsForm.MdiParent = this;
-            allItemsForm.Show();
-
-            allItemsForm.Task = "Edit Item";
+            //frmAllItems allItemsForm = new frmAllItems();
+            AllItemsForm.MdiParent = this;
+            AllItemsForm.Show();
+            AllItemsForm.Task = "Edit Item";
         }
 
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Delete;
-            frmAllItems allItemsForm = new frmAllItems();
-            allItemsForm.MdiParent = this;
-            allItemsForm.Show();
-        }
-
-        private void editRecordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            //frmAllItems allItemsForm = new frmAllItems();
+            AllItemsForm.MdiParent = this;
+            AllItemsForm.Show();
+            AllItemsForm.Task = "Delete Item";
         }
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,11 +162,25 @@ namespace ResaleV8
         private void liveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.dbMode = DataMode.LiveDB;
+            DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
+            eventArgs.NewDataMode = DataMode.SandboxDB;
+            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
+            OnDatabaseModeChanged?.Invoke(this, new DataModeChangedEventArgs
+            {
+                NewDataMode = GV.dbMode,
+                conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale"
+            });
         }
 
         private void sandboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.dbMode = DataMode.SandboxDB;
+            DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
+            eventArgs.NewDataMode = DataMode.SandboxDB;
+            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
+            GV.dbMode = DataMode.SandboxDB;
+            OnDatabaseModeChanged?.Invoke(this, eventArgs );
+            eventArgs = null;
         }
     }
 }

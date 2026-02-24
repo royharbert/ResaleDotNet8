@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 namespace ResaleV8
 {
     public partial class frmAllItems : Form
-    {
+    {        
         private bool formDirty = false;
         private bool formLoading = false;
         private int _item;
@@ -72,7 +73,6 @@ namespace ResaleV8
                 formDirty = true;
             }
         }
-
 
         public ItemModel? model = new ItemModel();
         string[] allControls = { "txtID", "cboBrand", "cboCategory", "txtDesc", "cboPurchaseSource", "dtpBuy",
@@ -326,7 +326,7 @@ namespace ResaleV8
         }
 
         private void frmAllItems_Load(object sender, EventArgs e)
-        {
+        {     
             formLoading = true;
             lblDBMode.Text = GV.dbMode.ToString();
             FormControlOps.ClearDTP(dtpDateListed);

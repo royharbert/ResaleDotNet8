@@ -10,6 +10,7 @@ namespace ResaleV8_ClassLibrary
 {
     public class GV
     {
+        public static Form? MainForm { get; set; }
         public static string conString { get; set; } = null!;
         public static DataMode dbMode { get; set; } = DataMode.LiveDB;
         public static DateTime emptyDate { get; set; } = new DateTime(1900, 1, 1);
