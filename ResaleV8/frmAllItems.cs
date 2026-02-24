@@ -315,9 +315,20 @@ namespace ResaleV8
             }
         }
 
+        private frmMain parent;
+        
+
         public frmAllItems()
         {
+            this.parent = GV.MainForm as frmMain;
             InitializeComponent();
+
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+        }
+
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -326,7 +337,11 @@ namespace ResaleV8
         }
 
         private void frmAllItems_Load(object sender, EventArgs e)
-        {     
+        {
+            if (MdiParent != null)
+            {
+                
+            }
             formLoading = true;
             lblDBMode.Text = GV.dbMode.ToString();
             FormControlOps.ClearDTP(dtpDateListed);

@@ -38,8 +38,9 @@ namespace ResaleV8
         }
 
         private void frmMain_Load(object sender, EventArgs e)
-        {            
+        {
             AllItemsForm = new frmAllItems();
+            AllItemsForm.MdiParent = this;
 
             GV.MainForm = this;
 
