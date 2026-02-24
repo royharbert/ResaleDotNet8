@@ -21,7 +21,7 @@ namespace ResaleV8
     public partial class frmUnsoldReport : Form
     {
         EventArgs e = new EventArgs();
-        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "ListerSKU"};
+        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "ListerSKU" };
         public frmUnsoldReport()
         {
             InitializeComponent();
@@ -39,9 +39,9 @@ namespace ResaleV8
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.ItemList = itemList;
             dgvUnsold.DataSource = itemList;
-            string[] columnsToHide = {"Profit", "SalePrice", "Quantity", "ListerSKU", "SaleDate", "DiscountPCT", "CostOfSale" };
+            string[] columnsToHide = { "Profit", "SalePrice", "Quantity", "ListerSKU", "SaleDate", "DiscountPCT", "CostOfSale" };
             FormControlOps.formatDGV(dgvUnsold,
-                headers: GV.DGVHeaders ,
+                headers: GV.DGVHeaders,
                 columnsToHide);
             dgvUnsold.Columns["ItemDesc"].Width = 450;
             GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
@@ -81,6 +81,17 @@ namespace ResaleV8
             allItemsForm.item = itemID;
             allItemsForm.Task = "Edit Item";
             allItemsForm.Focus();
+        }
+
+        private void frmUnsoldReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        private void frmUnsoldReport_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

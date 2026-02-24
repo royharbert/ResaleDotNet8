@@ -25,6 +25,12 @@ namespace ResaleV8
     {
         
         public frmAllItems AllItemsForm;
+        public frmSearchResults ResultsForm;
+        public frmListEditor ListEditorForm;
+        public frmSellThru SellThruForm;
+        public frmSoldReport SoldReportForm;
+        public frmUnsoldReport UnsoldReportForm;
+        public frmSellThru SellThruReportForm;  
 
         public event EventHandler<DataModeChangedEventArgs> OnDatabaseModeChanged;
         public frmMain()
@@ -39,12 +45,26 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            GV.MainForm = this;
+            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+            GV.dbMode = DataMode.LiveDB;
+
             AllItemsForm = new frmAllItems();
             AllItemsForm.MdiParent = this;
+            ResultsForm = new frmSearchResults();
+            ResultsForm.MdiParent = this;
+            ListEditorForm = new frmListEditor();   
+            ListEditorForm.MdiParent = this;
+            SellThruForm = new frmSellThru();
+            SellThruForm.MdiParent = this;
+            SoldReportForm = new frmSoldReport();
+            SoldReportForm.MdiParent = this;
+            UnsoldReportForm = new frmUnsoldReport();
+            UnsoldReportForm.MdiParent = this;
+            SellThruReportForm = new frmSellThru();
 
-            GV.MainForm = this;
 
-            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+
 
             GV.Categories = DataAccess.GetDropDownList("categories");
 
@@ -67,32 +87,30 @@ namespace ResaleV8
 
         private void soldItemReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSoldReport soldReportForm = new frmSoldReport();
-            soldReportForm.MdiParent = this;
-            soldReportForm.Show();
+            //frmSoldReport soldReportForm = new frmSoldReport();
+            //soldReportForm.MdiParent = this;
+            SoldReportForm.Show();
         }
 
         private void unsoldItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmUnsoldReport unsoldReportForm = new frmUnsoldReport();
-            unsoldReportForm.MdiParent = this;
-            unsoldReportForm.Show();
+            //frmUnsoldReport unsoldReportForm = new frmUnsoldReport();
+            //unsoldReportForm.MdiParent = this;
+            UnsoldReportForm.Show();
         }
 
         private void addItemToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Add;
-            //AllItemsForm = new frmAllItems();
-            AllItemsForm.MdiParent = this;
+            //AllItemsForm.MdiParent = this;
             AllItemsForm.Show();
             AllItemsForm.Task = "Add New Item";
         }   
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Retrieve;
-            //frmAllItems allItemsForm = new frmAllItems();
-            AllItemsForm.MdiParent = this;
+            GV.MODE = Mode.Retrieve;            
+            //AllItemsForm.MdiParent = this;
             AllItemsForm.Show();
             AllItemsForm.Task = "Edit Item";
         }
@@ -100,8 +118,7 @@ namespace ResaleV8
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Delete;
-            //frmAllItems allItemsForm = new frmAllItems();
-            AllItemsForm.MdiParent = this;
+            //AllItemsForm.MdiParent = this;
             AllItemsForm.Show();
             AllItemsForm.Task = "Delete Item";
         }
@@ -109,17 +126,17 @@ namespace ResaleV8
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.Search;
-            frmAllItems allItemsForm = new frmAllItems();
-            allItemsForm.MdiParent = this;
-            allItemsForm.Show();
-            allItemsForm.Task = "Search Items";
+            //frmAllItems allItemsForm = new frmAllItems();
+            //allItemsForm.MdiParent = this;
+            AllItemsForm.Show();
+            AllItemsForm.Task = "Search Items";
         }
 
         private void openListEditorForm()
         {
-            frmListEditor editor = new frmListEditor();
-            editor.MdiParent = this;
-            editor.Show();
+            //frmListEditor editor = new frmListEditor();
+            //editor.MdiParent = this;
+            ListEditorForm.Show();
         }
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,22 +172,20 @@ namespace ResaleV8
         private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.SellThru;
-            frmSellThru sellThruForm = new frmSellThru();
-            sellThruForm.MdiParent = this;
-            sellThruForm.Show();
+            //frmSellThru sellThruForm = new frmSellThru();
+            //sellThruForm.MdiParent = this;
+            SellThruForm.Show();
         }
 
         private void liveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.dbMode = DataMode.LiveDB;
             DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
-            eventArgs.NewDataMode = DataMode.SandboxDB;
-            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
-            OnDatabaseModeChanged?.Invoke(this, new DataModeChangedEventArgs
-            {
-                NewDataMode = GV.dbMode,
-                conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale"
-            });
+            GV.dbMode = DataMode.LiveDB;
+            eventArgs.NewDataMode = DataMode.LiveDB;
+            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";            
+            OnDatabaseModeChanged?.Invoke(this, eventArgs); 
+            eventArgs = null;
         }
 
         private void sandboxToolStripMenuItem_Click(object sender, EventArgs e)

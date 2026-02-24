@@ -320,15 +320,17 @@ namespace ResaleV8
 
         public frmAllItems()
         {
-            this.parent = GV.MainForm as frmMain;
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
 
             parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
         }
 
+
         private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
         {
-            throw new NotImplementedException();
+           
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -338,12 +340,9 @@ namespace ResaleV8
 
         private void frmAllItems_Load(object sender, EventArgs e)
         {
-            if (MdiParent != null)
-            {
-                
-            }
             formLoading = true;
             lblDBMode.Text = GV.dbMode.ToString();
+            lblDBMode.BackColor = Color.LightGreen;
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
             cboWhereListed.DataSource = GV.WhereListed;
@@ -718,10 +717,10 @@ namespace ResaleV8
             }
             sql = sql.Substring(0, sql.Length - 5);
             List<ItemModel> models = DataAccess.getModelList(sql);
-            frmSearchResults resultsForm = new frmSearchResults();
-            resultsForm.Models = models;
+            frmSearchResults ResultsForm = parent.ResultsForm;
+            ResultsForm.Models = models;
             Close();
-            resultsForm.ShowDialog();
+            ResultsForm.Show();
         }
 
         private List<(string, string)> buildSearchQuery()

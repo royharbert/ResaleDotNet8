@@ -14,16 +14,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8
 {
     public partial class frmSoldReport : Form
     {
+        private frmMain parent;
         string[] hiddenColumns = { };
         public frmSoldReport()
         {
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
+
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+        }
+
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -80,6 +90,12 @@ namespace ResaleV8
             allItemsForm.Show();
             allItemsForm.item = itemID;
             allItemsForm.Focus();
+        }
+
+        private void frmSoldReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

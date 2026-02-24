@@ -25,9 +25,19 @@ namespace ResaleV8
         private List<GenericModel> list;
         private string oldItem;
 
+        private frmMain parent;
+
         public frmListEditor()
         {
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
+
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+        }
+
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
         private void frmListEditor_Load(object sender, EventArgs e)
@@ -101,7 +111,7 @@ namespace ResaleV8
         {
             DoModification();
         }
-        
+
 
         private void DoModification()
         {
@@ -113,12 +123,12 @@ namespace ResaleV8
             int numMatches = 0;
             numMatches = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
             //If not, update DB with newItem
-            if(numMatches == 1)
+            if (numMatches == 1)
             {
                 DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
             }
             //Else, delete oldItem from DB
-            else if(numMatches == 2)
+            else if (numMatches == 2)
             {
                 DataAccess.DeleteDropDownItem(tableName, item.ID);
             }
@@ -212,9 +222,9 @@ namespace ResaleV8
                     GV.WhereListed = DataAccess.GetDropDownList("WhereListed").ToList();
                     gvList = GV.WhereListed;
                     break;
-            }           
+            }
 
-            
+
             int idx = Operations.FindStringInList(txtItem.Text.Trim(), gvList);
             if (idx != -1)
             {
@@ -229,6 +239,12 @@ namespace ResaleV8
             {
                 MessageBox.Show("Item not found in list.");
             }
+        }
+
+        private void frmListEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

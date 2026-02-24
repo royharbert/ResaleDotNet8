@@ -1,4 +1,5 @@
-﻿using ResaleV8_ClassLibrary.Models;
+﻿using ResaleV8;
+using ResaleV8_ClassLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,32 @@ namespace ResaleV8_ClassLibrary.Ops
 {  
     public static class FormControlOps
     {
+        public static void SetDBModeIndicator(Label lbl, DataModeChangedEventArgs e )
+        {
+
+            GV.dbMode = e.NewDataMode;
+            GV.conString = e.conString;
+            SetDBModeLabel(lbl);
+        }
+
+        private static void SetDBModeLabel(Label lbl)
+        {
+            if (GV.dbMode == DataMode.LiveDB)
+            {
+                lbl.Text = "Live";
+                lbl.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                lbl.BackColor = Color.IndianRed;
+                lbl.Text = "Sandbox";
+            }
+        }
+
+        public static void setDBModeLabel(Label lbl)
+        {
+            lbl.Text = "Database Mode: " + GV.dbMode.ToString();
+        }
         public static bool IsItemInDropDown(ComboBox cbo, string item)
         {
             foreach (var cboItem in cbo.Items)

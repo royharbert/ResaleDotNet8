@@ -549,7 +549,6 @@
             lblDBMode.Size = new Size(91, 32);
             lblDBMode.TabIndex = 39;
             lblDBMode.Text = "label20";
-            lblDBMode.TextChanged += lblDBMode_TextChanged;
             // 
             // frmAllItems
             // 

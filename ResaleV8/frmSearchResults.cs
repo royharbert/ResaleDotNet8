@@ -75,7 +75,7 @@ namespace ResaleV8
         private void formatDGVSearchResults()
         {
             string[] headers = GV.DGVHeaders;
-            string[] hiddenColumns = new string[] {"Quantity", "ListerSKU" };
+            string[] hiddenColumns = new string[] { "Quantity", "ListerSKU" };
             FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
             dgvSearchresults.Columns["ItemDesc"].Width = 450;
         }
@@ -89,6 +89,12 @@ namespace ResaleV8
         {
             int row = e.RowIndex;
             loadDataOnForm(row);
+        }
+
+        private void frmSearchResults_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }

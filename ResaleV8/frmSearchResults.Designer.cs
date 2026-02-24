@@ -31,6 +31,7 @@
             dgvSearchresults = new DataGridView();
             btnExport = new Button();
             btnClose = new Button();
+            lblDBMode = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvSearchresults).BeginInit();
             SuspendLayout();
             // 
@@ -78,20 +79,33 @@
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += button1_Click;
             // 
+            // lblDBMode
+            // 
+            lblDBMode.AutoSize = true;
+            lblDBMode.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDBMode.Location = new Point(863, 1041);
+            lblDBMode.Name = "lblDBMode";
+            lblDBMode.Size = new Size(76, 30);
+            lblDBMode.TabIndex = 17;
+            lblDBMode.Text = "label7";
+            // 
             // frmSearchResults
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2178, 1175);
+            Controls.Add(lblDBMode);
             Controls.Add(btnClose);
             Controls.Add(btnExport);
             Controls.Add(dgvSearchresults);
             Margin = new Padding(4, 5, 4, 5);
             Name = "frmSearchResults";
             Text = "Search Results";
+            FormClosing += frmSearchResults_FormClosing;
             Load += frmSearchResults_Load;
             ((System.ComponentModel.ISupportInitialize)dgvSearchresults).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -99,5 +113,6 @@
         private DataGridView dgvSearchresults;
         private Button btnExport;
         private Button btnClose;
+        private Label lblDBMode;
     }
 }

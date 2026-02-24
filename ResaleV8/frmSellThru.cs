@@ -90,7 +90,7 @@ namespace ResaleV8
             dgvSellThru.DataSource = sellThrus;
             Operations.FormatSellThruDGV(dgvSellThru);
         }
-        
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -101,7 +101,8 @@ namespace ResaleV8
             int colIndex = e.ColumnIndex;
             List<SellThruModel> sellThruList = (List<SellThruModel>)dgvSellThru.DataSource;
             switch (colIndex)
-            {   case 0: // Brand
+            {
+                case 0: // Brand
                     sellThruList = sellThruList.OrderByDescending(s => s.Brand).ToList();
                     break;
                 case 1: // Total Items
@@ -118,11 +119,17 @@ namespace ResaleV8
                     break;
                 case 5: // Financial Position
                     sellThruList = sellThruList.OrderByDescending(s => s.FinancialPosition).ToList();
-                    break;                    
+                    break;
             }
             dgvSellThru.DataSource = null;
             dgvSellThru.DataSource = sellThruList;
             Operations.FormatSellThruDGV(dgvSellThru);
+        }
+
+        private void frmSellThru_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }
