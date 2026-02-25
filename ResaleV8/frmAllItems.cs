@@ -378,6 +378,7 @@ namespace ResaleV8
                         MessageBox.Show("Item Added");
                     }
                     clearForm();
+                    formDirty = false;
                     break;
                 case Mode.Edit:
                     // Update existing item in database
@@ -896,7 +897,7 @@ namespace ResaleV8
 
         private void txtPrice_TextChanged(object sender, EventArgs e)
         {
-            if (txtPrice.Text != "")
+            if (txtPrice.Text != "" || txtPrice.Text != "$")
             {
                 model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
             }
@@ -962,6 +963,7 @@ namespace ResaleV8
 
         private void frmAllItems_VisibleChanged(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
             ea.conString = GV.conString;
             ea.NewDataMode = GV.dbMode;

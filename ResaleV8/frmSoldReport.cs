@@ -95,11 +95,13 @@ namespace ResaleV8
         private void frmSoldReport_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
+            dgvSoldReport.DataSource = null;
             this.Hide();
         }
 
         private void frmSoldReport_VisibleChanged(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
             ea.conString = GV.conString;
             ea.NewDataMode = GV.dbMode;
