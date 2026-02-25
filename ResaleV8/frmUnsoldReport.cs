@@ -20,11 +20,20 @@ namespace ResaleV8
 {
     public partial class frmUnsoldReport : Form
     {
+        private frmMain parent;
         EventArgs e = new EventArgs();
+
         string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "ListerSKU" };
         public frmUnsoldReport()
         {
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+        }
+
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -89,9 +98,12 @@ namespace ResaleV8
             this.Hide();
         }
 
-        private void frmUnsoldReport_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmUnsoldReport_VisibleChanged(object sender, EventArgs e)
         {
-
+            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+            ea.conString = GV.conString;
+            ea.NewDataMode = GV.dbMode;
+            Parent_OnDatabaseModeChanged(this, ea);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace ResaleV8
     public partial class frmSearchResults : Form
     {
         private List<ItemModel> models;
+        private frmMain parent;
+
 
         public List<ItemModel> Models
         {
@@ -32,7 +34,14 @@ namespace ResaleV8
 
         public frmSearchResults()
         {
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+        }
+
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
         private void frmSearchResults_Load(object sender, EventArgs e)
@@ -95,6 +104,14 @@ namespace ResaleV8
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void frmSearchResults_VisibleChanged(object sender, EventArgs e)
+        {
+            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+            ea.conString = GV.conString;
+            ea.NewDataMode = GV.dbMode;
+            Parent_OnDatabaseModeChanged(this, ea);
         }
     }
 }

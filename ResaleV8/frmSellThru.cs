@@ -18,9 +18,13 @@ namespace ResaleV8
     public partial class frmSellThru : Form
     {
         GraphPane graphPane;
+        private frmMain parent;
         public frmSellThru()
         {
+            parent = GV.MainForm as frmMain;
             InitializeComponent();
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+
             graphPane = zgc.GraphPane;
 
 
@@ -81,7 +85,10 @@ namespace ResaleV8
             zgc.Invalidate();
         }
 
-
+        private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
+        {
+            FormControlOps.SetDBModeIndicator(lblDBMode, e);
+        }
 
         private void frmSellThru_Load(object sender, EventArgs e)
         {
@@ -130,6 +137,14 @@ namespace ResaleV8
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void frmSellThru_VisibleChanged(object sender, EventArgs e)
+        {
+            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+            ea.conString = GV.conString;
+            ea.NewDataMode = GV.dbMode;
+            Parent_OnDatabaseModeChanged(this, ea);
         }
     }
 }

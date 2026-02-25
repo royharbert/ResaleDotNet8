@@ -97,5 +97,13 @@ namespace ResaleV8
             e.Cancel = true;
             this.Hide();
         }
+
+        private void frmSoldReport_VisibleChanged(object sender, EventArgs e)
+        {
+            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+            ea.conString = GV.conString;
+            ea.NewDataMode = GV.dbMode;
+            Parent_OnDatabaseModeChanged(this, ea);
+        }
     }
 }

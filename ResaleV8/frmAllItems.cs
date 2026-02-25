@@ -17,7 +17,7 @@ using System.Windows.Forms;
 namespace ResaleV8
 {
     public partial class frmAllItems : Form
-    {        
+    {
         private bool formDirty = false;
         private bool formLoading = false;
         private int _item;
@@ -316,7 +316,7 @@ namespace ResaleV8
         }
 
         private frmMain parent;
-        
+
 
         public frmAllItems()
         {
@@ -329,7 +329,7 @@ namespace ResaleV8
 
         private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
         {
-           
+
             FormControlOps.SetDBModeIndicator(lblDBMode, e);
         }
 
@@ -958,6 +958,14 @@ namespace ResaleV8
             {
                 lblDBMode.BackColor = Color.LightGreen;
             }
+        }
+
+        private void frmAllItems_VisibleChanged(object sender, EventArgs e)
+        {
+            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+            ea.conString = GV.conString;
+            ea.NewDataMode = GV.dbMode;
+            Parent_OnDatabaseModeChanged(this, ea);
         }
     }
 }
