@@ -102,6 +102,7 @@ namespace ResaleV8
 
         private void frmSearchResults_FormClosing(object sender, FormClosingEventArgs e)
         {
+            dgvSearchresults.DataSource = null;
             e.Cancel = true;
             this.Hide();
         }

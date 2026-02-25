@@ -897,9 +897,13 @@ namespace ResaleV8
 
         private void txtPrice_TextChanged(object sender, EventArgs e)
         {
-            if (txtPrice.Text != "" || txtPrice.Text != "$")
+            try
             {
                 model.SalePrice = Convert.ToDecimal(txtPrice.Text.Replace("$", ""));
+            }
+            catch (Exception)
+            {
+                //throw;
             }
             MarkFormDirty(sender, e);
         }
@@ -963,6 +967,7 @@ namespace ResaleV8
 
         private void frmAllItems_VisibleChanged(object sender, EventArgs e)
         {
+            prepareForm();
             this.WindowState = FormWindowState.Maximized;
             DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
             ea.conString = GV.conString;
