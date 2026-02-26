@@ -660,8 +660,8 @@ namespace ResaleV8
         private void clearForm()
         {
             model = new ItemModel();
-            txtPrice.Text = "0";
-            txtDiscountPct.Text = "0";
+            txtDiscountPct.Text = "";
+            txtPrice.Text = "";
             txtProfit.Text = "";
             txtDaysHeld.Text = "";
             txtDesc.Text = "";
@@ -686,8 +686,8 @@ namespace ResaleV8
             cboWhereListed.Text = "";
             this.AcceptButton = btnSave;
             //disableAllControls();
-            string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateLusted", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "btnSave", "btnClose", "txtSKU" };
+            //string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateListed", "txtPurchasePrice", "txtQuantity",
+            //            "cboStorage", "btnSave", "btnClose", "txtSKU" };
             //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
 
@@ -967,12 +967,19 @@ namespace ResaleV8
 
         private void frmAllItems_VisibleChanged(object sender, EventArgs e)
         {
-            prepareForm();
-            this.WindowState = FormWindowState.Maximized;
-            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
-            ea.conString = GV.conString;
-            ea.NewDataMode = GV.dbMode;
-            Parent_OnDatabaseModeChanged(this, ea);
+            if (this.Visible)
+            {
+                prepareForm();
+                this.WindowState = FormWindowState.Maximized;
+                DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+                ea.conString = GV.conString;
+                ea.NewDataMode = GV.dbMode;
+                Parent_OnDatabaseModeChanged(this, ea); 
+            }
+            else
+            {
+                clearForm();
+            }
         }
     }
 }

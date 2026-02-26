@@ -92,6 +92,7 @@ namespace ResaleV8_ClassLibrary.Ops
         public static void formatDGV(DataGridView dgv, string[] headers,
             string[] hiddenColumns)
         {
+            dgv.RowHeadersVisible = false;
             for (int i = 0; i < headers.Length; i++)
             {
                 if (i < dgv.Columns.Count)
@@ -102,7 +103,7 @@ namespace ResaleV8_ClassLibrary.Ops
             dgv.ColumnHeadersDefaultCellStyle.Alignment = 
                 DataGridViewContentAlignment.MiddleCenter;
             foreach (var hiddenColumn in hiddenColumns)
-            {
+            {                
                 if (dgv.Columns.Contains(hiddenColumn))
                 {
                     dgv.Columns[hiddenColumn].Visible = false;
@@ -116,12 +117,15 @@ namespace ResaleV8_ClassLibrary.Ops
             dgv.MultiSelect = false;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv.RowHeadersVisible = true;
+            dgv.RowHeadersVisible = false;
             dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             foreach (DataGridViewColumn col in dgv.Columns)
             {
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+            dgv.Columns["ItemDesc"].Width = 450;
+            dgv.Columns["Brand"].Width = 150;
+            dgv.Columns["ItemID"].Width = 50;
 
         }
 

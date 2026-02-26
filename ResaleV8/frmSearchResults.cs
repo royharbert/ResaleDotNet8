@@ -85,8 +85,7 @@ namespace ResaleV8
         {
             string[] headers = GV.DGVHeaders;
             string[] hiddenColumns = new string[] { "Quantity", "ListerSKU" };
-            FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);
-            dgvSearchresults.Columns["ItemDesc"].Width = 450;
+            FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -102,6 +101,7 @@ namespace ResaleV8
 
         private void frmSearchResults_FormClosing(object sender, FormClosingEventArgs e)
         {
+            models = null;
             dgvSearchresults.DataSource = null;
             e.Cancel = true;
             this.Hide();
@@ -109,10 +109,16 @@ namespace ResaleV8
 
         private void frmSearchResults_VisibleChanged(object sender, EventArgs e)
         {
-            DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
-            ea.conString = GV.conString;
-            ea.NewDataMode = GV.dbMode;
-            Parent_OnDatabaseModeChanged(this, ea);
+            if (this.Visible)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                DataModeChangedEventArgs ea = new DataModeChangedEventArgs();
+                ea.conString = GV.conString;
+                ea.NewDataMode = GV.dbMode;
+                Parent_OnDatabaseModeChanged(this, ea); 
+                dgvSearchresults.DataSource = models;
+                formatDGVSearchResults();
+            }
         }
     }
 }

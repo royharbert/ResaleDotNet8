@@ -41,7 +41,7 @@
             dgvSearchresults.Location = new Point(0, 24);
             dgvSearchresults.Name = "dgvSearchresults";
             dgvSearchresults.RowHeadersWidth = 51;
-            dgvSearchresults.Size = new Size(1512, 527);
+            dgvSearchresults.Size = new Size(1845, 709);
             dgvSearchresults.TabIndex = 0;
             dgvSearchresults.CellContentDoubleClick += dgvSearchresults_CellContentDoubleClick;
             dgvSearchresults.RowHeaderMouseDoubleClick += dgvSearchresults_RowHeaderMouseDoubleClick;
@@ -52,7 +52,7 @@
             btnExport.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnExport.Image = Properties.Resources.icons8_excel_50;
             btnExport.ImageAlign = ContentAlignment.TopCenter;
-            btnExport.Location = new Point(735, 583);
+            btnExport.Location = new Point(713, 754);
             btnExport.Margin = new Padding(3, 2, 3, 2);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(112, 94);
@@ -68,7 +68,7 @@
             btnClose.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnClose.Image = Properties.Resources._5402366_delete_remove_cross_cancel_close_icon;
             btnClose.ImageAlign = ContentAlignment.TopCenter;
-            btnClose.Location = new Point(1387, 583);
+            btnClose.Location = new Point(852, 754);
             btnClose.Margin = new Padding(3, 2, 3, 2);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(112, 94);
@@ -82,7 +82,7 @@
             // 
             lblDBMode.AutoSize = true;
             lblDBMode.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDBMode.Location = new Point(636, 622);
+            lblDBMode.Location = new Point(11, 1);
             lblDBMode.Margin = new Padding(2, 0, 2, 0);
             lblDBMode.Name = "lblDBMode";
             lblDBMode.Size = new Size(51, 20);
@@ -93,7 +93,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1525, 705);
+            ClientSize = new Size(1857, 859);
             Controls.Add(lblDBMode);
             Controls.Add(btnClose);
             Controls.Add(btnExport);
