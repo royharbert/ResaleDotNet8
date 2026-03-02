@@ -21,7 +21,11 @@ namespace ResaleV8_ClassLibrary.Ops
             sellThru.Brand = brand;
             sellThru.TotalItems = allItems.Count;
             sellThru.TotalSold = soldItems.Count;
-            sellThru.SellThruPct = sellThru.TotalSold * 100 / sellThru.TotalItems;
+            if (sellThru.TotalSold != 0)
+            {
+                sellThru.SellThruPct = sellThru.TotalSold * 100 / sellThru.TotalItems;
+
+            }
             decimal totalPurchasePrice = soldItems.Sum(i => i.PurchasePrice);
             if (totalPurchasePrice > 0)
             {

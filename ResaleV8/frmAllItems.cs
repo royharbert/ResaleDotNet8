@@ -498,17 +498,60 @@ namespace ResaleV8
             return ea;
         }
 
+        /// <summary>
+        /// Replaces all escaped single quotes in the new item value of the specified event arguments with a single
+        /// quote.
+        /// </summary>
+        /// <remarks>This method is typically used to normalize input by converting double single quotes
+        /// (''), often used to escape single quotes in certain contexts, back to a single quote character. The
+        /// operation is performed in place on the 'newItem' property of the provided event arguments.</remarks>
+        /// <param name="ea">The event arguments containing the new item value to process. Cannot be null. The method modifies the
+        /// 'newItem' property if it contains escaped single quotes.</param>
+        private void removeEscapedSingleQuotes(ddEventArgs ea)
+        {
+            if (ea.newItem.Contains("''"))
+            {
+                ea.newItem = ea.newItem.Replace("''", "'");
+            }
+        }
+
+        /// <summary>
+        /// Escapes single quotes in the new item value of the specified event arguments by replacing each single quote
+        /// with two single quotes.
+        /// </summary>
+        /// <remarks>This method is typically used to prepare string values for use in SQL statements,
+        /// where single quotes must be escaped by doubling them. The method modifies the new item value in
+        /// place.</remarks>
+        /// <param name="ea">The event arguments containing the new item value to be processed. Cannot be null.</param>
+        private void addEscapeForSingleQuotes(ddEventArgs ea)
+        {
+            if (ea.newItem.Contains("'"))
+            {
+                ea.newItem = ea.newItem.Replace("'", "''");
+            }
+        }
+
         private void comboListMaintenance(object sender, EventArgs e)
         {
             /*
-            * Check for single quotes in text
-            * If found, escape them
             * Check to see if text is in items collection
             * If not, add it to list
             *  Insert it into data table
             */
             ComboBox? cbo = sender as ComboBox;
             string? originalItem = cbo.Text;
+            if(originalItem.Contains("''"))
+            {
+
+            }
+
+
+            /*
+            * Check for single quotes in text
+            * If found, escape them
+            */
+            ddEventArgs ea = new ddEventArgs();
+            ea.newItem = (sender as ComboBox).Text;
             //ddEventArgs ea = new ddEventArgs();
             GenericModel gm = new GenericModel();
             string escapedItem = Operations.EscapeApostrophes(originalItem);
@@ -533,7 +576,7 @@ namespace ResaleV8
                 {
                     case "cboCategory":
                         List<GenericModel> existingCategories = DataAccess.GetDropDownList("Categories");
-                        ddEventArgs ea = CreateEventArgs(escapedItem, "Categories", "Data", existingCategories);
+                        ea = CreateEventArgs(escapedItem, "Categories", "Data", existingCategories);
                         AddItemIfNeeded(ea, existingCategories);
                         GV.Categories = DataAccess.GetDropDownList("Categories");
                         cboCategory.DataSource = null;
@@ -685,10 +728,6 @@ namespace ResaleV8
             cboWhereListed.SelectedIndex = -1;
             cboWhereListed.Text = "";
             this.AcceptButton = btnSave;
-            //disableAllControls();
-            //string[] ctlsToEnable = { "txtDesc", "cboCategory", "dtpBuy", "dtpDateListed", "txtPurchasePrice", "txtQuantity",
-            //            "cboStorage", "btnSave", "btnClose", "txtSKU" };
-            //enableDisableControls(ctlsToEnable, true);
             cboCategory.Focus();
 
         }
@@ -802,7 +841,10 @@ namespace ResaleV8
 
         private void txtCostOfSale_Leave(object sender, EventArgs e)
         {
-            model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", ""));
+            if (txtCostOfSale.Text != "")
+            {
+                model.CostOfSale = Convert.ToDecimal(txtCostOfSale.Text.Replace("$", "")); 
+            }
             txtProfit.Text = model.Profit.ToString("$0.00");
             txtDaysHeld.Text = model.ProductAge.ToString();
         }

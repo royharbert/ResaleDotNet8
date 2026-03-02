@@ -29,6 +29,12 @@ namespace ResaleV8
         Unsold
     }
 
+    public enum EscapeCharactersAdd_Delete
+    { 
+        Add,    
+        Delete
+    }
+
     public enum DataMode
     {
         LiveDB,
