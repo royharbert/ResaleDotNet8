@@ -14,7 +14,7 @@ namespace ResaleV8_ClassLibrary
     
     public class DataAccess
     {
-        public DropDownEventArgs RecursiveControlEscapeChars(string item)
+        public static DropDownEventArgs RecursiveControlEscapeChars(string item)
         {
             DropDownEventArgs args = new DropDownEventArgs();
             args.originalItem = item;
@@ -28,9 +28,7 @@ namespace ResaleV8_ClassLibrary
             return args;
         }
 
-
-
-        public DropDownEventArgs ProcessDDItem(DropDownEventArgs args)
+        public static DropDownEventArgs ProcessDDItem(DropDownEventArgs args)
         {
             args.FirstPass = false;
             //Loop through input strings and locate instance of espcaped single quotes
@@ -117,21 +115,21 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
-        public static int GetItemByDataField(string tableName, string data)
-        {
-            MySqlConnection con = ConnectToDB.OpenDB();
-            using (con)
-            {
-                if(data.Contains("'"))
-                {
-                    data = Operations.EscapeApostrophes(data);
-                }
-                string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
-                int count =
-                        con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
-                return count;
-            }
-        }
+        //public static int GetItemByDataField(string tableName, string data)
+        //{
+        //    MySqlConnection con = ConnectToDB.OpenDB();
+        //    using (con)
+        //    {
+        //        if(data.Contains("'"))
+        //        {
+        //            data = ;
+        //        }
+        //        string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
+        //        int count =
+        //                con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
+        //        return count;
+        //    }
+        //}
 
         public static List<GenericModel> GetDropDownList(string tableName)
         {
@@ -164,19 +162,59 @@ namespace ResaleV8_ClassLibrary
             return;
         }
 
-        public static int addDropDownItemToTable(DropDownEventArgs ea)
+        /// <summary>
+        /// Check for existing item in combo box list to prevent duplicates in database. 
+        /// Returns true if item exists, false if not.
+        /// </summary>
+        /// <param name="cbo"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool CheckForExistingItem(ComboBox cbo, string data)
         {
-            string sql = "INSERT INTO " + ea.tableName (data) values " +
-                "('" + ea.newItem + "')";
-            MySqlConnection con = new MySqlConnection(GV.conString);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@" + ea.columnName, ea.newItem);
-            object result = cmd.ExecuteScalar();
-            int newID = Convert.ToInt32(cmd.LastInsertedId);
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string tableName = cbo.Tag.ToString();
+                
+                string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
+                int count =
+                        con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
+                return count > 0;
+            }
+        }
 
-            con.Close();
-            
+        //public static int addDropDownItemToTable(DropDownEventArgs ea)
+        //{
+        //    string sql = "INSERT INTO " + ea.tableName (data) values " +
+        //        "('" + ea.newItem + "')";
+        //    MySqlConnection con = new MySqlConnection(GV.conString);
+        //    con.Open();
+        //    MySqlCommand cmd = new MySqlCommand(sql, con);
+        //    cmd.Parameters.AddWithValue("@" + ea.columnName, ea.newItem);
+        //    object result = cmd.ExecuteScalar();
+        //    int newID = Convert.ToInt32(cmd.LastInsertedId);
+
+        //    con.Close();
+
+        //    return newID;
+        //}
+
+        public static int AddNewItemToDropDownTable(ComboBox cbo)
+        {
+            int newID = -1;
+            //check for existing item in database to prevent duplicates
+            bool exists = CheckForExistingItem(cbo, cbo.Text);
+            if (exists)
+            {
+                string tableName = cbo.Tag.ToString();
+                string sql = "INSERT INTO tableName (data) values ('" + cbo.Text + "')";
+                MySqlConnection con = new MySqlConnection(GV.conString);
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                object result = cmd.ExecuteScalar();
+                newID = Convert.ToInt32(cmd.LastInsertedId);
+                con.Close();
+            }
             return newID;
         }
 
@@ -270,16 +308,19 @@ namespace ResaleV8_ClassLibrary
             return rowsAffected;
         }
 
-        public static void UpdateSingleDDItem(string tableName, string colName, string oldItem, string newItem)
+        public static void UpdateSingleDDItem(ComboBox cbo, string oldItem, string newItem)
         {
-            List<int> indx = new List<int>();
-            int index = -1;
-            if (newItem.Contains("'") || oldItem.Contains("'"))
-            {
-                oldItem = Operations.EscapeApostrophes(oldItem);
-                index = newItem.IndexOf("'");
-                newItem = Operations.EscapeApostrophes(newItem);
-            }
+            string tableName = cbo.Tag.ToString();
+            DropDownEventArgs args = new DropDownEventArgs();
+            args.originalItem = oldItem;
+            args = RecursiveControlEscapeChars(oldItem);
+            oldItem = args.escapedItem;
+            args.Reset();
+
+            args.originalItem = newItem;
+            args = RecursiveControlEscapeChars(newItem);
+            newItem = args.escapedItem;
+            
             MySqlConnection con = ConnectToDB.OpenDB();
             string sql = "update " + tableName + " set Data = '" + newItem + "' where Data = '" + oldItem + "'";
             MySqlCommand cmd =new MySqlCommand(sql, con);
@@ -312,7 +353,11 @@ namespace ResaleV8_ClassLibrary
 
         public static List<ItemModel> getModelList(string sql)
         {
-            sql = Operations.EscapeApostrophes(sql);
+            //sql = Operations.EscapeApostrophes(sql);
+            DropDownEventArgs args = new DropDownEventArgs();
+            args.originalItem = sql;
+            args = DataAccess.RecursiveControlEscapeChars(sql);
+            sql = args.escapedItem;
             List<ItemModel> list = new List<ItemModel>();
             //string sql = "SELECT * FROM PurchasedItems";
             MySqlConnection con = new MySqlConnection(GV.conString);

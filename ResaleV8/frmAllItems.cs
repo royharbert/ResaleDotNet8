@@ -469,12 +469,12 @@ namespace ResaleV8
             }
         }
 
-        private void AddItemIfNeeded(ddEventArgs ea, List<GenericModel> ddList)
+        private void AddItemIfNeeded(DropDownEventArgs ea, List<GenericModel> ddList, ComboBox cbo)
         {
             bool itemExists = false;
             foreach (GenericModel item in ddList)
             {
-                if (item.Data.Contains(ea.newItem))
+                if (item.Data.Contains(ea.unescapedItem))
                 {
                     itemExists = true;
                     break;
@@ -483,20 +483,20 @@ namespace ResaleV8
             }
             if (!itemExists)
             {
-                DataAccess.addDropDownItemToTable(ea);
+                DataAccess.AddNewItemToDropDownTable(cbo);
             }
         }
 
-        private ddEventArgs CreateEventArgs(string newItem, string tableName,
-            string columnName, List<GenericModel> list)
-        {
-            ddEventArgs ea = new ddEventArgs();
-            ea.newItem = newItem;
-            ea.tableName = tableName;
-            ea.columnName = columnName;
-            ea.gvList = list;
-            return ea;
-        }
+        //private ddEventArgs CreateEventArgs(string newItem, string tableName,
+        //    string columnName, List<GenericModel> list)
+        //{
+        //    ddEventArgs ea = new ddEventArgs();
+        //    ea.newItem = newItem;
+        //    ea.tableName = tableName;
+        //    ea.columnName = columnName;
+        //    ea.gvList = list;
+        //    return ea;
+        //}
 
         /// <summary>
         /// Replaces all escaped single quotes in the new item value of the specified event arguments with a single
@@ -538,37 +538,11 @@ namespace ResaleV8
             * If not, add it to list
             *  Insert it into data table
             */
-            ComboBox? cbo = sender as ComboBox;
-            string? originalItem = cbo.Text;
-            if(originalItem.Contains("''"))
-            {
-
-            }
-
-
-            /*
-            * Check for single quotes in text
-            * If found, escape them
-            */
-            ddEventArgs ea = new ddEventArgs();
-            ea.newItem = (sender as ComboBox).Text;
-            //ddEventArgs ea = new ddEventArgs();
+            ComboBox cbo = sender as ComboBox;
+            //DataAccess.AddNewItemToDropDownTable(cbo);
+            DropDownEventArgs ea = new DropDownEventArgs();
+            ea.originalItem = (sender as ComboBox).Text;
             GenericModel gm = new GenericModel();
-            string escapedItem = Operations.EscapeApostrophes(originalItem);
-            //if (item.Contains("''"))
-            //{
-            //    return;
-            //}
-            //if (item.Contains("'"))
-            //{
-            //    item = item.Replace("'", "''");
-            //}
-            bool itemExists = false;
-            foreach (GenericModel item in cbo.Items)
-            {
-                itemExists = item.Data == originalItem;
-                if (itemExists) break;
-            }
             if (!itemExists && cbo.Text != "")
             {
                 // Not in list, so add it refresh list add item to table
@@ -576,13 +550,12 @@ namespace ResaleV8
                 {
                     case "cboCategory":
                         List<GenericModel> existingCategories = DataAccess.GetDropDownList("Categories");
-                        ea = CreateEventArgs(escapedItem, "Categories", "Data", existingCategories);
-                        AddItemIfNeeded(ea, existingCategories);
+                        AddItemIfNeeded(ea, existingCategories,cboCategory);
                         GV.Categories = DataAccess.GetDropDownList("Categories");
                         cboCategory.DataSource = null;
                         cboCategory.DataSource = GV.Categories;
                         cboCategory.DisplayMember = "Data";
-                        cboCategory.Text = ea.newItem;
+                        cboCategory.Text = ea.escapedItem;
                         break;
                     case "cboStorage":
                         List<GenericModel> existingStorage = DataAccess.GetDropDownList("storageLocations");
