@@ -11,8 +11,76 @@ using ResaleV8_ClassLibrary.Ops;
 
 namespace ResaleV8_ClassLibrary
 {
+    
     public class DataAccess
     {
+        public DropDownEventArgs RecursiveControlEscapeChars(string item)
+        {
+            DropDownEventArgs args = new DropDownEventArgs();
+            args.originalItem = item;
+            args.StringToProcess = args.originalItem;
+            args.escapedItem = "";
+            args.unescapedItem = "";
+            args.FirstPass = true;
+            args.CaretPos = 0;
+            ProcessDDItem(args);
+
+            return args;
+        }
+
+
+
+        public DropDownEventArgs ProcessDDItem(DropDownEventArgs args)
+        {
+            args.FirstPass = false;
+            //Loop through input strings and locate instance of espcaped single quotes
+            if (args.StringToProcess.Contains("''"))
+            {
+                args.unescapedItem = args.StringToProcess.Replace("''", "\'");
+                args.escapedItem = args.StringToProcess;
+                args.StringToProcess = "";
+                // C#
+                if (!string.IsNullOrEmpty(args.StringToProcess) && args.StringToProcess.IndexOf('\'') != -1)
+                {
+                    ProcessDDItem(args);
+                }
+            }
+            else
+            {
+                if (args.StringToProcess.IndexOf('\'') == -1)
+                {
+                    args.escapedItem += args.StringToProcess;
+                    args.unescapedItem += args.StringToProcess;
+                    args.StringToProcess = "";
+                    return args;
+                }
+                args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos);
+                if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                {
+                    args.StringToProcess =
+                        args.StringToProcess.Substring(args.CaretPos + 2);
+                }
+                while (args.StringToProcess.IndexOf('\'') != -1)
+                {
+                    args.escapedItem += args.StringToProcess.Replace("'", "''");
+                    args.unescapedItem += args.StringToProcess;
+                    args.StringToProcess = args.StringToProcess.Substring(args.CaretPos + 1);
+                    if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                    {
+                        args.StringToProcess =
+                            args.StringToProcess.Substring(args.CaretPos + 2);
+                    }
+                    args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos);
+
+                    if (!string.IsNullOrEmpty(args.StringToProcess) && args.StringToProcess.IndexOf('\'') != -1)
+                    {
+                        ProcessDDItem(args);
+                    }
+                }
+            }
+            // C#
+            return args;
+        }
         public static List<string> GetAllBrands()
         {
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -96,9 +164,9 @@ namespace ResaleV8_ClassLibrary
             return;
         }
 
-        public static int addDropDownItemToTable(ddEventArgs ea)
+        public static int addDropDownItemToTable(DropDownEventArgs ea)
         {
-            string sql = "INSERT INTO " + ea.tableName + " (" + ea.columnName + ") values " +
+            string sql = "INSERT INTO " + ea.tableName (data) values " +
                 "('" + ea.newItem + "')";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
