@@ -31,8 +31,8 @@
             button1 = new Button();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-            txtInput = new TextBox();
             button2 = new Button();
+            cboInput = new ComboBox();
             SuspendLayout();
             // 
             // button1
@@ -49,23 +49,15 @@
             // 
             textBox1.Location = new Point(105, 176);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(209, 39);
+            textBox1.Size = new Size(209, 29);
             textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(358, 176);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(209, 39);
+            textBox2.Size = new Size(209, 29);
             textBox2.TabIndex = 2;
-            // 
-            // txtInput
-            // 
-            txtInput.Location = new Point(105, 66);
-            txtInput.Name = "txtInput";
-            txtInput.Size = new Size(462, 39);
-            txtInput.TabIndex = 3;
-            txtInput.Text = "Men's Clothing";
             // 
             // button2
             // 
@@ -77,13 +69,23 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // cboInput
+            // 
+            cboInput.FormattingEnabled = true;
+            cboInput.Items.AddRange(new object[] { "Men's Clothing", "Men''s Clothing", "Men's Cl'othing", "Men''s Cl''othing", "Mens Clothing" });
+            cboInput.Location = new Point(105, 66);
+            cboInput.Name = "cboInput";
+            cboInput.Size = new Size(462, 29);
+            cboInput.TabIndex = 5;
+            // 
             // frmTest
             // 
-            AutoScaleDimensions = new SizeF(14F, 32F);
+            AcceptButton = button1;
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(704, 630);
+            Controls.Add(cboInput);
             Controls.Add(button2);
-            Controls.Add(txtInput);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(button1);
@@ -100,7 +102,7 @@
         private Button button1;
         private TextBox textBox1;
         private TextBox textBox2;
-        private TextBox txtInput;
         private Button button2;
+        private ComboBox cboInput;
     }
 }
