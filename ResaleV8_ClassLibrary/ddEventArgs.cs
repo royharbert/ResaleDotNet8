@@ -9,6 +9,12 @@ public class DropDownEventArgs : EventArgs
     public string? escapedItem { get; set; }
     public string? unescapedItem { get; set; }
 
+    public DropDownEventArgs ()
+    {
+        originalItem = null;
+        StringToProcess = null; 
+    }
+
     public void Reset()
     {
         FirstPass = true;

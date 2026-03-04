@@ -53,6 +53,11 @@ namespace ResaleV8_ClassLibrary.Ops
 
         public static List<ItemModel> DoBrandSellThru(string brand)
         {
+            DropDownEventArgs args = new DropDownEventArgs();
+            args.originalItem = brand;
+            args.StringToProcess = brand;
+            args = DataAccess.ProcessDDItem(args);
+            brand = args.escapedItem;
             List<ItemModel> brandList = DataAccess.GetItemsByBrand(brand);
             return brandList;
         }

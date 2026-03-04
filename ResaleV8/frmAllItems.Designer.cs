@@ -262,7 +262,7 @@
             cboCategory.Size = new Size(395, 29);
             cboCategory.Sorted = true;
             cboCategory.TabIndex = 2;
-            cboCategory.Tag = "Category";
+            cboCategory.Tag = "Categories";
             cboCategory.TextUpdate += cboCategory_TextUpdate;
             cboCategory.Leave += cboCategory_Leave;
             // 
@@ -392,6 +392,7 @@
             cboStorage.Size = new Size(394, 29);
             cboStorage.Sorted = true;
             cboStorage.TabIndex = 9;
+            cboStorage.Tag = "storagelocations";
             cboStorage.TextChanged += cboStorage_TextChanged;
             cboStorage.Leave += cboStorage_Leave;
             // 
@@ -405,7 +406,7 @@
             cboBrand.Size = new Size(394, 29);
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
-            cboBrand.Tag = "Brand";
+            cboBrand.Tag = "Brands";
             cboBrand.TextChanged += cboBrand_TextChanged;
             cboBrand.Leave += cboBrand_Leave;
             // 
@@ -419,7 +420,7 @@
             cboPurchaseSource.Size = new Size(395, 29);
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
-            cboPurchaseSource.Tag = "Category";
+            cboPurchaseSource.Tag = "purchasesources";
             cboPurchaseSource.TextChanged += cboPurchaseSource_TextChanged;
             cboPurchaseSource.Leave += cboPurchaseSource_Leave_1;
             // 

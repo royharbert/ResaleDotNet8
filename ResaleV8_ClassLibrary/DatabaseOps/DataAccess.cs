@@ -63,12 +63,15 @@ namespace ResaleV8_ClassLibrary
                     args.escapedItem += args.StringToProcess.Replace("'", "''");
                     args.unescapedItem += args.StringToProcess;
                     args.StringToProcess = args.StringToProcess.Substring(args.CaretPos + 1);
-                    if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                    if (args.CaretPos <= args.StringToProcess.Length)
                     {
-                        args.StringToProcess =
-                            args.StringToProcess.Substring(args.CaretPos + 2);
+                        if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                        {
+                            args.StringToProcess =
+                                args.StringToProcess.Substring(args.CaretPos + 2);
+                        }
+                        args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos); 
                     }
-                    args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos);
 
                     if (!string.IsNullOrEmpty(args.StringToProcess) && args.StringToProcess.IndexOf('\'') != -1)
                     {
@@ -176,6 +179,18 @@ namespace ResaleV8_ClassLibrary
             {
                 string tableName = cbo.Tag.ToString();
                 
+                string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
+                int count =
+                        con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
+                return count > 0;
+            }
+        }
+
+        public static bool CheckForExistingItem(string tableName, string data)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
                 string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
                 int count =
                         con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);

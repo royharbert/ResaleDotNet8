@@ -24,12 +24,13 @@ namespace ResaleV8
         private string itemColName;
         private List<GenericModel> list;
         private string oldItem;
-
+        private frmAllItems parentAllItems;
         private frmMain parent;
 
         public frmListEditor()
         {
             parent = GV.MainForm as frmMain;
+            parentAllItems = GV.ItemForm as frmAllItems;
             InitializeComponent();
 
             parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
@@ -46,7 +47,7 @@ namespace ResaleV8
             {
                 case Mode.EditCategories:
                     tableName = "categories";
-                    cboName = "cboCategory";
+                    cboName = "cboCategory";                    
                     itemColName = "Category";
                     this.Text = "Category List Editor";
                     list = GV.Categories;
@@ -115,38 +116,60 @@ namespace ResaleV8
 
         private void DoModification()
         {
+            ComboBox cbo = null;
+            switch (cboName)
+            {
+                case "cboCategory":
+                    cbo = parentAllItems.cboCategory;
+                    break;
+
+                case "cboStorage":  
+                    cbo = parentAllItems.cboStorage;
+                    break;
+                case "cboPurchaseSource":
+                    cbo = parentAllItems.cboPurchaseSource;
+                    break;
+                case "cboBrand":
+                    cbo = parentAllItems.cboBrand;
+                    break;
+                case "cboWhereListed":
+                    cbo= parentAllItems.cboWhereListed;
+                    break;
+                default:
+                    break;
+            }
             //Get current list from DB
             List<GenericModel> list = GetGVList();
             //Find oldItem
             GenericModel item = list.Find(x => x.Data == oldItem);
             //Check if newItem already exists in DB
-            int numMatches = 0;
-            numMatches = DataAccess.GetItemByDataField(tableName, txtItem.Text.Trim());
+            bool itemExists;
+            itemExists = DataAccess.CheckForExistingItem(cbo, txtItem.Text.Trim());
             //If not, update DB with newItem
-            if (numMatches == 1)
+            if (itemExists)
             {
-                DataAccess.UpdateSingleDDItem(tableName, colName, oldItem, txtItem.Text.Trim());
+                DataAccess.UpdateSingleDDItem(cbo, oldItem, txtItem.Text.Trim());
             }
-            //Else, delete oldItem from DB
-            else if (numMatches == 2)
-            {
-                DataAccess.DeleteDropDownItem(tableName, item.ID);
-            }
+            
             else
             {
-                ddEventArgs ea = new ddEventArgs();
-                ea.newItem = txtItem.Text.Trim();
-                ea.tableName = tableName;
-                ea.columnName = "Data";
-                DataAccess.addDropDownItemToTable(ea);
+                DropDownEventArgs ea = new DropDownEventArgs();
+                ea.originalItem = txtItem.Text.Trim();
+                DataAccess.AddNewItemToDropDownTable(cbo);
             }
             //Update GV list with DB changes
             DialogResult reply = MessageBox.Show("Correct existing entries?", "Modify Existing?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DropDownEventArgs args = new DropDownEventArgs();
             if (reply == DialogResult.Yes)
             {
-                oldItem = Operations.EscapeApostrophes(oldItem);
-                string newItem = Operations.EscapeApostrophes(txtItem.Text.Trim());
+                args.originalItem = oldItem;
+                DataAccess.ProcessDDItem(args);
+                oldItem = args.escapedItem;
+                args.Reset();
+                args.originalItem = txtItem.Text.Trim();
+                DataAccess.ProcessDDItem(args);
+                string newItem = args.escapedItem;
                 DataAccess.ModifySelectedFieldEntries(oldItem, newItem, tableName, itemColName);
             }
             list = GetGVList();
