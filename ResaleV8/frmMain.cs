@@ -53,8 +53,9 @@ namespace ResaleV8
             AllItemsForm.MdiParent = this;
             ResultsForm = new frmSearchResults();
             ResultsForm.MdiParent = this;
-            //ListEditorForm = new frmListEditor();   
-            //ListEditorForm.MdiParent = this;
+            ListEditorForm = new frmListEditor();
+            ListEditorForm.MdiParent = this;
+            GV.ItemForm = AllItemsForm;
             SellThruForm = new frmSellThru();
             SellThruForm.MdiParent = this;
             SoldReportForm = new frmSoldReport();
@@ -134,8 +135,8 @@ namespace ResaleV8
 
         private void openListEditorForm()
         {
-            frmListEditor editor = new frmListEditor();
-            editor.MdiParent = this;
+            //frmListEditor editor = new frmListEditor();
+            //editor.MdiParent = this;
             ListEditorForm.Show();
         }
 
