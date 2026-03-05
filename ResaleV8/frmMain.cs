@@ -211,6 +211,19 @@ namespace ResaleV8
             Properties.Settings.Default.Save();
             OnDatabaseModeChanged?.Invoke(this, eventArgs);
             eventArgs = null;
+
+            //foreach (Control ctl in this.Controls)
+            //{
+            //        MdiClient client = ctl as MdiClient;
+            //        if (!(client == null && GV.dbMode == DataMode.SandboxDB))
+            //        {
+            //            client.BackColor = Color.IndianRed;
+            //        }
+            //        else 
+            //        {
+            //            client.BackColor = SystemColors.Control;
+            //    }
+            //}
         }
 
         private void liveToolStripMenuItem_Click(object sender, EventArgs e)
