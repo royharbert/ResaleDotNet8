@@ -45,9 +45,18 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            bool sandBox = Properties.Settings.Default.Sandbox;
+            if (sandBox)
+            {
+                SetDBMode(DataMode.SandboxDB);
+            }
+            else
+            {
+                SetDBMode(DataMode.LiveDB);
+            }
             GV.MainForm = this;
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
-            GV.dbMode = DataMode.LiveDB;
+            //GV.dbMode = DataMode.LiveDB;
 
             AllItemsForm = new frmAllItems();
             AllItemsForm.MdiParent = this;
@@ -179,26 +188,39 @@ namespace ResaleV8
             SellThruForm.Show();
         }
 
+        private void SetDBMode(DataMode mode)
+        {
+            GV.dbMode = mode;
+            DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
+            eventArgs.NewDataMode = mode;
+            switch (mode)
+            {
+                case DataMode.LiveDB:
+                    GV.dbMode = DataMode.LiveDB;
+                    eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";
+                    Properties.Settings.Default.Sandbox = false;
+                    break;
+                case DataMode.SandboxDB:
+                    GV.dbMode = DataMode.SandboxDB;
+                    eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
+                    Properties.Settings.Default.Sandbox = true;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid data mode");
+            }
+            Properties.Settings.Default.Save();
+            OnDatabaseModeChanged?.Invoke(this, eventArgs);
+            eventArgs = null;
+        }
+
         private void liveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GV.dbMode = DataMode.LiveDB;
-            DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
-            GV.dbMode = DataMode.LiveDB;
-            eventArgs.NewDataMode = DataMode.LiveDB;
-            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";            
-            OnDatabaseModeChanged?.Invoke(this, eventArgs); 
-            eventArgs = null;
+            SetDBMode(DataMode.LiveDB);
         }
 
         private void sandboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GV.dbMode = DataMode.SandboxDB;
-            DataModeChangedEventArgs? eventArgs = new DataModeChangedEventArgs();
-            eventArgs.NewDataMode = DataMode.SandboxDB;
-            eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
-            GV.dbMode = DataMode.SandboxDB;
-            OnDatabaseModeChanged?.Invoke(this, eventArgs );
-            eventArgs = null;
+            SetDBMode(DataMode.SandboxDB);
         }
     }
 }

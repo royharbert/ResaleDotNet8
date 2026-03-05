@@ -14,18 +14,29 @@ namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
     { 
-        public static void LoadDropDownLists()
+        public static void LoadDropDownLists(ComboBox cboBrands, ComboBox cboCategories, ComboBox cboPurchaseSources,
+            ComboBox cboStoragelocations, ComboBox cboWhereListed)
         {
             List<GenericModel> brands = GetDDItems("Brands");
             List<GenericModel> categories = GetDDItems("Categories");
-            List<GenericModel> purchasesources = GetDDItems("purchasesaouces");
+            List<GenericModel> purchasesources = GetDDItems("purchasesources");
             List<GenericModel> storagelocations = GetDDItems("storagelocations");
             List<GenericModel> whereListed = GetDDItems("WhereListed");
             GV.Brands = brands;
+            cboBrands.Items.Clear();
+            cboBrands.Items.AddRange(brands.Select(b => b.Data).ToArray());
             GV.Categories = categories;
+            cboCategories.Items.Clear();
+            cboCategories.Items.AddRange(categories.Select(c => c.Data).ToArray());
             GV.PurchaseSources = purchasesources;
+            cboCategories.Items.Clear();
+            cboCategories.Items.AddRange(purchasesources.Select(p => p.Data).ToArray());
             GV.StorageLocations = storagelocations;
+            cboStoragelocations.Items.Clear();
+            cboStoragelocations.Items.AddRange(storagelocations.Select(s => s.Data).ToArray());
             GV.WhereListed = whereListed;
+            cboStoragelocations.Items.Clear();
+            cboStoragelocations.Items.AddRange(whereListed.Select(w => w.Data).ToArray());
         }
         public static SellThruModel DoSellThru(string brand, List<ItemModel> allItems)
         {
@@ -89,7 +100,7 @@ namespace ResaleV8_ClassLibrary.Ops
             MySqlConnection con = ConnectToDB.OpenDB();
             using (con)
             {
-                string query = $"SELECT id AS ID, item AS Data FROM {tableName} ORDER BY {tableName.Substring(0, tableName.Length - 1)} ASC";
+                string query = $"SELECT * FROM {tableName} ORDER BY Data ASC";
                 var result = con.Query<GenericModel>(query).ToList();
                 return result;
             }

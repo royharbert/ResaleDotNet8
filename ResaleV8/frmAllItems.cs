@@ -342,24 +342,26 @@ namespace ResaleV8
         private void frmAllItems_Load(object sender, EventArgs e)
         {
             GV.ItemForm = this;
+
+            Operations.LoadDropDownLists(cboBrand, cboCategory, cboPurchaseSource, cboStorage, cboWhereListed);
             formLoading = true;
             lblDBMode.Text = GV.dbMode.ToString();
             lblDBMode.BackColor = Color.LightGreen;
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
-            cboWhereListed.DataSource = GV.WhereListed;
+            //cboWhereListed.DataSource = GV.WhereListed;
             cboWhereListed.DisplayMember = "Data";
             cboWhereListed.SelectedIndex = -1;
-            cboCategory.DataSource = GV.Categories;
+            //cboCategory.DataSource = GV.Categories;
             cboCategory.DisplayMember = "Data";
             cboCategory.SelectedIndex = -1;
-            cboStorage.DataSource = GV.StorageLocations;
+            //cboStorage.DataSource = GV.StorageLocations;
             cboStorage.DisplayMember = "Data";
             cboStorage.SelectedIndex = -1;
-            cboBrand.DataSource = GV.Brands;
+            //cboBrand.DataSource = GV.Brands;
             cboBrand.DisplayMember = "Data";
             cboBrand.SelectedIndex = -1;
-            cboPurchaseSource.DataSource = GV.PurchaseSources;
+            //cboPurchaseSource.DataSource = GV.PurchaseSources;
             cboPurchaseSource.DisplayMember = "Data";
             cboPurchaseSource.SelectedIndex = -1;
 
