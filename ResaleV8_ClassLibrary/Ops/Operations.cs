@@ -13,7 +13,20 @@ using MySql.Data.MySqlClient;
 namespace ResaleV8_ClassLibrary.Ops
 {
     public static class Operations
-    {
+    { 
+        public static void LoadDropDownLists()
+        {
+            List<GenericModel> brands = GetDDItems("Brands");
+            List<GenericModel> categories = GetDDItems("Categories");
+            List<GenericModel> purchasesources = GetDDItems("purchasesaouces");
+            List<GenericModel> storagelocations = GetDDItems("storagelocations");
+            List<GenericModel> whereListed = GetDDItems("WhereListed");
+            GV.Brands = brands;
+            GV.Categories = categories;
+            GV.PurchaseSources = purchasesources;
+            GV.StorageLocations = storagelocations;
+            GV.WhereListed = whereListed;
+        }
         public static SellThruModel DoSellThru(string brand, List<ItemModel> allItems)
         {
             SellThruModel sellThru = new SellThruModel();
