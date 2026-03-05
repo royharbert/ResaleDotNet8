@@ -63,6 +63,7 @@ namespace ResaleV8
             UnsoldReportForm = new frmUnsoldReport();
             UnsoldReportForm.MdiParent = this;
             SellThruReportForm = new frmSellThru();
+            ListEditorForm.ParentAllItems = AllItemsForm;
 
 
 

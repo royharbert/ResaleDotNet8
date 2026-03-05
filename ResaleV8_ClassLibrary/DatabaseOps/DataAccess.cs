@@ -178,7 +178,12 @@ namespace ResaleV8_ClassLibrary
             using (con)
             {
                 string tableName = cbo.Tag.ToString();
-                
+                DropDownEventArgs args = new DropDownEventArgs();
+                args.originalItem = data;
+                args.StringToProcess = args.originalItem;
+                args =DataAccess.RecursiveControlEscapeChars(data);
+                data = args.escapedItem;
+
                 string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
                 int count =
                         con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);

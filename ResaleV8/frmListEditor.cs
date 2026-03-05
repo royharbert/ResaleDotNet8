@@ -24,13 +24,13 @@ namespace ResaleV8
         private string itemColName;
         private List<GenericModel> list;
         private string oldItem;
-        private frmAllItems parentAllItems;
+        public frmAllItems ParentAllItems;
         private frmMain parent;
 
         public frmListEditor()
         {
             parent = GV.MainForm as frmMain;
-            parentAllItems = GV.ItemForm as frmAllItems;
+            //parentAllItems = GV.ItemForm as frmAllItems;
             InitializeComponent();
 
             parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
@@ -120,20 +120,20 @@ namespace ResaleV8
             switch (cboName)
             {
                 case "cboCategory":
-                    cbo = parentAllItems.cboCategory;
+                    cbo = ParentAllItems.cboCategory;
                     break;
 
                 case "cboStorage":  
-                    cbo = parentAllItems.cboStorage;
+                    cbo = ParentAllItems.cboStorage;
                     break;
                 case "cboPurchaseSource":
-                    cbo = parentAllItems.cboPurchaseSource;
+                    cbo = ParentAllItems.cboPurchaseSource;
                     break;
                 case "cboBrand":
-                    cbo = parentAllItems.cboBrand;
+                    cbo = ParentAllItems.cboBrand;
                     break;
                 case "cboWhereListed":
-                    cbo= parentAllItems.cboWhereListed;
+                    cbo = ParentAllItems.cboWhereListed;
                     break;
                 default:
                     break;
@@ -144,7 +144,7 @@ namespace ResaleV8
             GenericModel item = list.Find(x => x.Data == oldItem);
             //Check if newItem already exists in DB
             bool itemExists;
-            itemExists = DataAccess.CheckForExistingItem(cbo, txtItem.Text.Trim());
+            itemExists = DataAccess.CheckForExistingItem(cbo, oldItem);
             //If not, update DB with newItem
             if (itemExists)
             {
@@ -164,10 +164,12 @@ namespace ResaleV8
             if (reply == DialogResult.Yes)
             {
                 args.originalItem = oldItem;
+                args.StringToProcess= oldItem;
                 DataAccess.ProcessDDItem(args);
                 oldItem = args.escapedItem;
                 args.Reset();
                 args.originalItem = txtItem.Text.Trim();
+                args.StringToProcess = txtItem.Text.Trim();
                 DataAccess.ProcessDDItem(args);
                 string newItem = args.escapedItem;
                 DataAccess.ModifySelectedFieldEntries(oldItem, newItem, tableName, itemColName);
