@@ -59,21 +59,21 @@ namespace ResaleV8_ClassLibrary.Ops
             return sellThru;
         }
 
-        public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
-        {
-            List<SellThruModel> sellThruList = new List<SellThruModel>();
-            foreach (string brand in brands)
-                if (brand != null)
-                {
-                    {
-                        List<ItemModel> brandList = DoBrandSellThru(brand);
-                        SellThruModel sellThru = DoSellThru(brand, brandList);
-                        sellThruList.Add(sellThru);
-                    } 
-                }
-            sellThruList = sellThruList.OrderByDescending(s => s.SellThruPct).ToList();
-            return sellThruList;
-        }
+        //public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
+        //{
+        //    List<SellThruModel> sellThruList = new List<SellThruModel>();
+        //    foreach (string brand in brands)
+        //        if (brand != null)
+        //        {
+        //            {
+        //                List<ItemModel> brandList = DoBrandSellThru(brand);
+        //                SellThruModel sellThru = DoSellThru(brand, brandList);
+        //                sellThruList.Add(sellThru);
+        //            } 
+        //        }
+        //    sellThruList = sellThruList.OrderByDescending(s => s.SellThruPct).ToList();
+        //    return sellThruList;
+        //}
 
         public static List<ItemModel> DoBrandSellThru(string brand)
         {

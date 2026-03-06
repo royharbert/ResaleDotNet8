@@ -890,11 +890,11 @@ namespace ResaleV8
             MarkFormDirty(sender, e);
         }
 
-        private void btnSellThru_Click(object sender, EventArgs e)
-        {
-            List<string> brands = DataAccess.GetAllBrands();
-            List<SellThruModel> allItems = Operations.DoBrandsSellThru(brands);
-        }
+        //private void btnSellThru_Click(object sender, EventArgs e)
+        //{
+        //    List<string> brands = DataAccess.GetAllBrands();
+        //    List<SellThruModel> allItems = Operations.DoBrandsSellThru(brands);
+        //}
 
         private void frmAllItems_Activated(object sender, EventArgs e)
         {

@@ -21,17 +21,17 @@ namespace ResaleV8
         private frmMain parent;
         public frmSellThru()
         {
-            parent = GV.MainForm as frmMain;
-            InitializeComponent();
-            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+            //parent = GV.MainForm as frmMain;
+            //InitializeComponent();
+            //parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
 
-            graphPane = zgc.GraphPane;
+            //graphPane = zgc.GraphPane;
 
 
-            List<string> brands = DataAccess.GetAllBrands();
-            List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
-            dgvSellThru.DataSource = sellThrus;
-            Operations.FormatSellThruDGV(dgvSellThru);
+            //List<string> brands = DataAccess.GetAllBrands();
+            //List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
+            //dgvSellThru.DataSource = sellThrus;
+            //Operations.FormatSellThruDGV(dgvSellThru);
 
             // Build the bar series from the sellThrus list
             //graphPane.CurveList.Clear();
@@ -66,15 +66,15 @@ namespace ResaleV8
             BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.SteelBlue);
 
             // add points: X = sell-thru value (bar length), Y = ordinal index (category)
-            for (int i = 0; i < sellThrus.Count; i++)
-            {
-                double value = sellThrus[i].SellThruPct;   // bar length on X
-                bar.AddPoint(value, i);                    // category index on Y                
-            }
+            //for (int i = 0; i < sellThrus.Count; i++)
+            //{
+            //    double value = sellThrus[i].SellThruPct;   // bar length on X
+            //    bar.AddPoint(value, i);                    // category index on Y                
+            //}
 
-            // make Y axis show brand names
-            graphPane.YAxis.Type = AxisType.Text;
-            graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+            //// make Y axis show brand names
+            //graphPane.YAxis.Type = AxisType.Text;
+            //graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
 
             // optional styling
             bar.Bar.Fill = new Fill(Color.SteelBlue);
@@ -93,8 +93,8 @@ namespace ResaleV8
         private void frmSellThru_Load(object sender, EventArgs e)
         {
             List<string> brands = DataAccess.GetAllBrands();
-            List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
-            dgvSellThru.DataSource = sellThrus;
+            //List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
+            //dgvSellThru.DataSource = sellThrus;
             Operations.FormatSellThruDGV(dgvSellThru);
         }
 

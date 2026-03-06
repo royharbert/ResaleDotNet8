@@ -27,10 +27,10 @@ namespace ResaleV8
         public frmAllItems AllItemsForm;
         public frmSearchResults ResultsForm;
         public frmListEditor ListEditorForm;
-        public frmSellThru SellThruForm;
+        //public frmSellThru SellThruForm;
         public frmSoldReport SoldReportForm;
         public frmUnsoldReport UnsoldReportForm;
-        public frmSellThru SellThruReportForm;  
+        //public frmSellThru SellThruReportForm;  
 
         public event EventHandler<DataModeChangedEventArgs> OnDatabaseModeChanged;
         public frmMain()
@@ -67,13 +67,13 @@ namespace ResaleV8
             ListEditorForm = new frmListEditor();
             ListEditorForm.MdiParent = this;
             GV.ItemForm = AllItemsForm;
-            SellThruForm = new frmSellThru();
-            SellThruForm.MdiParent = this;
+            //SellThruForm = new frmSellThru();
+            //SellThruForm.MdiParent = this;
             SoldReportForm = new frmSoldReport();
             SoldReportForm.MdiParent = this;
             UnsoldReportForm = new frmUnsoldReport();
             UnsoldReportForm.MdiParent = this;
-            SellThruReportForm = new frmSellThru();
+            //SellThruReportForm = new frmSellThru();
             ListEditorForm.ParentAllItems = AllItemsForm;
 
 
@@ -187,7 +187,7 @@ namespace ResaleV8
             GV.MODE = Mode.SellThru;
             //frmSellThru sellThruForm = new frmSellThru();
             //sellThruForm.MdiParent = this;
-            SellThruForm.Show();
+            //SellThruForm.Show();
         }
 
         private void SetDBMode(DataMode mode)
@@ -202,6 +202,7 @@ namespace ResaleV8
                     eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";
                     Properties.Settings.Default.Sandbox = false;
                     break;
+
                 case DataMode.SandboxDB:
                     GV.dbMode = DataMode.SandboxDB;
                     eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
@@ -210,6 +211,7 @@ namespace ResaleV8
                 default:
                     throw new ArgumentException("Invalid data mode");
             }
+            GV.conString = eventArgs.conString;
             Properties.Settings.Default.Save();
             OnDatabaseModeChanged?.Invoke(this, eventArgs);
             eventArgs = null;
