@@ -30,7 +30,6 @@ namespace ResaleV8
         public frmListEditor()
         {
             parent = GV.MainForm as frmMain;
-            //parentAllItems = GV.ItemForm as frmAllItems;
             InitializeComponent();
 
             parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
@@ -39,6 +38,9 @@ namespace ResaleV8
         private void Parent_OnDatabaseModeChanged(object? sender, DataModeChangedEventArgs e)
         {
             FormControlOps.SetDBModeIndicator(lblDBMode, e);
+            List<GenericModel> list = Operations.GetDDItems(tableName);
+            dgvEditor.DataSource = null;
+            dgvEditor.DataSource = list;
         }
 
         private void frmListEditor_Load(object sender, EventArgs e)
@@ -81,6 +83,7 @@ namespace ResaleV8
                     list = GV.WhereListed;
                     break;
             }
+            Operations.GetDDItems(tableName);
             dgvEditor.DataSource = list;
             formatDGV();
             txtItem.Focus();

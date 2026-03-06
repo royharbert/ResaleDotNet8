@@ -49,13 +49,15 @@ namespace ResaleV8
             if (sandBox)
             {
                 SetDBMode(DataMode.SandboxDB);
+                GV.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = sandboxresale";
             }
             else
             {
                 SetDBMode(DataMode.LiveDB);
+                GV.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";
             }
             GV.MainForm = this;
-            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
+            //GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
             //GV.dbMode = DataMode.LiveDB;
 
             AllItemsForm = new frmAllItems();
