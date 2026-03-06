@@ -349,19 +349,14 @@ namespace ResaleV8
             lblDBMode.BackColor = Color.LightGreen;
             FormControlOps.ClearDTP(dtpDateListed);
             FormControlOps.ClearDTP(dtpSaleDate);
-            //cboWhereListed.DataSource = GV.WhereListed;
             cboWhereListed.DisplayMember = "Data";
             cboWhereListed.SelectedIndex = -1;
-            //cboCategory.DataSource = GV.Categories;
             cboCategory.DisplayMember = "Data";
             cboCategory.SelectedIndex = -1;
-            //cboStorage.DataSource = GV.StorageLocations;
             cboStorage.DisplayMember = "Data";
             cboStorage.SelectedIndex = -1;
-            //cboBrand.DataSource = GV.Brands;
             cboBrand.DisplayMember = "Data";
             cboBrand.SelectedIndex = -1;
-            //cboPurchaseSource.DataSource = GV.PurchaseSources;
             cboPurchaseSource.DisplayMember = "Data";
             cboPurchaseSource.SelectedIndex = -1;
 
@@ -490,50 +485,6 @@ namespace ResaleV8
                 DataAccess.AddNewItemToDropDownTable(cbo);
             }
         }
-
-        //private ddEventArgs CreateEventArgs(string newItem, string tableName,
-        //    string columnName, List<GenericModel> list)
-        //{
-        //    ddEventArgs ea = new ddEventArgs();
-        //    ea.newItem = newItem;
-        //    ea.tableName = tableName;
-        //    ea.columnName = columnName;
-        //    ea.gvList = list;
-        //    return ea;
-        //}
-
-        /// <summary>
-        /// Replaces all escaped single quotes in the new item value of the specified event arguments with a single
-        /// quote.
-        /// </summary>
-        /// <remarks>This method is typically used to normalize input by converting double single quotes
-        /// (''), often used to escape single quotes in certain contexts, back to a single quote character. The
-        /// operation is performed in place on the 'newItem' property of the provided event arguments.</remarks>
-        /// <param name="ea">The event arguments containing the new item value to process. Cannot be null. The method modifies the
-        /// 'newItem' property if it contains escaped single quotes.</param>
-        //private void removeEscapedSingleQuotes(ddEventArgs ea)
-        //{
-        //    if (ea.newItem.Contains("''"))
-        //    {
-        //        ea.newItem = ea.newItem.Replace("''", "'");
-        //    }
-        //}
-
-        /// <summary>
-        /// Escapes single quotes in the new item value of the specified event arguments by replacing each single quote
-        /// with two single quotes.
-        /// </summary>
-        /// <remarks>This method is typically used to prepare string values for use in SQL statements,
-        /// where single quotes must be escaped by doubling them. The method modifies the new item value in
-        /// place.</remarks>
-        /// <param name="ea">The event arguments containing the new item value to be processed. Cannot be null.</param>
-        //private void addEscapeForSingleQuotes(ddEventArgs ea)
-        //{
-        //    if (ea.newItem.Contains("'"))
-        //    {
-        //        ea.newItem = ea.newItem.Replace("'", "''");
-        //    }
-        //}
 
         private void comboListMaintenance(object sender, EventArgs e)
         {

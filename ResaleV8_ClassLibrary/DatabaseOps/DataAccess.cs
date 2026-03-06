@@ -118,22 +118,6 @@ namespace ResaleV8_ClassLibrary
             }
         }
 
-        //public static int GetItemByDataField(string tableName, string data)
-        //{
-        //    MySqlConnection con = ConnectToDB.OpenDB();
-        //    using (con)
-        //    {
-        //        if(data.Contains("'"))
-        //        {
-        //            data = ;
-        //        }
-        //        string sql = "SELECT count(*) FROM " + tableName + " where Data = '" + data + "'";
-        //        int count =
-        //                con.QuerySingle<int>(sql, new { Data = data }, commandType: CommandType.Text);
-        //        return count;
-        //    }
-        //}
-
         public static List<GenericModel> GetDropDownList(string tableName)
         {
             MySqlConnection con = ConnectToDB.OpenDB();
@@ -202,22 +186,6 @@ namespace ResaleV8_ClassLibrary
                 return count > 0;
             }
         }
-
-        //public static int addDropDownItemToTable(DropDownEventArgs ea)
-        //{
-        //    string sql = "INSERT INTO " + ea.tableName (data) values " +
-        //        "('" + ea.newItem + "')";
-        //    MySqlConnection con = new MySqlConnection(GV.conString);
-        //    con.Open();
-        //    MySqlCommand cmd = new MySqlCommand(sql, con);
-        //    cmd.Parameters.AddWithValue("@" + ea.columnName, ea.newItem);
-        //    object result = cmd.ExecuteScalar();
-        //    int newID = Convert.ToInt32(cmd.LastInsertedId);
-
-        //    con.Close();
-
-        //    return newID;
-        //}
 
         public static int AddNewItemToDropDownTable(ComboBox cbo)
         {
@@ -373,13 +341,11 @@ namespace ResaleV8_ClassLibrary
 
         public static List<ItemModel> getModelList(string sql)
         {
-            //sql = Operations.EscapeApostrophes(sql);
             DropDownEventArgs args = new DropDownEventArgs();
             args.originalItem = sql;
             args = DataAccess.RecursiveControlEscapeChars(sql);
             sql = args.escapedItem;
             List<ItemModel> list = new List<ItemModel>();
-            //string sql = "SELECT * FROM PurchasedItems";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);

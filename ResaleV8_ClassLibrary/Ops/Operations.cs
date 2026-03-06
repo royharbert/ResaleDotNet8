@@ -96,14 +96,18 @@ namespace ResaleV8_ClassLibrary.Ops
         }
 
         public static List<GenericModel> GetDDItems(string tableName)
-        { 
-            MySqlConnection con = ConnectToDB.OpenDB();
-            using (con)
+        {
+            List<GenericModel> result = new List<GenericModel>();
+            if (tableName != null)
             {
-                string query = $"SELECT * FROM {tableName} ORDER BY Data ASC";
-                var result = con.Query<GenericModel>(query).ToList();
-                return result;
+                MySqlConnection con = ConnectToDB.OpenDB();
+                using (con)
+                {
+                    string query = $"SELECT * FROM {tableName} ORDER BY Data ASC";
+                    result = con.Query<GenericModel>(query).ToList();
+                } 
             }
+            return result;
         }
 
         public static int FindStringInList(string searchString, List<GenericModel> list)
