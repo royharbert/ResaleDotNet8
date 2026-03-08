@@ -486,6 +486,7 @@ namespace ResaleV8
             }
         }
 
+
         private void comboListMaintenance(object sender, EventArgs e)
         {
             /*
@@ -499,7 +500,7 @@ namespace ResaleV8
             ea.originalItem = (sender as ComboBox).Text;
             GenericModel gm = new GenericModel();
             bool itemExists = false;
-            itemExists = DataAccess.CheckForExistingItem(cbo, ea.originalItem);
+            itemExists = Operations.IsExistingItem(cbo, ea.originalItem);
             if (!itemExists && cbo.Text != "")
             {
                 // Not in list, so add it refresh list add item to table

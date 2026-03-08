@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.Models;
+using ResaleV8_ClassLibrary.Ops;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +19,11 @@ namespace ResaleV8
         public frmTest()
         {
             InitializeComponent();
-            cboInput.SelectedIndex = 0;
+            //cboInput.SelectedIndex = 0;
+            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=resale";
+            List<GenericModel> list = DataAccess.GetDropDownList("Brands");
+            cboInput.DataSource = list;
+            cboInput.DisplayMember = "Data";
         }
 
         public DropDownEventArgs ControlEscapeChars()
@@ -163,9 +170,13 @@ namespace ResaleV8
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            DropDownEventArgs args = RecursiveControlEscapeChars();
-            textBox1.Text = args.unescapedItem;
-            textBox2.Text = args.escapedItem;
+            //DropDownEventArgs args = RecursiveControlEscapeChars();
+            //textBox1.Text = args.unescapedItem;
+            //textBox2.Text = args.escapedItem;
+
+           
+            bool exists = Operations.IsExistingItem(cboInput, textBox1.Text);
+            textBox2.Text = exists.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)

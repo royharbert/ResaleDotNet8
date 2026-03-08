@@ -9,6 +9,7 @@ using Dapper;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.DatabaseOps;
 using MySql.Data.MySqlClient;
+using Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8_ClassLibrary.Ops
 {
@@ -57,6 +58,27 @@ namespace ResaleV8_ClassLibrary.Ops
             }
             sellThru.FinancialPosition = soldItems.Sum(i => i.Profit) - allItems.Sum(i => i.PurchasePrice);
             return sellThru;
+        }
+
+        public static bool IsExistingItem(ComboBox cbo, string item)
+        {
+            bool exists = false;
+            var items = cbo.DataSource as List<GenericModel>;
+            if (items != null)
+            {
+                items.Find(i =>
+                    {
+                        if (i.Data.Equals(item, StringComparison.Ordinal))
+                        {
+                            exists = true;
+                            return true; // Found the item, stop searching
+                        }
+                        return false; // Continue searching
+                    }); 
+            }
+
+            return exists;
+
         }
 
         //public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
@@ -146,7 +168,7 @@ namespace ResaleV8_ClassLibrary.Ops
             return properties;
         }
 
-        public static List<string> ConvertDataTableToList(DataTable dt, string columnName)         
+        public static List<string> ConvertDataTableToList(System.Data.DataTable dt, string columnName)         
         {
             List<string> data = new List<string>();
             string item = "";
@@ -183,7 +205,7 @@ namespace ResaleV8_ClassLibrary.Ops
             foreach (DataGridViewColumn col in dgv.Columns)
             {
                 col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                col.HeaderCell.Style.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
+                col.HeaderCell.Style.Font = new System.Drawing.Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Pixel);
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
             dgv.Columns["FinancialPosition"].DefaultCellStyle.Format = "c";

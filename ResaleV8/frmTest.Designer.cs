@@ -72,7 +72,6 @@
             // cboInput
             // 
             cboInput.FormattingEnabled = true;
-            cboInput.Items.AddRange(new object[] { "Men's Clothing", "Men''s Clothing", "Men's Cl'othing", "Men''s Cl''othing", "Mens Clothing" });
             cboInput.Location = new Point(105, 66);
             cboInput.Name = "cboInput";
             cboInput.Size = new Size(462, 29);

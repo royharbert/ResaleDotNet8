@@ -27,7 +27,16 @@ namespace ResaleV8_ClassLibrary
 
             return args;
         }
-
+        /// <summary>
+        /// Processes a drop-down event argument by handling escaped and unescaped single quotes in the input string.
+        /// </summary>
+        /// <remarks>This method updates the provided <paramref name="args"/> object in place, parsing and
+        /// transforming the input string to handle escaped single quotes. The method is typically used to prepare
+        /// strings for display or further processing in drop-down controls.</remarks>
+        /// <param name="args">The drop-down event arguments containing the string to process and related state information. Cannot be
+        /// null.</param>
+        /// <returns>A modified instance of the <see cref="DropDownEventArgs"/> reflecting the processed string and updated
+        /// state.</returns>
         public static DropDownEventArgs ProcessDDItem(DropDownEventArgs args)
         {
             args.FirstPass = false;
