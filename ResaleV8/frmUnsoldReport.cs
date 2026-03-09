@@ -23,7 +23,7 @@ namespace ResaleV8
         private frmMain parent;
         EventArgs e = new EventArgs();
 
-        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "ListerSKU" };
+        string[] hiddenColumns = new string[] { "Sale Date", "Sale Price", "Profit", "Quantity", "Color" };
         public frmUnsoldReport()
         {
             parent = GV.MainForm as frmMain;
@@ -48,7 +48,7 @@ namespace ResaleV8
                     DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
             GV.ItemList = itemList;
             dgvUnsold.DataSource = itemList;
-            string[] columnsToHide = { "Profit", "SalePrice", "Quantity", "ListerSKU", "SaleDate", "DiscountPCT", "CostOfSale" };
+            string[] columnsToHide = { "Profit", "SalePrice", "Quantity", "Color", "SaleDate", "DiscountPCT", "CostOfSale" };
             FormControlOps.formatDGV(dgvUnsold,
                 headers: GV.DGVHeaders,
                 columnsToHide);

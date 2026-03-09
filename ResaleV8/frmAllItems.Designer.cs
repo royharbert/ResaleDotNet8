@@ -510,7 +510,7 @@
             txtColor.Name = "txtColor";
             txtColor.Size = new Size(394, 29);
             txtColor.TabIndex = 35;
-            txtColor.Tag = "ListerSKU";
+            txtColor.Tag = "Color";
             txtColor.TextChanged += txtColor_TextChanged;
             // 
             // label18

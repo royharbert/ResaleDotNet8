@@ -210,7 +210,10 @@ namespace ResaleV8_ClassLibrary
             bool exists = Operations.IsExistingItem(cbo, cbo.Text);
             if (!exists)
             {
-                string tableName = cbo.Tag.ToString();
+                string tableName = cbo.Tag.ToString();                
+                DropDownEventArgs args = new DropDownEventArgs();
+                args.originalItem = cbo.Text.Trim();
+                DataAccess.RecursiveControlEscapeChars(args.originalItem);
                 string sql = "INSERT INTO " + tableName + " (data) values ('" + cbo.Text + "')";
                 MySqlConnection con = new MySqlConnection(GV.conString);
                 con.Open();
@@ -243,16 +246,16 @@ namespace ResaleV8_ClassLibrary
         public static int addItemToDatabase(ItemModel model)
         {            
             string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, PurchaseDate, PurchasePrice, " +
-                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed, ListerSKU, " +
+                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed, Color, " +
                 "ListPrice, CostOfSale, DiscountPct) VALUES (@Category, " +
                 "@ItemDesc, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation," +
-                "@PurchaseSource, @Brand, @DateListed, @WhereListed, @ListerSKU, @ListPrice, @CostOfSale, @DiscountPct )";
+                "@PurchaseSource, @Brand, @DateListed, @WhereListed, @Color, @ListPrice, @CostOfSale, @DiscountPct )";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@DateListed", model.DateListed);
             cmd.Parameters.AddWithValue("@WhereListed", model.WhereListed);
-            cmd.Parameters.AddWithValue("@ListerSKU", model.ListerSKU);
+            cmd.Parameters.AddWithValue("@Color", model.Color);
             cmd.Parameters.AddWithValue("@Brand", model.Brand);
             cmd.Parameters.AddWithValue("@PurchaseSource", model.PurchaseSource);
             cmd.Parameters.AddWithValue("@Category", model.Category);
@@ -283,7 +286,7 @@ namespace ResaleV8_ClassLibrary
             string sql = "UPDATE PurchasedItems SET Category = @Category, ItemDesc = @ItemDesc, PurchaseDate = @PurchaseDate, " +
                          "PurchasePrice = @PurchasePrice, Quantity = @Quantity, SaleDate = @SaleDate, " +
                          "SalePrice = @SalePrice, StorageLocation = @StorageLocation, Brand = @Brand, " +
-                         "purchaseSource = @PurchaseSource, WhereListed = @WhereListed, ListerSKU = @ListerSKU, " +
+                         "purchaseSource = @PurchaseSource, WhereListed = @WhereListed, Color = @Color, " +
                          "ListingDate = @DateListed, ListPrice = @ListPrice, CostOfSale = @CostOfSale, DiscountPct = @DiscountPct " +
                          "WHERE ItemID = @ItemID";
             MySqlConnection con = new MySqlConnection(GV.conString);
@@ -291,7 +294,7 @@ namespace ResaleV8_ClassLibrary
             MySqlCommand cmd = new MySqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@DateListed", model.DateListed);
             cmd.Parameters.AddWithValue("@WhereListed", model.WhereListed);
-            cmd.Parameters.AddWithValue("@ListerSKU", model.ListerSKU);
+            cmd.Parameters.AddWithValue("@Color", model.Color);
             cmd.Parameters.AddWithValue("@Brand", model.Brand);
             cmd.Parameters.AddWithValue("@PurchaseSource", model.PurchaseSource);
             cmd.Parameters.AddWithValue("@Category", model.Category);
@@ -390,7 +393,8 @@ namespace ResaleV8_ClassLibrary
                 model.StorageLocation = reader["StorageLocation"].ToString() ?? string.Empty;
                 model.PurchaseSource = reader["PurchaseSource"].ToString() ?? string.Empty;
                 model.Brand = reader["Brand"].ToString() ?? string.Empty;
-                
+                model.Color = reader["Color"].ToString() ?? string.Empty;
+
                 if (reader["ListingDate"] != DBNull.Value)
                     model.DateListed = Convert.ToDateTime(reader["ListingDate"]);
                 model.WhereListed = reader["WhereListed"].ToString() ?? string.Empty;

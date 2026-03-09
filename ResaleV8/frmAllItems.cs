@@ -222,6 +222,7 @@ namespace ResaleV8
                 formLoading = true;
                 txtID.Text = model.ItemID.ToString();
                 txtDesc.Text = model.ItemDesc;
+                txtColor.Text = model.Color;
                 cboCategory.Text = model.Category;
                 dtpBuy.Value = model.PurchaseDate;
                 txtPurchasePrice.Text = model.PurchasePrice.ToString("$0.00");
@@ -251,7 +252,7 @@ namespace ResaleV8
                 cboBrand.Text = model.Brand;
                 cboPurchaseSource.Text = model.PurchaseSource;
                 cboWhereListed.Text = model.WhereListed;
-                txtColor.Text = model.ListerSKU;
+                txtColor.Text = model.Color;
                 if (model.DateListed > new DateTime(1900, 01, 01))
                 {
                     dtpDateListed.Value = model.DateListed;
@@ -402,7 +403,7 @@ namespace ResaleV8
             if (model != null)
             {
                 model.WhereListed = cboWhereListed.Text;
-                model.ListerSKU = txtColor.Text;
+                model.Color = txtColor.Text;
                 model.DateListed = dtpDateListed.Value;
                 model.PurchaseSource = cboPurchaseSource.Text;
                 model.Brand = cboBrand.Text;
@@ -527,6 +528,7 @@ namespace ResaleV8
                         case "cboStorage":
                             List<GenericModel> existingStorage = DataAccess.GetDropDownList("storageLocations");
                             ea.StringToProcess = cbo.Text;
+                            ea = DataAccess.ProcessDDItem(ea);
                             AddItemIfNeeded(ea, existingStorage, cboStorage);
                             GV.StorageLocations = DataAccess.GetDropDownList(cbo.Tag.ToString());
                             cboStorage.DataSource = null;
@@ -536,7 +538,8 @@ namespace ResaleV8
                             break;
                         case "cboPurchaseSource":
                             List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList("PurchaseSources");
-                            AddItemIfNeeded(ea, existingPurchaseSources, cboStorage);
+                            ea.StringToProcess = cbo.Text;
+                            AddItemIfNeeded(ea, existingPurchaseSources, cboPurchaseSource);
                             GV.PurchaseSources = DataAccess.GetDropDownList(cbo.Tag.ToString());
                             cboPurchaseSource.DataSource = null;
                             cboPurchaseSource.DataSource = GV.PurchaseSources;
@@ -556,8 +559,8 @@ namespace ResaleV8
                             break;
                         case "cboWhereListed":
                             List<GenericModel> existingListLocations = DataAccess.GetDropDownList("WhereListed");
-                            ea = DataAccess.ProcessDDItem(ea);
                             ea.StringToProcess = cbo.Text;
+                            ea = DataAccess.ProcessDDItem(ea);
                             AddItemIfNeeded(ea, existingListLocations, cboWhereListed);
                             GV.WhereListed = DataAccess.GetDropDownList(cboWhereListed.Tag.ToString());
                             cboWhereListed.DataSource = null;
@@ -584,9 +587,9 @@ namespace ResaleV8
                     dtpSaleDate.Format = DateTimePickerFormat.Custom;
                     dtpSaleDate.Value = GV.emptyDate;
                 }
-                string[] ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
-                        "cboStorage", "txtPrice", "dtpSaleDate", "btnSave", "btnClose" };
-                //enableDisableControls(ctlsToEnable, true);
+                //string[] ctlsToEnable = new string[] { "txtDesc", "cboCategory", "dtpBuy", "txtPurchasePrice", "txtQuantity",
+                //        "cboStorage", "txtPrice", "dtpSaleDate", "btnSave", "btnClose" };
+                enableDisableControls(editControls, true);
                 this.AcceptButton = btnSave;
             }
             else
@@ -839,7 +842,7 @@ namespace ResaleV8
 
         private void cboBrand_TextChanged(object sender, EventArgs e)
         {
-            model.Brand = cboBrand.Text;
+            //model.Brand = cboBrand.Text;
             MarkFormDirty(sender, e);
         }
 
@@ -936,7 +939,7 @@ namespace ResaleV8
 
         private void txtColor_TextChanged(object sender, EventArgs e)
         {
-            model.ListerSKU = txtColor.Text;
+            model.Color = txtColor.Text;
             MarkFormDirty(sender, e);
         }
 

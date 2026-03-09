@@ -84,7 +84,7 @@ namespace ResaleV8
         private void formatDGVSearchResults()
         {
             string[] headers = GV.DGVHeaders;
-            string[] hiddenColumns = new string[] { "Quantity", "ListerSKU" };
+            string[] hiddenColumns = new string[] { "Quantity", "Color" };
             FormControlOps.formatDGV(dgvSearchresults, headers, hiddenColumns);            
         }
 
