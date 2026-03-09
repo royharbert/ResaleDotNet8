@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.DatabaseOps;
+using ResaleV8_ClassLibrary.ExcelOps;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
@@ -23,7 +24,7 @@ namespace ResaleV8
 {
     public partial class frmMain : Form
     {
-        
+
         public frmAllItems AllItemsForm;
         public frmSearchResults ResultsForm;
         public frmListEditor ListEditorForm;
@@ -45,6 +46,7 @@ namespace ResaleV8
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            GV.BundleDiscount = 10; // Set default bundle discount to 10%
             bool sandBox = Properties.Settings.Default.Sandbox;
             if (sandBox)
             {
@@ -118,11 +120,11 @@ namespace ResaleV8
             //AllItemsForm.MdiParent = this;
             AllItemsForm.Show();
             AllItemsForm.Task = "Add New Item";
-        }   
+        }
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GV.MODE = Mode.Retrieve;            
+            GV.MODE = Mode.Retrieve;
             //AllItemsForm.MdiParent = this;
             AllItemsForm.Show();
             AllItemsForm.Task = "Edit Item";
@@ -220,17 +222,17 @@ namespace ResaleV8
             {
                 MdiClient client = ctl as MdiClient;
                 if (!(client == null))
+                {
+                    if (GV.dbMode == DataMode.SandboxDB)
                     {
-                        if (GV.dbMode == DataMode.SandboxDB)
-                        {
 
-                            client.BackColor = Color.IndianRed;
-                        }
-                        else if (!(client == null))
-                        {
-                            client.BackColor = SystemColors.AppWorkspace;
-                        } 
+                        client.BackColor = Color.IndianRed;
                     }
+                    else if (!(client == null))
+                    {
+                        client.BackColor = SystemColors.AppWorkspace;
+                    }
+                }
             }
         }
 
@@ -242,6 +244,11 @@ namespace ResaleV8
         private void sandboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetDBMode(DataMode.SandboxDB);
+        }
+
+        private void importSalesReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExcelOps.ImportPoshmarkSalesReportToDB();
         }
     }
 }

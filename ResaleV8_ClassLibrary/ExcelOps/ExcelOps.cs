@@ -1,23 +1,77 @@
-﻿using System;
-using System.Drawing;
+﻿using Microsoft.Office.Interop.Excel;
+using ResaleV8;
+using ResaleV8_ClassLibrary;
+using ResaleV8_ClassLibrary.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
-using ResaleV8_ClassLibrary;
-using ResaleV8_ClassLibrary.Models;
-using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices.ComTypes;
+using ZstdSharp.Unsafe;
 using static System.Collections.Specialized.BitVector32;
-using ResaleV8;
+using Excel = Microsoft.Office.Interop.Excel;
 
-namespace ResaleV8_ClassLibrary.ExcelOps    
+namespace ResaleV8_ClassLibrary.ExcelOps      
 {
     public class ExcelOps
     {
+        public static void ImportPoshmarkSalesReportToDB()
+        {
+            //create excel app
+            Excel.Application xlApp = makeExcelApp();
+            //Get excel file path from user
+            //Open file dialog to select excel file
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\Resale";
+                openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+                openFileDialog.Multiselect = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string file = openFileDialog.FileName;
+                    if (System.IO.File.Exists(file))
+                    {
+                        xlApp.Workbooks.Open(file);
+                    }
+                }
+            }
+            Excel.Worksheet wks = xlApp.ActiveSheet;
+
+            //Create ItemModel
+            ItemModel model = new ItemModel();
+            List<ItemModel> modelList = MapXLSheetAndItemModel(wks);
+            //Create model map to excel cells
+            //Loop through rows in excel file and create ItemModel for each row
+            //Add each ItemModel to database
+            releaseObject(xlApp);
+        }
+
+        private static List<ItemModel> MapXLSheetAndItemModel(Worksheet wks)
+        {
+            int lastRow = FindLastSpreadsheetRow(wks);
+            int row = 14;
+            List<ItemModel> modelList = new List<ItemModel>();
+            for (int i = row; i <= lastRow; i++)
+            {
+                ItemModel model = new ItemModel();
+                model.WhereListed = "Poshmark";
+                model.Category = wks.Cells[row, 7].Value;
+                model.Brand = wks.Cells[row, 9].Value;
+
+                modelList.Add(model); 
+            }
+
+            return modelList;
+        }
+
         public static Excel.Application makeExcelApp()
         {
             Excel.Application xlApp = new Excel.Application();

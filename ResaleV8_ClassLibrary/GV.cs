@@ -10,6 +10,7 @@ namespace ResaleV8_ClassLibrary
 {
     public class GV
     {
+        public static int BundleDiscount { get; set; } = 10;
         public static Form? MainForm { get; set; }
         public static Form? ItemForm { get; set; }
         public static string conString { get; set; } = null!;
