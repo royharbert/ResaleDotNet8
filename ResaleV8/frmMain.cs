@@ -54,7 +54,7 @@ namespace ResaleV8
             else
             {
                 SetDBMode(DataMode.LiveDB);
-                GV.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";
+                GV.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = MagicFinds";
             }
             GV.MainForm = this;
             //GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=Resale";
@@ -85,7 +85,7 @@ namespace ResaleV8
 
             GV.PurchaseSources = DataAccess.GetDropDownList("purchasesources");
 
-            GV.Brands = DataAccess.GetDropDownList("brands");
+            GV.Brands = DataAccess.GetDropDownList("brand");
 
             GV.WhereListed = DataAccess.GetDropDownList("wherelisted");
 
@@ -199,7 +199,7 @@ namespace ResaleV8
             {
                 case DataMode.LiveDB:
                     GV.dbMode = DataMode.LiveDB;
-                    eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = resale";
+                    eventArgs.conString = "server = localhost; uid = dbUser; pwd = dbUser; database = MagicFinds";
                     Properties.Settings.Default.Sandbox = false;
                     break;
 

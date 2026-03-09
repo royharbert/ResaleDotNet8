@@ -55,10 +55,13 @@ namespace ResaleV8
             dgvUnsold.Columns["ItemDesc"].Width = 450;
             GV.BusinessSummary.UnsoldCost = itemList.Sum(item => item.PurchasePrice * item.Quantity);
             txtTotalCost.Text = GV.BusinessSummary.UnsoldCost.ToString("C2");
-            GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));
-            txtAvgAge.Text = GV.BusinessSummary.AvgUnsoldAge.ToString("###.0");
-            GV.BusinessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
-            txtItemTotal.Text = GV.BusinessSummary.UnsoldItemsCount.ToString();
+            if (itemList.Count > 0)
+            {
+                GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge)); 
+                txtAvgAge.Text = GV.BusinessSummary.AvgUnsoldAge.ToString("###.0");
+                GV.BusinessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
+                txtItemTotal.Text = GV.BusinessSummary.UnsoldItemsCount.ToString();
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e)

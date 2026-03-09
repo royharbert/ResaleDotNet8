@@ -69,7 +69,7 @@ namespace ResaleV8
                     list = GV.PurchaseSources;
                     break;
                 case Mode.EditBrands:
-                    tableName = "brands";
+                    tableName = "brand";
                     cboName = "cboBrand";
                     itemColName = "Brand";
                     this.Text = "Brand List Editor";
@@ -211,7 +211,7 @@ namespace ResaleV8
                     list = GV.Brands;
                     list.Clear();
                     colName = "Data";
-                    list = DataAccess.GetDropDownList("Brands");
+                    list = DataAccess.GetDropDownList("Brand");
                     break;
                 case "whereListed":
                     list = GV.WhereListed;
@@ -242,8 +242,8 @@ namespace ResaleV8
                     GV.PurchaseSources = DataAccess.GetDropDownList("PurchaseSources").ToList();
                     gvList = GV.PurchaseSources;
                     break;
-                case "brands":
-                    GV.Brands = DataAccess.GetDropDownList("Brands").ToList();
+                case "brand":
+                    GV.Brands = DataAccess.GetDropDownList("Brand").ToList();
                     gvList = GV.Brands;
                     break;
                 case "whereListed":

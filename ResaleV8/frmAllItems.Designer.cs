@@ -69,7 +69,7 @@
             label16 = new Label();
             txtCostOfSale = new TextBox();
             label17 = new Label();
-            txtSKU = new TextBox();
+            txtColor = new TextBox();
             label18 = new Label();
             txtDiscountPct = new TextBox();
             label19 = new Label();
@@ -126,7 +126,7 @@
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new Point(320, 407);
+            txtQuantity.Location = new Point(320, 461);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(394, 29);
             txtQuantity.TabIndex = 6;
@@ -137,7 +137,7 @@
             // label4
             // 
             label4.Font = new Font("Segoe UI", 11.25F);
-            label4.Location = new Point(89, 410);
+            label4.Location = new Point(89, 464);
             label4.Name = "label4";
             label4.Size = new Size(210, 32);
             label4.TabIndex = 6;
@@ -147,7 +147,7 @@
             // label5
             // 
             label5.Font = new Font("Segoe UI", 11.25F);
-            label5.Location = new Point(89, 361);
+            label5.Location = new Point(89, 415);
             label5.Name = "label5";
             label5.Size = new Size(210, 32);
             label5.TabIndex = 8;
@@ -156,7 +156,7 @@
             // 
             // txtPurchasePrice
             // 
-            txtPurchasePrice.Location = new Point(322, 455);
+            txtPurchasePrice.Location = new Point(322, 509);
             txtPurchasePrice.Name = "txtPurchasePrice";
             txtPurchasePrice.Size = new Size(394, 29);
             txtPurchasePrice.TabIndex = 7;
@@ -166,7 +166,7 @@
             // label6
             // 
             label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(91, 456);
+            label6.Location = new Point(91, 510);
             label6.Name = "label6";
             label6.Size = new Size(210, 32);
             label6.TabIndex = 10;
@@ -268,7 +268,7 @@
             // 
             // dtpBuy
             // 
-            dtpBuy.Location = new Point(320, 359);
+            dtpBuy.Location = new Point(320, 413);
             dtpBuy.Name = "dtpBuy";
             dtpBuy.Size = new Size(394, 29);
             dtpBuy.TabIndex = 5;
@@ -367,7 +367,7 @@
             // label13
             // 
             label13.Font = new Font("Segoe UI", 11.25F);
-            label13.Location = new Point(88, 311);
+            label13.Location = new Point(88, 365);
             label13.Name = "label13";
             label13.Size = new Size(210, 32);
             label13.TabIndex = 25;
@@ -406,7 +406,7 @@
             cboBrand.Size = new Size(394, 29);
             cboBrand.Sorted = true;
             cboBrand.TabIndex = 1;
-            cboBrand.Tag = "Brands";
+            cboBrand.Tag = "brand";
             cboBrand.TextChanged += cboBrand_TextChanged;
             cboBrand.Leave += cboBrand_Leave;
             // 
@@ -415,9 +415,9 @@
             cboPurchaseSource.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cboPurchaseSource.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPurchaseSource.FormattingEnabled = true;
-            cboPurchaseSource.Location = new Point(320, 308);
+            cboPurchaseSource.Location = new Point(320, 362);
             cboPurchaseSource.Name = "cboPurchaseSource";
-            cboPurchaseSource.Size = new Size(395, 29);
+            cboPurchaseSource.Size = new Size(394, 29);
             cboPurchaseSource.Sorted = true;
             cboPurchaseSource.TabIndex = 4;
             cboPurchaseSource.Tag = "purchasesources";
@@ -427,7 +427,7 @@
             // cboWhereListed
             // 
             cboWhereListed.FormattingEnabled = true;
-            cboWhereListed.Location = new Point(320, 506);
+            cboWhereListed.Location = new Point(320, 560);
             cboWhereListed.Name = "cboWhereListed";
             cboWhereListed.Size = new Size(394, 29);
             cboWhereListed.Sorted = true;
@@ -448,7 +448,7 @@
             // label12
             // 
             label12.Font = new Font("Segoe UI", 11.25F);
-            label12.Location = new Point(89, 510);
+            label12.Location = new Point(89, 564);
             label12.Name = "label12";
             label12.Size = new Size(210, 32);
             label12.TabIndex = 29;
@@ -504,23 +504,23 @@
             label17.Text = "Cost of Sale";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // txtSKU
+            // txtColor
             // 
-            txtSKU.Location = new Point(323, 559);
-            txtSKU.Name = "txtSKU";
-            txtSKU.Size = new Size(394, 29);
-            txtSKU.TabIndex = 35;
-            txtSKU.Tag = "ListerSKU";
-            txtSKU.TextChanged += txtSKU_TextChanged;
+            txtColor.Location = new Point(320, 311);
+            txtColor.Name = "txtColor";
+            txtColor.Size = new Size(394, 29);
+            txtColor.TabIndex = 35;
+            txtColor.Tag = "ListerSKU";
+            txtColor.TextChanged += txtColor_TextChanged;
             // 
             // label18
             // 
             label18.Font = new Font("Segoe UI", 11.25F);
-            label18.Location = new Point(92, 561);
+            label18.Location = new Point(88, 313);
             label18.Name = "label18";
             label18.Size = new Size(210, 30);
             label18.TabIndex = 36;
-            label18.Text = "Lister SKU";
+            label18.Text = "Color";
             label18.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtDiscountPct
@@ -559,7 +559,7 @@
             Controls.Add(lblDBMode);
             Controls.Add(txtDiscountPct);
             Controls.Add(label19);
-            Controls.Add(txtSKU);
+            Controls.Add(txtColor);
             Controls.Add(label18);
             Controls.Add(txtCostOfSale);
             Controls.Add(label17);
@@ -656,7 +656,7 @@
         public ComboBox cboWhereListed;
         private TextBox txtCostOfSale;
         private Label label17;
-        private TextBox txtSKU;
+        private TextBox txtColor;
         private Label label18;
         private TextBox txtDiscountPct;
         private Label label19;

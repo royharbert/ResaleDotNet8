@@ -61,7 +61,14 @@ namespace ResaleV8_ClassLibrary
                     args.StringToProcess = "";
                     return args;
                 }
-                args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos);
+                if (args.CaretPos < args.StringToProcess.Length)
+                {
+                    args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos); 
+                }
+                else
+                {
+                    return args;
+                }
                 if (args.StringToProcess[args.CaretPos + 1] == '\'')
                 {
                     args.StringToProcess =
@@ -70,10 +77,10 @@ namespace ResaleV8_ClassLibrary
                 while (args.StringToProcess.IndexOf('\'') != -1)
                 {
                     args.escapedItem += args.StringToProcess.Replace("'", "''");
-                    args.unescapedItem += args.StringToProcess;
-                    args.StringToProcess = args.StringToProcess.Substring(args.CaretPos + 1);
                     if (args.CaretPos <= args.StringToProcess.Length)
                     {
+                        args.unescapedItem += args.StringToProcess;
+                        args.StringToProcess = args.StringToProcess.Substring(args.CaretPos + 1);
                         if (args.StringToProcess[args.CaretPos + 1] == '\'')
                         {
                             args.StringToProcess =
@@ -200,11 +207,11 @@ namespace ResaleV8_ClassLibrary
         {
             int newID = -1;
             //check for existing item in database to prevent duplicates
-            bool exists = CheckForExistingItem(cbo, cbo.Text);
-            if (exists)
+            bool exists = Operations.IsExistingItem(cbo, cbo.Text);
+            if (!exists)
             {
                 string tableName = cbo.Tag.ToString();
-                string sql = "INSERT INTO tableName (data) values ('" + cbo.Text + "')";
+                string sql = "INSERT INTO " + tableName + " (data) values ('" + cbo.Text + "')";
                 MySqlConnection con = new MySqlConnection(GV.conString);
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -352,8 +359,8 @@ namespace ResaleV8_ClassLibrary
         {
             DropDownEventArgs args = new DropDownEventArgs();
             args.originalItem = sql;
-            args = DataAccess.RecursiveControlEscapeChars(sql);
-            sql = args.escapedItem;
+            //args = DataAccess.RecursiveControlEscapeChars(sql);
+            //sql = args.escapedItem;
             List<ItemModel> list = new List<ItemModel>();
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();

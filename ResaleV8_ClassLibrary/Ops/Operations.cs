@@ -18,7 +18,7 @@ namespace ResaleV8_ClassLibrary.Ops
         public static void LoadDropDownLists(ComboBox cboBrands, ComboBox cboCategories, ComboBox cboPurchaseSources,
             ComboBox cboStoragelocations, ComboBox cboWhereListed)
         {
-            List<GenericModel> brands = GetDDItems("Brands");
+            List<GenericModel> brands = GetDDItems("Brand");
             List<GenericModel> categories = GetDDItems("Categories");
             List<GenericModel> purchasesources = GetDDItems("purchasesources");
             List<GenericModel> storagelocations = GetDDItems("storagelocations");
@@ -26,18 +26,22 @@ namespace ResaleV8_ClassLibrary.Ops
             GV.Brands = brands;
             cboBrands.Items.Clear();
             cboBrands.Items.AddRange(brands.Select(b => b.Data).ToArray());
+
             GV.Categories = categories;
             cboCategories.Items.Clear();
             cboCategories.Items.AddRange(categories.Select(c => c.Data).ToArray());
+
             GV.PurchaseSources = purchasesources;
-            cboCategories.Items.Clear();
-            cboCategories.Items.AddRange(purchasesources.Select(p => p.Data).ToArray());
+            cboPurchaseSources.Items.Clear();
+            cboPurchaseSources.Items.AddRange(purchasesources.Select(p => p.Data).ToArray());
+
             GV.StorageLocations = storagelocations;
             cboStoragelocations.Items.Clear();
             cboStoragelocations.Items.AddRange(storagelocations.Select(s => s.Data).ToArray());
+
             GV.WhereListed = whereListed;
-            cboStoragelocations.Items.Clear();
-            cboStoragelocations.Items.AddRange(whereListed.Select(w => w.Data).ToArray());
+            cboWhereListed.Items.Clear();
+            cboWhereListed.Items.AddRange(whereListed.Select(w => w.Data).ToArray());
         }
         public static SellThruModel DoSellThru(string brand, List<ItemModel> allItems)
         {

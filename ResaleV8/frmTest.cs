@@ -20,8 +20,8 @@ namespace ResaleV8
         {
             InitializeComponent();
             //cboInput.SelectedIndex = 0;
-            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=resale";
-            List<GenericModel> list = DataAccess.GetDropDownList("Brands");
+            GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=MagicFinds";
+            List<GenericModel> list = DataAccess.GetDropDownList("Brand");
             cboInput.DataSource = list;
             cboInput.DisplayMember = "Data";
         }
