@@ -245,11 +245,11 @@ namespace ResaleV8_ClassLibrary
 
         public static int addItemToDatabase(ItemModel model)
         {            
-            string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, PurchaseDate, PurchasePrice, " +
-                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed, Color, " +
+            string sql = "INSERT INTO PurchasedItems (Category, ItemDesc, Color, PurchaseDate, PurchasePrice, " +
+                "Quantity, SaleDate, SalePrice, StorageLocation, purchaseSource, Brand, ListingDate, WhereListed, " +
                 "ListPrice, CostOfSale, DiscountPct) VALUES (@Category, " +
-                "@ItemDesc, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation," +
-                "@PurchaseSource, @Brand, @DateListed, @WhereListed, @Color, @ListPrice, @CostOfSale, @DiscountPct )";
+                "@ItemDesc, @Color, @PurchaseDate, @PurchasePrice, @Quantity, @SaleDate, @SalePrice, @StorageLocation," +
+                "@PurchaseSource, @Brand, @DateListed, @WhereListed, @ListPrice, @CostOfSale, @DiscountPct )";
             MySqlConnection con = new MySqlConnection(GV.conString);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sql, con);

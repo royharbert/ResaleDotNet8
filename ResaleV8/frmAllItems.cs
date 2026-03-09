@@ -539,6 +539,7 @@ namespace ResaleV8
                         case "cboPurchaseSource":
                             List<GenericModel> existingPurchaseSources = DataAccess.GetDropDownList("PurchaseSources");
                             ea.StringToProcess = cbo.Text;
+                            ea = DataAccess.ProcessDDItem(ea);
                             AddItemIfNeeded(ea, existingPurchaseSources, cboPurchaseSource);
                             GV.PurchaseSources = DataAccess.GetDropDownList(cbo.Tag.ToString());
                             cboPurchaseSource.DataSource = null;
