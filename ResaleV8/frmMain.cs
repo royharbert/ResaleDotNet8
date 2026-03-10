@@ -248,10 +248,15 @@ namespace ResaleV8
 
         private void importSalesReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             frmImportSalesReport importForm = new frmImportSalesReport();
             importForm.MdiParent = this;
             importForm.Show();
+        }
+
+        private void brandsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Operations.UpdateDropDownSource("Brand");
         }
     }
 }

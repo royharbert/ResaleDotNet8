@@ -82,7 +82,6 @@ namespace ResaleV8_ClassLibrary.Ops
             }
 
             return exists;
-
         }
 
         public static List<SellThruModel> DoBrandsSellThru(List<string> brands)
@@ -215,6 +214,22 @@ namespace ResaleV8_ClassLibrary.Ops
             dgv.Columns["FinancialPosition"].DefaultCellStyle.Format = "c";
             dgv.Columns["SellThruPct"].DefaultCellStyle.Format = "N2";
             dgv.Columns["ProfitPct"].DefaultCellStyle.Format = "N2";
+        }
+
+        public static void UpdateDropDownSource(string tableName)
+        {
+            //Get unique brand name
+            string sql = "select distinct Brand from purchaseditems";
+            MySqlConnection con = new MySqlConnection(GV.conString);
+            using (con)
+            {
+                {
+                    List<string> brands = con.Query<string>(sql).ToList();
+                    DataAccess.ClearTable("Brand");
+                    DataAccess.AddNewItemsToCBOItems("Brand", brands, con);
+
+                }
+            }
         }
     }
 

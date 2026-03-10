@@ -39,10 +39,10 @@
             // dgvSellThru
             // 
             dgvSellThru.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSellThru.Location = new Point(907, 0);
+            dgvSellThru.Location = new Point(1002, 61);
             dgvSellThru.Name = "dgvSellThru";
             dgvSellThru.RowHeadersWidth = 62;
-            dgvSellThru.Size = new Size(675, 595);
+            dgvSellThru.Size = new Size(844, 595);
             dgvSellThru.TabIndex = 0;
             dgvSellThru.ColumnHeaderMouseClick += dgvSellThru_ColumnHeaderMouseClick;
             // 
@@ -52,10 +52,10 @@
             btnClose.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.Image = Properties.Resources._8666786_x_octagon_delete_icon;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(917, 661);
+            btnClose.Location = new Point(1365, 726);
             btnClose.Margin = new Padding(2);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(233, 50);
+            btnClose.Size = new Size(233, 89);
             btnClose.TabIndex = 1;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = false;
@@ -64,7 +64,7 @@
             // zgc
             // 
             zgc.Font = new Font("Segoe UI", 3.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            zgc.Location = new Point(4, 3);
+            zgc.Location = new Point(11, 61);
             zgc.Margin = new Padding(2, 1, 2, 1);
             zgc.Name = "zgc";
             zgc.ScrollGrace = 0D;
@@ -74,18 +74,18 @@
             zgc.ScrollMinX = 0D;
             zgc.ScrollMinY = 0D;
             zgc.ScrollMinY2 = 0D;
-            zgc.Size = new Size(358, 772);
+            zgc.Size = new Size(937, 772);
             zgc.TabIndex = 3;
             zgc.UseExtendedPrintDialog = true;
             // 
             // lblDBMode
             // 
             lblDBMode.AutoSize = true;
-            lblDBMode.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDBMode.Location = new Point(636, 3);
+            lblDBMode.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDBMode.Location = new Point(821, 3);
             lblDBMode.Margin = new Padding(2, 0, 2, 0);
             lblDBMode.Name = "lblDBMode";
-            lblDBMode.Size = new Size(51, 20);
+            lblDBMode.Size = new Size(65, 25);
             lblDBMode.TabIndex = 17;
             lblDBMode.Text = "label7";
             // 
@@ -93,7 +93,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1582, 869);
+            ClientSize = new Size(1883, 869);
             Controls.Add(lblDBMode);
             Controls.Add(zgc);
             Controls.Add(btnClose);

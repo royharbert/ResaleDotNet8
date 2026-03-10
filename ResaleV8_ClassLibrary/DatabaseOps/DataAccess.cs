@@ -14,6 +14,16 @@ namespace ResaleV8_ClassLibrary
     
     public class DataAccess
     {
+        public static void ClearTable(string tableName)
+        {
+            MySqlConnection con = ConnectToDB.OpenDB();
+            using (con)
+            {
+                string sql = "TRUNCATE TABLE " + tableName;
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+            }
+        }
         public static DropDownEventArgs RecursiveControlEscapeChars(string item)
         {
             DropDownEventArgs args = new DropDownEventArgs();
@@ -317,6 +327,17 @@ namespace ResaleV8_ClassLibrary
             int rowsAffected = cmd.ExecuteNonQuery();
             con.Close();
             return rowsAffected;
+        }
+
+        public static void AddNewItemsToCBOItems(string tableName, List<string> newItems,MySqlConnection con)
+        {
+            foreach (var item in newItems)
+            {
+                DropDownEventArgs args = new DropDownEventArgs();
+                args = DataAccess.RecursiveControlEscapeChars(item);
+                string sql = "INSERT INTO " + tableName + " (data) values ('" + args.escapedItem + "')";
+                con.Query(sql, args.escapedItem);
+            }
         }
 
         public static void UpdateSingleDDItem(ComboBox cbo, string oldItem, string newItem)

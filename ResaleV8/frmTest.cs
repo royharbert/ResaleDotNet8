@@ -1,4 +1,6 @@
-﻿using ResaleV8_ClassLibrary;
+﻿using Microsoft.Office.Interop.Excel;
+using MySql.Data.MySqlClient;
+using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
 using ResaleV8_ClassLibrary.Ops;
 using System;
@@ -11,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper;
 
 namespace ResaleV8
 {
@@ -174,9 +177,19 @@ namespace ResaleV8
             //textBox1.Text = args.unescapedItem;
             //textBox2.Text = args.escapedItem;
 
-           
-            bool exists = Operations.IsExistingItem(cboInput, textBox1.Text);
-            textBox2.Text = exists.ToString();
+
+            //bool exists = Operations.IsExistingItem(cboInput, textBox1.Text);
+            //textBox2.Text = exists.ToString();
+
+            string sql = "select distinct Brand from purchaseditems";
+            MySqlConnection con = new MySqlConnection("server=localhost;uid=dbUser;pwd=dbUser;database=sandboxresale");
+            using (con)
+            {                
+                {
+                    List<string> brands = con.Query<string>(sql).ToList();
+                }
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
