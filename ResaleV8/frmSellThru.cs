@@ -21,35 +21,35 @@ namespace ResaleV8
         private frmMain parent;
         public frmSellThru()
         {
-            //parent = GV.MainForm as frmMain;
-            //InitializeComponent();
-            //parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
+            parent = GV.MainForm as frmMain;
+            InitializeComponent();
+            parent.OnDatabaseModeChanged += Parent_OnDatabaseModeChanged;
 
-            //graphPane = zgc.GraphPane;
+            graphPane = zgc.GraphPane;
 
 
-            //List<string> brands = DataAccess.GetAllBrands();
-            //List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
-            //dgvSellThru.DataSource = sellThrus;
-            //Operations.FormatSellThruDGV(dgvSellThru);
+            List<string> brands = DataAccess.GetAllBrands();
+            List<SellThruModel> sellThrus = Operations.DoBrandsSellThru(brands);
+            dgvSellThru.DataSource = sellThrus;
+            Operations.FormatSellThruDGV(dgvSellThru);
 
-            // Build the bar series from the sellThrus list
-            //graphPane.CurveList.Clear();
-            //graphPane.GraphObjList.Clear();
+            //Build the bar series from the sellThrus list
+            graphPane.CurveList.Clear();
+            graphPane.GraphObjList.Clear();
 
-            // Create bar and add points safely
-            //BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
-            //for (int i = 0; i < sellThrus.Count; i++)
-            //{
-            //     Use X = category index, Y = sell-thru value
-            //    bar.AddPoint(i, sellThrus[i].SellThruPct);
-            //}
-            // Show brand names as text labels along the X axis (adjust if you prefer them on Y)
-            //graphPane.YAxis.Type = AxisType.Text;
-            //graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+            //Create bar and add points safely
+            BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.Blue);
+            for (int i = 0; i < sellThrus.Count; i++)
+            {
+                //Use X = category index, Y = sell - thru value
+                bar.AddPoint(i, sellThrus[i].SellThruPct);
+            }
+            //Show brand names as text labels along the X axis(adjust if you prefer them on Y)
+            graphPane.YAxis.Type = AxisType.Text;
+            graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
 
-            //zgc.AxisChange();
-            //zgc.Invalidate();
+            zgc.AxisChange();
+            zgc.Invalidate();
 
 
             // prepare pane
@@ -63,18 +63,18 @@ namespace ResaleV8
             graphPane.GraphObjList.Clear();
 
             // create bar series
-            BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.SteelBlue);
+            //BarItem bar = graphPane.AddBar("Sell Thru %", null, null, Color.SteelBlue);
 
-            // add points: X = sell-thru value (bar length), Y = ordinal index (category)
-            //for (int i = 0; i < sellThrus.Count; i++)
-            //{
-            //    double value = sellThrus[i].SellThruPct;   // bar length on X
-            //    bar.AddPoint(value, i);                    // category index on Y                
-            //}
+            //add points: X = sell - thru value(bar length), Y = ordinal index(category)
+            for (int i = 0; i < sellThrus.Count; i++)
+            {
+                double value = sellThrus[i].SellThruPct;   // bar length on X
+                bar.AddPoint(value, i);                    // category index on Y                
+            }
 
-            //// make Y axis show brand names
-            //graphPane.YAxis.Type = AxisType.Text;
-            //graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
+            // make Y axis show brand names
+            graphPane.YAxis.Type = AxisType.Text;
+            graphPane.YAxis.Scale.TextLabels = sellThrus.Select(s => s.Brand).ToArray();
 
             // optional styling
             bar.Bar.Fill = new Fill(Color.SteelBlue);

@@ -14,8 +14,6 @@
     <Compile Remove="ENUMS.cs" />
     <Compile Remove="frmAdd.cs" />
     <Compile Remove="frmAdd.Designer.cs" />
-    <Compile Remove="frmSellThru.cs" />
-    <Compile Remove="frmSellThru.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

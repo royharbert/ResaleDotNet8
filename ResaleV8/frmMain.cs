@@ -187,9 +187,9 @@ namespace ResaleV8
         private void brandSellthruToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GV.MODE = Mode.SellThru;
-            //frmSellThru sellThruForm = new frmSellThru();
-            //sellThruForm.MdiParent = this;
-            //SellThruForm.Show();
+            frmSellThru sellThruForm = new frmSellThru();
+            sellThruForm.MdiParent = this;
+            sellThruForm.Show();
         }
 
         private void SetDBMode(DataMode mode)
@@ -248,7 +248,10 @@ namespace ResaleV8
 
         private void importSalesReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExcelOps.ImportPoshmarkSalesReportToDB();
+            
+            frmImportSalesReport importForm = new frmImportSalesReport();
+            importForm.MdiParent = this;
+            importForm.Show();
         }
     }
 }

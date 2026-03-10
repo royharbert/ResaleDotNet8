@@ -81,10 +81,14 @@ namespace ResaleV8_ClassLibrary
                     {
                         args.unescapedItem += args.StringToProcess;
                         args.StringToProcess = args.StringToProcess.Substring(args.CaretPos + 1);
-                        if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                        args.CaretPos = 0;
+                        if (args.CaretPos + 1 < args.StringToProcess.Length)
                         {
-                            args.StringToProcess =
-                                args.StringToProcess.Substring(args.CaretPos + 2);
+                            if (args.StringToProcess[args.CaretPos + 1] == '\'')
+                            {
+                                args.StringToProcess =
+                                    args.StringToProcess.Substring(args.CaretPos + 2);
+                            } 
                         }
                         args.CaretPos = args.StringToProcess.IndexOf('\'', args.CaretPos); 
                     }

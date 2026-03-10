@@ -20,7 +20,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 {
     public class ExcelOps
     {
-        public static void ImportPoshmarkSalesReportToDB()
+        public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
             //create excel app
             Excel.Application xlApp = makeExcelApp();
@@ -49,25 +49,26 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             ItemModel model = new ItemModel();
             //Create model map to excel cells
             //Loop through rows in excel file and create ItemModel for each row
-            MapXLSheetAndItemModel(wks);
+            MapXLSheetAndItemModel(wks, startRow, stopRow, pb);
             //Add each ItemModel to database
             releaseObject(xlApp);
         }
 
-        private static void MapXLSheetAndItemModel(Worksheet wks)
+        private static void MapXLSheetAndItemModel(Worksheet wks, int startRow, int stopRow, ProgressBar pb)
         {
             int lastRow = FindLastSpreadsheetRow(wks);
             List<ItemModel> modelList = new List<ItemModel>();
-            for (int row = 14; row <= lastRow; row++)
+            for (int row = startRow; row <= stopRow; row++)
             {
-                if (wks.Cells[row, 1].Value != null)
-                {
                     ItemModel model = new ItemModel();
                     if (wks.Cells[row, 12].Value.ToString() == "Y")
                     {
                         model.DiscountPct = GV.BundleDiscount;
                     }
-                    model.StorageLocation = wks.Cells[row, 3].Value.ToString();
+                    if (wks.Cells[row, 3].Value != null)
+                    {
+                        model.StorageLocation = wks.Cells[row, 3].Value.ToString(); 
+                    }
                     model.PurchaseDate = wks.Cells[row, 1].Value;
                     model.DateListed = wks.Cells[row, 1].Value;
                     if (wks.Cells[row, 2].Value != null)
@@ -84,9 +85,12 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     {
                         model.Brand = "Unbranded";
                     }
-                    model.PurchaseSource = wks.Cells[row, 28].Value.ToString();
+                    if (wks.Cells[row, 27].Value != null)
+                    {
+                        model.PurchaseSource = wks.Cells[row, 27].Value.ToString(); 
+                    }
                     model.ItemDesc = wks.Cells[row, 5].Value.ToString();
-                    model.PurchaseSource = wks.Cells[row, 27].Value.ToString();
+                    
                     if (wks.Cells[row, 15].Value != null)
                     {
                         model.PurchasePrice = wks.Cells[row, 15].Value;
@@ -98,8 +102,9 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     model.Quantity = 1;
 
                     DataAccess.addItemToDatabase(model);
+                pb.PerformStep();
                     model = null;
-                } 
+                
             }
         }
 

@@ -41,11 +41,10 @@ namespace ResaleV8
             Close();
         }
 
-        private void frmUnsoldReport_Load(object sender, EventArgs e)
+        private void GetUnsoldItems()
         {
             MySqlConnection con = ConnectToDB.OpenDB();
-            List<ItemModel> itemList =
-                    DataAccess.getModelList("Select * from purchasedItems where SaleDate = '1900-01-01'");
+            List<ItemModel> itemList = DataAccess.getModelList("Select * from purchasedItems where SalePrice IS NULL");
             GV.ItemList = itemList;
             dgvUnsold.DataSource = itemList;
             string[] columnsToHide = { "Profit", "SalePrice", "Quantity", "Color", "SaleDate", "DiscountPCT", "CostOfSale" };
@@ -57,11 +56,16 @@ namespace ResaleV8
             txtTotalCost.Text = GV.BusinessSummary.UnsoldCost.ToString("C2");
             if (itemList.Count > 0)
             {
-                GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge)); 
+                GV.BusinessSummary.AvgUnsoldAge = Convert.ToDecimal(itemList.Average(item => item.ProductAge));
                 txtAvgAge.Text = GV.BusinessSummary.AvgUnsoldAge.ToString("###.0");
                 GV.BusinessSummary.UnsoldItemsCount = itemList.Sum(item => item.Quantity);
                 txtItemTotal.Text = GV.BusinessSummary.UnsoldItemsCount.ToString();
             }
+        }
+
+        private void frmUnsoldReport_Load(object sender, EventArgs e)
+        {
+            GetUnsoldItems();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -107,6 +111,10 @@ namespace ResaleV8
             ea.conString = GV.conString;
             ea.NewDataMode = GV.dbMode;
             Parent_OnDatabaseModeChanged(this, ea);
+            if (this.Visible)
+            {
+                GetUnsoldItems();
+            }
         }
     }
 }
