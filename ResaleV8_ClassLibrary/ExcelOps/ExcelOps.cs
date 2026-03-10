@@ -47,29 +47,60 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 
             //Create ItemModel
             ItemModel model = new ItemModel();
-            List<ItemModel> modelList = MapXLSheetAndItemModel(wks);
             //Create model map to excel cells
             //Loop through rows in excel file and create ItemModel for each row
+            MapXLSheetAndItemModel(wks);
             //Add each ItemModel to database
             releaseObject(xlApp);
         }
 
-        private static List<ItemModel> MapXLSheetAndItemModel(Worksheet wks)
+        private static void MapXLSheetAndItemModel(Worksheet wks)
         {
             int lastRow = FindLastSpreadsheetRow(wks);
-            int row = 14;
             List<ItemModel> modelList = new List<ItemModel>();
-            for (int i = row; i <= lastRow; i++)
+            for (int row = 14; row <= lastRow; row++)
             {
-                ItemModel model = new ItemModel();
-                model.WhereListed = "Poshmark";
-                model.Category = wks.Cells[row, 7].Value;
-                model.Brand = wks.Cells[row, 9].Value;
+                if (wks.Cells[row, 1].Value != null)
+                {
+                    ItemModel model = new ItemModel();
+                    if (wks.Cells[row, 12].Value.ToString() == "Y")
+                    {
+                        model.DiscountPct = GV.BundleDiscount;
+                    }
+                    model.StorageLocation = wks.Cells[row, 3].Value.ToString();
+                    model.PurchaseDate = wks.Cells[row, 1].Value;
+                    model.DateListed = wks.Cells[row, 1].Value;
+                    if (wks.Cells[row, 2].Value != null)
+                    {
+                        model.SaleDate = wks.Cells[row, 2].Value;
+                    }
+                    model.WhereListed = "Poshmark";
+                    model.Category = wks.Cells[row, 7].Value.ToString();
+                    if (wks.Cells[row, 9].Value != null)
+                    {
+                        model.Brand = wks.Cells[row, 9].Value.ToString();
+                    }
+                    else
+                    {
+                        model.Brand = "Unbranded";
+                    }
+                    model.PurchaseSource = wks.Cells[row, 28].Value.ToString();
+                    model.ItemDesc = wks.Cells[row, 5].Value.ToString();
+                    model.PurchaseSource = wks.Cells[row, 27].Value.ToString();
+                    if (wks.Cells[row, 15].Value != null)
+                    {
+                        model.PurchasePrice = wks.Cells[row, 15].Value;
+                    }
+                    model.Color = wks.Cells[row, 10].Value.ToString();
+                    model.ListPrice = wks.Cells[row, 17].Value;
+                    model.SalePrice = wks.Cells[row, 16].Value;
+                    model.CostOfSale = model.SalePrice * .2m;
+                    model.Quantity = 1;
 
-                modelList.Add(model); 
+                    DataAccess.addItemToDatabase(model);
+                    model = null;
+                } 
             }
-
-            return modelList;
         }
 
         public static Excel.Application makeExcelApp()
