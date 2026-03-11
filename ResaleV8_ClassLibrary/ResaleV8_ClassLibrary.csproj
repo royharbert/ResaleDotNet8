@@ -32,6 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.Chart.Controls" Version="4.7.2046" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.4" />
     <PackageReference Include="MySql.Data" Version="9.4.0" />
   </ItemGroup>
 

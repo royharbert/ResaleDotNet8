@@ -21,26 +21,38 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 {
     public class ExcelOps
     {
-        public static bool ExcelFileIsOpen(Excel.Application xlApp)
+        // Source - https://stackoverflow.com/a/3190294
+        // Posted by martin, modified by community. See post 'Timeline' for change history
+        // Retrieved 2026-03-11, License - CC BY-SA 2.5
+
+        static bool IsOpened(string wbook)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Resale\sales_activity_report.xlsx";
+            bool isOpened = true;
+            
+            
+            Worksheet wks = null;
+            Workbook wbk = 
+            Excel.Application xlApp;
+            
+
+            bool wbOpened = false;
             try
             {
-                using (var stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                {
-                    return false; // File is not open
-                }
+                xlApp = (Excel.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application");
             }
-            catch (IOException)
+            catch
             {
-                return true; // File is open
-            }
-        }
+            }         
+}
+
+        
+
+
         public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
             //create excel app
             Excel.Application xlApp = new Excel.Application();
-            bool fileOpen = ExcelFileIsOpen(xlApp);
+
             //Get excel file path from user
             //Open file dialog to select excel file
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
