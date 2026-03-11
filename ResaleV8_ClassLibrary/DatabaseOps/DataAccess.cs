@@ -338,6 +338,7 @@ namespace ResaleV8_ClassLibrary
                 string sql = "INSERT INTO " + tableName + " (data) values ('" + args.escapedItem + "')";
                 con.Query(sql, args.escapedItem);
             }
+            MessageBox.Show("Operation complete.");
         }
 
         public static void UpdateSingleDDItem(ComboBox cbo, string oldItem, string newItem)

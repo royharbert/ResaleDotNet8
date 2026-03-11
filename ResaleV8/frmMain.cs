@@ -258,5 +258,15 @@ namespace ResaleV8
         {
             Operations.UpdateDropDownSource("Brand");
         }
+
+        private void categoriesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Operations.UpdateDropDownSource("categories");
+        }
+
+        private void whereListedToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Operations.UpdateDropDownSource("wherelisted");
+        }
     }
 }

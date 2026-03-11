@@ -242,15 +242,19 @@
             categoriesToolStripMenuItem1.Name = "categoriesToolStripMenuItem1";
             categoriesToolStripMenuItem1.Size = new Size(180, 22);
             categoriesToolStripMenuItem1.Text = "Categories";
+            categoriesToolStripMenuItem1.Click += categoriesToolStripMenuItem1_Click;
             // 
             // whereListedToolStripMenuItem1
             // 
+            whereListedToolStripMenuItem1.Enabled = false;
             whereListedToolStripMenuItem1.Name = "whereListedToolStripMenuItem1";
             whereListedToolStripMenuItem1.Size = new Size(180, 22);
             whereListedToolStripMenuItem1.Text = "Where Listed";
+            whereListedToolStripMenuItem1.Click += whereListedToolStripMenuItem1_Click;
             // 
             // storageLocationsToolStripMenuItem
             // 
+            storageLocationsToolStripMenuItem.Enabled = false;
             storageLocationsToolStripMenuItem.Name = "storageLocationsToolStripMenuItem";
             storageLocationsToolStripMenuItem.Size = new Size(180, 22);
             storageLocationsToolStripMenuItem.Text = "Storage Locations";

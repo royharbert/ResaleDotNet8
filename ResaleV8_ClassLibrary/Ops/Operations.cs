@@ -219,14 +219,35 @@ namespace ResaleV8_ClassLibrary.Ops
         public static void UpdateDropDownSource(string tableName)
         {
             //Get unique brand name
-            string sql = "select distinct Brand from purchaseditems";
+            string sql = "";
+            switch(tableName)
+            {
+                case "Brand":
+                    sql = "select distinct Brand from purchaseditems";
+                    break;
+                case "categories":
+                    sql = "select distinct category from purchaseditems";
+                    break;
+                case "purchasesources":
+                    sql = "select distinct purchasesources from purchaseditems";
+                    break;
+                case "storagelocations":
+                    sql = "select distinct storagelocations from purchaseditems";
+                    break;
+                case "WhereListed":
+                    sql = "select distinct wherelisted from purchaseditems";
+                    break;
+                default:
+                    throw new ArgumentException("Invalid table name");
+            }
+            
             MySqlConnection con = new MySqlConnection(GV.conString);
             using (con)
             {
                 {
-                    List<string> brands = con.Query<string>(sql).ToList();
-                    DataAccess.ClearTable("Brand");
-                    DataAccess.AddNewItemsToCBOItems("Brand", brands, con);
+                    List<string> items = con.Query<string>(sql).ToList();
+                    DataAccess.ClearTable(tableName);
+                    DataAccess.AddNewItemsToCBOItems(tableName, items, con);
 
                 }
             }
