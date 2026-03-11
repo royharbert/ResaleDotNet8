@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>ResaleV8.Program</StartupObject>
-    <AssemblyVersion>2.0.0.1</AssemblyVersion>
+    <AssemblyVersion>2.0.0.2</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="frmAdd.resx" />
-    <EmbeddedResource Remove="frmSoldReport.resx" />
   </ItemGroup>
 
   <ItemGroup>

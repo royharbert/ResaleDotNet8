@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using ResaleV8;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
@@ -20,10 +21,26 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 {
     public class ExcelOps
     {
+        public static bool ExcelFileIsOpen(Excel.Application xlApp)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Resale\sales_activity_report.xlsx";
+            try
+            {
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    return false; // File is not open
+                }
+            }
+            catch (IOException)
+            {
+                return true; // File is open
+            }
+        }
         public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
             //create excel app
-            Excel.Application xlApp = makeExcelApp();
+            Excel.Application xlApp = new Excel.Application();
+            bool fileOpen = ExcelFileIsOpen(xlApp);
             //Get excel file path from user
             //Open file dialog to select excel file
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -61,7 +78,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             for (int row = startRow; row <= stopRow; row++)
             {
                     ItemModel model = new ItemModel();
-                    if (wks.Cells[row, 12].Value.ToString() == "Y")
+                    if (wks.Cells[row, 12].Value == "Y")
                     {
                         model.DiscountPct = GV.BundleDiscount;
                     }
@@ -431,6 +448,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             int[] currencyCols = { 8, 10 };
             ExcelOps.formatColumnAsCurrency(wks, currencyCols);
             hideColumns(wks, hiddenColumns);
+            MessageBox.Show("Operation complete. " + dt.Count.ToString() + " items imported.");
 
             ExcelOps.releaseObject(wks);
         }
