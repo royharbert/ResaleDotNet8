@@ -21,33 +21,6 @@ namespace ResaleV8_ClassLibrary.ExcelOps
 {
     public class ExcelOps
     {
-        // Source - https://stackoverflow.com/a/3190294
-        // Posted by martin, modified by community. See post 'Timeline' for change history
-        // Retrieved 2026-03-11, License - CC BY-SA 2.5
-
-        static bool IsOpened(string wbook)
-        {
-            bool isOpened = true;
-            
-            
-            Worksheet wks = null;
-            Workbook wbk = 
-            Excel.Application xlApp;
-            
-
-            bool wbOpened = false;
-            try
-            {
-                xlApp = (Excel.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application");
-            }
-            catch
-            {
-            }         
-}
-
-        
-
-
         public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
             //create excel app
@@ -98,14 +71,16 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     {
                         model.StorageLocation = wks.Cells[row, 3].Value.ToString(); 
                     }
-                    model.PurchaseDate = wks.Cells[row, 1].Value;
-                    model.DateListed = wks.Cells[row, 1].Value;
+                if (wks.Cells[row, 1].Value != null)                   
+                {
+                    model.DateListed = wks.Cells[row, 1].Value; 
+                }
                     if (wks.Cells[row, 2].Value != null)
                     {
                         model.SaleDate = wks.Cells[row, 2].Value;
                     }
                     model.WhereListed = "Poshmark";
-                    model.Category = wks.Cells[row, 7].Value.ToString();
+                    model.Category = wks.Cells[row, 7].Value;
                     if (wks.Cells[row, 9].Value != null)
                     {
                         model.Brand = wks.Cells[row, 9].Value.ToString();
@@ -118,15 +93,22 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     {
                         model.PurchaseSource = wks.Cells[row, 27].Value.ToString(); 
                     }
-                    model.ItemDesc = wks.Cells[row, 5].Value.ToString();
+                    model.ItemDesc = wks.Cells[row, 5].Value;
                     
                     if (wks.Cells[row, 15].Value != null)
                     {
                         model.PurchasePrice = wks.Cells[row, 15].Value;
                     }
-                    model.Color = wks.Cells[row, 10].Value.ToString();
-                    model.ListPrice = wks.Cells[row, 17].Value;
+                    model.Color = wks.Cells[row, 10].Value;
+                if (wks.Cells[row,17].Value != null)
+                {
+                    model.ListPrice = wks.Cells[row, 17].Value; 
+                }
+                if (wks.Cells[row, 16].Value != null)
+                {
                     model.SalePrice = wks.Cells[row, 16].Value;
+                }
+
                     model.CostOfSale = model.SalePrice * .2m;
                     model.Quantity = 1;
 
