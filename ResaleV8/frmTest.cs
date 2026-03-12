@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZstdSharp.Unsafe;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Security;
 
 namespace ResaleV8
-{
+{ 
     public partial class frmTest : Form
     {
         public frmTest()
@@ -24,15 +25,13 @@ namespace ResaleV8
             InitializeComponent();
             //cboInput.SelectedIndex = 0;
             GV.conString = "server=localhost;uid=dbUser;pwd=dbUser;database=MagicFinds";
-            List<GenericModel> list = DataAccess.GetDropDownList("Brand");
-            cboInput.DataSource = list;
-            cboInput.DisplayMember = "Data";
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            var xlApp = ComInteropHelper.GetActiveObject("Excel.Application");
+
         }
 
 

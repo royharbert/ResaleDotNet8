@@ -24,29 +24,24 @@ namespace ResaleV8_ClassLibrary.ExcelOps
     {
         public static Excel.Application SetExcelInstance()
         {
-            Excel.Application xlApp= null;
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
-                @"\sales_activity_report";
+            Excel.Application? xlApp = null;            
+                
             Process[] processes = Process.GetProcessesByName("excel");
             if (processes.Length > 0)
-            {
-                xlApp = GetActiveObject(string progID);;
-                MessageBox.Show(processes.Length + " instances of Excel are running.\nMain Window is " +
-                    processes[0].MainWindowTitle);
+            {                
+                xlApp = ComInteropHelper.GetActiveObject("Excel.Application") as Excel.Application;
             }
 
             return xlApp;  
         }
-        public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
+
+        public static Excel.Application OpenExcelFile(Excel.Application xlApp)
         {
-            //create excel app
-            //Excel.Application xlApp = new Excel.Application();
-            Excel.Application xlApp = SetExcelInstance();
             //Get excel file path from user
             //Open file dialog to select excel file
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = //"c:\\Resale";
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
@@ -61,8 +56,36 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     }
                 }
             }
-            Excel.Worksheet wks = xlApp.ActiveSheet;
+            return xlApp;
+        }
+        
 
+        public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
+        {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
+                @"\sales_activity_report";
+            //create excel app
+            Excel.Application xlApp = SetExcelInstance();
+            Workbook wkb = xlApp.ActiveWorkbook;
+            Worksheet wks = null;
+            //If no active workbook, prompt user to select file. Else, check if active workbook is sales report.
+            //If not, prompt user to select file. If it is, set wks to sales report sheet.
+            if (wkb == null)
+            {
+                xlApp = OpenExcelFile(xlApp);
+                wkb = xlApp.ActiveWorkbook;
+            }
+            if (xlApp.ActiveWorkbook.Name != "sales_activity_report.xlsx")
+            {
+                OpenExcelFile(xlApp);
+                wkb = xlApp.ActiveWorkbook;
+            }
+            
+            else
+            {
+                wks = wkb.Worksheets["sales_activity_report"];
+                wks.Activate();
+            }
             //Create ItemModel
             ItemModel model = new ItemModel();
             //Create model map to excel cells
