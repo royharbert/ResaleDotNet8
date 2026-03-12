@@ -99,9 +99,19 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             releaseObject(xlApp);
         }
 
+        public static int GetLastSalesReportRow(Worksheet wks, string stringToFind)
+            {
+                var range = (Excel.Range)wks.Columns["A:A"];
+                var result = range.Find(stringToFind, LookAt: Excel.XlLookAt.xlWhole);
+                var address = result.Address;//cell address
+                string[] parts = address.Split('$');
+                int row = int.Parse(parts[2]) - 2;
+            return row;
+            }
+        
         private static void MapXLSheetAndItemModel(Worksheet wks, int startRow, int stopRow, ProgressBar pb)
         {
-            int lastRow = FindLastSpreadsheetRow(wks);
+            int lastRow = GetLastSalesReportRow(wks, "Totals");
             List<ItemModel> modelList = new List<ItemModel>();
             for (int row = startRow; row <= stopRow; row++)
             {
