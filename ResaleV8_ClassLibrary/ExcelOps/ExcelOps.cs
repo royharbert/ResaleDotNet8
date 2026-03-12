@@ -30,7 +30,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             //Open file dialog to select excel file
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\Resale";
+                openFileDialog.InitialDirectory = //"c:\\Resale";
                 openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
