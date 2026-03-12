@@ -31,6 +31,10 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             {                
                 xlApp = ComInteropHelper.GetActiveObject("Excel.Application") as Excel.Application;
             }
+            else
+            {
+                xlApp = new Excel.Application();
+            }
 
             return xlApp;  
         }
