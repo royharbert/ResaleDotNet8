@@ -16,16 +16,32 @@ using System.Windows.Forms;
 using ZstdSharp.Unsafe;
 using static System.Collections.Specialized.BitVector32;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace ResaleV8_ClassLibrary.ExcelOps      
 {
     public class ExcelOps
     {
+        public static Excel.Application SetExcelInstance()
+        {
+            Excel.Application xlApp= null;
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
+                @"\sales_activity_report";
+            Process[] processes = Process.GetProcessesByName("excel");
+            if (processes.Length > 0)
+            {
+                xlApp = GetActiveObject(string progID);;
+                MessageBox.Show(processes.Length + " instances of Excel are running.\nMain Window is " +
+                    processes[0].MainWindowTitle);
+            }
+
+            return xlApp;  
+        }
         public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
             //create excel app
-            Excel.Application xlApp = new Excel.Application();
-
+            //Excel.Application xlApp = new Excel.Application();
+            Excel.Application xlApp = SetExcelInstance();
             //Get excel file path from user
             //Open file dialog to select excel file
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
