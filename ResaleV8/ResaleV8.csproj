@@ -19,8 +19,8 @@
   <ItemGroup>
     <EmbeddedResource Remove="frmAdd.resx" />
   </ItemGroup>
-
   <ItemGroup>
+
     <COMReference Include="Microsoft.Office.Interop.Excel">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>9</VersionMinor>
@@ -30,6 +30,7 @@
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
+
     <COMReference Include="Microsoft.Office.Interop.Graph">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>9</VersionMinor>
@@ -52,9 +53,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
+		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
     <PackageReference Include="ZedGraph" Version="5.2.1" />
-  </ItemGroup>
+
+		<!-- <PackageReference Include="MicrosoftOfficeCore" Version="16.0.0" NoWarn="NU1701" /> -->
+
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ResaleV8_ClassLibrary\ResaleV8_ClassLibrary.csproj" />

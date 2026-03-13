@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Org.BouncyCastle.Bcpg.OpenPgp;
+﻿using Org.BouncyCastle.Bcpg.OpenPgp;
 using ResaleV8;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.Models;
@@ -15,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZstdSharp.Unsafe;
 using static System.Collections.Specialized.BitVector32;
+using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8_ClassLibrary.ExcelOps      
