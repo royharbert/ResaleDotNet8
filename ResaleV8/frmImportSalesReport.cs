@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.ExcelOps;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8
 {
     public partial class frmImportSalesReport : Form
     {
+        Excel.Application xlApp = null;
         public frmImportSalesReport()
         {
             InitializeComponent();
+            xlApp = ExcelOps.SetExcelInstance();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

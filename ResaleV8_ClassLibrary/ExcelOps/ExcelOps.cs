@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using ZstdSharp.Unsafe;
 using static System.Collections.Specialized.BitVector32;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
 
 namespace ResaleV8_ClassLibrary.ExcelOps      
 {
