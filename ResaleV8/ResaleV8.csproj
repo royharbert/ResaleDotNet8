@@ -53,7 +53,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
-		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
+		<!--<PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />-->
     <PackageReference Include="ZedGraph" Version="5.2.1" />
 
 		<!-- <PackageReference Include="MicrosoftOfficeCore" Version="16.0.0" NoWarn="NU1701" /> -->

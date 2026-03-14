@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ResaleV8_ClassLibrary;
 using ResaleV8_ClassLibrary.ExcelOps;
+using ResaleV8_ClassLibrary.Models;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ResaleV8
@@ -18,8 +19,19 @@ namespace ResaleV8
         Excel.Application xlApp = null;
         public frmImportSalesReport()
         {
+            FrmMessage msg = new FrmMessage();
+            msg.Message = "Opening Excel. Please wait...";
             InitializeComponent();
+            Cursor.Current = Cursors.WaitCursor;
             xlApp = ExcelOps.SetExcelInstance();
+            Cursor.Current = Cursors.Default;
+            msg.Close();
+
+            ExcelOps.OpenExcelFile(xlApp);
+            ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
+            xlApp.Visible = true;
+            txtStart.Text = range.StartRow.ToString();
+            txtStop.Text = range.StopRow.ToString();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

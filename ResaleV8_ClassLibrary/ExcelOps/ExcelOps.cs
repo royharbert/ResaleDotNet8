@@ -61,10 +61,19 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             }
             return xlApp;
         }
-        
+
+        public static ImportRangeModel GetImportRange(Worksheet wks)
+        {
+            ImportRangeModel model = new ImportRangeModel();
+            model.StartRow = GetFirstSalesReportRow(wks, "Listing Date");
+            model.StopRow = GetLastSalesReportRow(wks, "Totals");
+            return model;
+        }
+
 
         public static void ImportPoshmarkSalesReportToDB(int startRow, int stopRow, ProgressBar pb)
         {
+            Cursor.Current = Cursors.WaitCursor;
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
                 @"\sales_activity_report";
             //create excel app
@@ -89,6 +98,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 wks = wkb.Worksheets["sales_activity_report"];
                 wks.Activate();
             }
+            Cursor.Current = Cursors.Default;
             //Create ItemModel
             ItemModel model = new ItemModel();
             //Create model map to excel cells
@@ -96,6 +106,16 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             MapXLSheetAndItemModel(wks, startRow, stopRow, pb);
             //Add each ItemModel to database
             releaseObject(xlApp);
+        }
+
+        public static int GetFirstSalesReportRow(Worksheet wks, string stringToFind)
+        {
+            var range = (Excel.Range)wks.Columns["A:A"];
+            var result = range.Find(stringToFind, LookAt: Excel.XlLookAt.xlWhole);
+            var address = result.Address;//cell address
+            string[] parts = address.Split('$');
+            int row = int.Parse(parts[2]) + 1;
+            return row;
         }
 
         public static int GetLastSalesReportRow(Worksheet wks, string stringToFind)
