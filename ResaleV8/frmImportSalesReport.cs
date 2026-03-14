@@ -21,6 +21,8 @@ namespace ResaleV8
         {
             FrmMessage msg = new FrmMessage();
             msg.Message = "Opening Excel. Please wait...";
+            msg.Show();
+            Application.DoEvents();
             InitializeComponent();
             Cursor.Current = Cursors.WaitCursor;
             xlApp = ExcelOps.SetExcelInstance();
