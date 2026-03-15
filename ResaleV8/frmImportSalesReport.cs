@@ -19,21 +19,7 @@ namespace ResaleV8
         Excel.Application xlApp = null;
         public frmImportSalesReport()
         {
-            FrmMessage msg = new FrmMessage();
-            msg.Message = "Opening Excel. Please wait...";
-            msg.Show();
-            Application.DoEvents();
             InitializeComponent();
-            Cursor.Current = Cursors.WaitCursor;
-            xlApp = ExcelOps.SetExcelInstance();
-            Cursor.Current = Cursors.Default;
-            msg.Close();
-
-            ExcelOps.OpenExcelFile(xlApp);
-            ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
-            xlApp.Visible = true;
-            txtStart.Text = range.StartRow.ToString();
-            txtStop.Text = range.StopRow.ToString();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -51,6 +37,25 @@ namespace ResaleV8
             int importedItems = stopRow - startRow + 1;
             ExcelOps.ImportPoshmarkSalesReportToDB(startRow, stopRow, pBar);
             MessageBox.Show("Process complete." + importedItems + " items imported.");
+        }
+
+        private void btnLoadReport_Click(object sender, EventArgs e)
+        {
+            FrmMessage msg = new FrmMessage();
+            msg.Message = "Opening Excel. Please wait...";
+            msg.Show();
+            this.UseWaitCursor = true;
+            Application.DoEvents();
+            xlApp = ExcelOps.SetExcelInstance();
+            msg.Close();
+            this.UseWaitCursor = false;
+
+            ExcelOps.OpenExcelFile(xlApp);
+            ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
+            xlApp.Visible = true;
+            txtStart.Text = range.StartRow.ToString();
+            txtStop.Text = range.StopRow.ToString();
+            this.AcceptButton = btnGo;
         }
     }
 }

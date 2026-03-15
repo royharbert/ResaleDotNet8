@@ -29,7 +29,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             if (processes.Length > 0)
             {                
                 xlApp = ComInteropHelper.GetActiveObject("Excel.Application") as Excel.Application;
-                if (xlApp.ActiveSheet.Name != "sales_activity_report" )
+                if (xlApp.ActiveSheet != null && xlApp.ActiveWorkbook.ActiveSheet != "sales_activity_report" )
                 {
                     xlApp = OpenExcelFile(xlApp);
                 }

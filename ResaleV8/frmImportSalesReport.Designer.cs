@@ -37,12 +37,13 @@
             btnClose = new Button();
             txtBundle = new TextBox();
             label3 = new Label();
+            btnLoadReport = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(320, 103);
+            label1.Location = new Point(357, 103);
             label1.Name = "label1";
             label1.Size = new Size(57, 15);
             label1.TabIndex = 0;
@@ -51,7 +52,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(320, 138);
+            label2.Location = new Point(357, 138);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             // txtStart
             // 
-            txtStart.Location = new Point(392, 100);
+            txtStart.Location = new Point(429, 100);
             txtStart.Name = "txtStart";
             txtStart.Size = new Size(51, 23);
             txtStart.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             // txtStop
             // 
-            txtStop.Location = new Point(392, 134);
+            txtStop.Location = new Point(429, 134);
             txtStop.Name = "txtStop";
             txtStop.Size = new Size(51, 23);
             txtStop.TabIndex = 3;
@@ -83,9 +84,9 @@
             // btnGo
             // 
             btnGo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGo.Location = new Point(288, 182);
+            btnGo.Location = new Point(365, 182);
             btnGo.Name = "btnGo";
-            btnGo.Size = new Size(71, 48);
+            btnGo.Size = new Size(71, 70);
             btnGo.TabIndex = 5;
             btnGo.Text = "Go";
             btnGo.UseVisualStyleBackColor = true;
@@ -94,9 +95,9 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClose.Location = new Point(403, 182);
+            btnClose.Location = new Point(442, 182);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(71, 48);
+            btnClose.Size = new Size(71, 70);
             btnClose.TabIndex = 6;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -104,7 +105,7 @@
             // 
             // txtBundle
             // 
-            txtBundle.Location = new Point(392, 65);
+            txtBundle.Location = new Point(429, 65);
             txtBundle.Name = "txtBundle";
             txtBundle.Size = new Size(51, 23);
             txtBundle.TabIndex = 8;
@@ -113,18 +114,30 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(283, 68);
+            label3.Location = new Point(320, 68);
             label3.Name = "label3";
             label3.Size = new Size(94, 15);
             label3.TabIndex = 7;
             label3.Text = "Bundle Discount";
             // 
+            // btnLoadReport
+            // 
+            btnLoadReport.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLoadReport.Location = new Point(288, 182);
+            btnLoadReport.Name = "btnLoadReport";
+            btnLoadReport.Size = new Size(71, 70);
+            btnLoadReport.TabIndex = 9;
+            btnLoadReport.Text = "Load Report";
+            btnLoadReport.UseVisualStyleBackColor = true;
+            btnLoadReport.Click += btnLoadReport_Click;
+            // 
             // frmImportSalesReport
             // 
-            AcceptButton = btnGo;
+            AcceptButton = btnLoadReport;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnLoadReport);
             Controls.Add(txtBundle);
             Controls.Add(label3);
             Controls.Add(btnClose);
@@ -151,5 +164,6 @@
         private Button btnClose;
         private TextBox txtBundle;
         private Label label3;
+        private Button btnLoadReport;
     }
 }
