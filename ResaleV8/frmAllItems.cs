@@ -792,7 +792,6 @@ namespace ResaleV8
             else if (result == DialogResult.Cancel)
             {
                 return;
-                this.Hide();
             }
             this.Hide();
         }

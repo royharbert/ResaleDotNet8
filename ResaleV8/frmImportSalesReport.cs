@@ -50,10 +50,11 @@ namespace ResaleV8
             msg.Close();
             this.UseWaitCursor = false;
 
-            if (xlApp.ActiveSheet != null && xlApp.ActiveWorkbook.Name != "sales_activity_report.xlsx")
+            if (xlApp.ActiveSheet == null)
             {
-                ExcelOps.OpenExcelFile(xlApp); 
+                xlApp = ExcelOps.OpenExcelFile(xlApp);
             }
+            Excel.Worksheet wks = xlApp.ActiveSheet;            
             ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
             xlApp.Visible = true;
             txtStart.Text = range.StartRow.ToString();
