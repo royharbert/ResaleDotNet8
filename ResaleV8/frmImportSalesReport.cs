@@ -27,7 +27,7 @@ namespace ResaleV8
             Close();
         }
 
-        private void btnGo_Click(object sender, EventArgs e)
+        private void ImportPoshmarkSalesReport()
         {
             int startRow = Convert.ToInt32(txtStart.Text);
             int stopRow = Convert.ToInt32(txtStop.Text);
@@ -50,12 +50,15 @@ namespace ResaleV8
             msg.Close();
             this.UseWaitCursor = false;
 
-            ExcelOps.OpenExcelFile(xlApp);
+            if (xlApp.ActiveSheet != null && xlApp.ActiveWorkbook.Name != "sales_activity_report.xlsx")
+            {
+                ExcelOps.OpenExcelFile(xlApp); 
+            }
             ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
             xlApp.Visible = true;
             txtStart.Text = range.StartRow.ToString();
             txtStop.Text = range.StopRow.ToString();
-            this.AcceptButton = btnGo;
+            ImportPoshmarkSalesReport();
         }
     }
 }

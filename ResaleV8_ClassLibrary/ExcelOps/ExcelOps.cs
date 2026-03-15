@@ -27,16 +27,23 @@ namespace ResaleV8_ClassLibrary.ExcelOps
             //See if excel is already open. If so, use that instance. Else, create new instance.
             Process[] processes = Process.GetProcessesByName("excel");
             if (processes.Length > 0)
-            {                
-                xlApp = ComInteropHelper.GetActiveObject("Excel.Application") as Excel.Application;
-                if (xlApp.ActiveSheet != null && xlApp.ActiveWorkbook.ActiveSheet != "sales_activity_report" )
+            {
+                try
+                {
+                    xlApp = ComInteropHelper.GetActiveObject("Excel.Application") as Excel.Application;
+                }
+                catch (Exception)
+                {
+                    xlApp = new Excel.Application();
+                }
+                if (xlApp.ActiveSheet != null && xlApp.ActiveWorkbook.Name != "sales_activity_report.xlsx" )
                 {
                     xlApp = OpenExcelFile(xlApp);
                 }
             }
             else
             {
-                xlApp = new Excel.Application();
+                xlApp = xlApp = new Excel.Application();
             }
 
             return xlApp;  

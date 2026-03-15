@@ -33,11 +33,10 @@
             // 
             // lblMessage
             // 
-            lblMessage.AutoSize = true;
             lblMessage.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMessage.Location = new Point(273, 44);
+            lblMessage.Location = new Point(-1, 44);
             lblMessage.Name = "lblMessage";
-            lblMessage.Size = new Size(50, 20);
+            lblMessage.Size = new Size(588, 20);
             lblMessage.TabIndex = 0;
             lblMessage.Text = "label1";
             lblMessage.TextAlign = ContentAlignment.MiddleCenter;
@@ -53,7 +52,6 @@
             Name = "FrmMessage";
             Text = "Information";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

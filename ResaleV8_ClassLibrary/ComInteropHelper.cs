@@ -34,7 +34,7 @@ private static extern int GetActiveObject(ref Guid rclsid, IntPtr pvReserved, [M
         int hr = GetActiveObject(ref clsid, IntPtr.Zero, out object obj);
 
         if (hr < 0) // COM error
-            Marshal.ThrowExceptionForHR(hr);
+            obj = null;
 
         return obj;
     }

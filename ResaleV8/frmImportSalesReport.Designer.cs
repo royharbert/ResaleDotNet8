@@ -33,7 +33,6 @@
             txtStart = new TextBox();
             txtStop = new TextBox();
             pBar = new ProgressBar();
-            btnGo = new Button();
             btnClose = new Button();
             txtBundle = new TextBox();
             label3 = new Label();
@@ -81,21 +80,10 @@
             pBar.Size = new Size(617, 36);
             pBar.TabIndex = 4;
             // 
-            // btnGo
-            // 
-            btnGo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGo.Location = new Point(365, 182);
-            btnGo.Name = "btnGo";
-            btnGo.Size = new Size(71, 70);
-            btnGo.TabIndex = 5;
-            btnGo.Text = "Go";
-            btnGo.UseVisualStyleBackColor = true;
-            btnGo.Click += btnGo_Click;
-            // 
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClose.Location = new Point(442, 182);
+            btnClose.Location = new Point(403, 182);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(71, 70);
             btnClose.TabIndex = 6;
@@ -123,11 +111,11 @@
             // btnLoadReport
             // 
             btnLoadReport.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLoadReport.Location = new Point(288, 182);
+            btnLoadReport.Location = new Point(326, 182);
             btnLoadReport.Name = "btnLoadReport";
             btnLoadReport.Size = new Size(71, 70);
             btnLoadReport.TabIndex = 9;
-            btnLoadReport.Text = "Load Report";
+            btnLoadReport.Text = "Import Report";
             btnLoadReport.UseVisualStyleBackColor = true;
             btnLoadReport.Click += btnLoadReport_Click;
             // 
@@ -141,7 +129,6 @@
             Controls.Add(txtBundle);
             Controls.Add(label3);
             Controls.Add(btnClose);
-            Controls.Add(btnGo);
             Controls.Add(pBar);
             Controls.Add(txtStop);
             Controls.Add(txtStart);
@@ -160,7 +147,6 @@
         private TextBox txtStart;
         private TextBox txtStop;
         private ProgressBar pBar;
-        private Button btnGo;
         private Button btnClose;
         private TextBox txtBundle;
         private Label label3;
