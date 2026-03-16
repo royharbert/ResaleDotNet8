@@ -105,7 +105,7 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                     OpenExcelFile(xlApp);
                     wkb = xlApp.ActiveWorkbook;
                 }
-                wks = wkb.Worksheets["sales_activity_report.xlsx"];
+                wks = wkb.ActiveSheet;
                 wks.Activate();
             }
             Cursor.Current = Cursors.Default;
