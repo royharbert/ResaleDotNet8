@@ -54,12 +54,17 @@ namespace ResaleV8
             {
                 xlApp = ExcelOps.OpenExcelFile(xlApp);
             }
-            Excel.Worksheet wks = xlApp.ActiveSheet;            
+            Excel.Worksheet wks = xlApp.ActiveSheet;
             ImportRangeModel range = ExcelOps.GetImportRange(xlApp.ActiveSheet);
             xlApp.Visible = true;
             txtStart.Text = range.StartRow.ToString();
             txtStop.Text = range.StopRow.ToString();
             ImportPoshmarkSalesReport();
+        }
+
+        private void frmImportSalesReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ExcelOps.releaseObject(xlApp);
         }
     }
 }

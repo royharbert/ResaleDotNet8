@@ -28,10 +28,8 @@ namespace ResaleV8
         public frmAllItems AllItemsForm;
         public frmSearchResults ResultsForm;
         public frmListEditor ListEditorForm;
-        //public frmSellThru SellThruForm;
         public frmSoldReport SoldReportForm;
-        public frmUnsoldReport UnsoldReportForm;
-        //public frmSellThru SellThruReportForm;  
+        public frmUnsoldReport UnsoldReportForm; 
 
         public event EventHandler<DataModeChangedEventArgs> OnDatabaseModeChanged;
         public frmMain()

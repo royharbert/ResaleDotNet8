@@ -190,9 +190,9 @@ namespace ResaleV8_ClassLibrary.ExcelOps
                 {
                     model.SalePrice = wks.Cells[row, 16].Value;
                 }
-
-                    model.CostOfSale = model.SalePrice * .2m;
-                    model.Quantity = 1;
+                wks.Cells[row, 29].Value = "In Database";
+                model.CostOfSale = model.SalePrice * .2m;
+                model.Quantity = 1;
 
                     DataAccess.addItemToDatabase(model);
                 pb.PerformStep();

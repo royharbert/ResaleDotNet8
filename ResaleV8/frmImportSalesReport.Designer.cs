@@ -63,7 +63,6 @@
             txtStart.Name = "txtStart";
             txtStart.Size = new Size(51, 23);
             txtStart.TabIndex = 2;
-            txtStart.Text = "14";
             // 
             // txtStop
             // 
@@ -71,7 +70,6 @@
             txtStop.Name = "txtStop";
             txtStop.Size = new Size(51, 23);
             txtStop.TabIndex = 3;
-            txtStop.Text = "740";
             // 
             // pBar
             // 
@@ -136,6 +134,7 @@
             Controls.Add(label1);
             Name = "frmImportSalesReport";
             Text = "Poshmark Sales Report Import";
+            FormClosing += frmImportSalesReport_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
