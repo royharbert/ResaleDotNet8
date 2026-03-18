@@ -30,8 +30,7 @@ namespace ResaleV8
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var xlApp = ComInteropHelper.GetActiveObject("Excel.Application");
-
+            WebPageDownload.WebDownload();
         }
 
 
